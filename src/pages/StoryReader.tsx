@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getStory, getPage, processText } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
 import { ChoiceButton } from "@/components/ChoiceButton";
+import { StoryInventory } from "@/components/StoryInventory";
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star } from "lucide-react";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
@@ -11,6 +12,8 @@ export default function StoryReader() {
   const { storyId, pageId } = useParams<{ storyId: string; pageId: string }>();
   const navigate = useNavigate();
   const [isAnimating, setIsAnimating] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [visitedPages, setVisitedPages] = useState<string[]>([]);
 
   const story = getStory(storyId || "");
   const page = getPage(storyId || "", pageId || "");
@@ -18,8 +21,26 @@ export default function StoryReader() {
   const prenom = sessionStorage.getItem(`story-${storyId}-prenom`) || "Aventurier";
   const genre = (sessionStorage.getItem(`story-${storyId}-genre`) || "neutre") as Genre;
 
+  // Load visited pages from sessionStorage
+  useEffect(() => {
+    const saved = sessionStorage.getItem(`story-${storyId}-visited`);
+    if (saved) {
+      setVisitedPages(JSON.parse(saved));
+    }
+  }, [storyId]);
+
+  // Track visited pages
+  useEffect(() => {
+    if (pageId && !visitedPages.includes(pageId)) {
+      const newVisited = [...visitedPages, pageId];
+      setVisitedPages(newVisited);
+      sessionStorage.setItem(`story-${storyId}-visited`, JSON.stringify(newVisited));
+    }
+  }, [pageId, storyId, visitedPages]);
+
   useEffect(() => {
     setIsAnimating(true);
+    setImageLoaded(false);
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
   }, [pageId]);
@@ -111,12 +132,25 @@ export default function StoryReader() {
               </div>
             )}
 
-            {/* Illustration - Larger and more prominent */}
+            {/* Inventory */}
+            <div className="mb-4 md:mb-6">
+              <StoryInventory visitedPages={visitedPages} storyId={storyId || ""} />
+            </div>
+
+            {/* Illustration with lazy loading */}
             <div className="relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg mb-4 md:mb-6 lg:mb-8 -mx-2 md:mx-0 bg-muted/30">
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-muted/50">
+                  <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
               <img 
                 src={page.image} 
                 alt={page.title || "Illustration de l'histoire"}
-                className="w-full h-auto object-contain max-h-[50vh] md:max-h-[55vh] lg:max-h-[60vh] mx-auto"
+                className={`w-full h-auto object-contain max-h-[50vh] md:max-h-[55vh] lg:max-h-[60vh] mx-auto transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                loading="lazy"
+                decoding="async"
+                onLoad={() => setImageLoaded(true)}
               />
             </div>
 
