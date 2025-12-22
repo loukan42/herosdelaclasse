@@ -1,6 +1,7 @@
 import { Story } from "@/data/stories";
 import { useNavigate } from "react-router-dom";
-import { Sparkles } from "lucide-react";
+import { Sparkles, BookOpen } from "lucide-react";
+import { getStoredReadCount } from "@/hooks/useReadCount";
 
 interface StoryCardProps {
   story: Story;
@@ -9,6 +10,7 @@ interface StoryCardProps {
 
 export function StoryCard({ story, index }: StoryCardProps) {
   const navigate = useNavigate();
+  const readCount = getStoredReadCount(story.id);
 
   const handleClick = () => {
     navigate(`/stories/${story.id}/start`);
@@ -30,9 +32,17 @@ export function StoryCard({ story, index }: StoryCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent" />
         
         {/* Age Badge */}
-        <div className="absolute top-4 right-4 bg-golden text-golden-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
-          <Sparkles className="w-3 h-3" />
-          {story.ageMin} ans
+        <div className="absolute top-4 right-4 flex gap-2">
+          <div className="bg-golden text-golden-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
+            <Sparkles className="w-3 h-3" />
+            {story.ageMin} ans
+          </div>
+          {readCount > 0 && (
+            <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
+              <BookOpen className="w-3 h-3" />
+              {readCount}
+            </div>
+          )}
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getStory } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
 import { ArrowLeft, Sparkles, User, Heart } from "lucide-react";
+import { useReadCount } from "@/hooks/useReadCount";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
 
@@ -32,6 +33,8 @@ export default function StoryStart() {
     );
   }
 
+  const { incrementCount } = useReadCount(storyId || "");
+
   const handleStart = () => {
     if (!prenom.trim()) {
       return;
@@ -39,6 +42,8 @@ export default function StoryStart() {
     // Store preferences in sessionStorage
     sessionStorage.setItem(`story-${storyId}-prenom`, prenom);
     sessionStorage.setItem(`story-${storyId}-genre`, genre);
+    // Increment read count
+    incrementCount();
     navigate(`/stories/${storyId}/page/${story.startPageId}`);
   };
 
