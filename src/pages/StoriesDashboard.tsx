@@ -5,15 +5,9 @@ import { BookOpen, Sparkles, Search } from "lucide-react";
 
 export default function StoriesDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [ageFilter, setAgeFilter] = useState<string>("all");
 
   const filteredStories = stories.filter((story) => {
-    const matchesSearch = story.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesAge = ageFilter === "all" || 
-      (ageFilter === "4-6" && story.ageMin <= 6 && story.ageMax >= 4) ||
-      (ageFilter === "7-9" && story.ageMin <= 9 && story.ageMax >= 7) ||
-      (ageFilter === "10+" && story.ageMax >= 10);
-    return matchesSearch && matchesAge;
+    return story.title.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   return (
@@ -47,9 +41,9 @@ export default function StoriesDashboard() {
 
       {/* Filters Section */}
       <section className="container max-w-6xl mx-auto px-4 mb-8">
-        <div className="book-container p-4 md:p-6 flex flex-col md:flex-row gap-4 items-center">
+        <div className="book-container p-4 md:p-6">
           {/* Search */}
-          <div className="relative flex-1 w-full">
+          <div className="relative w-full max-w-md mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
@@ -58,29 +52,6 @@ export default function StoriesDashboard() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-background border-2 border-border focus:border-primary focus:outline-none font-body text-lg transition-colors"
             />
-          </div>
-          
-          {/* Age Filter */}
-          <div className="flex gap-2 flex-wrap justify-center">
-            {[
-              { value: "all", label: "Tous les âges" },
-              { value: "4-6", label: "4-6 ans" },
-              { value: "7-9", label: "7-9 ans" },
-              { value: "10+", label: "10+ ans" },
-            ].map((option) => (
-              <button
-                key={option.value}
-                onClick={() => setAgeFilter(option.value)}
-                className={`
-                  px-4 py-2 rounded-xl font-display font-semibold text-sm transition-all duration-300
-                  ${ageFilter === option.value 
-                    ? 'bg-primary text-primary-foreground shadow-lg' 
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'}
-                `}
-              >
-                {option.label}
-              </button>
-            ))}
           </div>
         </div>
       </section>
