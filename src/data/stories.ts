@@ -27,6 +27,8 @@ import page8Empreintes from "@/assets/stories/empreintes/page8.png";
 import page9Empreintes from "@/assets/stories/empreintes/page9.png";
 
 import coverChateau from "@/assets/stories/chateau/cover.png";
+import choiceCatChateau from "@/assets/stories/chateau/choice-cat.png";
+import choiceDogChateau from "@/assets/stories/chateau/choice-dog.png";
 import page1Chateau from "@/assets/stories/chateau/page1.png";
 import page2Chateau from "@/assets/stories/chateau/page2.png";
 import page3Chateau from "@/assets/stories/chateau/page3.png";
@@ -35,6 +37,11 @@ import page5Chateau from "@/assets/stories/chateau/page5.png";
 import page6Chateau from "@/assets/stories/chateau/page6.png";
 import page7Chateau from "@/assets/stories/chateau/page7.png";
 import page8Chateau from "@/assets/stories/chateau/page8.png";
+import page10Chateau from "@/assets/stories/chateau/page10.png";
+import page11Chateau from "@/assets/stories/chateau/page11.png";
+import page12Chateau from "@/assets/stories/chateau/page12.png";
+import page13Chateau from "@/assets/stories/chateau/page13.png";
+import page14Chateau from "@/assets/stories/chateau/page14.png";
 
 export interface Choice {
   label: string;
@@ -673,7 +680,7 @@ Tu es un vrai héros.`,
     {
       id: "page-10",
       storyId: "le-chateau-endormi",
-      image: page1Chateau, // Placeholder - à remplacer
+      image: page10Chateau,
       title: "Le chien aux grands câlins",
       text: `Tu es Chevalier 3 Dents.
 Tu es un petit chien très doux.
@@ -691,7 +698,7 @@ Tu dois en trouver trois.`,
     {
       id: "page-11",
       storyId: "le-chateau-endormi",
-      image: page1Chateau, // Placeholder - à remplacer
+      image: page11Chateau,
       title: "Le câlin de la reine Inès",
       text: `La reine Inès dort paisiblement.
 La chambre est douce et claire.
@@ -708,7 +715,7 @@ Un câlin magique apparaît.`,
     {
       id: "page-12",
       storyId: "le-chateau-endormi",
-      image: page1Chateau, // Placeholder - à remplacer
+      image: page12Chateau,
       title: "Le câlin du roi Lou",
       text: `Le roi Lou ronfle très fort.
 Les rideaux bougent doucement.
@@ -725,7 +732,7 @@ Un nouveau cœur apparaît.`,
     {
       id: "page-13",
       storyId: "le-chateau-endormi",
-      image: page1Chateau, // Placeholder - à remplacer
+      image: page13Chateau,
       title: "Le câlin du chat",
       text: `Chevalier Viande Grillé dort en boule.
 Il ronronne doucement.
@@ -742,7 +749,7 @@ Le dernier câlin apparaît.`,
     {
       id: "page-14",
       storyId: "le-chateau-endormi",
-      image: page1Chateau, // Placeholder - à remplacer
+      image: page14Chateau,
       title: "Le château joyeux",
       text: `Les trois câlins brillent ensemble.
 Une lumière douce envahit tout.
