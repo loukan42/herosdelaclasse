@@ -47,6 +47,7 @@ import page14Chateau from "@/assets/stories/chateau/page14.png";
 export interface Choice {
   label: string;
   targetPageId: string;
+  image?: string;
 }
 
 export interface InventoryItem {
@@ -548,8 +549,8 @@ Même les oiseaux dorment encore.
 Quelqu'un doit aider le château.
 Qui veux-tu devenir, {prenom} ?`,
       choices: [
-        { label: "Devenir Chevalier Viande Grillé, le chat malin", targetPageId: "page-2" },
-        { label: "Devenir Chevalier 3 Dents, le chien câlin", targetPageId: "page-10" }
+        { label: "Devenir Chevalier Viande Grillé, le chat malin", targetPageId: "page-2", image: choiceCatChateau },
+        { label: "Devenir Chevalier 3 Dents, le chien câlin", targetPageId: "page-10", image: choiceDogChateau }
       ]
     },
     // BRANCHE CHAT - Page 2

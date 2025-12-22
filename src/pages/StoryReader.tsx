@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getStory, getPage, processText } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
 import { ChoiceButton } from "@/components/ChoiceButton";
+import { ImageChoiceButton } from "@/components/ImageChoiceButton";
 import { StoryInventory } from "@/components/StoryInventory";
 import { SilentLetterText } from "@/components/SilentLetterText";
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX } from "lucide-react";
@@ -238,19 +239,35 @@ export default function StoryReader() {
                 <h2 className="font-display text-lg md:text-xl text-center text-muted-foreground mb-4 md:mb-6">
                   Que veux-tu faire ?
                 </h2>
-                <div className="grid gap-3 md:gap-4">
-                  {page.choices.map((choice, index) => (
-                    <ChoiceButton
-                      key={index}
-                      variant={(index + 1) as 1 | 2 | 3 | 4}
-                      onClick={() => handleChoice(choice.targetPageId)}
-                      className="fade-up text-base md:text-lg"
-                      style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
-                    >
-                      {choice.label}
-                    </ChoiceButton>
-                  ))}
-                </div>
+                {/* Check if choices have images */}
+                {page.choices.some(choice => choice.image) ? (
+                  <div className="grid grid-cols-2 gap-4 md:gap-6">
+                    {page.choices.map((choice, index) => (
+                      <ImageChoiceButton
+                        key={index}
+                        image={choice.image!}
+                        label={choice.label}
+                        onClick={() => handleChoice(choice.targetPageId)}
+                        className="fade-up"
+                        style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid gap-3 md:gap-4">
+                    {page.choices.map((choice, index) => (
+                      <ChoiceButton
+                        key={index}
+                        variant={(index + 1) as 1 | 2 | 3 | 4}
+                        onClick={() => handleChoice(choice.targetPageId)}
+                        className="fade-up text-base md:text-lg"
+                        style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
+                      >
+                        {choice.label}
+                      </ChoiceButton>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </BookPage>
