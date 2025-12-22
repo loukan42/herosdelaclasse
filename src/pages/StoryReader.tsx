@@ -4,7 +4,8 @@ import { getStory, getPage, processText } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { StoryInventory } from "@/components/StoryInventory";
-import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star } from "lucide-react";
+import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX } from "lucide-react";
+import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
 
@@ -20,6 +21,8 @@ export default function StoryReader() {
 
   const prenom = sessionStorage.getItem(`story-${storyId}-prenom`) || "Aventurier";
   const genre = (sessionStorage.getItem(`story-${storyId}-genre`) || "neutre") as Genre;
+
+  const { speak, stop, isSpeaking, isSupported } = useSpeechSynthesis({ lang: "fr-FR", rate: 0.9 });
 
   // Load visited pages from sessionStorage
   useEffect(() => {
@@ -41,9 +44,10 @@ export default function StoryReader() {
   useEffect(() => {
     setIsAnimating(true);
     setImageLoaded(false);
+    stop(); // Stop any playing audio when page changes
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
-  }, [pageId]);
+  }, [pageId, stop]);
 
   if (!story || !page) {
     return (
@@ -85,6 +89,14 @@ export default function StoryReader() {
 
   // Split text into lines for better readability
   const textLines = processedText.split('\n').filter(line => line.trim());
+
+  const handlePlayAudio = () => {
+    if (isSpeaking) {
+      stop();
+    } else {
+      speak(processedText);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-background py-4 md:py-6 lg:py-8 px-3 md:px-4">
@@ -159,6 +171,34 @@ export default function StoryReader() {
               <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 md:mb-6 text-center">
                 {page.title}
               </h1>
+            )}
+
+            {/* Audio Button */}
+            {isSupported && (
+              <div className="flex justify-center mb-4 md:mb-6">
+                <button
+                  onClick={handlePlayAudio}
+                  className={`
+                    inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm md:text-base
+                    transition-all duration-300 shadow-md hover:shadow-lg
+                    ${isSpeaking 
+                      ? 'bg-primary text-primary-foreground animate-pulse' 
+                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}
+                  `}
+                >
+                  {isSpeaking ? (
+                    <>
+                      <VolumeX className="w-4 h-4 md:w-5 md:h-5" />
+                      Arrêter
+                    </>
+                  ) : (
+                    <>
+                      <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
+                      Écouter l'histoire
+                    </>
+                  )}
+                </button>
+              </div>
             )}
 
             {/* Story Text - Line by line */}
