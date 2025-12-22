@@ -112,13 +112,12 @@ export default function StoryReader() {
             )}
 
             {/* Illustration - Larger and more prominent */}
-            <div className="relative aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] rounded-xl md:rounded-2xl overflow-hidden shadow-lg mb-4 md:mb-6 lg:mb-8 -mx-2 md:mx-0">
+            <div className="relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg mb-4 md:mb-6 lg:mb-8 -mx-2 md:mx-0 bg-muted/30">
               <img 
                 src={page.image} 
                 alt={page.title || "Illustration de l'histoire"}
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain max-h-[50vh] md:max-h-[55vh] lg:max-h-[60vh] mx-auto"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent" />
             </div>
 
             {/* Page Title */}
