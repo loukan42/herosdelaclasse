@@ -27,6 +27,7 @@ import page8Empreintes from "@/assets/stories/empreintes/page8.png";
 import page9Empreintes from "@/assets/stories/empreintes/page9.png";
 
 import coverChateau from "@/assets/stories/chateau/cover.png";
+import page0Chateau from "@/assets/stories/chateau/page0.png";
 import choiceCatChateau from "@/assets/stories/chateau/choice-cat.png";
 import choiceDogChateau from "@/assets/stories/chateau/choice-dog.png";
 import page1Chateau from "@/assets/stories/chateau/page1.png";
@@ -538,7 +539,7 @@ Tu es devenu un vrai explorateur.`,
     {
       id: "page-1",
       storyId: "le-chateau-endormi",
-      image: page1Chateau,
+      image: page0Chateau,
       title: "Le château qui ronfle",
       text: `Ce matin, le château fait un drôle de bruit.
 Il ronfle très fort.
@@ -555,7 +556,7 @@ Qui veux-tu devenir, {prenom} ?`,
     {
       id: "page-2",
       storyId: "le-chateau-endormi",
-      image: page2Chateau,
+      image: page1Chateau,
       title: "Le chat courageux",
       text: `Tu es Chevalier Viande Grillé.
 Tu es un petit chat malin.
@@ -572,7 +573,7 @@ Tu dois trouver un remède.`,
     {
       id: "page-3",
       storyId: "le-chateau-endormi",
-      image: page3Chateau,
+      image: page2Chateau,
       title: "La bibliothèque magique",
       text: `Les livres sont très grands.
 Certains brillent doucement.
@@ -590,7 +591,7 @@ Et de l'eau qui chante.`,
     {
       id: "page-4",
       storyId: "le-chateau-endormi",
-      image: page4Chateau,
+      image: page3Chateau,
       title: "La cuisine endormie",
       text: `La cuisine est silencieuse.
 Les casseroles dorment.
@@ -608,7 +609,7 @@ Tu écoutes attentivement.`,
     {
       id: "page-5",
       storyId: "le-chateau-endormi",
-      image: page5Chateau,
+      image: page4Chateau,
       title: "Le jardin aux fleurs bleues",
       text: `Le jardin est très calme.
 Une fleur bleue brille au soleil.
@@ -627,7 +628,7 @@ Tu es content.`,
     {
       id: "page-6",
       storyId: "le-chateau-endormi",
-      image: page6Chateau,
+      image: page5Chateau,
       title: "La fontaine chantante",
       text: `L'eau fait une jolie musique.
 Elle chante doucement.
@@ -644,7 +645,7 @@ Tu retournes au château.`,
     {
       id: "page-7",
       storyId: "le-chateau-endormi",
-      image: page7Chateau,
+      image: page6Chateau,
       title: "Le remède du réveil",
       text: `Tu mélanges la fleur et l'eau.
 Une lumière bleue apparaît.
@@ -660,7 +661,7 @@ C'est le moment.`,
     {
       id: "page-8",
       storyId: "le-chateau-endormi",
-      image: page8Chateau,
+      image: page7Chateau,
       title: "Le château réveillé",
       text: `Le roi Lou ouvre les yeux.
 Le chien se réveille aussi.
