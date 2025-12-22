@@ -33,7 +33,7 @@ export default function StoriesDashboard() {
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-2">
-            Des histoires magiques où <strong className="text-primary">toi</strong> décides de la suite. 
+            Des histoires magiques où <strong className="text-primary">tu</strong> décides de la suite. 
             Explore, choisis et vis des aventures extraordinaires !
           </p>
         </div>
