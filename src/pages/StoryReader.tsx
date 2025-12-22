@@ -62,11 +62,14 @@ export default function StoryReader() {
     navigate("/stories");
   };
 
+  // Split text into lines for better readability
+  const textLines = processedText.split('\n').filter(line => line.trim());
+
   return (
-    <main className="min-h-screen bg-background py-6 md:py-8 px-4">
-      <div className="container max-w-4xl mx-auto">
+    <main className="min-h-screen bg-background py-4 md:py-6 lg:py-8 px-3 md:px-4">
+      <div className="container max-w-5xl mx-auto">
         {/* Navigation Header */}
-        <nav className="flex items-center justify-between mb-6">
+        <nav className="flex items-center justify-between mb-4 md:mb-6">
           <Link 
             to="/stories"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors font-semibold"
@@ -75,18 +78,18 @@ export default function StoryReader() {
             <span className="hidden sm:inline">Quitter l'histoire</span>
           </Link>
           
-          <span className="font-display text-lg text-muted-foreground">
+          <span className="font-display text-base md:text-lg text-muted-foreground">
             {story.title}
           </span>
         </nav>
 
         {/* Book Content */}
         <article className={`${isAnimating ? 'page-turn-enter' : ''}`}>
-          <BookPage>
+          <BookPage className="p-4 md:p-6 lg:p-10">
             {/* Ending Badge */}
             {page.isEnding && (
               <div className={`
-                mb-6 py-3 px-6 rounded-2xl text-center font-display font-bold text-lg
+                mb-4 md:mb-6 py-2 md:py-3 px-4 md:px-6 rounded-2xl text-center font-display font-bold text-base md:text-lg
                 ${page.endingType === 'happy' 
                   ? 'bg-ending-happy/20 text-ending-happy' 
                   : 'bg-ending-alt/20 text-ending-alt'}
@@ -94,13 +97,13 @@ export default function StoryReader() {
                 <div className="flex items-center justify-center gap-2">
                   {page.endingType === 'happy' ? (
                     <>
-                      <Trophy className="w-6 h-6" />
+                      <Trophy className="w-5 h-5 md:w-6 md:h-6" />
                       <span>Fin de l'histoire !</span>
-                      <Star className="w-5 h-5 animate-sparkle" />
+                      <Star className="w-4 h-4 md:w-5 md:h-5 animate-sparkle" />
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-6 h-6" />
+                      <Sparkles className="w-5 h-5 md:w-6 md:h-6" />
                       <span>Une autre fin...</span>
                     </>
                   )}
@@ -108,61 +111,66 @@ export default function StoryReader() {
               </div>
             )}
 
-            {/* Illustration */}
-            <div className="relative aspect-[16/9] md:aspect-[2/1] rounded-2xl overflow-hidden shadow-lg mb-8">
+            {/* Illustration - Larger and more prominent */}
+            <div className="relative aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/9] rounded-xl md:rounded-2xl overflow-hidden shadow-lg mb-4 md:mb-6 lg:mb-8 -mx-2 md:mx-0">
               <img 
                 src={page.image} 
                 alt={page.title || "Illustration de l'histoire"}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent" />
             </div>
 
             {/* Page Title */}
             {page.title && (
-              <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6 text-center">
+              <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 md:mb-6 text-center">
                 {page.title}
               </h1>
             )}
 
-            {/* Story Text */}
-            <div className="prose prose-lg max-w-none mb-10">
-              <p className="text-xl md:text-2xl leading-relaxed text-foreground text-center font-body">
-                {processedText}
-              </p>
+            {/* Story Text - Line by line */}
+            <div className="mb-6 md:mb-8 lg:mb-10 space-y-2 md:space-y-3">
+              {textLines.map((line, index) => (
+                <p 
+                  key={index}
+                  className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-center font-body"
+                >
+                  {line}
+                </p>
+              ))}
             </div>
 
             {/* Choices or Ending Actions */}
             {page.isEnding ? (
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
                 <button
                   onClick={handleRestart}
-                  className="inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-2xl font-display font-bold text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center gap-2 md:gap-3 bg-primary text-primary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
                 >
-                  <RotateCcw className="w-5 h-5" />
+                  <RotateCcw className="w-4 h-4 md:w-5 md:h-5" />
                   Recommencer cette histoire
                 </button>
                 
                 <button
                   onClick={handleBackToStories}
-                  className="inline-flex items-center justify-center gap-3 bg-secondary text-secondary-foreground px-8 py-4 rounded-2xl font-display font-bold text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center gap-2 md:gap-3 bg-secondary text-secondary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
                 >
-                  <Home className="w-5 h-5" />
+                  <Home className="w-4 h-4 md:w-5 md:h-5" />
                   Autres histoires
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
-                <h2 className="font-display text-xl text-center text-muted-foreground mb-6">
+              <div className="space-y-3 md:space-y-4">
+                <h2 className="font-display text-lg md:text-xl text-center text-muted-foreground mb-4 md:mb-6">
                   Que veux-tu faire ?
                 </h2>
-                <div className="grid gap-4">
+                <div className="grid gap-3 md:gap-4">
                   {page.choices.map((choice, index) => (
                     <ChoiceButton
                       key={index}
                       variant={(index + 1) as 1 | 2 | 3 | 4}
                       onClick={() => handleChoice(choice.targetPageId)}
-                      className="fade-up"
+                      className="fade-up text-base md:text-lg"
                       style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
                     >
                       {choice.label}
