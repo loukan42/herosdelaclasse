@@ -32,7 +32,7 @@ export function StoryCard({ story, index }: StoryCardProps) {
         {/* Age Badge */}
         <div className="absolute top-4 right-4 bg-golden text-golden-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
           <Sparkles className="w-3 h-3" />
-          {story.ageMin}-{story.ageMax} ans
+          {story.ageMin} ans
         </div>
       </div>
 
