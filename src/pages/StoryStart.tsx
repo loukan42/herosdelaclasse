@@ -73,7 +73,7 @@ export default function StoryStart() {
             <div className="flex-1 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 bg-golden/20 text-golden-foreground px-3 py-1 rounded-full mb-4">
                 <Sparkles className="w-3 h-3 text-golden" />
-                <span className="text-sm font-semibold">{story.ageMin}-{story.ageMax} ans</span>
+                <span className="text-sm font-semibold">{story.ageMin} ans</span>
               </div>
               
               <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
