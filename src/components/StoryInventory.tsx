@@ -1,4 +1,4 @@
-import { Gem, TreeDeciduous, Flame } from "lucide-react";
+import { Gem, TreeDeciduous, Flame, Key, Sprout, Droplets } from "lucide-react";
 
 interface InventoryItem {
   id: string;
@@ -17,6 +17,11 @@ const inventoryConfig: Record<string, { pageId: string; name: string; icon: Reac
     { pageId: "page-2", name: "Pierre brillante", icon: <Gem className="w-5 h-5 md:w-6 md:h-6" /> },
     { pageId: "page-3", name: "Bois sec", icon: <TreeDeciduous className="w-5 h-5 md:w-6 md:h-6" /> },
     { pageId: "page-4", name: "Torche", icon: <Flame className="w-5 h-5 md:w-6 md:h-6" /> },
+  ],
+  "le-jardin-secret": [
+    { pageId: "page-2", name: "Clé ancienne", icon: <Key className="w-5 h-5 md:w-6 md:h-6" /> },
+    { pageId: "page-5", name: "Graine dorée", icon: <Sprout className="w-5 h-5 md:w-6 md:h-6" /> },
+    { pageId: "page-6", name: "Arrosoir", icon: <Droplets className="w-5 h-5 md:w-6 md:h-6" /> },
   ]
 };
 
