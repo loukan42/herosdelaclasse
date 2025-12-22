@@ -26,6 +26,16 @@ import page7Empreintes from "@/assets/stories/empreintes/page7.png";
 import page8Empreintes from "@/assets/stories/empreintes/page8.png";
 import page9Empreintes from "@/assets/stories/empreintes/page9.png";
 
+import coverChateau from "@/assets/stories/chateau/cover.png";
+import page1Chateau from "@/assets/stories/chateau/page1.png";
+import page2Chateau from "@/assets/stories/chateau/page2.png";
+import page3Chateau from "@/assets/stories/chateau/page3.png";
+import page4Chateau from "@/assets/stories/chateau/page4.png";
+import page5Chateau from "@/assets/stories/chateau/page5.png";
+import page6Chateau from "@/assets/stories/chateau/page6.png";
+import page7Chateau from "@/assets/stories/chateau/page7.png";
+import page8Chateau from "@/assets/stories/chateau/page8.png";
+
 export interface Choice {
   label: string;
   targetPageId: string;
@@ -86,6 +96,15 @@ export const stories: Story[] = [
     ageMin: 6,
     ageMax: 6,
     description: "Le soleil éclaire une grande plaine. Devant toi, des traces géantes apparaissent. À qui peuvent bien appartenir ces empreintes ?",
+    startPageId: "page-1"
+  },
+  {
+    id: "le-chateau-endormi",
+    title: "Le château endormi",
+    coverImage: coverChateau,
+    ageMin: 4,
+    ageMax: 6,
+    description: "Ce matin, le château fait un drôle de bruit. Il ronfle très fort. Choisis ton personnage et aide à réveiller le château !",
     startPageId: "page-1"
   }
 ];
@@ -502,6 +521,239 @@ Tu es devenu un vrai explorateur.`,
       choices: [
         { label: "Recommencer l'aventure", targetPageId: "page-1" },
         { label: "Choisir une autre aventure", targetPageId: "menu" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    }
+  ],
+  "le-chateau-endormi": [
+    // Page 1 - Le château qui ronfle (COMMUNE)
+    {
+      id: "page-1",
+      storyId: "le-chateau-endormi",
+      image: page1Chateau,
+      title: "Le château qui ronfle",
+      text: `Ce matin, le château fait un drôle de bruit.
+Il ronfle très fort.
+Les murs vibrent doucement.
+Même les oiseaux dorment encore.
+Quelqu'un doit aider le château.
+Qui veux-tu devenir, {prenom} ?`,
+      choices: [
+        { label: "Devenir Chevalier Viande Grillé, le chat malin", targetPageId: "page-2" },
+        { label: "Devenir Chevalier 3 Dents, le chien câlin", targetPageId: "page-10" }
+      ]
+    },
+    // BRANCHE CHAT - Page 2
+    {
+      id: "page-2",
+      storyId: "le-chateau-endormi",
+      image: page2Chateau,
+      title: "Le chat courageux",
+      text: `Tu es Chevalier Viande Grillé.
+Tu es un petit chat malin.
+Le château ronfle toujours.
+Le roi Lou dort profondément.
+Même son chien dort aussi.
+Tu dois trouver un remède.`,
+      choices: [
+        { label: "Aller à la bibliothèque", targetPageId: "page-3" },
+        { label: "Aller à la cuisine", targetPageId: "page-4" }
+      ]
+    },
+    // BRANCHE CHAT - Page 3
+    {
+      id: "page-3",
+      storyId: "le-chateau-endormi",
+      image: page3Chateau,
+      title: "La bibliothèque magique",
+      text: `Les livres sont très grands.
+Certains brillent doucement.
+Un vieux livre s'ouvre tout seul.
+Il parle d'un remède secret.
+Il faut une fleur bleue.
+Et de l'eau qui chante.`,
+      inventoryAdd: [{ id: "indice", name: "📘 Indice du remède" }],
+      choices: [
+        { label: "Chercher la fleur bleue", targetPageId: "page-5" },
+        { label: "Chercher l'eau chantante", targetPageId: "page-6" }
+      ]
+    },
+    // BRANCHE CHAT - Page 4
+    {
+      id: "page-4",
+      storyId: "le-chateau-endormi",
+      image: page4Chateau,
+      title: "La cuisine endormie",
+      text: `La cuisine est silencieuse.
+Les casseroles dorment.
+Une petite souris baille.
+Elle connaît la fleur bleue.
+Elle peut t'aider.
+Tu écoutes attentivement.`,
+      inventoryAdd: [{ id: "fromage", name: "🧀 Petit fromage" }],
+      choices: [
+        { label: "Suivre la souris au jardin", targetPageId: "page-5" },
+        { label: "Aller seul à la fontaine", targetPageId: "page-6" }
+      ]
+    },
+    // BRANCHE CHAT - Page 5
+    {
+      id: "page-5",
+      storyId: "le-chateau-endormi",
+      image: page5Chateau,
+      title: "Le jardin aux fleurs bleues",
+      text: `Le jardin est très calme.
+Une fleur bleue brille au soleil.
+Elle sent très bon.
+Tu la cueilles doucement.
+Elle est magique.
+Tu es content.`,
+      textMasculine: "Tu es content.",
+      textFeminine: "Tu es contente.",
+      inventoryAdd: [{ id: "fleur", name: "🌸 Fleur bleue magique" }],
+      choices: [
+        { label: "Aller à la fontaine", targetPageId: "page-6" }
+      ]
+    },
+    // BRANCHE CHAT - Page 6
+    {
+      id: "page-6",
+      storyId: "le-chateau-endormi",
+      image: page6Chateau,
+      title: "La fontaine chantante",
+      text: `L'eau fait une jolie musique.
+Elle chante doucement.
+Tu remplis une petite fiole.
+Tout brille légèrement.
+Le remède est presque prêt.
+Tu retournes au château.`,
+      inventoryAdd: [{ id: "eau", name: "💧 Eau chantante" }],
+      choices: [
+        { label: "Aller à la salle du trône", targetPageId: "page-7" }
+      ]
+    },
+    // BRANCHE CHAT - Page 7
+    {
+      id: "page-7",
+      storyId: "le-chateau-endormi",
+      image: page7Chateau,
+      title: "Le remède du réveil",
+      text: `Tu mélanges la fleur et l'eau.
+Une lumière bleue apparaît.
+Le remède est prêt.
+Tu avances doucement.
+Tout le château se tait.
+C'est le moment.`,
+      choices: [
+        { label: "Donner le remède au roi Lou", targetPageId: "page-8" }
+      ]
+    },
+    // BRANCHE CHAT - Page 8 (FIN CHAT)
+    {
+      id: "page-8",
+      storyId: "le-chateau-endormi",
+      image: page8Chateau,
+      title: "Le château réveillé",
+      text: `Le roi Lou ouvre les yeux.
+Le chien se réveille aussi.
+Les ronflements disparaissent.
+Tout le monde sourit.
+Le château est sauvé.
+Tu es un vrai héros.`,
+      textMasculine: "Tu es un vrai héros.",
+      textFeminine: "Tu es une vraie héroïne.",
+      choices: [
+        { label: "Rejouer avec Chevalier 3 Dents", targetPageId: "page-10" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    },
+    // BRANCHE CHIEN - Page 10
+    {
+      id: "page-10",
+      storyId: "le-chateau-endormi",
+      image: page1Chateau, // Placeholder - à remplacer
+      title: "Le chien aux grands câlins",
+      text: `Tu es Chevalier 3 Dents.
+Tu es un petit chien très doux.
+Le château dort encore.
+Mais toi, tu sais quelque chose.
+Les câlins sont magiques.
+Tu dois en trouver trois.`,
+      inventoryAdd: [{ id: "calins", name: "🤍 Câlins : 0 / 3" }],
+      choices: [
+        { label: "Aller voir la reine Inès", targetPageId: "page-11" },
+        { label: "Aller voir le roi Lou", targetPageId: "page-12" }
+      ]
+    },
+    // BRANCHE CHIEN - Page 11
+    {
+      id: "page-11",
+      storyId: "le-chateau-endormi",
+      image: page1Chateau, // Placeholder - à remplacer
+      title: "Le câlin de la reine Inès",
+      text: `La reine Inès dort paisiblement.
+La chambre est douce et claire.
+Tu montes doucement.
+Tu fais un gros câlin.
+Elle sourit en dormant.
+Un câlin magique apparaît.`,
+      inventoryAdd: [{ id: "calin1", name: "🤍 Câlins : 1 / 3" }],
+      choices: [
+        { label: "Aller voir le roi Lou", targetPageId: "page-12" }
+      ]
+    },
+    // BRANCHE CHIEN - Page 12
+    {
+      id: "page-12",
+      storyId: "le-chateau-endormi",
+      image: page1Chateau, // Placeholder - à remplacer
+      title: "Le câlin du roi Lou",
+      text: `Le roi Lou ronfle très fort.
+Les rideaux bougent doucement.
+Tu poses ta tête contre lui.
+Tu fais un câlin tout doux.
+Il rigole en dormant.
+Un nouveau cœur apparaît.`,
+      inventoryAdd: [{ id: "calin2", name: "🤍 Câlins : 2 / 3" }],
+      choices: [
+        { label: "Aller voir Chevalier Viande Grillé", targetPageId: "page-13" }
+      ]
+    },
+    // BRANCHE CHIEN - Page 13
+    {
+      id: "page-13",
+      storyId: "le-chateau-endormi",
+      image: page1Chateau, // Placeholder - à remplacer
+      title: "Le câlin du chat",
+      text: `Chevalier Viande Grillé dort en boule.
+Il ronronne doucement.
+Tu t'approches sans bruit.
+Tu lui fais un câlin chaud.
+Il ronronne encore plus fort.
+Le dernier câlin apparaît.`,
+      inventoryAdd: [{ id: "calin3", name: "🤍 Câlins : 3 / 3" }],
+      choices: [
+        { label: "Réveiller tout le château", targetPageId: "page-14" }
+      ]
+    },
+    // BRANCHE CHIEN - Page 14 (FIN CHIEN)
+    {
+      id: "page-14",
+      storyId: "le-chateau-endormi",
+      image: page1Chateau, // Placeholder - à remplacer
+      title: "Le château joyeux",
+      text: `Les trois câlins brillent ensemble.
+Une lumière douce envahit tout.
+Les ronflements s'arrêtent.
+Tout le monde se réveille.
+Le château est heureux.
+Tu es un héros plein d'amour.`,
+      textMasculine: "Tu es un héros plein d'amour.",
+      textFeminine: "Tu es une héroïne pleine d'amour.",
+      choices: [
+        { label: "Rejouer avec Chevalier Viande Grillé", targetPageId: "page-2" }
       ],
       isEnding: true,
       endingType: "happy"
