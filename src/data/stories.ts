@@ -45,6 +45,7 @@ import page13Chateau from "@/assets/stories/chateau/page13.png";
 import page14Chateau from "@/assets/stories/chateau/page14.png";
 
 // Château des nombres (Mathématiques)
+import coverChateauNombres from "@/assets/stories/chateau-nombres/cover.png";
 import page1ChateauNombres from "@/assets/stories/chateau-nombres/page1.png";
 import page2ChateauNombres from "@/assets/stories/chateau-nombres/page2.png";
 import page3ChateauNombres from "@/assets/stories/chateau-nombres/page3.png";
@@ -139,7 +140,7 @@ export const stories: Story[] = [
   {
     id: "le-chateau-des-nombres",
     title: "Le château des nombres",
-    coverImage: page1ChateauNombres,
+    coverImage: coverChateauNombres,
     ageMin: 5,
     ageMax: 7,
     description: "Tu te réveilles dans un grand château du Moyen Âge. Le roi a besoin de ton aide pour résoudre des énigmes mathématiques !",
@@ -149,7 +150,7 @@ export const stories: Story[] = [
   {
     id: "le-chateau-des-nombres-lecture",
     title: "Le château des nombres",
-    coverImage: page1ChateauNombres,
+    coverImage: coverChateauNombres,
     ageMin: 5,
     ageMax: 7,
     description: "Tu te réveilles dans un grand château du Moyen Âge. Le roi a besoin de ton aide pour résoudre des énigmes mathématiques !",
