@@ -1,4 +1,5 @@
 import { BookOpen, Calculator, Globe, Clock, FlaskConical, Languages } from "lucide-react";
+import lectureImage from "@/assets/subjects/lecture.png";
 
 export interface Subject {
   id: string;
@@ -7,6 +8,7 @@ export interface Subject {
   icon: typeof BookOpen;
   color: string;
   available: boolean;
+  backgroundImage?: string;
 }
 
 export const subjects: Subject[] = [
@@ -16,7 +18,8 @@ export const subjects: Subject[] = [
     description: "Histoires interactives pour apprendre à lire",
     icon: BookOpen,
     color: "from-amber-500 to-orange-600",
-    available: true
+    available: true,
+    backgroundImage: lectureImage
   },
   {
     id: "mathematiques",
