@@ -858,8 +858,8 @@ Il y a 3 bourses d'un côté.
 Et 3 bourses de l'autre côté.
 Il te demande combien il y en a en tout.`,
       choices: [
-        { label: "Dire que 3 + 3 = 6", targetPageId: "page-6" },
-        { label: "Dire que 5 + 3 = 9", targetPageId: "page-7" }
+        { label: "6", targetPageId: "page-6" },
+        { label: "8", targetPageId: "page-7" }
       ]
     },
     // Page 4 - Bravo pour les tonneaux
@@ -1076,8 +1076,8 @@ Il y a 3 bourses d'un côté.
 Et 3 bourses de l'autre côté.
 Il te demande combien il y en a en tout.`,
       choices: [
-        { label: "Dire que 3 + 3 = 6", targetPageId: "page-6" },
-        { label: "Dire que 5 + 3 = 9", targetPageId: "page-7" }
+        { label: "6", targetPageId: "page-6" },
+        { label: "8", targetPageId: "page-7" }
       ]
     },
     // Page 4 - Bravo pour les tonneaux
