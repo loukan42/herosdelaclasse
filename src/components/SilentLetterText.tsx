@@ -1,476 +1,170 @@
 import React from "react";
 
 /**
- * Dictionnaire des mots français avec leurs lettres muettes.
- * Une lettre muette est une lettre qu'on écrit mais qu'on ne prononce PAS.
+ * Moteur linguistique pour le français - Lettres muettes
  * 
- * Exemples :
- * - chat → on entend "cha" (le t est muet)
- * - grand → on entend "gran" (le d est muet)
- * - temps → on entend "tan" (le p et le s sont muets)
- * 
- * ATTENTION : "les" n'a PAS de lettre muette car le S se prononce dans la liaison
- * et c'est un mot différent de "le"
+ * Règles :
+ * - Détecter les consonnes finales muettes : e, s, t, d, p, x, g, z (si non prononcées)
+ * - Détecter le "e" muet lorsqu'il n'est pas prononcé
+ * - Ne jamais griser une lettre prononcée (ex : avec, fils, bus, etc.)
  */
-const silentLetterWords: Record<string, string> = {
-  // Mots avec T muet final
-  "chat": "cha<mute>t</mute>",
-  "chats": "cha<mute>ts</mute>",
-  "petit": "peti<mute>t</mute>",
-  "petits": "peti<mute>ts</mute>",
-  "fait": "fai<mute>t</mute>",
-  "faits": "fai<mute>ts</mute>",
-  "nuit": "nui<mute>t</mute>",
-  "nuits": "nui<mute>ts</mute>",
-  "bruit": "brui<mute>t</mute>",
-  "bruits": "brui<mute>ts</mute>",
-  "fruit": "frui<mute>t</mute>",
-  "fruits": "frui<mute>ts</mute>",
-  "lit": "li<mute>t</mute>",
-  "lits": "li<mute>ts</mute>",
-  "toit": "toi<mute>t</mute>",
-  "toits": "toi<mute>ts</mute>",
-  "doigt": "doig<mute>t</mute>",
-  "doigts": "doig<mute>ts</mute>",
-  "droit": "droi<mute>t</mute>",
-  "droits": "droi<mute>ts</mute>",
-  "froid": "froi<mute>d</mute>",
-  "froids": "froi<mute>ds</mute>",
-  "endroit": "endroi<mute>t</mute>",
-  "endroits": "endroi<mute>ts</mute>",
-  "secret": "secre<mute>t</mute>",
-  "secrets": "secre<mute>ts</mute>",
-  "forêt": "forê<mute>t</mute>",
-  "forêts": "forê<mute>ts</mute>",
-  "est": "es<mute>t</mute>",
-  "et": "e<mute>t</mute>",
-  "sont": "son<mute>t</mute>",
-  "ont": "on<mute>t</mute>",
-  "font": "fon<mute>t</mute>",
-  "vont": "von<mute>t</mute>",
-  "tout": "tou<mute>t</mute>",
-  "bout": "bou<mute>t</mute>",
-  "goût": "goû<mute>t</mute>",
-  "août": "aoû<mute>t</mute>",
-  "haut": "hau<mute>t</mute>",
-  "hauts": "hau<mute>ts</mute>",
-  "saut": "sau<mute>t</mute>",
-  "sauts": "sau<mute>ts</mute>",
-  "pot": "po<mute>t</mute>",
-  "pots": "po<mute>ts</mute>",
-  "mot": "mo<mute>t</mute>",
-  "mots": "mo<mute>ts</mute>",
-  "galop": "galo<mute>p</mute>",
-  "galops": "galo<mute>ps</mute>",
-  "galot": "galo<mute>t</mute>",
-  "lot": "lo<mute>t</mute>",
-  "lots": "lo<mute>ts</mute>",
-  "robot": "robo<mute>t</mute>",
-  "robots": "robo<mute>ts</mute>",
-  "abricot": "abrico<mute>t</mute>",
-  "abricots": "abrico<mute>ts</mute>",
-  "escargot": "escargo<mute>t</mute>",
-  "escargots": "escargo<mute>ts</mute>",
-  "canot": "cano<mute>t</mute>",
-  "canots": "cano<mute>ts</mute>",
-  "tricot": "trico<mute>t</mute>",
-  "tricots": "trico<mute>ts</mute>",
-  "dépôt": "dépô<mute>t</mute>",
-  "dépôts": "dépô<mute>ts</mute>",
-  "complot": "complo<mute>t</mute>",
-  "complots": "complo<mute>ts</mute>",
-  "rapport": "rappor<mute>t</mute>",
-  "rapports": "rappor<mute>ts</mute>",
-  "support": "suppor<mute>t</mute>",
-  "supports": "suppor<mute>ts</mute>",
-  "sport": "spor<mute>t</mute>",
-  "sports": "spor<mute>ts</mute>",
-  "port": "por<mute>t</mute>",
-  "ports": "por<mute>ts</mute>",
-  "fort": "for<mute>t</mute>",
-  "forts": "for<mute>ts</mute>",
-  "mort": "mor<mute>t</mute>",
-  "morts": "mor<mute>ts</mute>",
-  "sort": "sor<mute>t</mute>",
-  "sorts": "sor<mute>ts</mute>",
-  "effort": "effor<mute>t</mute>",
-  "efforts": "effor<mute>ts</mute>",
-  "confort": "confor<mute>t</mute>",
-  "départ": "dépar<mute>t</mute>",
-  "départs": "dépar<mute>ts</mute>",
-  "art": "ar<mute>t</mute>",
-  "arts": "ar<mute>ts</mute>",
-  "part": "par<mute>t</mute>",
-  "parts": "par<mute>ts</mute>",
-  "rempart": "rempar<mute>t</mute>",
-  "remparts": "rempar<mute>ts</mute>",
-  "écart": "écar<mute>t</mute>",
-  "écarts": "écar<mute>ts</mute>",
-  "retard": "retar<mute>d</mute>",
-  "retards": "retar<mute>ds</mute>",
-  "hasard": "hasar<mute>d</mute>",
-  "hasards": "hasar<mute>ds</mute>",
-  "lézard": "lézar<mute>d</mute>",
-  "lézards": "lézar<mute>ds</mute>",
-  "bavard": "bavar<mute>d</mute>",
-  "bavards": "bavar<mute>ds</mute>",
-  "canard": "canar<mute>d</mute>",
-  "canards": "canar<mute>ds</mute>",
-  "renard": "renar<mute>d</mute>",
-  "renards": "renar<mute>ds</mute>",
-  "brouillard": "brouillar<mute>d</mute>",
-  "brouillards": "brouillar<mute>ds</mute>",
-  "placard": "placar<mute>d</mute>",
-  "placards": "placar<mute>ds</mute>",
-  "standard": "standar<mute>d</mute>",
-  "standards": "standar<mute>ds</mute>",
-  "bord": "bor<mute>d</mute>",
-  "bords": "bor<mute>ds</mute>",
-  "nord": "nor<mute>d</mute>",
-  "record": "recor<mute>d</mute>",
-  "records": "recor<mute>ds</mute>",
-  "accord": "accor<mute>d</mute>",
-  "accords": "accor<mute>ds</mute>",
-  "lourd": "lour<mute>d</mute>",
-  "lourds": "lour<mute>ds</mute>",
-  "sourd": "sour<mute>d</mute>",
-  "sourds": "sour<mute>ds</mute>",
-  "regard": "regar<mute>d</mute>",
-  "regards": "regar<mute>ds</mute>",
-  "quand": "quan<mute>d</mute>",
-  "grand": "gran<mute>d</mute>",
-  "grands": "gran<mute>ds</mute>",
-  "pied": "pie<mute>d</mute>",
-  "pieds": "pie<mute>ds</mute>",
-  "nid": "ni<mute>d</mute>",
-  "nids": "ni<mute>ds</mute>",
-  "fond": "fon<mute>d</mute>",
-  "fonds": "fon<mute>ds</mute>",
-  "bond": "bon<mute>d</mute>",
-  "bonds": "bon<mute>ds</mute>",
-  "rond": "ron<mute>d</mute>",
-  "ronds": "ron<mute>ds</mute>",
-  "second": "secon<mute>d</mute>",
-  "seconds": "secon<mute>ds</mute>",
-  "plafond": "plafon<mute>d</mute>",
-  "plafonds": "plafon<mute>ds</mute>",
 
-  // Mots avec D muet final
-  "chaud": "chau<mute>d</mute>",
-  "chauds": "chau<mute>ds</mute>",
+// Mots où la consonne finale EST prononcée (exceptions - ne pas griser)
+const pronouncedFinalConsonants = new Set([
+  // -c prononcé
+  "avec", "bec", "sec", "lac", "sac", "chic", "pic", "truc", "duc", "arc", "parc", "donc", "bloc", "choc", "frac", "trac", "échec", "grec",
+  // -f prononcé
+  "chef", "bref", "neuf", "oeuf", "boeuf", "veuf", "if", "vif", "naïf", "actif", "sportif", "positif", "négatif", "massif", "passif", "objectif", "motif", "tarif", "récif",
+  // -l prononcé
+  "fil", "cil", "mil", "avril", "civil", "subtil", "profil", "péril", "sourcil", "persil", "fusil", "gentil", "outil", "il", "sol", "vol", "col", "bol", "mol", "fol", "alcool",
+  // -r prononcé (la plupart des -r finaux sont prononcés)
+  "car", "bar", "par", "pour", "jour", "tour", "four", "cour", "amour", "toujours", "bonjour", "sur", "dur", "mur", "pur", "fleur", "coeur", "soeur", "peur", "heure", "couleur", "odeur", "chaleur", "valeur", "honneur", "bonheur", "mer", "fer", "ver", "hiver", "enfer", "hier", "fier", "air", "pair", "clair", "noir", "soir", "voir", "pouvoir", "savoir", "devoir", "avoir", "miroir", "or", "cor", "décor", "trésor", "castor",
+  // -s prononcé
+  "fils", "bus", "plus", "tous", "mars", "ours", "os", "as", "atlas", "ananas", "cosmos", "rhinocéros", "albatros", "tennis", "bis", "oasis", "cactus", "virus", "bonus", "campus", "terminus", "sens", "express", "stress",
+  // -t prononcé
+  "net", "brut", "kit", "scout", "foot", "yaourt", "est", "ouest", "sept", "huit", "mat", "gadget", "set", "budget", "ticket", "cricket", "contact", "direct", "correct", "exact", "intact", "strict", "abrupt",
+  // Mots courts grammaticaux où tout est prononcé
+  "un", "une", "le", "la", "les", "de", "du", "des", "au", "aux", "ce", "ces", "je", "tu", "il", "on", "nous", "vous", "ils", "me", "te", "se", "ne", "que", "qui", "ou", "où", "et", "en", "y", "à", "a"
+]);
 
-  // Mots avec P muet
-  "trop": "tro<mute>p</mute>",
-  "beaucoup": "beaucou<mute>p</mute>",
-  "coup": "cou<mute>p</mute>",
-  "coups": "cou<mute>ps</mute>",
-  "loup": "lou<mute>p</mute>",
-  "loups": "lou<mute>ps</mute>",
-  "drap": "dra<mute>p</mute>",
-  "draps": "dra<mute>ps</mute>",
-  "sirop": "siro<mute>p</mute>",
-  "sirops": "siro<mute>ps</mute>",
-  "temps": "tem<mute>ps</mute>",
-  "printemps": "printem<mute>ps</mute>",
-  "longtemps": "longtem<mute>ps</mute>",
-  "corps": "cor<mute>ps</mute>",
-  "champ": "cham<mute>p</mute>",
-  "champs": "cham<mute>ps</mute>",
-  "camp": "cam<mute>p</mute>",
-  "camps": "cam<mute>ps</mute>",
+// Mots avec terminaisons spéciales à ne PAS traiter
+const noProcessWords = new Set([
+  // Mots où le -er final se prononce
+  "mer", "fer", "ver", "hiver", "enfer", "hier", "fier", "cher", "amer", "cancer", "super", "master", "poster", "gangster", "hamburger", "danger",
+  // Mots en -il où le l est prononcé
+  "fil", "cil", "mil", "avril", "civil", "subtil", "profil", "péril",
+]);
 
-  // Mots avec S muet final (mais attention, pas tous les S finaux sont muets!)
-  "souris": "souri<mute>s</mute>",
-  "brebis": "brebi<mute>s</mute>",
-  "tapis": "tapi<mute>s</mute>",
-  "paradis": "paradi<mute>s</mute>",
-  "radis": "radi<mute>s</mute>",
-  "puits": "pui<mute>ts</mute>",
-  "puis": "pui<mute>s</mute>",
-  "jamais": "jamai<mute>s</mute>",
-  "mais": "mai<mute>s</mute>",
-  "palais": "palai<mute>s</mute>",
-  "marais": "marai<mute>s</mute>",
-  "relais": "relai<mute>s</mute>",
-  "français": "françai<mute>s</mute>",
-  "anglais": "anglai<mute>s</mute>",
-  "japonais": "japonai<mute>s</mute>",
-  "chinois": "chinoi<mute>s</mute>",
-  "bois": "boi<mute>s</mute>",
-  "fois": "foi<mute>s</mute>",
-  "mois": "moi<mute>s</mute>",
-  "pois": "poi<mute>s</mute>",
-  "voix": "voi<mute>x</mute>",
-  "choix": "choi<mute>x</mute>",
-  "croix": "croi<mute>x</mute>",
-  "noix": "noi<mute>x</mute>",
-  "prix": "pri<mute>x</mute>",
-  "riz": "ri<mute>z</mute>",
-  "nez": "ne<mute>z</mute>",
-  "assez": "asse<mute>z</mute>",
-  "chez": "che<mute>z</mute>",
-
-  // Mots avec X muet final
-  "heureux": "heureu<mute>x</mute>",
-  "joyeux": "joyeu<mute>x</mute>",
-  "curieux": "curieu<mute>x</mute>",
-  "dangereux": "dangereu<mute>x</mute>",
-  "merveilleux": "merveileu<mute>x</mute>",
-  "délicieux": "délicieu<mute>x</mute>",
-  "précieux": "précieu<mute>x</mute>",
-  "silencieux": "silencieu<mute>x</mute>",
-  "mystérieux": "mystérieu<mute>x</mute>",
-  "nombreux": "nombreu<mute>x</mute>",
-  "peureux": "peureu<mute>x</mute>",
-  "paresseux": "paresseu<mute>x</mute>",
-  "courageux": "courageu<mute>x</mute>",
-  "yeux": "yeu<mute>x</mute>",
-  "deux": "deu<mute>x</mute>",
-  "ceux": "ceu<mute>x</mute>",
-  "mieux": "mieu<mute>x</mute>",
-  "vieux": "vieu<mute>x</mute>",
-  "bleu": "bleu",
-  "jeux": "jeu<mute>x</mute>",
-  "feux": "feu<mute>x</mute>",
-  "cheveux": "cheveu<mute>x</mute>",
-  "neveux": "neveu<mute>x</mute>",
-  "animaux": "animau<mute>x</mute>",
-  "oiseaux": "oiseau<mute>x</mute>",
-  "châteaux": "château<mute>x</mute>",
-  "bateaux": "bateau<mute>x</mute>",
-  "gâteaux": "gâteau<mute>x</mute>",
-  "tableaux": "tableau<mute>x</mute>",
-  "journaux": "journau<mute>x</mute>",
-  "chevaux": "chevau<mute>x</mute>",
-  "travaux": "travau<mute>x</mute>",
-
-  // Mots avec C muet final
-  "blanc": "blan<mute>c</mute>",
-  "blancs": "blan<mute>cs</mute>",
-  "franc": "fran<mute>c</mute>",
-  "francs": "fran<mute>cs</mute>",
-  "banc": "ban<mute>c</mute>",
-  "bancs": "ban<mute>cs</mute>",
-  "estomac": "estoma<mute>c</mute>",
-  "tabac": "taba<mute>c</mute>",
-
-  // Mots avec G muet final
-  "long": "lon<mute>g</mute>",
-  "longs": "lon<mute>gs</mute>",
-  "sang": "san<mute>g</mute>",
-  "rang": "ran<mute>g</mute>",
-  "rangs": "ran<mute>gs</mute>",
-  "poing": "poin<mute>g</mute>",
-  "poings": "poin<mute>gs</mute>",
-  "oing": "oin<mute>g</mute>",
-
-  // Mots avec H muet au début
-  "homme": "<mute>h</mute>omme",
-  "hommes": "<mute>h</mute>ommes",
-  "heure": "<mute>h</mute>eure",
-  "heures": "<mute>h</mute>eures",
-  "histoire": "<mute>h</mute>istoire",
-  "histoires": "<mute>h</mute>istoires",
-  "hiver": "<mute>h</mute>iver",
-  "hivers": "<mute>h</mute>ivers",
-  "herbe": "<mute>h</mute>erbe",
-  "herbes": "<mute>h</mute>erbes",
-  "habit": "<mute>h</mute>abi<mute>t</mute>",
-  "habits": "<mute>h</mute>abi<mute>ts</mute>",
-  "hôpital": "<mute>h</mute>ôpital",
-  "hôpitaux": "<mute>h</mute>ôpitau<mute>x</mute>",
-  "hôtel": "<mute>h</mute>ôtel",
-  "hôtels": "<mute>h</mute>ôtels",
-  "humain": "<mute>h</mute>umain",
-  "humains": "<mute>h</mute>umains",
-  "humide": "<mute>h</mute>umide",
-  "humides": "<mute>h</mute>umides",
-  "huile": "<mute>h</mute>uile",
-  "huiles": "<mute>h</mute>uiles",
-  "horrible": "<mute>h</mute>orrible",
-  "horribles": "<mute>h</mute>orribles",
-  "horizon": "<mute>h</mute>orizon",
-  "horizons": "<mute>h</mute>orizons",
-  "horloge": "<mute>h</mute>orloge",
-  "horloges": "<mute>h</mute>orloges",
-
-  // Adverbes en -ment (le E avant ment est souvent muet ou très atténué)
-  "vraiment": "vraimen<mute>t</mute>",
-  "seulement": "seulemen<mute>t</mute>",
-  "moment": "momen<mute>t</mute>",
-  "doucement": "doucemen<mute>t</mute>",
-  "lentement": "lentemen<mute>t</mute>",
-  "gentiment": "gentimen<mute>t</mute>",
-  "tranquillement": "tranquillemen<mute>t</mute>",
-  "calmement": "calmemen<mute>t</mute>",
-  "rapidement": "rapidemen<mute>t</mute>",
-  "facilement": "facilemen<mute>t</mute>",
-  "difficilement": "difficilemen<mute>t</mute>",
-  "exactement": "exactemen<mute>t</mute>",
-  "simplement": "simplemen<mute>t</mute>",
-  "également": "égalemen<mute>t</mute>",
-  "tellement": "tellemen<mute>t</mute>",
-  "justement": "justemen<mute>t</mute>",
-  "heureusement": "heureusemen<mute>t</mute>",
-  "malheureusement": "malheureusemen<mute>t</mute>",
-  "certainement": "certainemen<mute>t</mute>",
-  "probablement": "probablemen<mute>t</mute>",
-  "absolument": "absolumen<mute>t</mute>",
-  "naturellement": "naturellemen<mute>t</mute>",
-  "finalement": "finalemen<mute>t</mute>",
-  "actuellement": "actuellemen<mute>t</mute>",
-  "parfaitement": "parfaitemen<mute>t</mute>",
-  "complètement": "complètemen<mute>t</mute>",
-  "directement": "directemen<mute>t</mute>",
-  "uniquement": "uniquemen<mute>t</mute>",
-  "légèrement": "légèremen<mute>t</mute>",
-  "énormément": "énormemen<mute>t</mute>",
-  "profondément": "profondemen<mute>t</mute>",
-  "terriblement": "terribleme<mute>t</mute>",
-  "évidemment": "évidemmen<mute>t</mute>",
-  "comment": "commen<mute>t</mute>",
-  "maintenant": "maintenan<mute>t</mute>",
-  "pendant": "pendan<mute>t</mute>",
-  "devant": "devan<mute>t</mute>",
-  "avant": "avan<mute>t</mute>",
-  "suivant": "suivan<mute>t</mute>",
-  "pourtant": "pourtan<mute>t</mute>",
-  "autant": "autan<mute>t</mute>",
-  "souvent": "souven<mute>t</mute>",
-  "content": "conten<mute>t</mute>",
-  "contents": "conten<mute>ts</mute>",
-  "parent": "paren<mute>t</mute>",
-  "parents": "paren<mute>ts</mute>",
-  "enfant": "enfan<mute>t</mute>",
-  "enfants": "enfan<mute>ts</mute>",
-  "géant": "géan<mute>t</mute>",
-  "géants": "géan<mute>ts</mute>",
-  "éléphant": "éléphan<mute>t</mute>",
-  "éléphants": "éléphan<mute>ts</mute>",
-  "serpent": "serpen<mute>t</mute>",
-  "serpents": "serpen<mute>ts</mute>",
-  "dent": "den<mute>t</mute>",
-  "dents": "den<mute>ts</mute>",
-  "vent": "ven<mute>t</mute>",
-  "vents": "ven<mute>ts</mute>",
-  "argent": "argen<mute>t</mute>",
-  "argents": "argen<mute>ts</mute>",
-  "accident": "acciden<mute>t</mute>",
-  "accidents": "acciden<mute>ts</mute>",
-  "présent": "présen<mute>t</mute>",
-  "présents": "présen<mute>ts</mute>",
-  "absent": "absen<mute>t</mute>",
-  "absents": "absen<mute>ts</mute>",
-  "innocent": "innocen<mute>t</mute>",
-  "innocents": "innocen<mute>ts</mute>",
-  "méchant": "méchan<mute>t</mute>",
-  "méchants": "méchan<mute>ts</mute>",
-  "charmant": "charman<mute>t</mute>",
-  "charmants": "charman<mute>ts</mute>",
-  "amusant": "amusan<mute>t</mute>",
-  "amusants": "amusan<mute>ts</mute>",
-  "intéressant": "intéressan<mute>t</mute>",
-  "intéressants": "intéressan<mute>ts</mute>",
-  "brillant": "brillan<mute>t</mute>",
-  "brillants": "brillan<mute>ts</mute>",
-
-  // Mots spécifiques aux histoires pour enfants
-  "château": "château",
-  "chevalier": "chevalier",
-  "chevaliers": "chevaliers",
-  "roi": "roi",
-  "rois": "rois",
-  "reine": "reine",
-  "reines": "reines",
-  "prince": "prince",
-  "princes": "princes",
-  "princesse": "princesse",
-  "princesses": "princesses",
-  "dragon": "dragon",
-  "dragons": "dragons",
-  "magie": "magie",
-  "magique": "magique",
-  "magiques": "magiques",
-  "trésor": "trésor",
-  "trésors": "trésors",
-  "pirate": "pirate",
-  "pirates": "pirates",
-  "aventure": "aventure",
-  "aventures": "aventures",
-
-  // Verbes conjugués courants avec consonnes muettes
-  "dort": "dor<mute>t</mute>",
-  "met": "me<mute>t</mute>",
-  "peut": "peu<mute>t</mute>",
-  "veut": "veu<mute>t</mute>",
-  "sait": "sai<mute>t</mute>",
-  "voit": "voi<mute>t</mute>",
-  "croit": "croi<mute>t</mute>",
-  "boit": "boi<mute>t</mute>",
-  "reçoit": "reçoi<mute>t</mute>",
-  "aperçoit": "aperçoi<mute>t</mute>",
-  "prend": "pren<mute>d</mute>",
-  "comprend": "compren<mute>d</mute>",
-  "apprend": "appren<mute>d</mute>",
-  "entend": "enten<mute>d</mute>",
-  "attend": "atten<mute>d</mute>",
-  "descend": "descen<mute>d</mute>",
-  "répond": "répon<mute>d</mute>",
-  "perd": "per<mute>d</mute>",
-  "mord": "mor<mute>d</mute>",
-  "tord": "tor<mute>d</mute>",
-  "dorment": "dormen<mute>t</mute>",
-
-  // Mots courants des histoires
-  "ronfle": "ronfle",
-  "ronflent": "ronflen<mute>t</mute>",
-  "ronflement": "ronflemen<mute>t</mute>",
-  "ronflements": "ronflemen<mute>ts</mute>",
-  "câlin": "câlin",
-  "câlins": "câlins",
-  "malin": "malin",
-  "malins": "malins",
-  "remède": "remède",
-  "remèdes": "remèdes",
-  "fleur": "fleur",
-  "fleurs": "fleurs",
-  "jardin": "jardin",
-  "jardins": "jardins",
-  "fontaine": "fontaine",
-  "fontaines": "fontaines",
-  "bibliothèque": "bibliothèque",
-  "bibliothèques": "bibliothèques",
-  "cuisine": "cuisine",
-  "cuisines": "cuisines",
-  "trône": "trône",
-  "trônes": "trônes",
-};
-
-function processWordWithSilentLetters(word: string): string {
-  // Check if word is in our dictionary (case-insensitive)
+// Terminaisons verbales où le -ent est muet (3e personne pluriel)
+function isVerbEndingEnt(word: string): boolean {
   const lowerWord = word.toLowerCase();
-  if (silentLetterWords[lowerWord]) {
-    // Preserve original case for first letter
-    const processed = silentLetterWords[lowerWord];
-    if (word[0] === word[0].toUpperCase()) {
-      return processed.charAt(0).toUpperCase() + processed.slice(1);
-    }
-    return processed;
+  // Exclure les noms/adjectifs en -ent (parent, moment, content, etc.)
+  const nonVerbEndings = ["parent", "moment", "content", "argent", "accident", "présent", "absent", "innocent", "vement", "tement", "ement"];
+  for (const ending of nonVerbEndings) {
+    if (lowerWord.endsWith(ending)) return false;
   }
+  // Si ça finit par -ent et a plus de 4 lettres, probablement un verbe
+  return lowerWord.endsWith("ent") && word.length > 4;
+}
+
+function processWord(word: string): string {
+  if (word.length <= 2) return word;
+  
+  const lowerWord = word.toLowerCase();
+  
+  // Ne pas traiter les exceptions
+  if (pronouncedFinalConsonants.has(lowerWord) || noProcessWords.has(lowerWord)) {
+    return word;
+  }
+  
+  let result = "";
+  const lastChar = lowerWord[lowerWord.length - 1];
+  const secondLastChar = lowerWord.length > 1 ? lowerWord[lowerWord.length - 2] : "";
+  const thirdLastChar = lowerWord.length > 2 ? lowerWord[lowerWord.length - 3] : "";
+  
+  // Règle 1: -ent verbal (3e personne pluriel) - les 3 lettres sont muettes
+  if (isVerbEndingEnt(word)) {
+    return word.slice(0, -3) + `<span class="silent-letter">${word.slice(-3)}</span>`;
+  }
+  
+  // Règle 2: -es final (pluriel féminin ou 2e pers. sing.) - muet
+  if (lowerWord.endsWith("es") && word.length > 3) {
+    return word.slice(0, -2) + `<span class="silent-letter">${word.slice(-2)}</span>`;
+  }
+  
+  // Règle 3: -e final muet (sauf après voyelle comme dans "idée")
+  if (lastChar === "e" && word.length > 2) {
+    // Exceptions: é, ée ne sont pas muets
+    if (secondLastChar === "é" || secondLastChar === "è" || secondLastChar === "ê") {
+      return word;
+    }
+    // Le e après consonne est généralement muet
+    if (!/[aeiouyàâäéèêëïîôùûüœæ]/i.test(secondLastChar)) {
+      return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+    }
+    return word;
+  }
+  
+  // Règle 4: Consonnes finales muettes
+  
+  // -t muet
+  if (lastChar === "t") {
+    // Exceptions où -t est prononcé
+    if (["net", "brut", "but", "kit", "set", "direct", "strict"].includes(lowerWord)) {
+      return word;
+    }
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -d muet
+  if (lastChar === "d") {
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -s muet (pluriel, fin de mot)
+  if (lastChar === "s") {
+    // Exceptions déjà gérées dans pronouncedFinalConsonants
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -x muet
+  if (lastChar === "x") {
+    // Exceptions: index, sphinx, etc.
+    if (["index", "sphinx", "latex", "silex", "apex", "box", "fox"].includes(lowerWord)) {
+      return word;
+    }
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -p muet
+  if (lastChar === "p") {
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -g muet après n (long, sang, rang)
+  if (lastChar === "g" && secondLastChar === "n") {
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -z muet
+  if (lastChar === "z") {
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -c muet après n (blanc, franc, banc)
+  if (lastChar === "c" && secondLastChar === "n") {
+    return word.slice(0, -1) + `<span class="silent-letter">${word.slice(-1)}</span>`;
+  }
+  
+  // -ps muet (temps, corps)
+  if (lowerWord.endsWith("ps")) {
+    return word.slice(0, -2) + `<span class="silent-letter">${word.slice(-2)}</span>`;
+  }
+  
+  // -ds muet (pluriels en -d)
+  if (lowerWord.endsWith("ds")) {
+    return word.slice(0, -2) + `<span class="silent-letter">${word.slice(-2)}</span>`;
+  }
+  
+  // -ts muet (pluriels en -t)
+  if (lowerWord.endsWith("ts")) {
+    return word.slice(0, -2) + `<span class="silent-letter">${word.slice(-2)}</span>`;
+  }
+  
   return word;
 }
 
-function processSilentLetters(text: string): string {
-  // Split text into words while preserving spaces and punctuation
-  const tokens = text.split(/(\s+|[.,!?;:'"-])/);
+function processText(text: string): string {
+  // Séparer en tokens (mots et ponctuation/espaces)
+  const tokens = text.split(/(\s+|[.,!?;:'"«»\-—()\[\]{}])/);
   
   return tokens.map(token => {
-    // Skip whitespace and punctuation
-    if (/^\s+$/.test(token) || /^[.,!?;:'"-]$/.test(token)) {
-      return token;
+    // Traiter seulement les mots (contenant des lettres)
+    if (/^[a-zA-ZàâäéèêëïîôùûüçœæÀÂÄÉÈÊËÏÎÔÙÛÜÇŒÆ]+$/.test(token)) {
+      return processWord(token);
     }
-    return processWordWithSilentLetters(token);
-  }).join('');
+    return token;
+  }).join("");
 }
 
 interface SilentLetterTextProps {
@@ -478,29 +172,25 @@ interface SilentLetterTextProps {
   className?: string;
 }
 
-export function SilentLetterText({ text, className = "" }: SilentLetterTextProps) {
-  const processedText = processSilentLetters(text);
+export const SilentLetterText: React.FC<SilentLetterTextProps> = ({ text, className = "" }) => {
+  const processedText = processText(text);
   
-  // Parse the processed text and convert <mute> tags to styled spans
-  const parts = processedText.split(/(<mute>.*?<\/mute>)/g);
+  // Parser le HTML pour créer les éléments React
+  const parts = processedText.split(/(<span class="silent-letter">.*?<\/span>)/g);
   
   return (
     <span className={className}>
       {parts.map((part, index) => {
-        const muteMatch = part.match(/<mute>(.*?)<\/mute>/);
-        if (muteMatch) {
+        const match = part.match(/<span class="silent-letter">(.*?)<\/span>/);
+        if (match) {
           return (
-            <span 
-              key={index} 
-              className="text-muted-foreground/50 font-normal"
-              aria-hidden="true"
-            >
-              {muteMatch[1]}
+            <span key={index} className="text-muted-foreground/40">
+              {match[1]}
             </span>
           );
         }
-        return <span key={index}>{part}</span>;
+        return part;
       })}
     </span>
   );
-}
+};
