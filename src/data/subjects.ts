@@ -48,7 +48,7 @@ export const subjects: Subject[] = [
     description: "Expériences et découvertes scientifiques",
     icon: FlaskConical,
     color: "from-green-500 to-lime-600",
-    available: false
+    available: true
   },
   {
     id: "langues",

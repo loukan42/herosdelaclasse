@@ -46,6 +46,31 @@ import page14Chateau from "@/assets/stories/chateau/page14.png";
 
 // Château des nombres (Mathématiques)
 import coverChateauNombres from "@/assets/stories/chateau-nombres/cover.png";
+
+// La planète mystère (Sciences)
+import coverPlaneteMystere from "@/assets/stories/planete-mystere/cover.png";
+import page1PlaneteMystere from "@/assets/stories/planete-mystere/page1.png";
+import page2PlaneteMystere from "@/assets/stories/planete-mystere/page2.png";
+import page3PlaneteMystere from "@/assets/stories/planete-mystere/page3.png";
+import page4PlaneteMystere from "@/assets/stories/planete-mystere/page4.png";
+import page5PlaneteMystere from "@/assets/stories/planete-mystere/page5.png";
+import page6PlaneteMystere from "@/assets/stories/planete-mystere/page6.png";
+import page7PlaneteMystere from "@/assets/stories/planete-mystere/page7.png";
+import page8PlaneteMystere from "@/assets/stories/planete-mystere/page8.png";
+import page9PlaneteMystere from "@/assets/stories/planete-mystere/page9.png";
+import page10PlaneteMystere from "@/assets/stories/planete-mystere/page10.png";
+import page11PlaneteMystere from "@/assets/stories/planete-mystere/page11.png";
+import page12PlaneteMystere from "@/assets/stories/planete-mystere/page12.png";
+import page13PlaneteMystere from "@/assets/stories/planete-mystere/page13.png";
+import page14PlaneteMystere from "@/assets/stories/planete-mystere/page14.png";
+import page15PlaneteMystere from "@/assets/stories/planete-mystere/page15.png";
+import page16PlaneteMystere from "@/assets/stories/planete-mystere/page16.png";
+import page20PlaneteMystere from "@/assets/stories/planete-mystere/page20.png";
+import page21PlaneteMystere from "@/assets/stories/planete-mystere/page21.png";
+import page22PlaneteMystere from "@/assets/stories/planete-mystere/page22.png";
+import page23PlaneteMystere from "@/assets/stories/planete-mystere/page23.png";
+import page24PlaneteMystere from "@/assets/stories/planete-mystere/page24.png";
+import page25PlaneteMystere from "@/assets/stories/planete-mystere/page25.png";
 import page1ChateauNombres from "@/assets/stories/chateau-nombres/page1.png";
 import page2ChateauNombres from "@/assets/stories/chateau-nombres/page2.png";
 import page3ChateauNombres from "@/assets/stories/chateau-nombres/page3.png";
@@ -147,6 +172,24 @@ export const stories: Story[] = [
     coverImage: coverChateauNombres,
     level: "CP",
     description: "Tu te réveilles dans un grand château du Moyen Âge. Le roi a besoin de ton aide pour résoudre des énigmes mathématiques !",
+    startPageId: "page-1",
+    subjectId: "lecture"
+  },
+  {
+    id: "la-planete-mystere",
+    title: "La planète mystère",
+    coverImage: coverPlaneteMystere,
+    level: "CE2",
+    description: "Tu es dans ta fusée sur Terre. Pour décoller, tu dois identifier les planètes du système solaire. Un voyage spatial éducatif !",
+    startPageId: "page-1",
+    subjectId: "sciences"
+  },
+  {
+    id: "la-planete-mystere-lecture",
+    title: "La planète mystère",
+    coverImage: coverPlaneteMystere,
+    level: "CE2",
+    description: "Tu es dans ta fusée sur Terre. Pour décoller, tu dois identifier les planètes du système solaire. Un voyage spatial éducatif !",
     startPageId: "page-1",
     subjectId: "lecture"
   }
@@ -1240,6 +1283,664 @@ Tu es un vrai chevalier des maths !`,
       ],
       isEnding: true,
       endingType: "happy"
+    }
+  ],
+  "la-planete-mystere": [
+    // PAGE 1 – Terre (départ)
+    {
+      id: "page-1",
+      storyId: "la-planete-mystere",
+      image: page1PlaneteMystere,
+      title: "La Terre",
+      text: `Tu es sur la planète Terre.
+Tu es dans ta fusée.
+Elle ne peut pas décoller.
+Sur l'écran, une planète apparaît.
+Pour partir, tu dois dire quelle planète tu vois.`,
+      choices: [
+        { label: "Regarder avec la jumelle", targetPageId: "page-2" },
+        { label: "Regarder sur l'écran de bord", targetPageId: "page-3" }
+      ]
+    },
+    // PAGE 2 – Observation jumelle (Terre)
+    {
+      id: "page-2",
+      storyId: "la-planete-mystere",
+      image: page2PlaneteMystere,
+      title: "Observation jumelle",
+      text: `Tu regardes avec la jumelle.
+La planète est rouge.
+Il y a des rochers.
+Il fait froid.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Mars", targetPageId: "page-4" },
+        { label: "Mercure", targetPageId: "page-5" }
+      ]
+    },
+    // PAGE 3 – Observation écran (Terre)
+    {
+      id: "page-3",
+      storyId: "la-planete-mystere",
+      image: page3PlaneteMystere,
+      title: "Observation écran",
+      text: `Tu regardes l'écran de bord.
+La planète est rouge foncé.
+Elle est proche de la Terre.
+Il n'y a pas d'eau.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Mars", targetPageId: "page-4" },
+        { label: "Vénus", targetPageId: "page-6" }
+      ]
+    },
+    // PAGE 4 – Bonne réponse Mars
+    {
+      id: "page-4",
+      storyId: "la-planete-mystere",
+      image: page4PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Mars.
+On l'appelle la planète rouge.
+La fusée peut décoller.`,
+      choices: [
+        { label: "Décoller vers Mars", targetPageId: "page-7" }
+      ]
+    },
+    // PAGE 5 – Erreur Mercure (Terre)
+    {
+      id: "page-5",
+      storyId: "la-planete-mystere",
+      image: page5PlaneteMystere,
+      title: "Réessaie",
+      text: `La fusée ne bouge pas.
+Mercure est très proche du Soleil.
+La planète rouge s'appelle Mars.
+Regarde encore et réessaie.`,
+      choices: [
+        { label: "Regarder avec la jumelle", targetPageId: "page-2" },
+        { label: "Regarder l'écran", targetPageId: "page-3" }
+      ]
+    },
+    // PAGE 6 – Erreur Vénus (Terre)
+    {
+      id: "page-6",
+      storyId: "la-planete-mystere",
+      image: page6PlaneteMystere,
+      title: "Réessaie",
+      text: `La fusée reste sur Terre.
+Vénus est très chaude.
+La planète rouge est Mars.
+Tu peux réessayer.`,
+      choices: [
+        { label: "Utiliser la jumelle", targetPageId: "page-2" },
+        { label: "Regarder l'écran de bord", targetPageId: "page-3" }
+      ]
+    },
+    // PAGE 7 – Arrivée sur Mars
+    {
+      id: "page-7",
+      storyId: "la-planete-mystere",
+      image: page7PlaneteMystere,
+      title: "Sur Mars",
+      text: `Te voilà sur Mars.
+Le sol est rouge.
+Il fait froid.
+Sur l'écran, deux routes apparaissent.`,
+      choices: [
+        { label: "Choisir la route prudente", targetPageId: "page-8" },
+        { label: "Choisir la route curieuse", targetPageId: "page-20" }
+      ]
+    },
+    // PAGE 8 – Observation Jupiter
+    {
+      id: "page-8",
+      storyId: "la-planete-mystere",
+      image: page8PlaneteMystere,
+      title: "Une planète énorme",
+      text: `Tu vois une planète énorme.
+Elle est très grande.
+Des nuages tournent autour.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Jupiter", targetPageId: "page-9" },
+        { label: "Saturne", targetPageId: "page-10" }
+      ]
+    },
+    // PAGE 9 – Bonne réponse Jupiter
+    {
+      id: "page-9",
+      storyId: "la-planete-mystere",
+      image: page9PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Jupiter.
+C'est la plus grande planète.
+La fusée continue.`,
+      choices: [
+        { label: "Aller vers la planète suivante", targetPageId: "page-11" }
+      ]
+    },
+    // PAGE 10 – Erreur Saturne (Jupiter)
+    {
+      id: "page-10",
+      storyId: "la-planete-mystere",
+      image: page10PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Saturne.
+Saturne a des anneaux.
+Cette planète est Jupiter.
+Réessaie.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-8" }
+      ]
+    },
+    // PAGE 11 – Observation Saturne
+    {
+      id: "page-11",
+      storyId: "la-planete-mystere",
+      image: page11PlaneteMystere,
+      title: "Des anneaux brillants",
+      text: `La planète a de grands anneaux.
+Ils brillent doucement.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Saturne", targetPageId: "page-12" },
+        { label: "Uranus", targetPageId: "page-13" }
+      ]
+    },
+    // PAGE 12 – Bonne réponse Saturne
+    {
+      id: "page-12",
+      storyId: "la-planete-mystere",
+      image: page12PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Saturne.
+Ses anneaux sont célèbres.
+Tu avances encore.`,
+      choices: [
+        { label: "Continuer le voyage", targetPageId: "page-14" }
+      ]
+    },
+    // PAGE 13 – Erreur Uranus (Saturne)
+    {
+      id: "page-13",
+      storyId: "la-planete-mystere",
+      image: page13PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Uranus.
+Uranus est très froide.
+Cette planète est Saturne.
+Réessaie.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-11" }
+      ]
+    },
+    // PAGE 14 – Observation Uranus
+    {
+      id: "page-14",
+      storyId: "la-planete-mystere",
+      image: page14PlaneteMystere,
+      title: "Une planète penchée",
+      text: `La planète est très froide.
+Elle est penchée.
+Elle tourne doucement.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Uranus", targetPageId: "page-15" },
+        { label: "Neptune", targetPageId: "page-16" }
+      ]
+    },
+    // PAGE 15 – FIN 1 : Gardien du Soleil
+    {
+      id: "page-15",
+      storyId: "la-planete-mystere",
+      image: page15PlaneteMystere,
+      title: "Gardien du Soleil",
+      text: `Bravo.
+Tu as voyagé avec sagesse.
+Le Soleil apparaît.
+Il te confie une mission.
+Tu deviens le Gardien du Soleil.`,
+      choices: [
+        { label: "Recommencer l'aventure", targetPageId: "page-1" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    },
+    // PAGE 16 – Erreur Neptune (Uranus)
+    {
+      id: "page-16",
+      storyId: "la-planete-mystere",
+      image: page16PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Neptune.
+Neptune est bleue et lointaine.
+Cette planète est Uranus.
+Regarde encore.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-14" }
+      ]
+    },
+    // PAGE 20 – Observation Vénus
+    {
+      id: "page-20",
+      storyId: "la-planete-mystere",
+      image: page20PlaneteMystere,
+      title: "Une planète chaude",
+      text: `La planète est très chaude.
+Des nuages la recouvrent.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Vénus", targetPageId: "page-21" },
+        { label: "Mercure", targetPageId: "page-22" }
+      ]
+    },
+    // PAGE 21 – Bonne réponse Vénus
+    {
+      id: "page-21",
+      storyId: "la-planete-mystere",
+      image: page21PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Vénus.
+C'est la planète la plus chaude.
+La fusée continue.`,
+      choices: [
+        { label: "Aller plus loin", targetPageId: "page-23" }
+      ]
+    },
+    // PAGE 22 – Erreur Mercure (Vénus)
+    {
+      id: "page-22",
+      storyId: "la-planete-mystere",
+      image: page22PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Mercure.
+Mercure est petite et rapide.
+Cette planète est Vénus.
+Réessaie.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-20" }
+      ]
+    },
+    // PAGE 23 – Observation Mercure
+    {
+      id: "page-23",
+      storyId: "la-planete-mystere",
+      image: page23PlaneteMystere,
+      title: "Une petite planète",
+      text: `La planète est petite.
+Elle est proche du Soleil.
+Elle va très vite.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Mercure", targetPageId: "page-24" },
+        { label: "Neptune", targetPageId: "page-25" }
+      ]
+    },
+    // PAGE 24 – FIN 2 : Voyageur des étoiles
+    {
+      id: "page-24",
+      storyId: "la-planete-mystere",
+      image: page24PlaneteMystere,
+      title: "Voyageur des étoiles",
+      text: `Bravo.
+Tu es très curieux.
+Le Soleil apparaît.
+Mais ta fusée capte un signal.
+Au-delà du Soleil.
+L'aventure continue.`,
+      choices: [
+        { label: "Rejouer une autre route", targetPageId: "page-1" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    },
+    // PAGE 25 – Erreur Neptune (Mercure)
+    {
+      id: "page-25",
+      storyId: "la-planete-mystere",
+      image: page25PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Neptune.
+Neptune est bleue et lointaine.
+Cette planète est Mercure.
+Regarde encore.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-23" }
+      ]
+    }
+  ],
+  "la-planete-mystere-lecture": [
+    // PAGE 1 – Terre (départ)
+    {
+      id: "page-1",
+      storyId: "la-planete-mystere-lecture",
+      image: page1PlaneteMystere,
+      title: "La Terre",
+      text: `Tu es sur la planète Terre.
+Tu es dans ta fusée.
+Elle ne peut pas décoller.
+Sur l'écran, une planète apparaît.
+Pour partir, tu dois dire quelle planète tu vois.`,
+      choices: [
+        { label: "Regarder avec la jumelle", targetPageId: "page-2" },
+        { label: "Regarder sur l'écran de bord", targetPageId: "page-3" }
+      ]
+    },
+    // PAGE 2 – Observation jumelle (Terre)
+    {
+      id: "page-2",
+      storyId: "la-planete-mystere-lecture",
+      image: page2PlaneteMystere,
+      title: "Observation jumelle",
+      text: `Tu regardes avec la jumelle.
+La planète est rouge.
+Il y a des rochers.
+Il fait froid.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Mars", targetPageId: "page-4" },
+        { label: "Mercure", targetPageId: "page-5" }
+      ]
+    },
+    // PAGE 3 – Observation écran (Terre)
+    {
+      id: "page-3",
+      storyId: "la-planete-mystere-lecture",
+      image: page3PlaneteMystere,
+      title: "Observation écran",
+      text: `Tu regardes l'écran de bord.
+La planète est rouge foncé.
+Elle est proche de la Terre.
+Il n'y a pas d'eau.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Mars", targetPageId: "page-4" },
+        { label: "Vénus", targetPageId: "page-6" }
+      ]
+    },
+    // PAGE 4 – Bonne réponse Mars
+    {
+      id: "page-4",
+      storyId: "la-planete-mystere-lecture",
+      image: page4PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Mars.
+On l'appelle la planète rouge.
+La fusée peut décoller.`,
+      choices: [
+        { label: "Décoller vers Mars", targetPageId: "page-7" }
+      ]
+    },
+    // PAGE 5 – Erreur Mercure (Terre)
+    {
+      id: "page-5",
+      storyId: "la-planete-mystere-lecture",
+      image: page5PlaneteMystere,
+      title: "Réessaie",
+      text: `La fusée ne bouge pas.
+Mercure est très proche du Soleil.
+La planète rouge s'appelle Mars.
+Regarde encore et réessaie.`,
+      choices: [
+        { label: "Regarder avec la jumelle", targetPageId: "page-2" },
+        { label: "Regarder l'écran", targetPageId: "page-3" }
+      ]
+    },
+    // PAGE 6 – Erreur Vénus (Terre)
+    {
+      id: "page-6",
+      storyId: "la-planete-mystere-lecture",
+      image: page6PlaneteMystere,
+      title: "Réessaie",
+      text: `La fusée reste sur Terre.
+Vénus est très chaude.
+La planète rouge est Mars.
+Tu peux réessayer.`,
+      choices: [
+        { label: "Utiliser la jumelle", targetPageId: "page-2" },
+        { label: "Regarder l'écran de bord", targetPageId: "page-3" }
+      ]
+    },
+    // PAGE 7 – Arrivée sur Mars
+    {
+      id: "page-7",
+      storyId: "la-planete-mystere-lecture",
+      image: page7PlaneteMystere,
+      title: "Sur Mars",
+      text: `Te voilà sur Mars.
+Le sol est rouge.
+Il fait froid.
+Sur l'écran, deux routes apparaissent.`,
+      choices: [
+        { label: "Choisir la route prudente", targetPageId: "page-8" },
+        { label: "Choisir la route curieuse", targetPageId: "page-20" }
+      ]
+    },
+    // PAGE 8 – Observation Jupiter
+    {
+      id: "page-8",
+      storyId: "la-planete-mystere-lecture",
+      image: page8PlaneteMystere,
+      title: "Une planète énorme",
+      text: `Tu vois une planète énorme.
+Elle est très grande.
+Des nuages tournent autour.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Jupiter", targetPageId: "page-9" },
+        { label: "Saturne", targetPageId: "page-10" }
+      ]
+    },
+    // PAGE 9 – Bonne réponse Jupiter
+    {
+      id: "page-9",
+      storyId: "la-planete-mystere-lecture",
+      image: page9PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Jupiter.
+C'est la plus grande planète.
+La fusée continue.`,
+      choices: [
+        { label: "Aller vers la planète suivante", targetPageId: "page-11" }
+      ]
+    },
+    // PAGE 10 – Erreur Saturne (Jupiter)
+    {
+      id: "page-10",
+      storyId: "la-planete-mystere-lecture",
+      image: page10PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Saturne.
+Saturne a des anneaux.
+Cette planète est Jupiter.
+Réessaie.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-8" }
+      ]
+    },
+    // PAGE 11 – Observation Saturne
+    {
+      id: "page-11",
+      storyId: "la-planete-mystere-lecture",
+      image: page11PlaneteMystere,
+      title: "Des anneaux brillants",
+      text: `La planète a de grands anneaux.
+Ils brillent doucement.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Saturne", targetPageId: "page-12" },
+        { label: "Uranus", targetPageId: "page-13" }
+      ]
+    },
+    // PAGE 12 – Bonne réponse Saturne
+    {
+      id: "page-12",
+      storyId: "la-planete-mystere-lecture",
+      image: page12PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Saturne.
+Ses anneaux sont célèbres.
+Tu avances encore.`,
+      choices: [
+        { label: "Continuer le voyage", targetPageId: "page-14" }
+      ]
+    },
+    // PAGE 13 – Erreur Uranus (Saturne)
+    {
+      id: "page-13",
+      storyId: "la-planete-mystere-lecture",
+      image: page13PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Uranus.
+Uranus est très froide.
+Cette planète est Saturne.
+Réessaie.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-11" }
+      ]
+    },
+    // PAGE 14 – Observation Uranus
+    {
+      id: "page-14",
+      storyId: "la-planete-mystere-lecture",
+      image: page14PlaneteMystere,
+      title: "Une planète penchée",
+      text: `La planète est très froide.
+Elle est penchée.
+Elle tourne doucement.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Uranus", targetPageId: "page-15" },
+        { label: "Neptune", targetPageId: "page-16" }
+      ]
+    },
+    // PAGE 15 – FIN 1 : Gardien du Soleil
+    {
+      id: "page-15",
+      storyId: "la-planete-mystere-lecture",
+      image: page15PlaneteMystere,
+      title: "Gardien du Soleil",
+      text: `Bravo.
+Tu as voyagé avec sagesse.
+Le Soleil apparaît.
+Il te confie une mission.
+Tu deviens le Gardien du Soleil.`,
+      choices: [
+        { label: "Recommencer l'aventure", targetPageId: "page-1" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    },
+    // PAGE 16 – Erreur Neptune (Uranus)
+    {
+      id: "page-16",
+      storyId: "la-planete-mystere-lecture",
+      image: page16PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Neptune.
+Neptune est bleue et lointaine.
+Cette planète est Uranus.
+Regarde encore.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-14" }
+      ]
+    },
+    // PAGE 20 – Observation Vénus
+    {
+      id: "page-20",
+      storyId: "la-planete-mystere-lecture",
+      image: page20PlaneteMystere,
+      title: "Une planète chaude",
+      text: `La planète est très chaude.
+Des nuages la recouvrent.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Vénus", targetPageId: "page-21" },
+        { label: "Mercure", targetPageId: "page-22" }
+      ]
+    },
+    // PAGE 21 – Bonne réponse Vénus
+    {
+      id: "page-21",
+      storyId: "la-planete-mystere-lecture",
+      image: page21PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Vénus.
+C'est la planète la plus chaude.
+La fusée continue.`,
+      choices: [
+        { label: "Aller plus loin", targetPageId: "page-23" }
+      ]
+    },
+    // PAGE 22 – Erreur Mercure (Vénus)
+    {
+      id: "page-22",
+      storyId: "la-planete-mystere-lecture",
+      image: page22PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Mercure.
+Mercure est petite et rapide.
+Cette planète est Vénus.
+Réessaie.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-20" }
+      ]
+    },
+    // PAGE 23 – Observation Mercure
+    {
+      id: "page-23",
+      storyId: "la-planete-mystere-lecture",
+      image: page23PlaneteMystere,
+      title: "Une petite planète",
+      text: `La planète est petite.
+Elle est proche du Soleil.
+Elle va très vite.
+Quelle planète est-ce ?`,
+      choices: [
+        { label: "Mercure", targetPageId: "page-24" },
+        { label: "Neptune", targetPageId: "page-25" }
+      ]
+    },
+    // PAGE 24 – FIN 2 : Voyageur des étoiles
+    {
+      id: "page-24",
+      storyId: "la-planete-mystere-lecture",
+      image: page24PlaneteMystere,
+      title: "Voyageur des étoiles",
+      text: `Bravo.
+Tu es très curieux.
+Le Soleil apparaît.
+Mais ta fusée capte un signal.
+Au-delà du Soleil.
+L'aventure continue.`,
+      choices: [
+        { label: "Rejouer une autre route", targetPageId: "page-1" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    },
+    // PAGE 25 – Erreur Neptune (Mercure)
+    {
+      id: "page-25",
+      storyId: "la-planete-mystere-lecture",
+      image: page25PlaneteMystere,
+      title: "Réessaie",
+      text: `Ce n'est pas Neptune.
+Neptune est bleue et lointaine.
+Cette planète est Mercure.
+Regarde encore.`,
+      choices: [
+        { label: "Regarder encore", targetPageId: "page-23" }
+      ]
     }
   ]
 };
