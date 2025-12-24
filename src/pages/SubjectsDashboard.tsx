@@ -21,7 +21,7 @@ export default function SubjectsDashboard() {
           <img 
             src={logo} 
             alt="Héros de la Classe" 
-            className="w-48 md:w-64 lg:w-80 mx-auto mb-6 fade-up drop-shadow-2xl"
+            className="w-32 md:w-40 lg:w-48 mx-auto mb-6 fade-up drop-shadow-2xl"
           />
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-1">
