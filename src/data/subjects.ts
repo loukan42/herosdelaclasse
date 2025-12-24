@@ -3,6 +3,7 @@ import lectureImage from "@/assets/subjects/lecture.png";
 import mathematiquesImage from "@/assets/subjects/mathematiques.png";
 import histoireImage from "@/assets/subjects/histoire.png";
 import geographieImage from "@/assets/subjects/geographie.png";
+import sciencesImage from "@/assets/subjects/sciences.png";
 
 export interface Subject {
   id: string;
@@ -51,6 +52,23 @@ export const subjects: Subject[] = [
     available: false,
     backgroundImage: geographieImage
   },
+  {
+    id: "sciences",
+    name: "Sciences",
+    description: "Expériences et découvertes scientifiques",
+    icon: FlaskConical,
+    color: "from-green-500 to-lime-600",
+    available: true,
+    backgroundImage: sciencesImage
+  },
+  {
+    id: "langues",
+    name: "Langues vivantes",
+    description: "Apprendre l'anglais en s'amusant",
+    icon: Languages,
+    color: "from-red-500 to-orange-600",
+    available: false
+  }
 ];
 
 export function getSubject(subjectId: string): Subject | undefined {
