@@ -5,7 +5,7 @@ import { BookPage } from "@/components/BookPage";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { ImageChoiceButton } from "@/components/ImageChoiceButton";
 import { StoryInventory } from "@/components/StoryInventory";
-import { SilentLetterText } from "@/components/SilentLetterText";
+
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX } from "lucide-react";
 import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 
@@ -210,7 +210,7 @@ export default function StoryReader() {
                   key={index}
                   className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-center font-body"
                 >
-                  <SilentLetterText text={line} />
+                  {line}
                 </p>
               ))}
             </div>
