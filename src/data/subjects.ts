@@ -1,5 +1,8 @@
 import { BookOpen, Calculator, Globe, Clock, FlaskConical, Languages } from "lucide-react";
 import lectureImage from "@/assets/subjects/lecture.png";
+import mathematiquesImage from "@/assets/subjects/mathematiques.png";
+import histoireImage from "@/assets/subjects/histoire.png";
+import geographieImage from "@/assets/subjects/geographie.png";
 
 export interface Subject {
   id: string;
@@ -27,7 +30,8 @@ export const subjects: Subject[] = [
     description: "Aventures pour découvrir les nombres",
     icon: Calculator,
     color: "from-blue-500 to-indigo-600",
-    available: true
+    available: true,
+    backgroundImage: mathematiquesImage
   },
   {
     id: "histoire",
@@ -35,7 +39,8 @@ export const subjects: Subject[] = [
     description: "Voyages dans le temps et découvertes",
     icon: Clock,
     color: "from-purple-500 to-violet-600",
-    available: false
+    available: false,
+    backgroundImage: histoireImage
   },
   {
     id: "geographie",
@@ -43,24 +48,9 @@ export const subjects: Subject[] = [
     description: "Explorations du monde entier",
     icon: Globe,
     color: "from-emerald-500 to-teal-600",
-    available: false
+    available: false,
+    backgroundImage: geographieImage
   },
-  {
-    id: "sciences",
-    name: "Sciences",
-    description: "Expériences et découvertes scientifiques",
-    icon: FlaskConical,
-    color: "from-green-500 to-lime-600",
-    available: true
-  },
-  {
-    id: "langues",
-    name: "Langues vivantes",
-    description: "Apprendre l'anglais en s'amusant",
-    icon: Languages,
-    color: "from-red-500 to-orange-600",
-    available: false
-  }
 ];
 
 export function getSubject(subjectId: string): Subject | undefined {
