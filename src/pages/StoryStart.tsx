@@ -109,35 +109,6 @@ export default function StoryStart() {
                 />
               </div>
 
-              {/* Genre Selection */}
-              <div>
-                <label className="flex items-center gap-2 text-foreground font-semibold mb-3">
-                  <Heart className="w-5 h-5 text-primary" />
-                  Veux-tu que l'histoire s'adapte ?
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {[
-                    { value: 'masculin' as Genre, label: 'Masculin', emoji: '👦' },
-                    { value: 'feminin' as Genre, label: 'Féminin', emoji: '👧' },
-                    { value: 'neutre' as Genre, label: 'Pas de préférence', emoji: '✨' },
-                  ].map((option) => (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => setGenre(option.value)}
-                      className={`
-                        p-4 rounded-xl border-2 transition-all duration-300 font-semibold
-                        ${genre === option.value 
-                          ? 'border-primary bg-primary/10 text-foreground shadow-lg' 
-                          : 'border-border bg-background text-muted-foreground hover:border-primary/50'}
-                      `}
-                    >
-                      <span className="text-2xl block mb-1">{option.emoji}</span>
-                      <span className="text-sm">{option.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
 
               {/* Start Button */}
               <button
