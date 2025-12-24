@@ -6,7 +6,8 @@ import { ChoiceButton } from "@/components/ChoiceButton";
 import { ImageChoiceButton } from "@/components/ImageChoiceButton";
 import { StoryInventory } from "@/components/StoryInventory";
 import { SilentLetterText } from "@/components/SilentLetterText";
-import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX } from "lucide-react";
+import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX, Download } from "lucide-react";
+import dinosaurColoringPage from "@/assets/coloring/dinosaur-footprints-coloring.png";
 import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
@@ -112,6 +113,18 @@ export default function StoryReader() {
     }
   };
 
+  const handleDownloadColoring = () => {
+    const link = document.createElement('a');
+    link.href = dinosaurColoringPage;
+    link.download = 'coloriage-empreintes-dinosaure.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Check if current page should show coloring download (empreintes story, page 5)
+  const showColoringDownload = storyId === "le-secret-des-empreintes" && pageId === "page-5";
+
   return (
     <main className="min-h-screen bg-background py-4 md:py-6 lg:py-8 px-3 md:px-4">
       <div className="container max-w-5xl mx-auto">
@@ -191,9 +204,9 @@ export default function StoryReader() {
               </h1>
             )}
 
-            {/* Audio Button */}
-            {isSupported && (
-              <div className="flex justify-center mb-4 md:mb-6">
+            {/* Audio and Coloring Buttons */}
+            <div className="flex flex-wrap justify-center gap-3 mb-4 md:mb-6">
+              {isSupported && (
                 <button
                   onClick={handlePlayAudio}
                   className={`
@@ -216,8 +229,20 @@ export default function StoryReader() {
                     </>
                   )}
                 </button>
-              </div>
-            )}
+              )}
+              
+              {showColoringDownload && (
+                <button
+                  onClick={handleDownloadColoring}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm md:text-base
+                    transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5
+                    bg-amber-500 text-white hover:bg-amber-600"
+                >
+                  <Download className="w-4 h-4 md:w-5 md:h-5" />
+                  Coloriage empreintes
+                </button>
+              )}
+            </div>
 
             {/* Story Text - Line by line */}
             <div className="mb-6 md:mb-8 lg:mb-10 space-y-2 md:space-y-3">
