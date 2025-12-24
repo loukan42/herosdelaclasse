@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getStory, getPage, processText } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
@@ -17,6 +17,8 @@ export default function StoryReader() {
   const [isAnimating, setIsAnimating] = useState(true);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [visitedPages, setVisitedPages] = useState<string[]>([]);
+  const [newlyCollectedItem, setNewlyCollectedItem] = useState<string | null>(null);
+  const previousVisitedRef = useRef<string[]>([]);
 
   const story = getStory(storyId || "");
   const page = getPage(storyId || "", pageId || "");
@@ -30,16 +32,26 @@ export default function StoryReader() {
   useEffect(() => {
     const saved = sessionStorage.getItem(`story-${storyId}-visited`);
     if (saved) {
-      setVisitedPages(JSON.parse(saved));
+      const parsed = JSON.parse(saved);
+      setVisitedPages(parsed);
+      previousVisitedRef.current = parsed;
     }
   }, [storyId]);
 
-  // Track visited pages
+  // Track visited pages and detect new items
   useEffect(() => {
     if (pageId && !visitedPages.includes(pageId)) {
       const newVisited = [...visitedPages, pageId];
       setVisitedPages(newVisited);
       sessionStorage.setItem(`story-${storyId}-visited`, JSON.stringify(newVisited));
+      
+      // Check if this page gives a new inventory item
+      if (!previousVisitedRef.current.includes(pageId)) {
+        setNewlyCollectedItem(pageId);
+        // Clear the animation after 2 seconds
+        setTimeout(() => setNewlyCollectedItem(null), 2500);
+      }
+      previousVisitedRef.current = newVisited;
     }
   }, [pageId, storyId, visitedPages]);
 
@@ -146,13 +158,8 @@ export default function StoryReader() {
               </div>
             )}
 
-            {/* Inventory */}
-            <div className="mb-4 md:mb-6">
-              <StoryInventory visitedPages={visitedPages} storyId={storyId || ""} />
-            </div>
-
             {/* Illustration with lazy loading */}
-            <div className="relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg mb-4 md:mb-6 lg:mb-8 -mx-2 md:mx-0 bg-muted/30">
+            <div className="relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg mb-4 md:mb-6 -mx-2 md:mx-0 bg-muted/30">
               {!imageLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-muted/50">
                   <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -165,6 +172,15 @@ export default function StoryReader() {
                 loading="lazy"
                 decoding="async"
                 onLoad={() => setImageLoaded(true)}
+              />
+            </div>
+
+            {/* Inventory - below image */}
+            <div className="mb-4 md:mb-6">
+              <StoryInventory 
+                visitedPages={visitedPages} 
+                storyId={storyId || ""} 
+                newlyCollectedPageId={newlyCollectedItem}
               />
             </div>
 
