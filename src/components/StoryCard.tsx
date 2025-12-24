@@ -31,11 +31,11 @@ export function StoryCard({ story, index }: StoryCardProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent" />
         
-        {/* Age Badge */}
+        {/* Level Badge */}
         <div className="absolute top-4 right-4 flex gap-2">
           <div className="bg-golden text-golden-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
             <Sparkles className="w-3 h-3" />
-            {story.ageMin} ans
+            {story.level}
           </div>
           {readCount > 0 && (
             <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
