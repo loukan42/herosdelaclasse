@@ -239,7 +239,7 @@ export default function StoryReader() {
                     bg-amber-500 text-white hover:bg-amber-600"
                 >
                   <Download className="w-4 h-4 md:w-5 md:h-5" />
-                  Coloriage empreintes
+                  Coloriage dinosaures
                 </button>
               )}
             </div>
