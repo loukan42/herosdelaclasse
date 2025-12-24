@@ -89,8 +89,7 @@ export interface Story {
   id: string;
   title: string;
   coverImage: string;
-  ageMin: number;
-  ageMax: number;
+  level: string;
   description: string;
   startPageId: string;
   subjectId: string;
@@ -101,8 +100,7 @@ export const stories: Story[] = [
     id: "le-feu-seteint",
     title: "Le feu s'éteint",
     coverImage: coverFeu,
-    ageMin: 6,
-    ageMax: 6,
+    level: "CP",
     description: "Ce soir, le clan est silencieux. Le feu ne brûle plus. Aide ton clan à rallumer le feu et découvre la vie préhistorique !",
     startPageId: "page-1",
     subjectId: "lecture"
@@ -111,8 +109,7 @@ export const stories: Story[] = [
     id: "le-jardin-secret",
     title: "Le jardin secret du château",
     coverImage: coverJardin,
-    ageMin: 6,
-    ageMax: 6,
+    level: "CP",
     description: "Le soleil se lève sur le château. Tu remarques un petit chemin qui disparaît derrière un mur couvert de lierre. Découvre le secret du jardin !",
     startPageId: "page-1",
     subjectId: "lecture"
@@ -121,8 +118,7 @@ export const stories: Story[] = [
     id: "le-secret-des-empreintes",
     title: "Le secret des empreintes anciennes",
     coverImage: coverEmpreintes,
-    ageMin: 6,
-    ageMax: 6,
+    level: "CP",
     description: "Le soleil éclaire une grande plaine. Devant toi, des traces géantes apparaissent. À qui peuvent bien appartenir ces empreintes ?",
     startPageId: "page-1",
     subjectId: "lecture"
@@ -131,8 +127,7 @@ export const stories: Story[] = [
     id: "le-chateau-endormi",
     title: "Le château endormi",
     coverImage: coverChateau,
-    ageMin: 4,
-    ageMax: 6,
+    level: "CP",
     description: "Ce matin, le château fait un drôle de bruit. Il ronfle très fort. Choisis ton personnage et aide à réveiller le château !",
     startPageId: "page-1",
     subjectId: "lecture"
@@ -141,8 +136,7 @@ export const stories: Story[] = [
     id: "le-chateau-des-nombres",
     title: "Le château des nombres",
     coverImage: coverChateauNombres,
-    ageMin: 5,
-    ageMax: 7,
+    level: "CP",
     description: "Tu te réveilles dans un grand château du Moyen Âge. Le roi a besoin de ton aide pour résoudre des énigmes mathématiques !",
     startPageId: "page-1",
     subjectId: "mathematiques"
@@ -151,8 +145,7 @@ export const stories: Story[] = [
     id: "le-chateau-des-nombres-lecture",
     title: "Le château des nombres",
     coverImage: coverChateauNombres,
-    ageMin: 5,
-    ageMax: 7,
+    level: "CP",
     description: "Tu te réveilles dans un grand château du Moyen Âge. Le roi a besoin de ton aide pour résoudre des énigmes mathématiques !",
     startPageId: "page-1",
     subjectId: "lecture"
