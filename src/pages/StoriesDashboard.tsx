@@ -1,17 +1,10 @@
-import { useState } from "react";
 import { stories } from "@/data/stories";
 import { StoryCard } from "@/components/StoryCard";
-import { BookOpen, Sparkles, Search } from "lucide-react";
+import { BookOpen, Sparkles } from "lucide-react";
 
 export default function StoriesDashboard() {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredStories = stories.filter((story) => {
-    return story.title.toLowerCase().includes(searchTerm.toLowerCase());
-  });
-
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background flex flex-col">
       {/* Hero Section */}
       <header className="relative overflow-hidden py-12 md:py-20 px-4">
         {/* Decorative elements */}
@@ -39,43 +32,21 @@ export default function StoriesDashboard() {
         </div>
       </header>
 
-      {/* Filters Section */}
-      <section className="container max-w-6xl mx-auto px-4 mb-8">
-        <div className="book-container p-4 md:p-6">
-          {/* Search */}
-          <div className="relative w-full max-w-md mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Chercher une histoire..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-background border-2 border-border focus:border-primary focus:outline-none font-body text-lg transition-colors"
-            />
-          </div>
+      {/* Stories Grid */}
+      <section className="container max-w-6xl mx-auto px-4 pb-20 flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {stories.map((story, index) => (
+            <StoryCard key={story.id} story={story} index={index} />
+          ))}
         </div>
       </section>
 
-      {/* Stories Grid */}
-      <section className="container max-w-6xl mx-auto px-4 pb-20">
-        {filteredStories.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredStories.map((story, index) => (
-              <StoryCard key={story.id} story={story} index={index} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20">
-            <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h2 className="font-display text-2xl text-muted-foreground">
-              Aucune histoire trouvée
-            </h2>
-            <p className="text-muted-foreground mt-2">
-              Essaie de modifier ta recherche
-            </p>
-          </div>
-        )}
-      </section>
+      {/* Footer */}
+      <footer className="py-6 text-center border-t border-border bg-muted/30">
+        <p className="text-muted-foreground text-sm">
+          © Lou Husson 2025
+        </p>
+      </footer>
     </main>
   );
 }
