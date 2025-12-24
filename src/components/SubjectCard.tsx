@@ -31,17 +31,29 @@ export function SubjectCard({ subject, index }: SubjectCardProps) {
       `}
       style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'both' }}
     >
-      {/* Main gradient background */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${subject.color}`} />
+      {/* Main gradient background or image */}
+      {subject.backgroundImage ? (
+        <>
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${subject.backgroundImage})` }}
+          />
+          <div className={`absolute inset-0 bg-gradient-to-br ${subject.color} opacity-30`} />
+        </>
+      ) : (
+        <div className={`absolute inset-0 bg-gradient-to-br ${subject.color}`} />
+      )}
       
       {/* Cartoon-style pattern overlay */}
-      <div className="absolute inset-0 opacity-30">
-        {/* Dots pattern */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px)',
-          backgroundSize: '20px 20px'
-        }} />
-      </div>
+      {!subject.backgroundImage && (
+        <div className="absolute inset-0 opacity-30">
+          {/* Dots pattern */}
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px)',
+            backgroundSize: '20px 20px'
+          }} />
+        </div>
+      )}
 
       {/* Wavy decoration at bottom */}
       <svg 
