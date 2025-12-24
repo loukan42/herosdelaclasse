@@ -77,6 +77,7 @@ export interface Story {
   ageMax: number;
   description: string;
   startPageId: string;
+  subjectId: string;
 }
 
 export const stories: Story[] = [
@@ -87,7 +88,8 @@ export const stories: Story[] = [
     ageMin: 6,
     ageMax: 6,
     description: "Ce soir, le clan est silencieux. Le feu ne brûle plus. Aide ton clan à rallumer le feu et découvre la vie préhistorique !",
-    startPageId: "page-1"
+    startPageId: "page-1",
+    subjectId: "lecture"
   },
   {
     id: "le-jardin-secret",
@@ -96,7 +98,8 @@ export const stories: Story[] = [
     ageMin: 6,
     ageMax: 6,
     description: "Le soleil se lève sur le château. Tu remarques un petit chemin qui disparaît derrière un mur couvert de lierre. Découvre le secret du jardin !",
-    startPageId: "page-1"
+    startPageId: "page-1",
+    subjectId: "lecture"
   },
   {
     id: "le-secret-des-empreintes",
@@ -105,7 +108,8 @@ export const stories: Story[] = [
     ageMin: 6,
     ageMax: 6,
     description: "Le soleil éclaire une grande plaine. Devant toi, des traces géantes apparaissent. À qui peuvent bien appartenir ces empreintes ?",
-    startPageId: "page-1"
+    startPageId: "page-1",
+    subjectId: "lecture"
   },
   {
     id: "le-chateau-endormi",
@@ -114,9 +118,14 @@ export const stories: Story[] = [
     ageMin: 4,
     ageMax: 6,
     description: "Ce matin, le château fait un drôle de bruit. Il ronfle très fort. Choisis ton personnage et aide à réveiller le château !",
-    startPageId: "page-1"
+    startPageId: "page-1",
+    subjectId: "lecture"
   }
 ];
+
+export function getStoriesBySubject(subjectId: string): Story[] {
+  return stories.filter(story => story.subjectId === subjectId);
+}
 
 export const storyPages: Record<string, StoryPage[]> = {
   "le-feu-seteint": [
