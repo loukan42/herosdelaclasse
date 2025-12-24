@@ -99,7 +99,7 @@ export function SubjectCard({ subject, index }: SubjectCardProps) {
       )}
       
       {/* Content */}
-      <div className="relative z-10 p-7 pb-8 min-h-[220px] h-full flex flex-col">
+      <div className="relative z-10 p-7 pb-8 min-h-[320px] h-full flex flex-col">
         {/* Icon with cartoon bubble effect */}
         <div className={`
           w-16 h-16 rounded-2xl 
