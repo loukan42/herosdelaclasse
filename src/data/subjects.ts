@@ -24,7 +24,7 @@ export const subjects: Subject[] = [
     description: "Aventures pour découvrir les nombres",
     icon: Calculator,
     color: "from-blue-500 to-indigo-600",
-    available: false
+    available: true
   },
   {
     id: "histoire",

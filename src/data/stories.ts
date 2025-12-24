@@ -44,6 +44,21 @@ import page12Chateau from "@/assets/stories/chateau/page12.png";
 import page13Chateau from "@/assets/stories/chateau/page13.png";
 import page14Chateau from "@/assets/stories/chateau/page14.png";
 
+// Château des nombres (Mathématiques)
+import page1ChateauNombres from "@/assets/stories/chateau-nombres/page1.png";
+import page2ChateauNombres from "@/assets/stories/chateau-nombres/page2.png";
+import page3ChateauNombres from "@/assets/stories/chateau-nombres/page3.png";
+import page4ChateauNombres from "@/assets/stories/chateau-nombres/page4.png";
+import page5ChateauNombres from "@/assets/stories/chateau-nombres/page5.png";
+import page5BChateauNombres from "@/assets/stories/chateau-nombres/page5B.png";
+import page6ChateauNombres from "@/assets/stories/chateau-nombres/page6.png";
+import page7ChateauNombres from "@/assets/stories/chateau-nombres/page7.png";
+import page7BChateauNombres from "@/assets/stories/chateau-nombres/page7B.png";
+import page8ChateauNombres from "@/assets/stories/chateau-nombres/page8.png";
+import page8CChateauNombres from "@/assets/stories/chateau-nombres/page8C.png";
+import page8DChateauNombres from "@/assets/stories/chateau-nombres/page8D.png";
+import page10ChateauNombres from "@/assets/stories/chateau-nombres/page10.png";
+
 export interface Choice {
   label: string;
   targetPageId: string;
@@ -118,6 +133,26 @@ export const stories: Story[] = [
     ageMin: 4,
     ageMax: 6,
     description: "Ce matin, le château fait un drôle de bruit. Il ronfle très fort. Choisis ton personnage et aide à réveiller le château !",
+    startPageId: "page-1",
+    subjectId: "lecture"
+  },
+  {
+    id: "le-chateau-des-nombres",
+    title: "Le château des nombres",
+    coverImage: page1ChateauNombres,
+    ageMin: 5,
+    ageMax: 7,
+    description: "Tu te réveilles dans un grand château du Moyen Âge. Le roi a besoin de ton aide pour résoudre des énigmes mathématiques !",
+    startPageId: "page-1",
+    subjectId: "mathematiques"
+  },
+  {
+    id: "le-chateau-des-nombres-lecture",
+    title: "Le château des nombres",
+    coverImage: page1ChateauNombres,
+    ageMin: 5,
+    ageMax: 7,
+    description: "Tu te réveilles dans un grand château du Moyen Âge. Le roi a besoin de ton aide pour résoudre des énigmes mathématiques !",
     startPageId: "page-1",
     subjectId: "lecture"
   }
@@ -772,6 +807,444 @@ Tu es un héros plein d'amour.`,
       textFeminine: "Tu es une héroïne pleine d'amour.",
       choices: [
         { label: "Rejouer avec Chevalier Viande Grillé", targetPageId: "page-2" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    }
+  ],
+  "le-chateau-des-nombres": [
+    // Page 1 - Le réveil au château
+    {
+      id: "page-1",
+      storyId: "le-chateau-des-nombres",
+      image: page1ChateauNombres,
+      title: "Le réveil au château",
+      text: `Tu te réveilles dans un grand château du Moyen Âge.
+Le soleil brille à travers la fenêtre.
+Aujourd'hui, le roi a besoin de ton aide.
+Tu mets ta cape et te lèves doucement.
+Une grande aventure commence.`,
+      choices: [
+        { label: "Aller dans la cour du château", targetPageId: "page-2" },
+        { label: "Aller voir le roi", targetPageId: "page-3" }
+      ]
+    },
+    // Page 2 - Les tonneaux de la cour
+    {
+      id: "page-2",
+      storyId: "le-chateau-des-nombres",
+      image: page2ChateauNombres,
+      title: "Les tonneaux de la cour",
+      text: `Dans la cour, tu vois des tonneaux en bois.
+Ils sont bien alignés.
+Le chevalier te demande combien il y en a.
+Tu peux les compter tranquillement.
+Prends ton temps.`,
+      choices: [
+        { label: "Dire qu'il y a 8 tonneaux", targetPageId: "page-4" },
+        { label: "Dire qu'il y a 10 tonneaux", targetPageId: "page-5" }
+      ]
+    },
+    // Page 3 - Les pièces du roi
+    {
+      id: "page-3",
+      storyId: "le-chateau-des-nombres",
+      image: page3ChateauNombres,
+      title: "Les pièces du roi",
+      text: `Le roi t'accueille avec un grand sourire.
+Il pose des pièces d'or sur la table.
+Il y a 3 bourses d'un côté.
+Et 3 bourses de l'autre côté.
+Il te demande combien il y en a en tout.`,
+      choices: [
+        { label: "Dire que 3 + 3 = 6", targetPageId: "page-6" },
+        { label: "Dire que 5 + 3 = 9", targetPageId: "page-7" }
+      ]
+    },
+    // Page 4 - Bravo pour les tonneaux
+    {
+      id: "page-4",
+      storyId: "le-chateau-des-nombres",
+      image: page4ChateauNombres,
+      title: "Bravo pour les tonneaux",
+      text: `Bravo !
+Tu as bien compté les tonneaux.
+Il y en avait bien 8.
+Le chevalier est très fier de toi.
+Il te tend une clé brillante.
+Elle pourra t'aider plus tard.`,
+      choices: [
+        { label: "Prendre la clé dorée", targetPageId: "page-8" },
+        { label: "Continuer sans la clé", targetPageId: "page-8" }
+      ],
+      inventoryAdd: [{ id: "cle", name: "🔑 Clé dorée" }]
+    },
+    // Page 5 - Recompter les tonneaux
+    {
+      id: "page-5",
+      storyId: "le-chateau-des-nombres",
+      image: page5ChateauNombres,
+      title: "Recompter les tonneaux",
+      text: `Ce n'est pas tout à fait ça.
+Ce n'est pas grave.
+Regarde encore les tonneaux.
+Compte-les un par un.
+Tu peux recommencer calmement.`,
+      choices: [
+        { label: "Dire qu'il y a 8 tonneaux", targetPageId: "page-4" },
+        { label: "Dire qu'il y a 11 tonneaux", targetPageId: "page-5B" }
+      ]
+    },
+    // Page 5B - Presque juste
+    {
+      id: "page-5B",
+      storyId: "le-chateau-des-nombres",
+      image: page5BChateauNombres,
+      title: "Presque juste",
+      text: `Tu es tout près.
+Tu as presque trouvé.
+Compte encore doucement.
+Un tonneau après l'autre.
+Tu vas y arriver.`,
+      choices: [
+        { label: "Recompter et dire 8", targetPageId: "page-4" },
+        { label: "Demander au chevalier d'aider", targetPageId: "page-5" }
+      ]
+    },
+    // Page 6 - Bonne addition
+    {
+      id: "page-6",
+      storyId: "le-chateau-des-nombres",
+      image: page6ChateauNombres,
+      title: "Bonne addition",
+      text: `Bravo !
+Tu as bien additionné.
+3 plus 3 font bien 6.
+Le roi applaudit doucement.
+Il est fier de toi.
+Il te laisse continuer l'aventure.`,
+      choices: [
+        { label: "Aller vers le pont-levis", targetPageId: "page-8" }
+      ]
+    },
+    // Page 7 - Recompter les pièces
+    {
+      id: "page-7",
+      storyId: "le-chateau-des-nombres",
+      image: page7ChateauNombres,
+      title: "Recompter les pièces",
+      text: `Ce n'est pas la bonne réponse.
+Ce n'est pas grave du tout.
+Regarde bien les pièces sur la table.
+Il y en a deux groupes.
+Compte-les tranquillement.`,
+      choices: [
+        { label: "Recompter et dire 6", targetPageId: "page-6" },
+        { label: "Demander au roi de compter avec toi", targetPageId: "page-7B" }
+      ]
+    },
+    // Page 7B - Compter ensemble
+    {
+      id: "page-7B",
+      storyId: "le-chateau-des-nombres",
+      image: page7BChateauNombres,
+      title: "Compter ensemble",
+      text: `Le roi compte avec toi.
+Un. Deux. Trois.
+Puis encore.
+Tu vois mieux maintenant.
+Tu as compris.`,
+      choices: [
+        { label: "Dire que 3 + 3 = 6", targetPageId: "page-6" }
+      ]
+    },
+    // Page 8 - Vers le pont-levis
+    {
+      id: "page-8",
+      storyId: "le-chateau-des-nombres",
+      image: page8ChateauNombres,
+      title: "Vers le pont-levis",
+      text: `Tu avances vers le pont-levis.
+Devant toi, deux groupes de chevaliers.
+Il y en a 4 d'un côté.
+Et 6 de l'autre.
+Lequel est le plus grand nombre ?`,
+      choices: [
+        { label: "Dire que 6 est plus grand", targetPageId: "page-10" },
+        { label: "Dire que 4 est plus grand", targetPageId: "page-8C" }
+      ]
+    },
+    // Page 8C - On compare encore
+    {
+      id: "page-8C",
+      storyId: "le-chateau-des-nombres",
+      image: page8CChateauNombres,
+      title: "On compare encore",
+      text: `Tu as choisi 4.
+Ce n'est pas la bonne réponse.
+Ce n'est pas grave du tout.
+Regarde les deux groupes de chevaliers.
+Tu peux les compter un par un.
+Puis tu choisis le groupe qui a le plus de chevaliers.`,
+      choices: [
+        { label: "Dire que 6 est plus grand que 4", targetPageId: "page-10" },
+        { label: "Demander à un chevalier de compter avec toi", targetPageId: "page-8D" }
+      ]
+    },
+    // Page 8D - Compter ensemble
+    {
+      id: "page-8D",
+      storyId: "le-chateau-des-nombres",
+      image: page8DChateauNombres,
+      title: "Compter ensemble",
+      text: `Le chevalier compte avec toi.
+Vous comptez d'abord le premier groupe.
+Puis vous comptez le deuxième groupe.
+Tu souris.
+Tu es prêt.`,
+      textMasculine: "Tu es prêt.",
+      textFeminine: "Tu es prête.",
+      choices: [
+        { label: "Dire que 6 est plus grand que 4", targetPageId: "page-10" },
+        { label: "Recompter tout seul une dernière fois", targetPageId: "page-8" }
+      ]
+    },
+    // Page 10 - Bravo chevalier des maths (FIN)
+    {
+      id: "page-10",
+      storyId: "le-chateau-des-nombres",
+      image: page10ChateauNombres,
+      title: "Bravo chevalier des maths",
+      text: `Le pont-levis s'ouvre.
+Tu as réussi toutes les épreuves.
+Tu sais compter.
+Tu sais additionner.
+Tu sais comparer les nombres.
+Tu es un vrai chevalier des maths !`,
+      textMasculine: "Tu es un vrai chevalier des maths !",
+      textFeminine: "Tu es une vraie chevalière des maths !",
+      choices: [
+        { label: "Recommencer l'aventure", targetPageId: "page-1" },
+        { label: "Choisir une autre aventure", targetPageId: "menu" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    }
+  ],
+  "le-chateau-des-nombres-lecture": [
+    // Page 1 - Le réveil au château
+    {
+      id: "page-1",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page1ChateauNombres,
+      title: "Le réveil au château",
+      text: `Tu te réveilles dans un grand château du Moyen Âge.
+Le soleil brille à travers la fenêtre.
+Aujourd'hui, le roi a besoin de ton aide.
+Tu mets ta cape et te lèves doucement.
+Une grande aventure commence.`,
+      choices: [
+        { label: "Aller dans la cour du château", targetPageId: "page-2" },
+        { label: "Aller voir le roi", targetPageId: "page-3" }
+      ]
+    },
+    // Page 2 - Les tonneaux de la cour
+    {
+      id: "page-2",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page2ChateauNombres,
+      title: "Les tonneaux de la cour",
+      text: `Dans la cour, tu vois des tonneaux en bois.
+Ils sont bien alignés.
+Le chevalier te demande combien il y en a.
+Tu peux les compter tranquillement.
+Prends ton temps.`,
+      choices: [
+        { label: "Dire qu'il y a 8 tonneaux", targetPageId: "page-4" },
+        { label: "Dire qu'il y a 10 tonneaux", targetPageId: "page-5" }
+      ]
+    },
+    // Page 3 - Les pièces du roi
+    {
+      id: "page-3",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page3ChateauNombres,
+      title: "Les pièces du roi",
+      text: `Le roi t'accueille avec un grand sourire.
+Il pose des pièces d'or sur la table.
+Il y a 3 bourses d'un côté.
+Et 3 bourses de l'autre côté.
+Il te demande combien il y en a en tout.`,
+      choices: [
+        { label: "Dire que 3 + 3 = 6", targetPageId: "page-6" },
+        { label: "Dire que 5 + 3 = 9", targetPageId: "page-7" }
+      ]
+    },
+    // Page 4 - Bravo pour les tonneaux
+    {
+      id: "page-4",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page4ChateauNombres,
+      title: "Bravo pour les tonneaux",
+      text: `Bravo !
+Tu as bien compté les tonneaux.
+Il y en avait bien 8.
+Le chevalier est très fier de toi.
+Il te tend une clé brillante.
+Elle pourra t'aider plus tard.`,
+      choices: [
+        { label: "Prendre la clé dorée", targetPageId: "page-8" },
+        { label: "Continuer sans la clé", targetPageId: "page-8" }
+      ],
+      inventoryAdd: [{ id: "cle", name: "🔑 Clé dorée" }]
+    },
+    // Page 5 - Recompter les tonneaux
+    {
+      id: "page-5",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page5ChateauNombres,
+      title: "Recompter les tonneaux",
+      text: `Ce n'est pas tout à fait ça.
+Ce n'est pas grave.
+Regarde encore les tonneaux.
+Compte-les un par un.
+Tu peux recommencer calmement.`,
+      choices: [
+        { label: "Dire qu'il y a 8 tonneaux", targetPageId: "page-4" },
+        { label: "Dire qu'il y a 11 tonneaux", targetPageId: "page-5B" }
+      ]
+    },
+    // Page 5B - Presque juste
+    {
+      id: "page-5B",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page5BChateauNombres,
+      title: "Presque juste",
+      text: `Tu es tout près.
+Tu as presque trouvé.
+Compte encore doucement.
+Un tonneau après l'autre.
+Tu vas y arriver.`,
+      choices: [
+        { label: "Recompter et dire 8", targetPageId: "page-4" },
+        { label: "Demander au chevalier d'aider", targetPageId: "page-5" }
+      ]
+    },
+    // Page 6 - Bonne addition
+    {
+      id: "page-6",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page6ChateauNombres,
+      title: "Bonne addition",
+      text: `Bravo !
+Tu as bien additionné.
+3 plus 3 font bien 6.
+Le roi applaudit doucement.
+Il est fier de toi.
+Il te laisse continuer l'aventure.`,
+      choices: [
+        { label: "Aller vers le pont-levis", targetPageId: "page-8" }
+      ]
+    },
+    // Page 7 - Recompter les pièces
+    {
+      id: "page-7",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page7ChateauNombres,
+      title: "Recompter les pièces",
+      text: `Ce n'est pas la bonne réponse.
+Ce n'est pas grave du tout.
+Regarde bien les pièces sur la table.
+Il y en a deux groupes.
+Compte-les tranquillement.`,
+      choices: [
+        { label: "Recompter et dire 6", targetPageId: "page-6" },
+        { label: "Demander au roi de compter avec toi", targetPageId: "page-7B" }
+      ]
+    },
+    // Page 7B - Compter ensemble
+    {
+      id: "page-7B",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page7BChateauNombres,
+      title: "Compter ensemble",
+      text: `Le roi compte avec toi.
+Un. Deux. Trois.
+Puis encore.
+Tu vois mieux maintenant.
+Tu as compris.`,
+      choices: [
+        { label: "Dire que 3 + 3 = 6", targetPageId: "page-6" }
+      ]
+    },
+    // Page 8 - Vers le pont-levis
+    {
+      id: "page-8",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page8ChateauNombres,
+      title: "Vers le pont-levis",
+      text: `Tu avances vers le pont-levis.
+Devant toi, deux groupes de chevaliers.
+Il y en a 4 d'un côté.
+Et 6 de l'autre.
+Lequel est le plus grand nombre ?`,
+      choices: [
+        { label: "Dire que 6 est plus grand", targetPageId: "page-10" },
+        { label: "Dire que 4 est plus grand", targetPageId: "page-8C" }
+      ]
+    },
+    // Page 8C - On compare encore
+    {
+      id: "page-8C",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page8CChateauNombres,
+      title: "On compare encore",
+      text: `Tu as choisi 4.
+Ce n'est pas la bonne réponse.
+Ce n'est pas grave du tout.
+Regarde les deux groupes de chevaliers.
+Tu peux les compter un par un.
+Puis tu choisis le groupe qui a le plus de chevaliers.`,
+      choices: [
+        { label: "Dire que 6 est plus grand que 4", targetPageId: "page-10" },
+        { label: "Demander à un chevalier de compter avec toi", targetPageId: "page-8D" }
+      ]
+    },
+    // Page 8D - Compter ensemble
+    {
+      id: "page-8D",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page8DChateauNombres,
+      title: "Compter ensemble",
+      text: `Le chevalier compte avec toi.
+Vous comptez d'abord le premier groupe.
+Puis vous comptez le deuxième groupe.
+Tu souris.
+Tu es prêt.`,
+      textMasculine: "Tu es prêt.",
+      textFeminine: "Tu es prête.",
+      choices: [
+        { label: "Dire que 6 est plus grand que 4", targetPageId: "page-10" },
+        { label: "Recompter tout seul une dernière fois", targetPageId: "page-8" }
+      ]
+    },
+    // Page 10 - Bravo chevalier des maths (FIN)
+    {
+      id: "page-10",
+      storyId: "le-chateau-des-nombres-lecture",
+      image: page10ChateauNombres,
+      title: "Bravo chevalier des maths",
+      text: `Le pont-levis s'ouvre.
+Tu as réussi toutes les épreuves.
+Tu sais compter.
+Tu sais additionner.
+Tu sais comparer les nombres.
+Tu es un vrai chevalier des maths !`,
+      textMasculine: "Tu es un vrai chevalier des maths !",
+      textFeminine: "Tu es une vraie chevalière des maths !",
+      choices: [
+        { label: "Recommencer l'aventure", targetPageId: "page-1" },
+        { label: "Choisir une autre aventure", targetPageId: "menu" }
       ],
       isEnding: true,
       endingType: "happy"
