@@ -4,6 +4,7 @@ import mathematiquesImage from "@/assets/subjects/mathematiques.png";
 import histoireImage from "@/assets/subjects/histoire.png";
 import geographieImage from "@/assets/subjects/geographie.png";
 import sciencesImage from "@/assets/subjects/sciences.png";
+import languesImage from "@/assets/subjects/langues.png";
 
 export interface Subject {
   id: string;
@@ -67,7 +68,8 @@ export const subjects: Subject[] = [
     description: "Apprendre l'anglais en s'amusant",
     icon: Languages,
     color: "from-red-500 to-orange-600",
-    available: false
+    available: false,
+    backgroundImage: languesImage
   }
 ];
 
