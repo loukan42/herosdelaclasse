@@ -1,4 +1,4 @@
-import { BookOpen, Calculator, Globe, Clock, Palette, Music, FlaskConical, Languages } from "lucide-react";
+import { BookOpen, Calculator, Globe, Clock, FlaskConical, Languages } from "lucide-react";
 
 export interface Subject {
   id: string;
@@ -48,22 +48,6 @@ export const subjects: Subject[] = [
     description: "Expériences et découvertes scientifiques",
     icon: FlaskConical,
     color: "from-green-500 to-lime-600",
-    available: false
-  },
-  {
-    id: "arts",
-    name: "Arts plastiques",
-    description: "Créativité et expression artistique",
-    icon: Palette,
-    color: "from-pink-500 to-rose-600",
-    available: false
-  },
-  {
-    id: "musique",
-    name: "Musique",
-    description: "Rythmes et mélodies à découvrir",
-    icon: Music,
-    color: "from-cyan-500 to-sky-600",
     available: false
   },
   {
