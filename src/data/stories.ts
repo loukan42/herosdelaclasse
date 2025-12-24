@@ -65,7 +65,11 @@ import page13PlaneteMystere from "@/assets/stories/planete-mystere/page13.png";
 import page14PlaneteMystere from "@/assets/stories/planete-mystere/page14.png";
 import page15PlaneteMystere from "@/assets/stories/planete-mystere/page15.png";
 import page16PlaneteMystere from "@/assets/stories/planete-mystere/page16.png";
+import page17PlaneteMystere from "@/assets/stories/planete-mystere/page17.png";
+import page18PlaneteMystere from "@/assets/stories/planete-mystere/page18.png";
+import page19PlaneteMystere from "@/assets/stories/planete-mystere/page19.png";
 import page20PlaneteMystere from "@/assets/stories/planete-mystere/page20.png";
+import page30PlaneteMystere from "@/assets/stories/planete-mystere/page30.png";
 import page21PlaneteMystere from "@/assets/stories/planete-mystere/page21.png";
 import page22PlaneteMystere from "@/assets/stories/planete-mystere/page22.png";
 import page23PlaneteMystere from "@/assets/stories/planete-mystere/page23.png";
@@ -1489,32 +1493,15 @@ Elle est penchée.
 Elle tourne doucement.
 Quelle planète est-ce ?`,
       choices: [
-        { label: "Uranus", targetPageId: "page-15" },
-        { label: "Neptune", targetPageId: "page-16" }
+        { label: "Uranus", targetPageId: "page-16" },
+        { label: "Neptune", targetPageId: "page-15" }
       ]
     },
-    // PAGE 15 – FIN 1 : Gardien du Soleil
+    // PAGE 15 – Erreur Neptune (Uranus)
     {
       id: "page-15",
       storyId: "la-planete-mystere",
       image: page15PlaneteMystere,
-      title: "Gardien du Soleil",
-      text: `Bravo.
-Tu as voyagé avec sagesse.
-Le Soleil apparaît.
-Il te confie une mission.
-Tu deviens le Gardien du Soleil.`,
-      choices: [
-        { label: "Recommencer l'aventure", targetPageId: "page-1" }
-      ],
-      isEnding: true,
-      endingType: "happy"
-    },
-    // PAGE 16 – Erreur Neptune (Uranus)
-    {
-      id: "page-16",
-      storyId: "la-planete-mystere",
-      image: page16PlaneteMystere,
       title: "Réessaie",
       text: `Ce n'est pas Neptune.
 Neptune est bleue et lointaine.
@@ -1523,6 +1510,87 @@ Regarde encore.`,
       choices: [
         { label: "Regarder encore", targetPageId: "page-14" }
       ]
+    },
+    // PAGE 16 – Bonne réponse Uranus
+    {
+      id: "page-16",
+      storyId: "la-planete-mystere",
+      image: page16PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Uranus.
+Elle est très froide et penchée.
+Tu as bien observé.
+La fusée peut continuer.`,
+      choices: [
+        { label: "Continuer le voyage vers la lumière", targetPageId: "page-17" }
+      ]
+    },
+    // PAGE 17 – En route vers le Soleil
+    {
+      id: "page-17",
+      storyId: "la-planete-mystere",
+      image: page17PlaneteMystere,
+      title: "Vers la lumière",
+      text: `La fusée avance doucement.
+Devant toi, une grande lumière apparaît.
+Elle éclaire tout l'espace.
+Ce n'est pas une planète.`,
+      choices: [
+        { label: "Avancer vers la grande lumière", targetPageId: "page-18" },
+        { label: "Observer la lumière sur l'écran", targetPageId: "page-19" }
+      ]
+    },
+    // PAGE 18 – Observation directe du Soleil
+    {
+      id: "page-18",
+      storyId: "la-planete-mystere",
+      image: page18PlaneteMystere,
+      title: "La lumière chaude",
+      text: `La lumière est chaude mais douce.
+Elle donne de l'énergie à toutes les planètes.
+Tu comprends que c'est le Soleil.`,
+      choices: [
+        { label: "Aller à la rencontre du Soleil", targetPageId: "page-30" }
+      ]
+    },
+    // PAGE 19 – Observation du Soleil sur l'écran
+    {
+      id: "page-19",
+      storyId: "la-planete-mystere",
+      image: page19PlaneteMystere,
+      title: "L'étoile du système",
+      text: `L'écran montre une grande étoile.
+Elle éclaire tout le système.
+Sans elle, il n'y aurait pas de vie.
+C'est le Soleil.`,
+      choices: [
+        { label: "Avancer vers le Soleil", targetPageId: "page-30" }
+      ]
+    },
+    // PAGE 30 – FIN 1 : Le Gardien du Soleil
+    {
+      id: "page-30",
+      storyId: "la-planete-mystere",
+      image: page30PlaneteMystere,
+      title: "Gardien du Soleil",
+      text: `Le Soleil apparaît devant toi.
+Il brille doucement.
+Il te parle.
+
+« Tu as voyagé avec calme et attention.
+Tu as respecté les planètes.
+Je te confie une mission.
+
+Tu deviens le Gardien du Soleil.
+Tu veilles sur l'équilibre de l'espace. »
+
+Tu es fier de toi.`,
+      choices: [
+        { label: "Recommencer l'aventure", targetPageId: "page-1" }
+      ],
+      isEnding: true,
+      endingType: "happy"
     },
     // PAGE 20 – Observation Vénus
     {
@@ -1818,32 +1886,15 @@ Elle est penchée.
 Elle tourne doucement.
 Quelle planète est-ce ?`,
       choices: [
-        { label: "Uranus", targetPageId: "page-15" },
-        { label: "Neptune", targetPageId: "page-16" }
+        { label: "Uranus", targetPageId: "page-16" },
+        { label: "Neptune", targetPageId: "page-15" }
       ]
     },
-    // PAGE 15 – FIN 1 : Gardien du Soleil
+    // PAGE 15 – Erreur Neptune (Uranus)
     {
       id: "page-15",
       storyId: "la-planete-mystere-lecture",
       image: page15PlaneteMystere,
-      title: "Gardien du Soleil",
-      text: `Bravo.
-Tu as voyagé avec sagesse.
-Le Soleil apparaît.
-Il te confie une mission.
-Tu deviens le Gardien du Soleil.`,
-      choices: [
-        { label: "Recommencer l'aventure", targetPageId: "page-1" }
-      ],
-      isEnding: true,
-      endingType: "happy"
-    },
-    // PAGE 16 – Erreur Neptune (Uranus)
-    {
-      id: "page-16",
-      storyId: "la-planete-mystere-lecture",
-      image: page16PlaneteMystere,
       title: "Réessaie",
       text: `Ce n'est pas Neptune.
 Neptune est bleue et lointaine.
@@ -1852,6 +1903,87 @@ Regarde encore.`,
       choices: [
         { label: "Regarder encore", targetPageId: "page-14" }
       ]
+    },
+    // PAGE 16 – Bonne réponse Uranus
+    {
+      id: "page-16",
+      storyId: "la-planete-mystere-lecture",
+      image: page16PlaneteMystere,
+      title: "Bravo !",
+      text: `Bravo.
+C'est Uranus.
+Elle est très froide et penchée.
+Tu as bien observé.
+La fusée peut continuer.`,
+      choices: [
+        { label: "Continuer le voyage vers la lumière", targetPageId: "page-17" }
+      ]
+    },
+    // PAGE 17 – En route vers le Soleil
+    {
+      id: "page-17",
+      storyId: "la-planete-mystere-lecture",
+      image: page17PlaneteMystere,
+      title: "Vers la lumière",
+      text: `La fusée avance doucement.
+Devant toi, une grande lumière apparaît.
+Elle éclaire tout l'espace.
+Ce n'est pas une planète.`,
+      choices: [
+        { label: "Avancer vers la grande lumière", targetPageId: "page-18" },
+        { label: "Observer la lumière sur l'écran", targetPageId: "page-19" }
+      ]
+    },
+    // PAGE 18 – Observation directe du Soleil
+    {
+      id: "page-18",
+      storyId: "la-planete-mystere-lecture",
+      image: page18PlaneteMystere,
+      title: "La lumière chaude",
+      text: `La lumière est chaude mais douce.
+Elle donne de l'énergie à toutes les planètes.
+Tu comprends que c'est le Soleil.`,
+      choices: [
+        { label: "Aller à la rencontre du Soleil", targetPageId: "page-30" }
+      ]
+    },
+    // PAGE 19 – Observation du Soleil sur l'écran
+    {
+      id: "page-19",
+      storyId: "la-planete-mystere-lecture",
+      image: page19PlaneteMystere,
+      title: "L'étoile du système",
+      text: `L'écran montre une grande étoile.
+Elle éclaire tout le système.
+Sans elle, il n'y aurait pas de vie.
+C'est le Soleil.`,
+      choices: [
+        { label: "Avancer vers le Soleil", targetPageId: "page-30" }
+      ]
+    },
+    // PAGE 30 – FIN 1 : Le Gardien du Soleil
+    {
+      id: "page-30",
+      storyId: "la-planete-mystere-lecture",
+      image: page30PlaneteMystere,
+      title: "Gardien du Soleil",
+      text: `Le Soleil apparaît devant toi.
+Il brille doucement.
+Il te parle.
+
+« Tu as voyagé avec calme et attention.
+Tu as respecté les planètes.
+Je te confie une mission.
+
+Tu deviens le Gardien du Soleil.
+Tu veilles sur l'équilibre de l'espace. »
+
+Tu es fier de toi.`,
+      choices: [
+        { label: "Recommencer l'aventure", targetPageId: "page-1" }
+      ],
+      isEnding: true,
+      endingType: "happy"
     },
     // PAGE 20 – Observation Vénus
     {
