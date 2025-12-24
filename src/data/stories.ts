@@ -885,11 +885,10 @@ Elle pourra t'aider plus tard.`,
       storyId: "le-chateau-des-nombres",
       image: page5ChateauNombres,
       title: "Recompter les tonneaux",
-      text: `Ce n'est pas tout à fait ça.
-Ce n'est pas grave.
-Regarde encore les tonneaux.
-Compte-les un par un.
-Tu peux recommencer calmement.`,
+      text: `Regarde bien les tonneaux.
+Compte-les un par un avec tes doigts.
+Tu peux recommencer tranquillement.
+Tu vas y arriver.`,
       choices: [
         { label: "Dire qu'il y a 8 tonneaux", targetPageId: "page-4" },
         { label: "Dire qu'il y a 11 tonneaux", targetPageId: "page-5B" }
@@ -1104,11 +1103,10 @@ Elle pourra t'aider plus tard.`,
       storyId: "le-chateau-des-nombres-lecture",
       image: page5ChateauNombres,
       title: "Recompter les tonneaux",
-      text: `Ce n'est pas tout à fait ça.
-Ce n'est pas grave.
-Regarde encore les tonneaux.
-Compte-les un par un.
-Tu peux recommencer calmement.`,
+      text: `Regarde bien les tonneaux.
+Compte-les un par un avec tes doigts.
+Tu peux recommencer tranquillement.
+Tu vas y arriver.`,
       choices: [
         { label: "Dire qu'il y a 8 tonneaux", targetPageId: "page-4" },
         { label: "Dire qu'il y a 11 tonneaux", targetPageId: "page-5B" }
