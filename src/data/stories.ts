@@ -2132,26 +2132,475 @@ Regarde encore.`,
     }
   ],
   "les-chemins-du-temps": [
-    { id: "page-1", storyId: "les-chemins-du-temps", image: page1CheminsTemps, title: "Le galet hors du temps", text: `Tu passes quelques jours chez ton grand-père, dans une vieille maison en pierre au bord d'un petit village. Cet après-midi-là, la pluie tape sur les vitres. Ton grand-père te propose d'explorer le grenier. En fouillant, tu découvres un galet parfaitement lisse, gris clair. Quand tu le touches, une chaleur douce monte le long de tes doigts. Ton grand-père t'explique que l'objet se transmet dans la famille depuis des générations. Le soir venu, tu montes te coucher avec le galet. Des images te traversent l'esprit : une forêt immense, des flammes, des silhouettes humaines très anciennes.`, choices: [{ label: "Poser le galet sous ton oreiller", targetPageId: "page-2" }, { label: "Te concentrer sur les images", targetPageId: "page-3" }, { label: "Poser des questions à ton grand-père", targetPageId: "page-4" }] },
-    { id: "page-2", storyId: "les-chemins-du-temps", image: page2CheminsTemps, title: "Le voyage pendant le sommeil", text: `Tu glisses le galet sous ton oreiller. Une odeur te réveille d'un coup : la fumée, la terre mouillée. Tu n'es plus dans ton lit. Tu es allongé sur un sol dur, couvert de feuilles. Une lumière vacille entre les arbres. Un feu. Tu distingues des humains accroupis autour des flammes. Ils portent des peaux d'animaux. Tu comprends : tu es très loin dans le passé, à la Préhistoire.`, choices: [{ label: "T'approcher du feu", targetPageId: "page-5" }, { label: "Suivre un bruit d'eau", targetPageId: "page-6" }, { label: "Observer depuis l'ombre", targetPageId: "page-7" }] },
-    { id: "page-3", storyId: "les-chemins-du-temps", image: page3CheminsTemps, title: "Les images prennent vie", text: `Tu gardes le galet dans ta main. La chaleur augmente. Quand tu rouvres les yeux, tu es debout dans une forêt immense. Au loin, un filet de fumée s'élève. Tu arrives près d'une clairière où un feu brûle, entouré d'humains vêtus de peaux. À ta droite, une grotte. À ta gauche, des empreintes vers la rivière.`, choices: [{ label: "Te rapprocher du feu", targetPageId: "page-5" }, { label: "Observer leurs gestes", targetPageId: "page-7" }, { label: "Entrer dans la grotte", targetPageId: "page-8" }] },
-    { id: "page-4", storyId: "les-chemins-du-temps", image: page4CheminsTemps, title: "Les questions du soir", text: `Tu redescends voir ton grand-père. Il t'explique : ce galet réagit à ton intention. Tu peux comprendre et apprendre, mais pas changer l'Histoire. Il te donne une lanière de cuir pour attacher le galet. Tu remontes te coucher, prêt à l'écouter.`, choices: [{ label: "Aller vers le feu", targetPageId: "page-5" }, { label: "Repérer la rivière", targetPageId: "page-6" }, { label: "Observer d'abord", targetPageId: "page-7" }] },
-    { id: "page-5", storyId: "les-chemins-du-temps", image: page5CheminsTemps, title: "Le cercle du feu", text: `Tu avances vers la clairière. Le feu crépite. Un homme se lève avec une lance. Tu lèves les mains pour montrer que tu n'as rien. L'enfant de ton âge te fixe avec curiosité. Il te tend une branche sèche. Tu comprends : ici, tu seras accepté si tu es utile.`, choices: [{ label: "Suivre vers la grotte", targetPageId: "page-8" }, { label: "Aider à garder le feu", targetPageId: "page-9" }, { label: "Accompagner la chasse", targetPageId: "page-10" }] },
-    { id: "page-6", storyId: "les-chemins-du-temps", image: page6CheminsTemps, title: "Les traces dans la boue", text: `Tu suis le bruit de l'eau jusqu'à une rivière. Dans la boue, tu vois des empreintes. L'enfant préhistorique t'apprend à distinguer une trace fraîche d'une trace ancienne. Il sait lire la terre comme un livre.`, choices: [{ label: "Retourner au camp", targetPageId: "page-9" }, { label: "Suivre vers une chasse", targetPageId: "page-10" }, { label: "Vers un lieu d'installation", targetPageId: "page-11" }] },
-    { id: "page-7", storyId: "les-chemins-du-temps", image: page7CheminsTemps, title: "Dans l'ombre des branches", text: `Tu restes caché. Un adulte taille un silex. Deux silhouettes prennent une torche vers la roche sombre. Le feu baisse. Tu dois choisir : rester étranger ou agir.`, choices: [{ label: "Suivre vers la grotte", targetPageId: "page-8" }, { label: "Aider le feu", targetPageId: "page-9" }, { label: "Vers un lieu stable", targetPageId: "page-11" }] },
-    { id: "page-8", storyId: "les-chemins-du-temps", image: page8CheminsTemps, title: "La grotte des animaux peints", text: `Tu suis la torche dans une grotte. Des animaux sont dessinés sur la roche : chevaux, bisons, cerfs. C'est une mémoire, une manière de raconter sans écrire. L'enfant te regarde : "Tu comprends ?"`, choices: [{ label: "Observer avec respect", targetPageId: "page-9" }, { label: "Aider en portant une torche", targetPageId: "page-10" }, { label: "Toucher les dessins", targetPageId: "page-11" }] },
-    { id: "page-9", storyId: "les-chemins-du-temps", image: page9CheminsTemps, title: "Gagner ta place", text: `Les regards deviennent moins durs. On te tend de la nourriture. L'enfant te montre comment fabriquer un outil. Tu peux choisir comment apprendre cette époque.`, choices: [{ label: "Retourner à la rivière", targetPageId: "page-6" }, { label: "Partir chasser", targetPageId: "page-10" }, { label: "Vers un lieu stable", targetPageId: "page-11" }] },
-    { id: "page-10", storyId: "les-chemins-du-temps", image: page10CheminsTemps, title: "La chasse sans gaspiller", text: `Tu pars avec le groupe. La chasse commence avec l'attention : traces, branches cassées. Les humains ne gaspillent rien. Sur le retour, ils parlent d'un endroit fixe. Un début de village.`, choices: [{ label: "Revenir à la rivière", targetPageId: "page-6" }, { label: "Retourner au camp", targetPageId: "page-9" }, { label: "Vers un lieu d'installation", targetPageId: "page-11" }] },
-    { id: "page-11", storyId: "les-chemins-du-temps", image: page11CheminsTemps, title: "Quand les humains restent", text: `Le paysage change. Des cabanes forment un cercle. Des champs avec des plantes alignées. Des menhirs. Tu vois des échanges : colliers, sel, ambre. Au loin, des traces droites comme une route.`, choices: [{ label: "Vers un grand marché", targetPageId: "page-12" }, { label: "Écouter le conteur", targetPageId: "page-13" }, { label: "Suivre les traces droites", targetPageId: "page-14" }] },
-    { id: "page-12", storyId: "les-chemins-du-temps", image: page12CheminsTemps, title: "Le marché de l'oppidum", text: `Tu arrives dans un oppidum gaulois. Un forgeron frappe le métal. Un druide parle de Rome. Tu comprends que la Gaule va rencontrer un empire puissant.`, choices: [{ label: "Aider le forgeron", targetPageId: "page-15" }, { label: "Écouter le druide", targetPageId: "page-13" }, { label: "Suivre vers Rome", targetPageId: "page-14" }] },
-    { id: "page-13", storyId: "les-chemins-du-temps", image: page13CheminsTemps, title: "Le chêne des druides", text: `Sous un grand chêne, un druide enseigne. Un messager arrive : des soldats romains approchent. Le druide te tend une brindille nouée, signe de messager.`, choices: [{ label: "Être messager", targetPageId: "page-15" }, { label: "Observer les Romains", targetPageId: "page-14" }, { label: "Retourner au marché", targetPageId: "page-12" }] },
-    { id: "page-14", storyId: "les-chemins-du-temps", image: page14CheminsTemps, title: "La route droite", text: `Tu découvres une route romaine droite, bordée de pierres. Des légionnaires marchent au même rythme. Un camp romain avec fossé et tentes alignées. Rome est une manière de penser.`, choices: [{ label: "Observer le camp romain", targetPageId: "page-15" }, { label: "Vers une ville gallo-romaine", targetPageId: "page-16" }, { label: "Prévenir les Gaulois", targetPageId: "page-12" }] },
-    { id: "page-15", storyId: "les-chemins-du-temps", image: page15CheminsTemps, title: "Alésia, la colline encerclée", text: `Tu es à Alésia. Sur la hauteur, des Gaulois se sont retranchés. Tout autour, les Romains construisent des fortifications. Ce n'est pas une bataille, c'est une guerre de patience. Tu entends le nom de Vercingétorix murmuré, comme celui d'un chef capable de rassembler.`, choices: [{ label: "Rester près des Gaulois", targetPageId: "page-16" }, { label: "Observer les fortifications romaines", targetPageId: "page-17" }, { label: "Revenir sur la route", targetPageId: "page-14" }] },
-    { id: "page-16", storyId: "les-chemins-du-temps", image: page16CheminsTemps, title: "Lutetia change de visage", text: `Tu es à Lutetia, l'ancienne Paris, à l'époque gallo-romaine. Il y a de la pierre, des rues droites, des thermes. Un scribe écrit sur une tablette de cire. On parle de frontières, de nouveaux peuples, d'un empire qui ne tient plus comme avant.`, choices: [{ label: "Suivre vers les constructions d'eau", targetPageId: "page-17" }, { label: "Aider un scribe", targetPageId: "page-19" }, { label: "Suivre ceux qui parlent des Francs", targetPageId: "page-18" }] },
-    { id: "page-17", storyId: "les-chemins-du-temps", image: page17CheminsTemps, title: "Quand l'empire se fissure", text: `Les routes sont moins entretenues. Des gens quittent la ville pour vivre dans des fermes. Tu vois passer des hommes différents : les Francs. Ils ne détruisent pas tout. Ils prennent, s'installent, négocient. Tu entres dans le début du Moyen Âge.`, choices: [{ label: "Suivre les Francs vers un nouveau roi", targetPageId: "page-18" }, { label: "Chercher un monastère", targetPageId: "page-19" }, { label: "Te mettre au service d'un chef local", targetPageId: "page-20" }] },
-    { id: "page-18", storyId: "les-chemins-du-temps", image: page18CheminsTemps, title: "Le baptême d'un roi", text: `Tu assistes à un moment clé : Clovis, roi des Francs, va se faire baptiser. C'est un geste qui change des alliances. L'évêque s'avance. On apporte l'eau. Les murmures parcourent la foule.`, choices: [{ label: "Rester près des guerriers", targetPageId: "page-20" }, { label: "Suivre un homme d'Église", targetPageId: "page-19" }, { label: "Sortir avec la foule", targetPageId: "page-23" }] },
-    { id: "page-19", storyId: "les-chemins-du-temps", image: page19CheminsTemps, title: "L'école de Charlemagne", text: `Tu entres dans un monastère. Des moines copient des textes à la main. Tu entends le nom de Charlemagne : un empereur qui veut que les gens instruits sachent lire, compter, écrire, pour mieux gouverner.`, choices: [{ label: "Suivre les plans pour bâtir en pierre", targetPageId: "page-21" }, { label: "Suivre un messager vers les seigneurs", targetPageId: "page-20" }, { label: "Écouter les récits de guerre", targetPageId: "page-22" }] },
-    { id: "page-20", storyId: "les-chemins-du-temps", image: page20CheminsTemps, title: "La motte et la palissade", text: `Tu vois un château à motte : une butte de terre énorme avec une tour en bois. En bas, des paysans travaillent aux champs. Tu comprends : ceux qui cultivent donnent une partie au seigneur, et en échange, il protège.`, choices: [{ label: "Rester avec les gens du village", targetPageId: "page-23" }, { label: "Suivre le chevalier sur les routes de guerre", targetPageId: "page-22" }, { label: "Suivre vers un chantier de cathédrale", targetPageId: "page-21" }] },
+    // Page 1 - Le galet hors du temps
+    {
+      id: "page-1",
+      storyId: "les-chemins-du-temps",
+      image: page1CheminsTemps,
+      title: "Le galet hors du temps",
+      text: `Tu passes quelques jours chez ton grand-père, dans une vieille maison en pierre au bord d'un petit village. Cet après-midi-là, la pluie tape sur les vitres. Tu t'ennuies un peu, alors ton grand-père te propose d'explorer le grenier.
+
+En fouillant dans une malle, tu trouves un objet étrange : un galet parfaitement lisse, gris clair, presque rond. Quand tu le touches, tu ressens une chaleur douce qui monte le long de tes doigts.
+
+Ton grand-père te regarde avec un sourire mystérieux. Il t'explique que cet objet se transmet dans la famille depuis des générations. Personne ne sait d'où il vient vraiment, mais on dit qu'il porte en lui des souvenirs très anciens.
+
+Le soir venu, tu montes te coucher avec le galet. Tu le poses sur ta table de nuit, mais tu n'arrives pas à t'endormir. Des images te traversent l'esprit : une forêt immense, des flammes, des silhouettes humaines très anciennes.
+
+Le galet chauffe légèrement dans ta main.`,
+      choices: [
+        { label: "Poser le galet sous ton oreiller et t'endormir", targetPageId: "page-2" },
+        { label: "Te concentrer sur les images dans ta tête", targetPageId: "page-3" },
+        { label: "Redescendre poser des questions à ton grand-père", targetPageId: "page-4" }
+      ]
+    },
+    // Page 2 - Le voyage pendant le sommeil
+    {
+      id: "page-2",
+      storyId: "les-chemins-du-temps",
+      image: page2CheminsTemps,
+      title: "Le voyage pendant le sommeil",
+      text: `Tu glisses le galet sous ton oreiller. Peu à peu, ta respiration ralentit. Tes paupières deviennent lourdes. Tu t'endors.
+
+Une odeur te réveille d'un coup. Ce n'est pas l'odeur de la maison de ton grand-père. Ça sent la fumée, la terre mouillée, la forêt.
+
+Tu ouvres les yeux.
+
+Tu n'es plus dans ton lit. Tu es allongé sur un sol dur, couvert de feuilles mortes. Une lumière vacille entre les arbres. Un feu.
+
+En te relevant, tu distingues des silhouettes. Des humains. Mais leurs vêtements sont étranges : ils portent des peaux d'animaux. Ils sont accroupis autour des flammes.
+
+Tu comprends alors : tu es très loin dans le passé.
+
+Tu es à la Préhistoire.`,
+      choices: [
+        { label: "T'approcher du feu", targetPageId: "page-5" },
+        { label: "Suivre un bruit d'eau pour voir une rivière", targetPageId: "page-6" },
+        { label: "Rester caché et observer depuis l'ombre", targetPageId: "page-7" }
+      ]
+    },
+    // Page 3 - Les images prennent vie
+    {
+      id: "page-3",
+      storyId: "les-chemins-du-temps",
+      image: page3CheminsTemps,
+      title: "Les images prennent vie",
+      text: `Tu restes allongé dans le lit, mais tu gardes le galet dans ta main. Tu fermes les yeux et tu te concentres sur les images.
+
+Elles deviennent plus nettes. Tu vois une forêt. Très ancienne. Les arbres sont immenses. Le ciel est clair mais il n'y a aucune route, aucune maison.
+
+La chaleur du galet augmente. Et soudain, tu as l'impression de tomber.
+
+Quand tu rouvres les yeux, tu n'es plus dans ta chambre.
+
+Tu es debout dans cette forêt. Elle est vraie. L'air sent le bois humide, la terre, le feu au loin.
+
+Tu avances doucement. Au loin, tu vois un filet de fumée s'élever entre les arbres. Tu t'approches.
+
+Tu arrives près d'une clairière. Un feu brûle, entouré d'humains vêtus de peaux d'animaux.
+
+À ta droite, une ouverture dans la roche : une grotte.
+À ta gauche, des empreintes dans la boue mènent vers une rivière.`,
+      choices: [
+        { label: "Te rapprocher du feu et des humains", targetPageId: "page-5" },
+        { label: "Rester à distance et observer leurs gestes", targetPageId: "page-7" },
+        { label: "Entrer dans la grotte", targetPageId: "page-8" }
+      ]
+    },
+    // Page 4 - Les questions du soir
+    {
+      id: "page-4",
+      storyId: "les-chemins-du-temps",
+      image: page4CheminsTemps,
+      title: "Les questions du soir",
+      text: `Tu redescends l'escalier avec le galet dans la main. Ton grand-père est assis près de la cheminée, un livre sur les genoux.
+
+Il lève les yeux. Tu lui montres le galet.
+
+« Tu veux savoir ce qu'il fait vraiment ? »
+
+Il t'explique que le galet réagit à ton intention. Si tu veux observer, tu observeras. Si tu veux comprendre, tu comprendras. Mais attention : tu ne peux pas changer ce qui s'est passé. Tu peux seulement apprendre.
+
+Avant que tu remontes te coucher, il te donne une petite lanière de cuir pour attacher le galet autour de ton cou.
+
+Tu te rendors, cette fois prêt à écouter.
+
+Les images reviennent. Et cette fois, elles t'emportent.`,
+      choices: [
+        { label: "Aller vers le feu, au cœur du campement", targetPageId: "page-5" },
+        { label: "Repérer d'abord la rivière", targetPageId: "page-6" },
+        { label: "Observer avant de te montrer", targetPageId: "page-7" }
+      ]
+    },
+    // Page 5 - Le cercle du feu
+    {
+      id: "page-5",
+      storyId: "les-chemins-du-temps",
+      image: page5CheminsTemps,
+      title: "Le cercle du feu",
+      text: `Tu avances vers la clairière. Le feu crépite. Tu sens la chaleur sur ton visage.
+
+Un homme se lève d'un bond. Il tient une lance. Il te regarde avec méfiance.
+
+Tu lèves les mains, lentement, pour montrer que tu n'as rien. Autour du feu, les autres t'observent. Certains reculent. Mais un enfant, à peu près de ton âge, te fixe avec curiosité.
+
+Il fait un signe, et les adultes semblent hésiter. Finalement, ils te laissent t'approcher.
+
+L'enfant te tend une branche sèche. Tu comprends : il t'invite à nourrir le feu.
+
+Tu comprends aussi autre chose, sans qu'on te le dise : ici, tu seras accepté si tu es utile.`,
+      choices: [
+        { label: "Suivre l'enfant vers la grotte aux peintures", targetPageId: "page-8" },
+        { label: "Aider à garder le feu toute la nuit", targetPageId: "page-9" },
+        { label: "Demander à accompagner une chasse", targetPageId: "page-10" }
+      ]
+    },
+    // Page 6 - Les traces dans la boue
+    {
+      id: "page-6",
+      storyId: "les-chemins-du-temps",
+      image: page6CheminsTemps,
+      title: "Les traces dans la boue",
+      text: `Tu suis le bruit de l'eau. Un ruisseau coule entre des pierres moussues. Près de la rive, tu vois des empreintes dans la boue.
+
+Des traces d'animaux. Des cerfs. Des sangliers. Peut-être un ours.
+
+Un bruit derrière toi.
+
+L'enfant du camp est là. Il te rejoint sans un mot, observe les traces, et t'en montre une en particulier. Il t'apprend à reconnaître si une trace est fraîche ou ancienne, profonde ou légère.
+
+Tu comprends que les humains de cette époque savent lire la terre comme un livre.
+
+En retournant vers le camp, tu vois une lueur au fond de la roche : une grotte. Et en chemin, l'enfant t'indique un endroit où le groupe installe parfois un campement plus permanent.`,
+      choices: [
+        { label: "Retourner au camp pour la nuit", targetPageId: "page-9" },
+        { label: "Proposer de suivre les traces pour une chasse", targetPageId: "page-10" },
+        { label: "Demander à voir l'endroit du campement permanent", targetPageId: "page-11" }
+      ]
+    },
+    // Page 7 - Dans l'ombre des branches
+    {
+      id: "page-7",
+      storyId: "les-chemins-du-temps",
+      image: page7CheminsTemps,
+      title: "Dans l'ombre des branches",
+      text: `Tu restes à l'abri des branches, invisible.
+
+Tu observes le groupe. Un adulte taille un silex avec précision. Un autre surveille le feu. Deux silhouettes se lèvent et s'éloignent avec une torche vers une ouverture dans la roche.
+
+Le feu commence à baisser. Le groupe semble tendu. Quelqu'un murmure.
+
+Tu comprends que tu as un choix à faire : rester étranger, ou agir pour te faire accepter.`,
+      choices: [
+        { label: "Suivre les silhouettes vers la grotte", targetPageId: "page-8" },
+        { label: "Apporter du bois pour aider à maintenir le feu", targetPageId: "page-9" },
+        { label: "Attendre le lever du jour et observer un lieu plus stable", targetPageId: "page-11" }
+      ]
+    },
+    // Page 8 - La grotte des animaux peints
+    {
+      id: "page-8",
+      storyId: "les-chemins-du-temps",
+      image: page8CheminsTemps,
+      title: "La grotte des animaux peints",
+      text: `Tu suis la torche dans l'obscurité de la grotte. Le sol est humide. L'air est frais.
+
+Et soudain, tu t'arrêtes.
+
+Sur les parois de la roche, des animaux sont dessinés. Des chevaux. Des bisons. Des cerfs aux bois immenses. Les traits sont précis. Les couleurs sont faites de terre, de charbon, de pigments naturels.
+
+Ce n'est pas un simple dessin. C'est une mémoire. Une manière de raconter ce qu'on voit, ce qu'on chasse, ce qu'on respecte.
+
+L'enfant te regarde. Il ne parle pas ta langue, mais tu comprends sa question : « Tu comprends ? »
+
+Tu hoches la tête.`,
+      choices: [
+        { label: "Observer les peintures avec respect et retourner au camp", targetPageId: "page-9" },
+        { label: "Aider en portant une torche vers le fond de la grotte", targetPageId: "page-10" },
+        { label: "Essayer de toucher les dessins pour mieux comprendre", targetPageId: "page-11" }
+      ]
+    },
+    // Page 9 - Gagner ta place
+    {
+      id: "page-9",
+      storyId: "les-chemins-du-temps",
+      image: page9CheminsTemps,
+      title: "Gagner ta place",
+      text: `Le feu brûle encore. Tu t'assois près des braises.
+
+Les regards autour de toi deviennent moins durs. On t'a vu aider. On t'a vu écouter.
+
+L'enfant s'assoit près de toi. Il te tend un morceau de viande séchée. Tu l'acceptes. Tu manges.
+
+Le lendemain matin, on te confie une tâche simple : surveiller les flammes pendant que les autres préparent les outils. Peu à peu, tu deviens utile.
+
+L'enfant te montre comment tailler un éclat de silex. Tu essaies. Tu te coupes un peu. Mais tu recommences.
+
+C'est ainsi qu'on apprend, à cette époque : par la répétition, par l'erreur, par le geste.`,
+      choices: [
+        { label: "Retourner à la rivière pour observer les traces", targetPageId: "page-6" },
+        { label: "Proposer de partir avec les chasseurs", targetPageId: "page-10" },
+        { label: "Suivre le groupe vers un lieu plus permanent", targetPageId: "page-11" }
+      ]
+    },
+    // Page 10 - La chasse sans gaspiller
+    {
+      id: "page-10",
+      storyId: "les-chemins-du-temps",
+      image: page10CheminsTemps,
+      title: "La chasse sans gaspiller",
+      text: `Tu pars avec le groupe. Le soleil n'est pas encore levé. L'air est froid. Les chasseurs avancent en silence.
+
+La chasse ne commence pas par la course. Elle commence par l'attention. On regarde les traces. On écoute les branches. On repère les zones où les animaux passent souvent.
+
+Tu vois un cerf, au loin. Personne ne se précipite. Les adultes échangent des signes de la main.
+
+Finalement, le cerf est capturé. Pas par la force brute, mais par la coordination.
+
+Ensuite, tu observes quelque chose d'important : on n'utilise pas seulement la viande. On garde la peau, les os, les tendons. Rien n'est jeté.
+
+En rentrant au camp, tu remarques que certains adultes parlent d'un endroit où le groupe pourrait rester plus longtemps. Un début de village, peut-être.`,
+      choices: [
+        { label: "Revenir à la rivière pour réfléchir", targetPageId: "page-6" },
+        { label: "Retourner au camp principal", targetPageId: "page-9" },
+        { label: "Suivre ceux qui partent vers ce lieu d'installation", targetPageId: "page-11" }
+      ]
+    },
+    // Page 11 - Quand les humains restent
+    {
+      id: "page-11",
+      storyId: "les-chemins-du-temps",
+      image: page11CheminsTemps,
+      title: "Quand les humains restent",
+      text: `Le paysage a changé.
+
+Tu n'es plus dans la forêt dense du premier jour. Le galet t'a fait avancer dans le temps. Tu vois maintenant un plateau, avec des cabanes faites de bois et de terre, regroupées en cercle autour d'un feu central.
+
+C'est un village. Les humains ne bougent plus tout le temps. Ils cultivent des plantes, élèvent des animaux.
+
+Au loin, tu aperçois des pierres dressées vers le ciel. Des menhirs.
+
+Tu vois aussi des gens échanger des objets : des colliers de coquillages, du sel, de l'ambre. Le commerce commence.
+
+Le galet vibre légèrement contre ta peau.
+
+Tu sais que le temps continue de t'entraîner. Plus loin. Vers une nouvelle époque.
+
+Tu aperçois, au loin, des traces droites dans l'herbe, comme une route.`,
+      choices: [
+        { label: "Suivre les voyageurs vers un grand marché au loin", targetPageId: "page-12" },
+        { label: "Écouter le vieux sage du village qui raconte des histoires", targetPageId: "page-13" },
+        { label: "Suivre les traces droites dans l'herbe", targetPageId: "page-14" }
+      ]
+    },
+    // Page 12 - Le marché de l'oppidum
+    {
+      id: "page-12",
+      storyId: "les-chemins-du-temps",
+      image: page12CheminsTemps,
+      title: "Le marché de l'oppidum",
+      text: `Tu arrives dans un lieu que tu n'as jamais vu auparavant : un oppidum.
+
+C'est une sorte de ville fortifiée, construite sur une colline. Les maisons sont en bois et en torchis. Il y a des rues, des artisans, un marché.
+
+Tu vois un forgeron qui frappe sur du métal. Une potière tourne une jarre. Un homme échange des pièces contre du sel.
+
+Près de la porte, un druide parle avec gravité. Il évoque une armée, des routes droites, un peuple du sud : les Romains.
+
+Tu comprends que tu es maintenant à l'époque des Gaulois. Et tu sens que cette époque va bientôt rencontrer un empire puissant.`,
+      choices: [
+        { label: "Aider le forgeron pour apprendre son métier", targetPageId: "page-15" },
+        { label: "Écouter le druide parler de l'avenir", targetPageId: "page-13" },
+        { label: "Suivre la route vers les Romains", targetPageId: "page-14" }
+      ]
+    },
+    // Page 13 - Le chêne des druides
+    {
+      id: "page-13",
+      storyId: "les-chemins-du-temps",
+      image: page13CheminsTemps,
+      title: "Le chêne des druides",
+      text: `Tu te retrouves sous un immense chêne, au cœur de la forêt.
+
+Un druide, vêtu de blanc, parle à un groupe de jeunes. Il enseigne les noms des plantes, les cycles de la lune, les récits anciens.
+
+Tu remarques qu'il ne lit pas. Tout est transmis par la parole, par la mémoire.
+
+Un messager arrive en courant. Il parle d'une armée. Des soldats en colonnes, des routes droites, des aigles dorées.
+
+Les Romains arrivent.
+
+Le druide te regarde. Il te confie une brindille nouée, signe de messager. Peut-être pourras-tu porter un message, plus tard, vers un autre village.`,
+      choices: [
+        { label: "Accepter d'être messager et te diriger vers Alésia", targetPageId: "page-15" },
+        { label: "Observer de loin les Romains", targetPageId: "page-14" },
+        { label: "Retourner vers le marché pour avertir les autres", targetPageId: "page-12" }
+      ]
+    },
+    // Page 14 - La route droite
+    {
+      id: "page-14",
+      storyId: "les-chemins-du-temps",
+      image: page14CheminsTemps,
+      title: "La route droite",
+      text: `Tu découvres une route que tu n'as jamais vue auparavant.
+
+Elle est droite. Parfaitement droite. Bordée de pierres. Elle traverse les collines sans dévier.
+
+Des légionnaires romains marchent au même rythme. Leurs armures brillent. Leurs boucliers sont alignés.
+
+Tu te caches derrière un arbre pour observer.
+
+Au loin, tu vois un camp romain : des tentes alignées, un fossé creusé autour, des ordres lancés en latin.
+
+Tu comprends que Rome, ce n'est pas seulement une armée. C'est une manière de penser : l'ordre, la discipline, la route.`,
+      choices: [
+        { label: "Observer le camp romain de plus près", targetPageId: "page-15" },
+        { label: "Suivre la route vers une ville gallo-romaine", targetPageId: "page-16" },
+        { label: "Revenir vers les Gaulois pour les prévenir", targetPageId: "page-12" }
+      ]
+    },
+    // Page 15 - Alésia, la colline encerclée
+    {
+      id: "page-15",
+      storyId: "les-chemins-du-temps",
+      image: page15CheminsTemps,
+      title: "Alésia, la colline encerclée",
+      text: `Tu te retrouves sur une colline. En bas, tout autour, des lignes de bois et de fossés s'étendent à perte de vue.
+
+Tu es à Alésia.
+
+Sur la hauteur, des guerriers gaulois se sont retranchés. Ils attendent. Ils espèrent des renforts.
+
+Tout autour, les Romains ont construit une double fortification : une pour empêcher les Gaulois de sortir, une autre pour empêcher les renforts d'entrer.
+
+Ce n'est pas une bataille. C'est une guerre de patience.
+
+Tu entends le nom de Vercingétorix murmuré entre les soldats. On dit qu'il a su rassembler des peuples différents. On dit qu'il se bat pour sa terre.
+
+Tu sais comment l'histoire se termine. Mais ici, dans le froid et le silence, tu ressens le poids de ce moment.`,
+      choices: [
+        { label: "Rester près des Gaulois jusqu'à la fin du siège", targetPageId: "page-16" },
+        { label: "Observer les fortifications romaines", targetPageId: "page-17" },
+        { label: "Revenir sur la route pour quitter cette époque", targetPageId: "page-14" }
+      ]
+    },
+    // Page 16 - Lutetia change de visage
+    {
+      id: "page-16",
+      storyId: "les-chemins-du-temps",
+      image: page16CheminsTemps,
+      title: "Lutetia change de visage",
+      text: `Le galet t'a emmené plus loin.
+
+Tu es maintenant dans une ville que tu reconnais presque : Lutetia. C'est l'ancienne Paris.
+
+Mais ce n'est plus un village gaulois. Ici, il y a de la pierre. Des rues droites. Des thermes. Une arène au loin.
+
+Tu croises un homme en toge. Il dicte un texte à un scribe. Le scribe écrit sur une tablette de cire.
+
+Le commerce est organisé. Les lois sont écrites. Les bâtiments sont solides.
+
+Mais tu entends aussi des discussions plus graves. On parle de frontières qui bougent. De nouveaux peuples à l'est. D'un empire qui ne tient plus comme avant.`,
+      choices: [
+        { label: "Suivre les discussions vers les grands travaux d'eau", targetPageId: "page-17" },
+        { label: "Aider le scribe à porter un message important", targetPageId: "page-19" },
+        { label: "Suivre les voyageurs qui parlent des Francs", targetPageId: "page-18" }
+      ]
+    },
+    // Page 17 - Quand l'empire se fissure
+    {
+      id: "page-17",
+      storyId: "les-chemins-du-temps",
+      image: page17CheminsTemps,
+      title: "Quand l'empire se fissure",
+      text: `Tu te promènes dans une ancienne ville romaine. Mais quelque chose a changé.
+
+Les routes sont moins entretenues. Les pierres s'effritent. Des bâtiments sont vides.
+
+Des gens quittent la ville pour vivre dans des fermes, à la campagne.
+
+Tu vois passer un groupe d'hommes différents. Leurs vêtements ne sont pas romains. Ils parlent une langue que tu ne comprends pas. Ce sont des Francs.
+
+Un vieil homme te dit que l'Empire romain d'Occident n'existe plus. Les frontières ont été franchies. Les rois sont nouveaux.
+
+Mais tu remarques aussi que les Francs ne détruisent pas tout. Ils prennent, ils s'installent, ils négocient.
+
+Le monde ne disparaît pas. Il se transforme.
+
+Tu entres dans le début du Moyen Âge.`,
+      choices: [
+        { label: "Suivre les Francs vers un nouveau roi", targetPageId: "page-18" },
+        { label: "Chercher un monastère où les moines copient des textes", targetPageId: "page-19" },
+        { label: "Te mettre au service d'un chef local dans un château de bois", targetPageId: "page-20" }
+      ]
+    },
+    // Page 18 - Le baptême d'un roi
+    {
+      id: "page-18",
+      storyId: "les-chemins-du-temps",
+      image: page18CheminsTemps,
+      title: "Le baptême d'un roi",
+      text: `Tu es dans une grande église. Les torches éclairent des murs de pierre.
+
+Un homme se tient devant toi, entouré de guerriers. Il porte une couronne simple. C'est Clovis, roi des Francs.
+
+Tu assistes à un moment important : il va se faire baptiser.
+
+Pourquoi ce geste compte-t-il ? Parce qu'en devenant chrétien, il gagne le soutien des évêques, il peut s'allier avec d'autres peuples, il change les règles du pouvoir.
+
+L'évêque s'avance. On apporte l'eau. Des murmures parcourent la foule.
+
+Tu comprends que l'Histoire ne se fait pas toujours avec des épées. Parfois, elle se fait avec des symboles.`,
+      choices: [
+        { label: "Rester près des guerriers pour voir ce que devient le royaume", targetPageId: "page-20" },
+        { label: "Suivre un homme d'Église vers un monastère", targetPageId: "page-19" },
+        { label: "Sortir de l'église avec la foule, vers la ville", targetPageId: "page-23" }
+      ]
+    },
+    // Page 19 - L'école de Charlemagne
+    {
+      id: "page-19",
+      storyId: "les-chemins-du-temps",
+      image: page19CheminsTemps,
+      title: "L'école de Charlemagne",
+      text: `Tu entres dans un monastère.
+
+Des moines copient des textes à la main, penchés sur des parchemins. Des livres anciens sont conservés ici, dans le silence et la lumière des bougies.
+
+Un moine te raconte qu'un grand roi, Charlemagne, a décidé que les gens instruits doivent savoir lire, compter, écrire. Même ceux qui travaillent dans les cours des seigneurs.
+
+C'est la naissance d'une sorte d'école. Pas comme la tienne. Plus rare. Plus difficile. Mais c'est un début.
+
+Tu feuillettes un livre écrit en latin. Les lettres sont rondes, régulières. On appelle cette écriture la « caroline ».
+
+Tu comprends que sans ces moines, beaucoup de textes anciens auraient disparu. Ils sont les gardiens de la mémoire.`,
+      choices: [
+        { label: "Suivre les plans du maître d'œuvre pour bâtir en pierre", targetPageId: "page-21" },
+        { label: "Suivre un messager vers les seigneurs", targetPageId: "page-20" },
+        { label: "Écouter les récits des guerres de Charlemagne", targetPageId: "page-22" }
+      ]
+    },
+    // Page 20 - La motte et la palissade
+    {
+      id: "page-20",
+      storyId: "les-chemins-du-temps",
+      image: page20CheminsTemps,
+      title: "La motte et la palissade",
+      text: `Tu te retrouves au pied d'un château. Mais ce n'est pas un château de pierre comme dans les films.
+
+C'est un château à motte : une butte de terre énorme, surmontée d'une tour en bois. Une palissade entoure le tout. Des soldats surveillent les alentours.
+
+En bas, dans la cour, des paysans travaillent. Ils cultivent les champs, élèvent des animaux, apportent des sacs de grain.
+
+Tu comprends vite que ceux qui cultivent doivent donner une partie de leur récolte au seigneur. En échange, le seigneur promet de les protéger.
+
+Ce n'est pas toujours juste. Mais c'est ainsi que s'organise la vie à cette époque.`,
+      choices: [
+        { label: "Rester avec les gens du village pour apprendre leur quotidien", targetPageId: "page-23" },
+        { label: "Suivre le chevalier sur les routes de la guerre", targetPageId: "page-22" },
+        { label: "Demander à voir un chantier de cathédrale dont on parle", targetPageId: "page-21" }
+      ]
+    },
     { id: "page-21", storyId: "les-chemins-du-temps", image: page21CheminsTemps, title: "La cathédrale qui monte", text: `Tu arrives devant un chantier gigantesque. C'est une cathédrale en construction. Un maître d'œuvre te montre une maquette. Tu vois comment les arches répartissent le poids. Un verrier assemble des morceaux de verre coloré.`, choices: [{ label: "Suivre le maître verrier vers les métiers", targetPageId: "page-23" }, { label: "Écouter le maître d'œuvre vers la Renaissance", targetPageId: "page-24" }, { label: "Grimper sur l'échafaudage", targetPageId: "page-22" }] },
     { id: "page-22", storyId: "les-chemins-du-temps", image: page22CheminsTemps, title: "Orléans et l'étendard", text: `Tu es à Orléans, au temps où le royaume de France est déchiré. Tu vois Jeanne de loin, pas comme une héroïne de statue, mais comme une jeune fille entourée d'adultes. Elle tient un étendard.`, choices: [{ label: "Porter un message discret", targetPageId: "page-24" }, { label: "Rester au marché organiser les vivres", targetPageId: "page-23" }, { label: "Suivre Jeanne de loin", targetPageId: "page-25" }] },
     { id: "page-23", storyId: "les-chemins-du-temps", image: page23CheminsTemps, title: "La place du marché", text: `La place du marché est un monde entier. Un marchand utilise une balance. Un apprenti apprend un métier. Un colporteur vend des images. Tu sens que le commerce oblige à être précis.`, choices: [{ label: "Suivre vers les imprimeurs", targetPageId: "page-25" }, { label: "Laisser le galet te tirer vers la Renaissance", targetPageId: "page-24" }, { label: "Retourner vers Orléans et Jeanne", targetPageId: "page-22" }] },
