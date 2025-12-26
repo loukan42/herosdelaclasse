@@ -11,6 +11,8 @@ import StoryStart from "./pages/StoryStart";
 import StoryReader from "./pages/StoryReader";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
+import AdminStories from "./pages/AdminStories";
+import AdminStoryEditor from "./pages/AdminStoryEditor";
 import MyStories from "./pages/MyStories";
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +31,8 @@ const App = () => (
             <Route path="/grade/:gradeId/subjects/:subjectId" element={<StoriesDashboard />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/stories" element={<AdminStories />} />
+            <Route path="/admin/stories/:storyId" element={<AdminStoryEditor />} />
             <Route path="/my-stories" element={<MyStories />} />
             <Route path="/stories" element={<Navigate to="/" replace />} />
             <Route path="/subjects/:subjectId" element={<Navigate to="/" replace />} />

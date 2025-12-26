@@ -14,6 +14,110 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_stories: {
+        Row: {
+          cover_image_url: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_published: boolean
+          level: string
+          slug: string
+          start_page_id: string
+          subject_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          cover_image_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          level: string
+          slug: string
+          start_page_id?: string
+          subject_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          cover_image_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          level?: string
+          slug?: string
+          start_page_id?: string
+          subject_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      admin_story_pages: {
+        Row: {
+          choices: Json
+          created_at: string
+          ending_type: string | null
+          id: string
+          image_url: string | null
+          is_ending: boolean
+          page_id: string
+          sort_order: number
+          story_id: string
+          text: string
+          text_feminine: string | null
+          text_masculine: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          choices?: Json
+          created_at?: string
+          ending_type?: string | null
+          id?: string
+          image_url?: string | null
+          is_ending?: boolean
+          page_id: string
+          sort_order?: number
+          story_id: string
+          text: string
+          text_feminine?: string | null
+          text_masculine?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          choices?: Json
+          created_at?: string
+          ending_type?: string | null
+          id?: string
+          image_url?: string | null
+          is_ending?: boolean
+          page_id?: string
+          sort_order?: number
+          story_id?: string
+          text?: string
+          text_feminine?: string | null
+          text_masculine?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_story_pages_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "admin_stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       completed_stories: {
         Row: {
           completed_at: string
