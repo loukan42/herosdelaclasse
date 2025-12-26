@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getStoriesBySubject } from "@/data/stories";
 import { getSubject } from "@/data/subjects";
+import { getGrade } from "@/data/grades";
 import { StoryCard } from "@/components/StoryCard";
 import { Sparkles, ArrowLeft, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,15 +11,21 @@ import { UserMenu } from "@/components/UserMenu";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function StoriesDashboard() {
-  const { subjectId } = useParams<{ subjectId: string }>();
+  const { subjectId, gradeId } = useParams<{ subjectId: string; gradeId: string }>();
   const navigate = useNavigate();
   const { hasProgress, isCompleted, getCompletionCount, isAuthenticated } = useAllStoryProgress();
   const { loading } = useAuthContext();
   
   const subject = getSubject(subjectId || "");
-  const stories = getStoriesBySubject(subjectId || "");
+  const grade = getGrade(gradeId || "");
   
-  if (!subject) {
+  // Get stories filtered by both subject and grade
+  const allSubjectStories = getStoriesBySubject(subjectId || "");
+  const stories = gradeId 
+    ? allSubjectStories.filter(story => story.level === gradeId)
+    : allSubjectStories;
+  
+  if (!subject || !grade) {
     navigate("/");
     return null;
   }
@@ -46,7 +53,7 @@ export default function StoriesDashboard() {
           {/* Back button */}
           <Button 
             variant="ghost" 
-            onClick={() => navigate("/")}
+            onClick={() => navigate(`/grade/${gradeId}`)}
             className="mb-6 fade-up"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -54,9 +61,15 @@ export default function StoriesDashboard() {
           </Button>
 
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 bg-golden/20 text-golden-foreground px-4 py-2 rounded-full mb-6 fade-up">
-              <Icon className="w-4 h-4 text-golden" />
-              <span className="font-semibold text-sm">{subject.name}</span>
+            {/* Grade and Subject badges */}
+            <div className="flex items-center justify-center gap-2 mb-6 fade-up flex-wrap">
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${grade.color} text-white shadow-md`}>
+                <span className="font-display text-sm font-bold">{grade.name}</span>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-golden/20 text-golden-foreground px-4 py-2 rounded-full">
+                <Icon className="w-4 h-4 text-golden" />
+                <span className="font-semibold text-sm">{subject.name}</span>
+              </div>
             </div>
             
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 fade-up stagger-1">
@@ -84,18 +97,33 @@ export default function StoriesDashboard() {
 
       {/* Stories Grid */}
       <section className="container max-w-6xl mx-auto px-4 pb-20 flex-1">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {stories.map((story, index) => (
-            <StoryCard 
-              key={story.id} 
-              story={story} 
-              index={index}
-              hasProgress={hasProgress(story.id)}
-              isCompleted={isCompleted(story.id)}
-              completionCount={getCompletionCount(story.id)}
-            />
-          ))}
-        </div>
+        {stories.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {stories.map((story, index) => (
+              <StoryCard 
+                key={story.id} 
+                story={story} 
+                index={index}
+                hasProgress={hasProgress(story.id)}
+                isCompleted={isCompleted(story.id)}
+                completionCount={getCompletionCount(story.id)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <p className="text-xl text-muted-foreground">
+              Aucune histoire disponible pour cette matière en {grade.name}.
+            </p>
+            <Button 
+              variant="outline" 
+              onClick={() => navigate(`/grade/${gradeId}`)}
+              className="mt-4"
+            >
+              Choisir une autre matière
+            </Button>
+          </div>
+        )}
       </section>
 
       <Footer />

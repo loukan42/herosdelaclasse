@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { subjects } from "@/data/subjects";
+import { stories } from "@/data/stories";
+import { getGrade } from "@/data/grades";
 import { SubjectCard } from "@/components/SubjectCard";
-import { Sparkles, Save } from "lucide-react";
+import { Sparkles, Save, ArrowLeft } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Footer } from "@/components/Footer";
 import { UserMenu } from "@/components/UserMenu";
@@ -9,7 +11,28 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 
 export default function SubjectsDashboard() {
+  const { gradeId } = useParams<{ gradeId: string }>();
+  const navigate = useNavigate();
   const { isAuthenticated, loading } = useAuthContext();
+
+  const grade = getGrade(gradeId || "");
+
+  if (!grade) {
+    navigate("/");
+    return null;
+  }
+
+  // Get stories for this grade
+  const gradeStories = stories.filter(story => story.level === gradeId);
+  
+  // Get unique subject IDs that have stories for this grade
+  const subjectsWithStories = new Set(gradeStories.map(s => s.subjectId));
+
+  // Filter subjects to show which ones are available for this grade
+  const filteredSubjects = subjects.map(subject => ({
+    ...subject,
+    available: subjectsWithStories.has(subject.id)
+  }));
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
@@ -28,37 +51,56 @@ export default function SubjectsDashboard() {
           <Sparkles className="w-full h-full" />
         </div>
         
-        <div className="container max-w-6xl mx-auto text-center">
-          {/* Logo */}
-          <img 
-            src={logo} 
-            alt="Héros de la Classe" 
-            className="w-32 md:w-40 lg:w-48 mx-auto mb-6 fade-up drop-shadow-2xl"
-          />
-          
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-1">
-            Choisis une matière et découvre des histoires interactives pour apprendre en s'amusant.
-          </p>
+        <div className="container max-w-6xl mx-auto">
+          {/* Back button */}
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate("/")}
+            className="mb-4 fade-up"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Retour aux classes
+          </Button>
 
-          {/* CTA for non-authenticated users */}
-          {!loading && !isAuthenticated && (
-            <div className="mt-6 fade-up stagger-2">
-              <Button asChild size="lg" className="gap-2 font-display">
-                <Link to="/auth">
-                  <Save className="w-5 h-5" />
-                  Enregistrer ma progression
-                </Link>
-              </Button>
+          <div className="text-center">
+            {/* Grade badge */}
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 bg-gradient-to-r ${grade.color} text-white shadow-lg fade-up`}>
+              <span className="font-display text-lg font-bold">{grade.name}</span>
+              <span className="text-white/80">•</span>
+              <span className="text-sm">{grade.fullName}</span>
             </div>
-          )}
+
+            {/* Logo */}
+            <img 
+              src={logo} 
+              alt="Héros de la Classe" 
+              className="w-28 md:w-36 lg:w-40 mx-auto mb-4 fade-up drop-shadow-2xl"
+            />
+            
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-1">
+              Choisis une matière et découvre des histoires interactives pour apprendre en s'amusant.
+            </p>
+
+            {/* CTA for non-authenticated users */}
+            {!loading && !isAuthenticated && (
+              <div className="mt-6 fade-up stagger-2">
+                <Button asChild size="lg" className="gap-2 font-display">
+                  <Link to="/auth">
+                    <Save className="w-5 h-5" />
+                    Enregistrer ma progression
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
       {/* Subjects Grid */}
       <section className="container max-w-6xl mx-auto px-4 pb-20 flex-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {subjects.map((subject, index) => (
-            <SubjectCard key={subject.id} subject={subject} index={index} />
+          {filteredSubjects.map((subject, index) => (
+            <SubjectCard key={subject.id} subject={subject} index={index} gradeId={gradeId} />
           ))}
         </div>
       </section>
