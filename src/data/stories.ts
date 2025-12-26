@@ -2433,21 +2433,23 @@ Et tu comprends que tu arrives à un tournant : rester nomade… ou devenir séd
       storyId: "les-chemins-du-temps",
       image: page11CheminsTemps,
       title: "Quand les humains restent",
-      text: `Le paysage a changé.
+      text: `Le paysage change sans que tu comprennes tout de suite comment. Ce n'est pas comme une porte qui claque. C'est comme un livre dont on tourne une page doucement.
 
-Tu n'es plus dans la forêt dense du premier jour. Le galet t'a fait avancer dans le temps. Tu vois maintenant un plateau, avec des cabanes faites de bois et de terre, regroupées en cercle autour d'un feu central.
+La forêt s'ouvre. Tu vois un espace plus clair. Des cabanes sont là, pas posées au hasard : elles forment un cercle. Le sol est plus propre, comme si on y passait souvent. Et surtout, tu vois des champs. De vrais champs, avec des plantes alignées. Pas une cueillette au hasard. Une décision : "on reste".
 
-C'est un village. Les humains ne bougent plus tout le temps. Ils cultivent des plantes, élèvent des animaux.
+Des animaux sont attachés près d'une barrière. Des chèvres, peut-être. Tu entends des bêlements. Des enfants courent, mais pas dans la même liberté que dans la tribu nomade : ici, on surveille, on protège, on organise.
 
-Au loin, tu aperçois des pierres dressées vers le ciel. Des menhirs.
+Un adulte te montre une jarre en terre. Elle est lourde, fragile, mais elle garde l'eau. Une autre personne écrase des grains avec une pierre. Tu comprends : on transforme la nourriture. On ne se contente plus de la trouver.
 
-Tu vois aussi des gens échanger des objets : des colliers de coquillages, du sel, de l'ambre. Le commerce commence.
+Plus loin, des hommes et des femmes transportent de grosses pierres. Pas pour une maison. Pour quelque chose de plus grand. Un alignement, un monument. Tu ne connais pas le mot, mais tu as déjà vu des photos : des menhirs, des dolmens. Dans ce qui sera un jour la Bretagne, ou la Normandie, des gens ont réellement déplacé des pierres énormes, bien avant les rois.
 
-Le galet vibre légèrement contre ta peau.
+Ici, tout a un prix. Rester au même endroit, c'est plus de nourriture… mais aussi plus de disputes. Qui possède quoi ? Qui décide ? Tu entends des voix se hausser, puis se calmer.
 
-Tu sais que le temps continue de t'entraîner. Plus loin. Vers une nouvelle époque.
+Ton galet chauffe fort. Comme s'il disait : "Tu viens de voir un changement qui va tout déclencher."
 
-Tu aperçois, au loin, des traces droites dans l'herbe, comme une route.`,
+Sur un chemin, tu aperçois des échanges : des colliers, du sel, de l'ambre. Un conteur parle de tribus qui portent des torques. Et, au loin, tu vois des traces différentes : pas seulement des pieds, mais des roues, des traces droites… comme une route.
+
+Tu sens que ton prochain choix t'emmènera vers une nouvelle époque.`,
       choices: [
         { label: "Suivre les voyageurs vers un grand marché au loin", targetPageId: "page-12" },
         { label: "Écouter le vieux sage du village qui raconte des histoires", targetPageId: "page-13" },
@@ -2460,15 +2462,19 @@ Tu aperçois, au loin, des traces droites dans l'herbe, comme une route.`,
       storyId: "les-chemins-du-temps",
       image: page12CheminsTemps,
       title: "Le marché de l'oppidum",
-      text: `Tu arrives dans un lieu que tu n'as jamais vu auparavant : un oppidum.
+      text: `Tu suis le chemin qui monte vers une colline. À mesure que tu avances, tu entends des voix, des rires, des bruits de marteau. Puis tu vois une palissade en bois, des toits de chaume, et une porte gardée par des hommes moustachus.
 
-C'est une sorte de ville fortifiée, construite sur une colline. Les maisons sont en bois et en torchis. Il y a des rues, des artisans, un marché.
+Tu viens d'arriver dans un oppidum : une grande place fortifiée gauloise. Ce n'est pas une ville romaine avec des pierres partout. C'est une ville de bois, de terre et d'odeurs fortes. On y échange du sel, du tissu, du métal, des poteries. Les gens parlent vite, se disputent, négocient. Tu te faufiles entre les étals comme dans un marché d'aujourd'hui, sauf que tout est différent.
 
-Tu vois un forgeron qui frappe sur du métal. Une potière tourne une jarre. Un homme échange des pièces contre du sel.
+Tu remarques des détails : des boucliers ronds, des casques simples, des bracelets de métal. Un homme porte un torque autour du cou, un cercle brillant qui montre qu'il a du rang. Tu comprends que ces gens ne sont pas "des sauvages". Ils ont une organisation, des artisans, des règles, des alliances.
 
-Près de la porte, un druide parle avec gravité. Il évoque une armée, des routes droites, un peuple du sud : les Romains.
+Au centre, un forgeron frappe le métal. L'étincelle jaillit. La chaleur est intense. Tu penses à la Préhistoire et au silex : ici, le métal change tout. Les outils sont plus solides. Les armes aussi.
 
-Tu comprends que tu es maintenant à l'époque des Gaulois. Et tu sens que cette époque va bientôt rencontrer un empire puissant.`,
+Un peu plus loin, un vieil homme entouré de jeunes parle calmement. Personne ne l'interrompt. Il ne tient pas de livre, pourtant on l'écoute comme un professeur. Un druide, peut-être. Tu entends le mot "Rome" prononcé plusieurs fois, comme un nuage sombre. Des marchands racontent des routes droites, des soldats en rang, des villes de pierre.
+
+Ton galet vibre. Il ne te pousse pas à fuir. Il te rappelle seulement que tu es au bord d'un grand tournant : la Gaule va rencontrer un empire puissant.
+
+Tu peux plonger dans ce monde par le travail du métal, par les paroles des druides, ou en suivant les rumeurs qui viennent du sud.`,
       choices: [
         { label: "Aider le forgeron pour apprendre son métier", targetPageId: "page-15" },
         { label: "Écouter le druide parler de l'avenir", targetPageId: "page-13" },
@@ -2481,17 +2487,23 @@ Tu comprends que tu es maintenant à l'époque des Gaulois. Et tu sens que cette
       storyId: "les-chemins-du-temps",
       image: page13CheminsTemps,
       title: "Le chêne des druides",
-      text: `Tu te retrouves sous un immense chêne, au cœur de la forêt.
+      text: `Tu quittes le bruit du marché pour suivre un petit groupe vers la forêt. Très vite, les sons changent : moins de cris, plus de feuilles. On marche entre des troncs anciens, jusqu'à un endroit où le sol est propre, comme si on y venait souvent.
 
-Un druide, vêtu de blanc, parle à un groupe de jeunes. Il enseigne les noms des plantes, les cycles de la lune, les récits anciens.
+Un grand chêne se dresse au centre. Ses branches semblent toucher le ciel. Sous cet arbre, un druide parle à voix basse. Il n'a pas de parchemin, pas de tablette. Pourtant, tout le monde écoute. Tu comprends que, dans ce monde, la mémoire est un trésor. Les histoires se transmettent par les mots, pas par l'écriture.
 
-Tu remarques qu'il ne lit pas. Tout est transmis par la parole, par la mémoire.
+Le druide montre des signes simples : la course du soleil, la lune, les saisons. Il parle des récoltes, des alliances entre tribus, des serments. Il n'enseigne pas "des dates". Il enseigne comment vivre ensemble sans se perdre.
 
-Un messager arrive en courant. Il parle d'une armée. Des soldats en colonnes, des routes droites, des aigles dorées.
+Puis le mot revient, plus lourd : Rome.
 
-Les Romains arrivent.
+Un homme arrive, essoufflé, couvert de poussière. Il murmure au druide. Les visages se ferment. Tu entends des noms difficiles, des lieux, des rivières. Tu comprends seulement l'essentiel : des soldats approchent. Beaucoup. Et les tribus doivent se décider : se rassembler, résister, ou négocier.
 
-Le druide te regarde. Il te confie une brindille nouée, signe de messager. Peut-être pourras-tu porter un message, plus tard, vers un autre village.`,
+Le druide te regarde comme s'il te voyait vraiment, même si tu n'es pas habillé comme eux. Il te tend un petit objet, une brindille nouée, un signe pour dire "messager". Tu sens que tu peux être utile.
+
+Mais tu peux aussi choisir de rester ici et apprendre, parce que ce que tu vois est précieux : une société sans livres, qui se tient debout grâce à la parole. Ou, si tu veux comprendre Rome, tu peux t'approcher des éclaireurs sans te faire attraper.
+
+Ton galet est tiède, comme s'il battait la mesure d'une marche invisible : celle de l'Histoire en train d'avancer.
+
+Tu remarques aussi des détails concrets : des herbes séchées, des cordes, des paniers. Rien de magique. Juste des connaissances sur les plantes, sur les soins, sur ce qui guérit ou apaise. Tu comprends que "savoir" peut être aussi puissant qu'une épée.`,
       choices: [
         { label: "Accepter d'être messager et te diriger vers Alésia", targetPageId: "page-15" },
         { label: "Observer de loin les Romains", targetPageId: "page-14" },
@@ -2504,17 +2516,21 @@ Le druide te regarde. Il te confie une brindille nouée, signe de messager. Peut
       storyId: "les-chemins-du-temps",
       image: page14CheminsTemps,
       title: "La route droite",
-      text: `Tu découvres une route que tu n'as jamais vue auparavant.
+      text: `Tu suis les rumeurs qui viennent du sud. Après une demi-journée de marche, tu tombes sur quelque chose qui te coupe le souffle : une route. Pas un simple chemin de terre, mais une route droite, bordée de pierres, tellement régulière qu'elle semble dessinée à la règle.
 
-Elle est droite. Parfaitement droite. Bordée de pierres. Elle traverse les collines sans dévier.
+Des hommes avancent dessus en rang. Ils portent des casques, des boucliers rectangulaires, et marchent au même rythme. Tu as déjà vu des images de légionnaires, mais les voir en vrai, c'est différent : ça ressemble à une machine humaine. Ils ne crient pas. Ils obéissent.
 
-Des légionnaires romains marchent au même rythme. Leurs armures brillent. Leurs boucliers sont alignés.
+Plus loin, tu aperçois un camp. Il est construit rapidement, mais il est solide : fossé, palissade, tentes alignées. Même l'endroit où l'on cuisine est organisé. Tu comprends pourquoi on dit que Rome est un empire : ce n'est pas seulement des soldats, c'est une manière de penser.
 
-Tu te caches derrière un arbre pour observer.
+Tu te caches derrière un buisson. Un homme dessine dans la terre avec un bâton. Il trace des lignes, des angles. Peut-être un ingénieur. Un autre écrit sur une tablette de cire, en grattant avec un stylet. Écrire, ici, sert à compter, à transmettre des ordres, à garder des preuves.
 
-Au loin, tu vois un camp romain : des tentes alignées, un fossé creusé autour, des ordres lancés en latin.
+Ton galet chauffe légèrement, comme s'il t'avertissait : tu es proche d'un grand danger, mais aussi d'un grand apprentissage.
 
-Tu comprends que Rome, ce n'est pas seulement une armée. C'est une manière de penser : l'ordre, la discipline, la route.`,
+Tu peux t'approcher pour écouter et comprendre comment Rome se prépare. Tu peux suivre la route jusqu'à une ville, pour voir comment les gens vivent sous l'influence romaine. Ou tu peux retourner vers les Gaulois, parce que tu sais maintenant que les rumeurs sont vraies : l'armée arrive.
+
+Et dans tous les cas, tu sens que l'Histoire accélère.
+
+En te rapprochant, tu remarques comment la route a été construite : des pierres plates, des couches de gravier, un léger bombement au centre pour que l'eau de pluie s'écoule sur les côtés. Même sans panneau, tu comprends que cette route sert à aller vite, à transporter, à contrôler. Sur le bord, une borne de pierre indique une distance, mais tu ne sais pas lire les signes. Tu sens seulement l'idée : Rome mesure le monde.`,
       choices: [
         { label: "Observer le camp romain de plus près", targetPageId: "page-15" },
         { label: "Suivre la route vers une ville gallo-romaine", targetPageId: "page-16" },
@@ -2527,19 +2543,23 @@ Tu comprends que Rome, ce n'est pas seulement une armée. C'est une manière de 
       storyId: "les-chemins-du-temps",
       image: page15CheminsTemps,
       title: "Alésia, la colline encerclée",
-      text: `Tu te retrouves sur une colline. En bas, tout autour, des lignes de bois et de fossés s'étendent à perte de vue.
+      text: `Le galet te conduit vers une colline entourée de collines. Quand tu arrives, tu comprends tout de suite que tu n'es pas dans un simple village : il y a trop de monde, trop de bruit contenu, trop de regards inquiets.
 
 Tu es à Alésia.
 
-Sur la hauteur, des guerriers gaulois se sont retranchés. Ils attendent. Ils espèrent des renforts.
+Tu ne connais pas tous les détails, mais tu sens que c'est un moment important. Sur la hauteur, des Gaulois se sont retranchés derrière des palissades. Ils ont apporté des provisions, des animaux, des outils. Ils pensent pouvoir tenir. Mais, tout autour, un cercle se dessine : les Romains construisent des fortifications.
 
-Tout autour, les Romains ont construit une double fortification : une pour empêcher les Gaulois de sortir, une autre pour empêcher les renforts d'entrer.
+Ce n'est pas une bataille comme dans les films. C'est une guerre de patience. Les Romains creusent des fossés. Ils plantent des pieux. Ils dressent des murs de terre. Et quand ils ont fini un cercle, ils en construisent un autre, tourné vers l'extérieur, parce qu'ils craignent l'arrivée d'une armée de secours.
 
-Ce n'est pas une bataille. C'est une guerre de patience.
+Tu observes, fasciné et inquiet. Tu n'as jamais vu des humains travailler si vite, si méthodiquement. Tu comprends alors pourquoi les routes droites existent : Rome sait organiser.
 
-Tu entends le nom de Vercingétorix murmuré entre les soldats. On dit qu'il a su rassembler des peuples différents. On dit qu'il se bat pour sa terre.
+À l'intérieur, tu vois autre chose : des familles, des enfants, des personnes qui comptent les sacs, qui rationnent. La faim n'est pas encore là, mais la peur, oui. Tu entends le nom de Vercingétorix murmuré, comme celui d'un chef capable de rassembler. Tu ne le vois pas clairement, mais tu sens son influence : les gens tiennent parce qu'ils espèrent.
 
-Tu sais comment l'histoire se termine. Mais ici, dans le froid et le silence, tu ressens le poids de ce moment.`,
+Ton galet est brûlant. Comme s'il te demandait : "De quel côté veux-tu regarder l'Histoire ?"
+
+Tu peux rester avec ceux qui sont enfermés et comprendre le courage et l'attente. Tu peux t'approcher des fortifications romaines pour comprendre la stratégie. Ou tu peux fuir, revenir sur la route, parce que tu sens que ce moment est trop dangereux pour toi.
+
+Quel que soit ton choix, tu sais déjà une chose : après Alésia, la Gaule ne sera plus jamais tout à fait la même.`,
       choices: [
         { label: "Rester près des Gaulois jusqu'à la fin du siège", targetPageId: "page-16" },
         { label: "Observer les fortifications romaines", targetPageId: "page-17" },
@@ -2552,17 +2572,21 @@ Tu sais comment l'histoire se termine. Mais ici, dans le froid et le silence, tu
       storyId: "les-chemins-du-temps",
       image: page16CheminsTemps,
       title: "Lutetia change de visage",
-      text: `Le galet t'a emmené plus loin.
+      text: `Le monde bascule doucement. Comme si le galet tournait une autre page.
 
-Tu es maintenant dans une ville que tu reconnais presque : Lutetia. C'est l'ancienne Paris.
+Tu te retrouves dans une ville au bord d'un fleuve. Ce n'est plus l'oppidum de bois. Ici, il y a de la pierre. Des rues plus droites. Des toits en tuiles. Des odeurs de pain, d'huile, de fumée. On entend des marteaux sur la pierre, des roues sur le sol.
 
-Mais ce n'est plus un village gaulois. Ici, il y a de la pierre. Des rues droites. Des thermes. Une arène au loin.
+Tu comprends que tu es à Lutetia, l'ancienne Paris, à l'époque gallo-romaine. La Gaule s'est transformée. Les gens portent parfois des vêtements gaulois, parfois des vêtements romains. On mélange les habitudes, les mots, les dieux.
 
-Tu croises un homme en toge. Il dicte un texte à un scribe. Le scribe écrit sur une tablette de cire.
+Tu passes devant des thermes. De la vapeur s'en échappe. Des personnes entrent, discutent, rient. Tu n'aurais jamais imaginé des bains publics dans un monde antique, et pourtant, c'est là : se laver, se retrouver, faire des affaires. Plus loin, tu aperçois un petit amphithéâtre. On entend un brouhaha, mais tu ne t'approches pas.
 
-Le commerce est organisé. Les lois sont écrites. Les bâtiments sont solides.
+Un homme te montre, fier, un canal qui amène l'eau. Il ne te fait pas un cours. Il te montre avec ses mains : l'eau vient de loin, elle suit une pente, elle arrive ici. Tu comprends l'idée : construire, c'est dompter la nature sans la détruire.
 
-Mais tu entends aussi des discussions plus graves. On parle de frontières qui bougent. De nouveaux peuples à l'est. D'un empire qui ne tient plus comme avant.`,
+Dans une ruelle, tu vois un scribe gratter une tablette de cire. Il écrit vite, efface, réécrit. Tu reconnais des lettres, mais tu ne lis pas tout. Tu sens simplement que l'écriture sert à décider, à compter, à garder une trace.
+
+Le galet se réchauffe. Les voix autour de toi changent. On parle de frontières, de nouveaux peuples, d'un empire qui ne tient plus comme avant. La ville est belle, mais l'époque bouge.
+
+Tu as un choix : suivre la route de l'eau et des constructions, suivre la route des mots et de l'écriture, ou suivre la route des nouveaux chefs qui arrivent du nord et qui vont changer le royaume.`,
       choices: [
         { label: "Suivre les discussions vers les grands travaux d'eau", targetPageId: "page-17" },
         { label: "Aider le scribe à porter un message important", targetPageId: "page-19" },
@@ -2575,21 +2599,21 @@ Mais tu entends aussi des discussions plus graves. On parle de frontières qui b
       storyId: "les-chemins-du-temps",
       image: page17CheminsTemps,
       title: "Quand l'empire se fissure",
-      text: `Tu te promènes dans une ancienne ville romaine. Mais quelque chose a changé.
+      text: `Tu marches le long du fleuve, et tu sens que quelque chose s'effrite. Ce n'est pas un mur qui s'écroule d'un coup. C'est un monde qui fatigue.
 
-Les routes sont moins entretenues. Les pierres s'effritent. Des bâtiments sont vides.
+Les routes sont toujours là, mais moins entretenues. Certains bâtiments sont réparés avec du bois plutôt qu'avec de la pierre. Des gens quittent la ville pour vivre dans des fermes, plus loin, comme s'ils se méfiaient des grands endroits. Tu entends parler de "troubles", de "raids", de "frontières". Les mots sont flous, mais l'inquiétude est claire.
 
-Des gens quittent la ville pour vivre dans des fermes, à la campagne.
+Dans une maison, une famille cache ses objets précieux. Dans une autre, un ancien soldat montre une épée rouillée en disant : "Avant, l'armée protégeait tout. Maintenant, on se protège comme on peut." Tu comprends que, quand un pouvoir central faiblit, d'autres pouvoirs apparaissent : des chefs locaux, des seigneurs, des groupes armés.
 
-Tu vois passer un groupe d'hommes différents. Leurs vêtements ne sont pas romains. Ils parlent une langue que tu ne comprends pas. Ce sont des Francs.
+Ton galet est chaud, mais pas joyeux. Il te fait sentir que l'Histoire n'est pas seulement des victoires. C'est aussi des transitions, des mélanges, des questions : qui commande ? qui obéit ? qui écrit les règles ?
 
-Un vieil homme te dit que l'Empire romain d'Occident n'existe plus. Les frontières ont été franchies. Les rois sont nouveaux.
+Au bord d'un chemin, tu vois passer des hommes différents. Leurs vêtements, leurs armes, leurs coiffures ne ressemblent pas tout à fait à ceux des Romains. On les appelle "Francs". Ils ne viennent pas de très loin, mais ils arrivent avec leur propre manière de vivre. Ils ne détruisent pas tout. Ils prennent, ils s'installent, ils négocient.
 
-Mais tu remarques aussi que les Francs ne détruisent pas tout. Ils prennent, ils s'installent, ils négocient.
+Tu comprends que tu vas entrer dans un nouveau monde : le début du Moyen Âge. Un monde où l'on va bâtir des royaumes, des églises, des châteaux. Un monde où un roi peut changer l'Histoire en se faisant baptiser, ou en faisant écrire des lois.
 
-Le monde ne disparaît pas. Il se transforme.
+Ton galet vibre une dernière fois comme une roue qui tourne. Et il te laisse choisir par quelle porte tu entreras dans cette époque.
 
-Tu entres dans le début du Moyen Âge.`,
+Tu resserres ton pendentif : le galet chauffe comme un petit cœur.`,
       choices: [
         { label: "Suivre les Francs vers un nouveau roi", targetPageId: "page-18" },
         { label: "Chercher un monastère où les moines copient des textes", targetPageId: "page-19" },
@@ -2602,17 +2626,23 @@ Tu entres dans le début du Moyen Âge.`,
       storyId: "les-chemins-du-temps",
       image: page18CheminsTemps,
       title: "Le baptême d'un roi",
-      text: `Tu es dans une grande église. Les torches éclairent des murs de pierre.
+      text: `Tu arrives dans une ville où les murs sont épais et les rues étroites. Il fait froid. Les gens se pressent, comme attirés par un événement. Tu entends des cloches. Tu suis le mouvement jusqu'à une grande église.
 
-Un homme se tient devant toi, entouré de guerriers. Il porte une couronne simple. C'est Clovis, roi des Francs.
+À l'intérieur, la lumière est différente : elle passe par des ouvertures hautes, elle rebondit sur la pierre. On ne chuchote pas seulement par politesse, mais par respect. Devant, un homme puissant est là, entouré de guerriers. Ses cheveux sont longs. Son regard est dur, mais on sent une hésitation.
 
-Tu assistes à un moment important : il va se faire baptiser.
+Tu comprends que tu assistes à un moment clé : Clovis, roi des Francs, va se faire baptiser. Pas parce que l'eau est magique, mais parce que ce geste change des alliances. Il se rapproche de l'Église, et donc d'une partie du pouvoir. Tu ne vois pas "une scène religieuse". Tu vois un choix politique et social qui va influencer des siècles.
 
-Pourquoi ce geste compte-t-il ? Parce qu'en devenant chrétien, il gagne le soutien des évêques, il peut s'allier avec d'autres peuples, il change les règles du pouvoir.
+L'évêque s'avance. On apporte l'eau. Les murmures parcourent la foule. Certains guerriers semblent impatients, d'autres méfiants. Tu as l'impression que tout le monde retient son souffle.
 
-L'évêque s'avance. On apporte l'eau. Des murmures parcourent la foule.
+Ton galet est tiède contre toi. Il ne te fait pas avancer. Il te laisse regarder, comprendre.
 
-Tu comprends que l'Histoire ne se fait pas toujours avec des épées. Parfois, elle se fait avec des symboles.`,
+Après la cérémonie, les gens sortent. Dehors, les discussions explosent. Certains parlent de paix. D'autres parlent de guerre, de conquêtes. Un homme dit : "Maintenant, il est un roi comme les autres rois chrétiens." Un autre répond : "Il reste un Franc. Il fera ce qu'il veut."
+
+Tu te retrouves au milieu de trois mondes : celui des guerriers, celui des hommes d'Église qui écrivent et organisent, et celui du peuple qui doit vivre avec les décisions des puissants.
+
+Tu sens que ton prochain choix décidera de ce que tu comprendras du Moyen Âge : la force, les livres, ou la vie quotidienne.
+
+Sur les pavés, tu sens l'odeur du cuir mouillé et de la fumée : la ville entière vit cet instant.`,
       choices: [
         { label: "Rester près des guerriers pour voir ce que devient le royaume", targetPageId: "page-20" },
         { label: "Suivre un homme d'Église vers un monastère", targetPageId: "page-19" },
@@ -2625,17 +2655,21 @@ Tu comprends que l'Histoire ne se fait pas toujours avec des épées. Parfois, e
       storyId: "les-chemins-du-temps",
       image: page19CheminsTemps,
       title: "L'école de Charlemagne",
-      text: `Tu entres dans un monastère.
+      text: `Le galet te conduit vers un bâtiment calme, entouré de jardins simples. On y entend des pas feutrés et le frottement d'une plume. Tu entres dans un monastère.
 
-Des moines copient des textes à la main, penchés sur des parchemins. Des livres anciens sont conservés ici, dans le silence et la lumière des bougies.
+À l'intérieur, il fait chaud. Des moines sont penchés sur des tables. Ils copient des textes à la main, lettre après lettre. Certains dessinent des petites décorations colorées. Tu es dans un scriptorium, un atelier de copie. Ici, on garde la mémoire du monde dans des livres qu'on fabrique lentement.
 
-Un moine te raconte qu'un grand roi, Charlemagne, a décidé que les gens instruits doivent savoir lire, compter, écrire. Même ceux qui travaillent dans les cours des seigneurs.
+Un homme te montre une plume, de l'encre, un parchemin. Il ne t'explique pas comme à l'école. Il te met devant la réalité : si tu te trompes, tu gâches une peau d'animal préparée pendant des heures. Alors tu respires, tu tiens ta main, tu essaies. Tu traces une lettre. Puis une autre.
 
-C'est la naissance d'une sorte d'école. Pas comme la tienne. Plus rare. Plus difficile. Mais c'est un début.
+Tu entends le nom de Charlemagne. On parle d'un empereur qui veut que les gens instruits sachent lire, compter, écrire, pour mieux gouverner. Tu comprends que l'école, ici, n'est pas pour tout le monde. Mais elle existe. Et elle change la manière de commander : un ordre écrit reste plus longtemps qu'un ordre crié.
 
-Tu feuillettes un livre écrit en latin. Les lettres sont rondes, régulières. On appelle cette écriture la « caroline ».
+Un messager arrive. Il apporte un rouleau scellé. Les moines le lisent. Tu vois leur concentration : comprendre un texte, ce n'est pas seulement "savoir les lettres". C'est saisir le sens, éviter les erreurs.
 
-Tu comprends que sans ces moines, beaucoup de textes anciens auraient disparu. Ils sont les gardiens de la mémoire.`,
+Tu sens que ton choix peut t'emmener vers trois routes différentes : celle des bâtiments en pierre et des grands projets, celle de la puissance des seigneurs et des châteaux, ou celle des légendes et des guerres qui traverseront le royaume.
+
+Ton galet se réchauffe, comme une petite braise : l'encre et le feu ont un point commun, ils gardent une trace.
+
+Un moine te montre une écriture plus claire que d'autres, avec des lettres séparées. Il te fait comprendre que c'est plus facile à lire. Tu ne connais pas le nom, mais tu apprends l'idée : on peut inventer une manière d'écrire pour que le savoir circule mieux. Et plus le savoir circule, plus un royaume tient debout.`,
       choices: [
         { label: "Suivre les plans du maître d'œuvre pour bâtir en pierre", targetPageId: "page-21" },
         { label: "Suivre un messager vers les seigneurs", targetPageId: "page-20" },
@@ -2648,36 +2682,445 @@ Tu comprends que sans ces moines, beaucoup de textes anciens auraient disparu. I
       storyId: "les-chemins-du-temps",
       image: page20CheminsTemps,
       title: "La motte et la palissade",
-      text: `Tu te retrouves au pied d'un château. Mais ce n'est pas un château de pierre comme dans les films.
+      text: `Tu suis un messager sur un chemin boueux. Le paysage n'a plus la même tranquillité que dans les champs néolithiques. Ici, on regarde souvent derrière soi. Les routes ne sont pas toujours sûres. On parle de pillards, de rivalités, de frontières.
 
-C'est un château à motte : une butte de terre énorme, surmontée d'une tour en bois. Une palissade entoure le tout. Des soldats surveillent les alentours.
+Au bout d'un moment, tu vois une butte de terre énorme, comme une colline fabriquée par des mains humaines. Au sommet, une tour en bois. Tout autour, une palissade. C'est un château à motte : une fortification rapide à construire, faite pour protéger et montrer la puissance d'un seigneur.
 
-En bas, dans la cour, des paysans travaillent. Ils cultivent les champs, élèvent des animaux, apportent des sacs de grain.
+En bas, des maisons en bois s'alignent. Des paysans travaillent aux champs. Tu comprends vite la règle : ceux qui cultivent donnent une partie de leur récolte au seigneur, et en échange, le seigneur protège… quand il peut. Ce n'est pas toujours juste, mais c'est le système. Et quand un système existe, il façonne la vie.
 
-Tu comprends vite que ceux qui cultivent doivent donner une partie de leur récolte au seigneur. En échange, le seigneur promet de les protéger.
+Un charpentier t'explique par gestes comment on plante les pieux, comment on renforce la palissade. Tu vois que le château n'est pas seulement une maison de riche : c'est un outil de guerre, et aussi un refuge en cas de danger.
 
-Ce n'est pas toujours juste. Mais c'est ainsi que s'organise la vie à cette époque.`,
+Un chevalier passe, armure simple, cheval fatigué. Il parle d'une mission. D'une guerre qui dure. Tu entends aussi parler d'une église qu'on veut construire en pierre, plus solide que tout le reste, pour durer "pour toujours".
+
+Tu regardes la motte. Tu comprends que le Moyen Âge, ce n'est pas seulement des batailles. C'est aussi une manière d'organiser le territoire : qui commande où, qui protège, qui travaille, qui prie.
+
+Ton galet est tiède. Il te laisse choisir : suivre la vie quotidienne des gens, suivre les chemins de la guerre, ou suivre ceux qui bâtissent en pierre pour défier le temps.
+
+Tu vois aussi un moulin près d'un ruisseau : l'eau fait tourner une roue, et la farine tombe comme par magie. Tu comprends que la technique existe, mais qu'elle appartient souvent au seigneur. Dans ce monde, même l'eau peut devenir un pouvoir.`,
       choices: [
         { label: "Rester avec les gens du village pour apprendre leur quotidien", targetPageId: "page-23" },
         { label: "Suivre le chevalier sur les routes de la guerre", targetPageId: "page-22" },
         { label: "Demander à voir un chantier de cathédrale dont on parle", targetPageId: "page-21" }
       ]
     },
-    { id: "page-21", storyId: "les-chemins-du-temps", image: page21CheminsTemps, title: "La cathédrale qui monte", text: `Tu arrives devant un chantier gigantesque. C'est une cathédrale en construction. Un maître d'œuvre te montre une maquette. Tu vois comment les arches répartissent le poids. Un verrier assemble des morceaux de verre coloré.`, choices: [{ label: "Suivre le maître verrier vers les métiers", targetPageId: "page-23" }, { label: "Écouter le maître d'œuvre vers la Renaissance", targetPageId: "page-24" }, { label: "Grimper sur l'échafaudage", targetPageId: "page-22" }] },
-    { id: "page-22", storyId: "les-chemins-du-temps", image: page22CheminsTemps, title: "Orléans et l'étendard", text: `Tu es à Orléans, au temps où le royaume de France est déchiré. Tu vois Jeanne de loin, pas comme une héroïne de statue, mais comme une jeune fille entourée d'adultes. Elle tient un étendard.`, choices: [{ label: "Porter un message discret", targetPageId: "page-24" }, { label: "Rester au marché organiser les vivres", targetPageId: "page-23" }, { label: "Suivre Jeanne de loin", targetPageId: "page-25" }] },
-    { id: "page-23", storyId: "les-chemins-du-temps", image: page23CheminsTemps, title: "La place du marché", text: `La place du marché est un monde entier. Un marchand utilise une balance. Un apprenti apprend un métier. Un colporteur vend des images. Tu sens que le commerce oblige à être précis.`, choices: [{ label: "Suivre vers les imprimeurs", targetPageId: "page-25" }, { label: "Laisser le galet te tirer vers la Renaissance", targetPageId: "page-24" }, { label: "Retourner vers Orléans et Jeanne", targetPageId: "page-22" }] },
-    { id: "page-24", storyId: "les-chemins-du-temps", image: page24CheminsTemps, title: "Une page se tourne", text: `Tu sens le galet vibrer. Le monde du Moyen Âge continue, mais quelque chose change. Tu arrives à la Renaissance, une période où l'on regarde le monde autrement.`, choices: [{ label: "Suivre la route des imprimeurs", targetPageId: "page-25" }, { label: "Suivre la route des rois et châteaux", targetPageId: "page-26" }, { label: "Suivre la route des ports et cartes", targetPageId: "page-27" }] },
-    { id: "page-25", storyId: "les-chemins-du-temps", image: page25CheminsTemps, title: "L'atelier des pages imprimées", text: `Tu entres dans un atelier d'imprimerie. Un homme place des lettres en métal dans un cadre. Quand il presse une feuille, les signes sont identiques, bien alignés. Tu comprends : si les livres deviennent plus nombreux, les idées voyagent plus vite.`, choices: [{ label: "Suivre vers la cour du roi", targetPageId: "page-26" }, { label: "Suivre le marin vers un port", targetPageId: "page-27" }, { label: "Avancer vers le siècle des mousquetaires", targetPageId: "page-28" }] },
-    { id: "page-26", storyId: "les-chemins-du-temps", image: page26CheminsTemps, title: "Le roi et la langue", text: `Tu arrives près d'un château Renaissance. On parle de François Ier, d'artistes, d'inventions. Tu entends une décision : les actes officiels seront rédigés en français, pas seulement en latin.`, choices: [{ label: "Revenir vers l'imprimerie", targetPageId: "page-25" }, { label: "Suivre vers un port de l'Atlantique", targetPageId: "page-27" }, { label: "Vers Paris au temps des mousquetaires", targetPageId: "page-28" }] },
-    { id: "page-27", storyId: "les-chemins-du-temps", image: page27CheminsTemps, title: "La carte et l'horizon", text: `Tu arrives dans un port de l'Atlantique. Un homme déplie une carte. Un marin utilise une boussole. Tu entends le nom de Jacques Cartier. On parle d'un départ vers l'ouest.`, choices: [{ label: "Monter à bord", targetPageId: "page-28" }, { label: "Retourner vers la cour du roi", targetPageId: "page-26" }, { label: "Revenir vers l'imprimerie", targetPageId: "page-25" }] },
-    { id: "page-28", storyId: "les-chemins-du-temps", image: page28CheminsTemps, title: "Paris, bottes et capes", text: `Tu es à Paris. Des roues sur les pavés. Un jeune homme en cape traverse la rue. Tu entends le mot "mousquetaire". On parle de Louis XIII, du cardinal Richelieu, de complots.`, choices: [{ label: "Aider discrètement", targetPageId: "page-29" }, { label: "Observer les imprimeurs et rumeurs", targetPageId: "page-30" }, { label: "Sortir le galet malgré le danger", targetPageId: "page-35" }] },
-    { id: "page-29", storyId: "les-chemins-du-temps", image: page29CheminsTemps, title: "Le miroir de Versailles", text: `Tu arrives à Versailles. Des jardins s'étirent comme des tapis verts. Des fontaines brillent. Tout tourne autour de Louis XIV, le Roi-Soleil. Un jardinier te montre comment on mesure un bassin.`, choices: [{ label: "Suivre vers la Révolution", targetPageId: "page-30" }, { label: "Suivre vers les machines du XIXe", targetPageId: "page-31" }, { label: "Tenter de voler un plan", targetPageId: "page-35" }] },
-    { id: "page-30", storyId: "les-chemins-du-temps", image: page30CheminsTemps, title: "1789, les mots qui brûlent", text: `Tu es en 1789, au début de la Révolution française. Les gens parlent fort, se rassemblent. Un imprimeur te tend un paquet de feuilles à distribuer. Les mots circulent comme du pain.`, choices: [{ label: "Aider en distribuant les feuilles", targetPageId: "page-31" }, { label: "Laisser le galet te tirer plus loin", targetPageId: "page-32" }, { label: "Te précipiter dans la foule", targetPageId: "page-35" }] },
-    { id: "page-31", storyId: "les-chemins-du-temps", image: page31CheminsTemps, title: "Le siècle de la vapeur", text: `Tu es au XIXe siècle. Sur le port, des bateaux entrent et sortent. Certains ont une cheminée. Un homme te montre le château d'If au loin. Il parle de prisonniers, d'évasions. Tu penses au Comte de Monte-Cristo. Un train à vapeur passe. Les distances rétrécissent.`, choices: [{ label: "Suivre le train vers le XXe siècle", targetPageId: "page-32" }, { label: "Rester au XIXe siècle", targetPageId: "page-34" }, { label: "T'approcher du château d'If", targetPageId: "page-35" }] },
-    { id: "page-32", storyId: "les-chemins-du-temps", image: page32CheminsTemps, title: "Le siècle des tempêtes", text: `Tu es au XXe siècle, pendant une période de guerre. Les gens parlent bas. Un bruit de cloches éclate. Des gens sortent, certains rient, d'autres pleurent. C'est la Libération. Puis le galet te ramène dans ta chambre chez ton grand-père.`, choices: [{ label: "Tout raconter à ton grand-père", targetPageId: "page-33" }, { label: "Garder l'aventure pour toi", targetPageId: "page-34" }, { label: "Forcer le galet", targetPageId: "page-35" }] },
-    { id: "page-33", storyId: "les-chemins-du-temps", image: page33CheminsTemps, title: "Le carnet du temps", text: `Tu descends tout raconter à ton grand-père. Il écoute comme on écoute un témoin. Il te propose un cahier pour garder tes sensations, tes rencontres, tes questions. Tu ne regardes plus les époques comme des cases sur une frise. Tu les vois comme une aventure humaine.`, choices: [{ label: "Recommencer depuis le début", targetPageId: "page-1" }, { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" }, { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }], isEnding: true, endingType: "happy" },
-    { id: "page-34", storyId: "les-chemins-du-temps", image: page34CheminsTemps, title: "Le galet refroidit", text: `Tu restes un moment assis sur ton lit. Tu ranges le galet dans un tiroir. Plus le temps passe, plus certains détails deviennent flous. Le soir, tu touches le galet. Il est froid. Peut-être qu'il attend. Peut-être que c'est toi qui n'es pas prêt.`, choices: [{ label: "Recommencer depuis le début", targetPageId: "page-1" }, { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" }, { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }], isEnding: true, endingType: "neutral" },
-    { id: "page-35", storyId: "les-chemins-du-temps", image: page35CheminsTemps, title: "Perdu entre les époques", text: `Tu as voulu aller trop vite. Le galet devient brûlant. Le monde se déchire. Tu te retrouves dans une salle froide avec des vitrines : un musée. Le galet est fendu. Il ne répond plus. Tu es bloqué. L'Histoire n'est pas un jouet.`, choices: [{ label: "Recommencer depuis le début", targetPageId: "page-1" }, { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" }, { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }], isEnding: true, endingType: "bad" }
+    // Page 21 - La cathédrale qui monte
+    {
+      id: "page-21",
+      storyId: "les-chemins-du-temps",
+      image: page21CheminsTemps,
+      title: "La cathédrale qui monte",
+      text: `Tu arrives devant un chantier gigantesque. Des échafaudages en bois grimpent vers le ciel. Des pierres sont empilées comme des montagnes. Des ouvriers crient des consignes, tirent des cordes, portent des outils. Au milieu de ce tumulte, tu vois pourtant une organisation précise : chacun a sa tâche.
+
+C'est une cathédrale en construction. Peut-être Chartres, peut-être Reims, peut-être une autre. Peu importe le nom : ce qui compte, c'est l'idée. On bâtit pour que cela dure plus longtemps que la vie d'un seul humain. On bâtit pour dire : "Nous sommes là."
+
+Un maître d'œuvre te montre une maquette en bois. Il te fait comprendre comment les arches répartissent le poids, comment les voûtes montent sans s'écrouler. Tu n'as pas besoin de formules. Tu vois la logique. Tu comprends que les pierres tiennent parce qu'elles se soutiennent les unes les autres.
+
+Un verrier travaille près d'un cadre. Il tient des morceaux de verre coloré. Il les assemble avec du plomb. Quand la lumière passe, tout devient lumineux. Tu as l'impression de voir un arc-en-ciel emprisonné.
+
+Tu sens que ce chantier raconte le Moyen Âge : la foi, oui, mais aussi la technique, les métiers, les guildes, la fierté des villes. Ici, on invente, on teste, on apprend en faisant.
+
+Ton galet chauffe, comme si la pierre et le temps se répondaient.
+
+Tu peux suivre le verrier et apprendre comment la lumière devient histoire. Tu peux écouter le maître d'œuvre et comprendre comment on bâtit un monde solide. Ou tu peux grimper trop haut, trop vite, pour voir de près… avec le risque que le chantier n'aime pas les imprudents.
+
+Au sol, des tailleurs de pierre gravent un petit signe sur leur bloc, un symbole personnel. Ce n'est pas pour faire joli : c'est pour savoir qui a travaillé, qui doit être payé, qui doit recommencer si la pierre est mauvaise. Tu comprends que, même ici, on compte, on mesure, on s'organise.
+
+Une grue en bois tourne lentement, actionnée par des hommes qui marchent dans une grande roue comme des hamsters géants. La cathédrale monte grâce aux muscles… et à l'ingéniosité.`,
+      choices: [
+        { label: "Suivre le maître verrier vers les métiers", targetPageId: "page-23" },
+        { label: "Écouter le maître d'œuvre vers la Renaissance", targetPageId: "page-24" },
+        { label: "Grimper sur l'échafaudage", targetPageId: "page-22" }
+      ]
+    },
+    // Page 22 - Orléans et l'étendard
+    {
+      id: "page-22",
+      storyId: "les-chemins-du-temps",
+      image: page22CheminsTemps,
+      title: "Orléans et l'étendard",
+      text: `Le galet te tire vers une ville encerclée de rumeurs. Tu sens la peur avant même de la voir. Des portes sont gardées. Des gens parlent vite, chuchotent, comptent leurs sacs de farine. Tu comprends : la guerre est là, mais ce n'est pas forcément une bataille sous tes yeux. C'est d'abord une vie qui se resserre.
+
+Tu es à Orléans, au temps où le royaume de France est déchiré. On parle des Anglais, des sièges, des trahisons. Mais au milieu de cette inquiétude, un nom circule comme une étincelle : Jeanne.
+
+Tu la vois de loin, pas comme une héroïne de statue, mais comme une jeune fille entourée d'adultes qui la regardent avec surprise. Elle tient un étendard. Elle ne crie pas. Elle avance. Et les gens se redressent, comme si sa confiance leur donnait la leur.
+
+Tu n'assistes pas à un combat. Tu vois plutôt ce qui rend une ville capable de tenir : apporter de l'eau, réparer une porte, transmettre un message, calmer une dispute. Tu comprends que l'Histoire ne se fait pas seulement par ceux qui portent une armure, mais aussi par ceux qui portent un panier.
+
+Un homme te demande, croyant que tu es un jeune coursier, si tu peux porter un message discret à travers une ruelle. Un autre te propose de l'aider à organiser des vivres au marché pour éviter la panique. Et toi, tu sens aussi une tentation dangereuse : te faufiler pour voir Jeanne de près, pour "être sûr" que tu l'as vraiment vue, même si cela te mettrait en difficulté.
+
+Le galet chauffe fort, comme si ce moment était une charnière. Après cette époque, le monde va changer : les armes, les idées, les livres.
+
+Et tu dois choisir comment tu traverses ce moment : par le courage discret, par la vie quotidienne, ou par la curiosité risquée.`,
+      choices: [
+        { label: "Porter un message discret", targetPageId: "page-24" },
+        { label: "Rester au marché organiser les vivres", targetPageId: "page-23" },
+        { label: "Suivre Jeanne de loin", targetPageId: "page-25" }
+      ]
+    },
+    // Page 23 - La place du marché
+    {
+      id: "page-23",
+      storyId: "les-chemins-du-temps",
+      image: page23CheminsTemps,
+      title: "La place du marché",
+      text: `La place du marché est un monde entier. Des odeurs de pain chaud, de fromage, de fumée. Des cris de vendeurs. Des paniers qui se cognent. Des poules qui s'échappent. Tu te faufiles au milieu des étals en essayant de ne pas te faire remarquer.
+
+Ici, l'Histoire n'a pas de couronne sur la tête. Elle a des mains sales. Elle compte des pièces. Elle mesure des tissus. Tu vois un marchand utiliser une balance, des petits poids. Tu comprends que, même sans calculatrice, on sait compter, comparer, négocier. Le commerce oblige à être précis.
+
+Un artisan montre un objet en cuir. Un autre vend des clous. Tu repenses au château à motte : sans clous, sans corde, sans bois, rien ne tient. Un apprenti te regarde. Il a ton âge, peut-être un peu plus. Ses mains sont déjà marquées par le travail. Il te fait comprendre qu'il apprend un métier pendant des années, auprès d'un maître. Pas seulement pour gagner de l'argent, mais pour avoir une place.
+
+Une femme discute du prix du blé. Elle n'est pas contente. Tu comprends que la nourriture est toujours un sujet sérieux. Quand le prix du pain monte, les gens se mettent en colère. Et cette colère peut changer le monde.
+
+Au coin de la place, un colporteur vend de petits objets : des images, des feuilles avec des signes. Tu n'arrives pas à lire, mais tu comprends que de nouvelles idées circulent. Les histoires voyagent, pas seulement à cheval, mais dans les sacs des marchands.
+
+Un soldat passe, pressé. On parle encore de Jeanne. Plus loin, quelqu'un parle d'un artisan qui imprime des pages avec des lettres en métal, une invention qui va rendre les livres moins rares.
+
+Le galet est tiède, comme s'il te disait : "Tu vois ? Tout est lié. Les marchés, les rois, les guerres, les inventions."
+
+Tu peux suivre la route des livres qui arrivent, suivre une idée nouvelle qui te tire vers l'avenir, ou retourner vers Jeanne pour comprendre pourquoi une personne peut changer le courage d'un peuple.`,
+      choices: [
+        { label: "Suivre vers les imprimeurs", targetPageId: "page-25" },
+        { label: "Laisser le galet te tirer vers la Renaissance", targetPageId: "page-24" },
+        { label: "Retourner vers Orléans et Jeanne", targetPageId: "page-22" }
+      ]
+    },
+    // Page 24 - Une page se tourne
+    {
+      id: "page-24",
+      storyId: "les-chemins-du-temps",
+      image: page24CheminsTemps,
+      title: "Une page se tourne",
+      text: `Tu sens le galet vibrer, comme s'il battait un rythme plus rapide. Autour de toi, le monde du Moyen Âge continue, mais quelque chose change dans l'air, comme avant un orage.
+
+Les châteaux de bois deviennent des châteaux de pierre. Les routes s'améliorent. Les villes grandissent. Tu vois des gens parler de plus en plus de commerce, de voyages, de découvertes. Et surtout, tu entends une idée qui revient : "écrire". Pas seulement pour les moines. Écrire pour administrer, pour vendre, pour convaincre.
+
+Le galet te montre des images, comme des éclairs : une presse qui écrase du papier, des lettres en métal rangées comme des soldats, une carte de mer remplie de lignes, et un château étrange avec des escaliers compliqués, comme un rêve de pierre.
+
+Tu comprends que tu arrives à la Renaissance, une période où l'on regarde le monde autrement. On ne renie pas tout ce qui existait avant. On ajoute. On questionne. On invente.
+
+Tu fermes les yeux un instant. Quand tu les rouvres, tu es déjà sur un chemin plus large. Le paysage semble plus "ouvert". Les vêtements des passants changent. Les sons aussi : plus de chevaux, plus de charrettes.
+
+Tu sais que tu ne peux pas tout voir. Tu dois choisir la porte par laquelle tu entres dans cette époque.
+
+Tu peux suivre la route des livres et des imprimeurs, là où des idées se multiplient comme des graines. Tu peux suivre la route des rois et des châteaux, là où un souverain décide de la langue du royaume. Ou tu peux suivre la route de la mer, des cartes et des ports, là où des Français s'apprêtent à partir très loin, vers des terres inconnues.
+
+Le galet chauffe, prêt à te faire avancer. Et toi, tu sens une excitation nouvelle : l'Histoire devient plus proche de ton monde.`,
+      choices: [
+        { label: "Suivre la route des imprimeurs", targetPageId: "page-25" },
+        { label: "Suivre la route des rois et châteaux", targetPageId: "page-26" },
+        { label: "Suivre la route des ports et cartes", targetPageId: "page-27" }
+      ]
+    },
+    // Page 25 - L'atelier des pages imprimées
+    {
+      id: "page-25",
+      storyId: "les-chemins-du-temps",
+      image: page25CheminsTemps,
+      title: "L'atelier des pages imprimées",
+      text: `Tu entres dans une ville plus animée, où les boutiques s'alignent le long des rues. On n'est plus dans le silence du scriptorium. Ici, ça parle, ça vend, ça discute. Et une odeur nouvelle te surprend : l'encre.
+
+Tu suis cette odeur jusqu'à un atelier. À l'intérieur, un homme place de petites lettres en métal dans un cadre, une par une. Il ne les dessine pas, il les assemble. Quand il a fini une ligne, il la serre fort. Puis il encre la surface et presse une feuille dessus.
+
+Quand il soulève la feuille, tu restes bouche bée : les signes sont identiques, bien alignés, comme si une seule main parfaite avait écrit. Et il peut recommencer encore, encore, encore. Beaucoup plus vite qu'un moine.
+
+Tu comprends sans qu'on te fasse une leçon : si les livres deviennent plus nombreux, les idées voyagent plus vite. Les histoires, les règles, les découvertes. Tout.
+
+Un apprenti te montre une caisse de lettres. Il te fait comprendre qu'il faut les ranger, sinon on ne retrouve plus rien. C'est un peu comme un puzzle. Tu l'aides à remettre des lettres à leur place. Tu te sens utile. Tu comprends aussi que l'imprimerie, ce n'est pas seulement "écrire". C'est aussi compter, organiser, répéter.
+
+Un homme arrive avec un papier scellé. On parle de "privilège du roi" : l'autorisation d'imprimer. Tu comprends que le pouvoir surveille les mots, parce que les mots peuvent changer les gens.
+
+Dans un coin, un marin regarde une carte imprimée. Il parle d'un port : Saint-Malo. Il parle d'un voyage. D'un explorateur : Jacques Cartier. Ton cœur accélère. La mer, les cartes… ce sont des portes vers des mondes immenses.
+
+Le galet est tiède. Il te laisse choisir : suivre la route des rois qui contrôlent les mots, suivre la route de la mer qui étire les cartes, ou sauter plus loin dans le temps pour voir comment ces idées finiront par secouer la France.`,
+      choices: [
+        { label: "Suivre vers la cour du roi", targetPageId: "page-26" },
+        { label: "Suivre le marin vers un port", targetPageId: "page-27" },
+        { label: "Avancer vers le siècle des mousquetaires", targetPageId: "page-28" }
+      ]
+    },
+    // Page 26 - Le roi et la langue
+    {
+      id: "page-26",
+      storyId: "les-chemins-du-temps",
+      image: page26CheminsTemps,
+      title: "Le roi et la langue",
+      text: `Tu arrives près d'un château qui ne ressemble pas aux forteresses du Moyen Âge. Ici, il y a des fenêtres grandes, des escaliers qui tournent élégamment, des façades décorées. Le bâtiment semble dire : "Je suis puissant, et je veux le montrer avec beauté."
+
+Des gens vont et viennent avec des rouleaux de papier, des plumes, des sceaux. Tu comprends que tu es à la cour d'un roi de la Renaissance. On parle de François Ier, de guerres en Italie, d'artistes, d'inventions. Tu n'es pas obligé de tout comprendre. Tu sens seulement que la France se transforme : elle devient un royaume plus organisé, plus central.
+
+Un officier te bouscule gentiment en passant, pressé. Il tient un paquet de documents. Tu vois des mots en latin, puis d'autres dans une langue plus proche de la tienne. On discute. On hésite. On tranche. Et tu entends une phrase qui revient : "Il faut que ce soit écrit en français."
+
+Tu es au cœur d'une décision réelle : le roi veut que certains actes officiels soient rédigés en français, et pas seulement en latin. Ce n'est pas juste une histoire de grammaire. C'est une manière de gouverner : si plus de gens comprennent, le royaume fonctionne différemment. Les mots deviennent un outil politique.
+
+Un artisan te montre un plan de bâtiment. Il te fait comprendre comment on mesure, comment on dessine avant de construire. Tu repenses à la cathédrale : ici aussi on bâtit, mais avec un autre style, une autre idée de la beauté.
+
+Puis tu entends parler d'un départ vers l'océan. Des navires. Des cartes. Un nom revient : Cartier. Le roi veut comprendre le monde et agrandir son influence.
+
+Ton galet se réchauffe. Il te propose trois chemins : revenir vers les imprimeurs pour voir comment les mots se diffusent, partir vers le port pour suivre les cartes, ou avancer vers un siècle où le pouvoir et les intrigues seront partout, dans les rues de Paris.`,
+      choices: [
+        { label: "Revenir vers l'imprimerie", targetPageId: "page-25" },
+        { label: "Suivre vers un port de l'Atlantique", targetPageId: "page-27" },
+        { label: "Vers Paris au temps des mousquetaires", targetPageId: "page-28" }
+      ]
+    },
+    // Page 27 - La carte et l'horizon
+    {
+      id: "page-27",
+      storyId: "les-chemins-du-temps",
+      image: page27CheminsTemps,
+      title: "La carte et l'horizon",
+      text: `L'air change avant même que tu voies la mer : il devient plus salé, plus humide. Tu arrives dans un port de l'Atlantique. Des bateaux se balancent, des cordes grincent, des marins crient des ordres. Des barils roulent. Des mouettes tournent au-dessus des toits.
+
+Tu as l'impression d'être dans une fourmilière.
+
+Un homme déplie une carte. Elle n'est pas parfaite. Les côtes sont approximatives. Mais elle existe. On y trace des lignes, on écrit des noms. Un marin utilise une boussole. Un autre montre un instrument pour regarder le soleil. Tu comprends que voyager loin, ce n'est pas seulement "avoir du courage". C'est aussi comprendre la géographie, les vents, les courants.
+
+Tu entends le nom de Jacques Cartier. On parle d'un départ vers l'ouest, pour trouver un passage, des richesses, des alliés. Tu sais, toi, qu'il va atteindre des terres qui deviendront le Canada. Mais ici, personne ne le sait. Pour eux, c'est une page blanche sur la carte.
+
+Un jeune mousse te regarde. Il te montre un nœud marin, puis un autre. Tu imites. Tu te trompes. Tu recommences. Tu comprends que, sur un bateau, un nœud raté peut coûter très cher. Même un enfant doit être précis.
+
+Le galet chauffe fort, comme si l'océan était une autre forme de temps : immense, dangereux, fascinant.
+
+Tu peux monter à bord et accepter de voir l'horizon s'ouvrir. Tu peux apporter la carte à la cour pour montrer au roi ce que tu as compris. Ou tu peux retourner vers l'imprimerie, parce qu'une carte imprimée peut voyager plus vite qu'un navire.
+
+Et tu sens que, quel que soit ton choix, tu te rapproches d'une France plus moderne, plus puissante… mais aussi plus compliquée.
+
+Un vieux marin te montre le ciel : "Sans les étoiles, on est perdu." Tu ne comprends pas tout, mais tu saisis l'idée : on mesure, on observe, on fait confiance à des repères invisibles. La mer oblige les humains à devenir scientifiques, même s'ils n'utilisent pas ce mot.`,
+      choices: [
+        { label: "Monter à bord", targetPageId: "page-28" },
+        { label: "Retourner vers la cour du roi", targetPageId: "page-26" },
+        { label: "Revenir vers l'imprimerie", targetPageId: "page-25" }
+      ]
+    },
+    // Page 28 - Paris, bottes et capes
+    {
+      id: "page-28",
+      storyId: "les-chemins-du-temps",
+      image: page28CheminsTemps,
+      title: "Paris, bottes et capes",
+      text: `Un bruit de ville te tombe dessus. Des roues sur les pavés. Des vendeurs qui crient. Des chevaux qui soufflent. Tu es à Paris, mais pas le Paris que tu connais. Les rues sont plus étroites, les maisons plus hautes, et l'air sent la fumée, le cuir, la rivière.
+
+Tu te faufiles, un peu perdu, quand tu entends un mot qui te frappe : "mousquetaire".
+
+Un jeune homme en cape traverse la rue d'un pas pressé. Il a l'air fier et fauché à la fois. Il bouscule quelqu'un, s'excuse à peine, puis disparaît. Tu ne sais pas son nom, mais tu as lu ou entendu des histoires : d'Artagnan, peut-être. Dans la vraie Histoire, il a existé. Dans les livres, il est devenu un héros.
+
+Tu vois des gardes du roi. Ils surveillent les carrosses. Tu sens que le pouvoir est partout, dans les uniformes, dans les papiers, dans les murmures. On parle du roi Louis XIII, du cardinal Richelieu, de complots. Tu n'as pas besoin de connaître chaque nom pour comprendre l'ambiance : ici, un message peut être plus dangereux qu'une épée.
+
+Un homme laisse tomber un petit paquet de papier. Il ne s'en rend pas compte. Un garde le regarde d'un drôle d'air. Le paquet pourrait être important. Et toi, tu es là, avec ton galet caché, comme un secret.
+
+Ton galet chauffe. Il te rappelle l'avertissement de ton grand-père : dans le passé, les gens sont réels. Ils ont des peurs, des règles, des punitions.
+
+Tu peux agir prudemment et aider sans te faire remarquer. Tu peux utiliser ce moment pour comprendre comment les idées circulent et comment naît la contestation, une contestation qui explosera plus tard. Ou tu peux faire le choix le plus risqué : te vanter, montrer le galet, vouloir prouver que tu viens d'ailleurs… dans une ville où la différence attire les ennuis.`,
+      choices: [
+        { label: "Aider discrètement", targetPageId: "page-29" },
+        { label: "Observer les imprimeurs et rumeurs", targetPageId: "page-30" },
+        { label: "Sortir le galet malgré le danger", targetPageId: "page-35" }
+      ]
+    },
+    // Page 29 - Le miroir de Versailles
+    {
+      id: "page-29",
+      storyId: "les-chemins-du-temps",
+      image: page29CheminsTemps,
+      title: "Le miroir de Versailles",
+      text: `Le galet te pousse vers une route plus large, puis vers un chantier qui devient un palais. Tu arrives à Versailles. Au début, tu crois que c'est juste "grand". Puis tu comprends : ce n'est pas seulement grand. C'est fait pour impressionner.
+
+Des jardins s'étirent comme des tapis verts. Des fontaines brillent. Des statues regardent passer les gens. À l'intérieur, tout est réglé : qui entre, qui sort, qui parle au roi, qui attend. Tu sens que la cour ressemble à une machine, elle aussi, mais une machine de luxe.
+
+Tu entends le nom de Louis XIV. On l'appelle "le Roi-Soleil". Tu comprends vite pourquoi : tout tourne autour de lui. Même l'heure du repas, même la manière de marcher, même la place où l'on se tient. Ici, le pouvoir se montre, se met en scène.
+
+Un jardinier te fait signe de l'aider à mesurer un bassin. Il utilise une corde, des piquets, des repères. Tu comprends que, derrière la beauté, il y a des mathématiques simples : mesurer, aligner, équilibrer. On dompte la nature pour qu'elle obéisse au regard du roi.
+
+Plus loin, tu entends des serviteurs chuchoter. Ils parlent de dépenses, de faim dans certains villages, de taxes. Pas trop fort. On ne dit pas ces choses devant les nobles. Tu comprends que Versailles est magnifique… mais qu'il a un coût. Un coût qui s'accumule, comme des dettes invisibles.
+
+Tu vois aussi un carrosse prêt à partir vers une ville où l'on parle de machines, de vapeur, d'usines. Le futur se prépare, même ici.
+
+Ton galet devient chaud, presque lourd. Il te propose trois chemins : suivre les idées qui mèneront à la Révolution, suivre les machines du XIXe siècle, ou céder à la tentation dangereuse de voler un plan, un secret, quelque chose "à rapporter" au présent.
+
+Tu sais déjà que ce choix peut changer ta fin.`,
+      choices: [
+        { label: "Suivre vers la Révolution", targetPageId: "page-30" },
+        { label: "Suivre vers les machines du XIXe", targetPageId: "page-31" },
+        { label: "Tenter de voler un plan", targetPageId: "page-35" }
+      ]
+    },
+    // Page 30 - 1789, les mots qui brûlent
+    {
+      id: "page-30",
+      storyId: "les-chemins-du-temps",
+      image: page30CheminsTemps,
+      title: "1789, les mots qui brûlent",
+      text: `Tu te retrouves dans une ville où l'air est lourd, même quand il ne fait pas chaud. Les gens parlent fort. Ils se rassemblent. Ils montrent des papiers. Tu vois des visages fatigués, mais aussi déterminés. Tu sens qu'une colère ancienne est en train de devenir une action.
+
+Tu es en 1789, au début de la Révolution française.
+
+Tu n'assistes pas à une scène de violence. Tu vois plutôt ce qui la précède : les discussions, les plaintes, les espoirs. Un homme lit à haute voix un texte. Un autre brandit une feuille imprimée. Les mots circulent. Ils passent de main en main comme du pain.
+
+Tu entends parler des "cahiers de doléances", des listes de problèmes que les gens veulent faire remonter. Tu comprends que ce n'est pas juste crier. C'est essayer d'écrire ce qu'on n'accepte plus. Tu entends parler de droits, de justice, de liberté. Pas comme des mots de statue, mais comme des mots qui donnent du courage.
+
+Un imprimeur te voit et te prend pour un apprenti. Il te tend un paquet de feuilles à distribuer. Il te fait signe : "Vite." Tu sens que tu peux aider sans te mettre au milieu du danger, en faisant circuler les idées.
+
+Mais tu vois aussi un groupe qui s'énerve, qui pousse, qui veut marcher vers un bâtiment. Tu sens que ça peut déraper. Et tu sens une autre tentation : fuir. Laisser le galet te tirer loin, parce que cette époque est trop intense.
+
+Ton galet est chaud, presque brûlant, comme si les mots eux-mêmes le chauffaient. Il te rappelle une chose : l'Histoire n'est pas faite que de rois. Elle est faite de gens qui décident de ne plus obéir de la même façon.
+
+Tu dois choisir : participer prudemment, te tourner vers le siècle suivant pour voir les conséquences, ou prendre un risque qui pourrait te coûter cher.`,
+      choices: [
+        { label: "Aider en distribuant les feuilles", targetPageId: "page-31" },
+        { label: "Laisser le galet te tirer plus loin", targetPageId: "page-32" },
+        { label: "Te précipiter dans la foule", targetPageId: "page-35" }
+      ]
+    },
+    // Page 31 - Le siècle de la vapeur
+    {
+      id: "page-31",
+      storyId: "les-chemins-du-temps",
+      image: page31CheminsTemps,
+      title: "Le siècle de la vapeur",
+      text: `L'odeur de la mer te revient, mais ce n'est pas la même que dans le port de la Renaissance. Ici, il y a plus de fumée. Plus de bruit métallique. Tu entends un sifflement long, puissant, comme un animal géant.
+
+Tu es au XIXe siècle.
+
+Sur le port, des bateaux entrent et sortent. Certains sont encore à voiles, mais d'autres ont une cheminée. Une machine fait avancer le navire. Tu regardes la fumée noire monter et tu comprends : les humains ont appris à transformer le charbon en force.
+
+Un homme te montre un bâtiment au large, sur une île rocheuse : le château d'If. Il te dit que c'est une prison. Sa voix baisse quand il parle des prisonniers, comme si les murs pouvaient écouter. Puis il ajoute, avec un sourire étrange : « Tu sais, il y a des histoires… Des hommes enfermés injustement… Des trésors… Des évasions. »
+
+Tu penses au Comte de Monte-Cristo. Tu comprends que la littérature naît souvent d'un mélange : un lieu réel, des injustices réelles, et une imagination qui transforme tout ça en aventure.
+
+Dans une rue, tu vois une affiche dessinée, des journaux, des gens qui lisent debout. L'imprimerie est partout. Les idées circulent encore plus vite qu'en 1789.
+
+Et puis tu entends le sifflement à nouveau. Un train à vapeur passe. Les gens s'écartent. La machine tremble, souffle, avance. Tu restes fasciné. Les distances rétrécissent. Une journée de voyage devient une heure. Tu comprends que la géographie change quand les transports changent.
+
+Ton galet est tiède, mais instable, comme s'il avait du mal à suivre une époque qui accélère.
+
+Tu peux continuer vers le XXe siècle pour voir jusqu'où cette vitesse mène. Tu peux choisir de rester ici, attiré par l'aventure et les récits, comme si tu voulais vivre dans un roman. Ou tu peux faire le choix le plus dangereux : t'approcher trop de la prison, vouloir "jouer au héros", et risquer de perdre ton galet… et ton chemin.`,
+      choices: [
+        { label: "Suivre le train vers le XXe siècle", targetPageId: "page-32" },
+        { label: "Rester au XIXe siècle", targetPageId: "page-34" },
+        { label: "T'approcher du château d'If", targetPageId: "page-35" }
+      ]
+    },
+    // Page 32 - Le siècle des tempêtes
+    {
+      id: "page-32",
+      storyId: "les-chemins-du-temps",
+      image: page32CheminsTemps,
+      title: "Le siècle des tempêtes",
+      text: `Le galet devient brûlant, puis glacé. Le monde se brouille, et quand il revient, tu entends un bruit nouveau : un moteur. Pas un cheval. Un moteur.
+
+Tu es dans une rue où les fenêtres sont protégées par des bandes de papier. Des affiches sont collées partout, mais tu ne prends pas le temps de lire. Les gens parlent bas. Certains ont des brassards. Un homme te fait signe de te taire.
+
+Tu comprends que tu es au XXe siècle, pendant une période de guerre. Tu n'as pas besoin de voir des combats pour sentir la peur : elle est dans les regards, dans les sacs trop légers, dans les enfants qu'on serre contre soi. Tu vois aussi du courage : une femme cache une lettre dans une miche de pain. Un jeune garçon de ton âge traverse la rue en faisant semblant de jouer, mais il surveille.
+
+Un bruit de cloches éclate soudain. Des gens sortent. Certains rient, d'autres pleurent. Quelqu'un dit : « C'est fini… ils sont partis. » Tu comprends : c'est la Libération. La ville respire.
+
+Ton galet se calme un peu, comme s'il te laissait reprendre ton souffle. Puis il recommence à vibrer, mais différemment, plus vite, comme un cœur qui accélère : images de reconstruction, de nouvelles écoles, de routes, de voitures, puis d'un drapeau bleu avec des étoiles, comme une idée d'Europe. Enfin, une image que tu connais : un téléphone, un écran, des cartes numériques.
+
+Et d'un coup… le silence.
+
+Tu es de retour dans ta chambre chez ton grand-père. La pluie a cessé. Ton oreiller est là. Tout semble normal, sauf toi. Tu sens encore l'odeur de fumée, d'encre, de pierre, de mer. Tu as traversé des siècles. Tu as vu que la France s'est construite par des choix, des inventions, des peurs, des espoirs.
+
+Le galet est tiède. Il semble attendre une dernière décision, peut-être la plus importante : que vas-tu faire de tout ce que tu as vu ?`,
+      choices: [
+        { label: "Tout raconter à ton grand-père", targetPageId: "page-33" },
+        { label: "Garder l'aventure pour toi", targetPageId: "page-34" },
+        { label: "Forcer le galet", targetPageId: "page-35" }
+      ]
+    },
+    // Page 33 - Fin positive : Le carnet du temps
+    {
+      id: "page-33",
+      storyId: "les-chemins-du-temps",
+      image: page33CheminsTemps,
+      title: "Le carnet du temps",
+      text: `Tu descends l'escalier presque en courant. Ton grand-père est dans la cuisine, comme si rien n'avait bougé. Mais quand il voit ton visage, il se redresse tout de suite.
+
+— Tu y es allé, dit-il simplement.
+
+Tu t'assois et tu parles. Tu parles de la fumée de la Préhistoire, des mains noires de charbon dans la grotte, du marché gaulois qui sentait le métal, de la route romaine droite comme une flèche. Tu parles de Clovis dans l'église, des moines qui copient des lettres, des pierres qui montent vers le ciel sur un chantier de cathédrale. Tu parles de la presse d'imprimerie, des cartes marines, des capes des mousquetaires, des jardins de Versailles, des feuilles distribuées en 1789, du sifflement du train, et des cloches de la Libération.
+
+Ton grand-père ne t'interrompt pas. Il écoute comme on écoute un témoin. À la fin, il pose une main sur la table.
+— Alors tu as compris l'essentiel, murmure-t-il. L'Histoire, ce n'est pas un décor. C'est des gens. Et des choix.
+
+Il te propose un cahier. Un vrai, avec des pages blanches. Pas pour écrire « des leçons », mais pour garder tes sensations, tes rencontres, tes questions. Tu commences à dessiner une carte simple : la grotte, la rivière, la colline d'Alésia, le fleuve de Lutetia, la place du marché, le port, la ville libérée. Tu ajoutes des mots, des odeurs, des sons.
+
+Tu te rends compte que, maintenant, tu ne regardes plus les époques comme des cases sur une frise. Tu les vois comme une aventure humaine.
+
+Le galet, lui, est calme. Il ne brûle plus. Il est tiède, apaisé, comme s'il était content : tu n'as pas gardé l'Histoire pour toi, tu l'as transformée en mémoire partagée.
+
+Et tu comprends que c'est peut-être ça, la vraie fin heureuse : revenir… et regarder le monde autrement. Tu souris, sans même t'en rendre compte.`,
+      choices: [
+        { label: "Recommencer depuis le début", targetPageId: "page-1" },
+        { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" },
+        { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }
+      ],
+      isEnding: true,
+      endingType: "happy"
+    },
+    // Page 34 - Fin neutre : Le galet refroidit
+    {
+      id: "page-34",
+      storyId: "les-chemins-du-temps",
+      image: page34CheminsTemps,
+      title: "Le galet refroidit",
+      text: `Tu restes un moment assis sur ton lit, le galet dans la main. Tu pourrais descendre tout raconter, comme dans un film. Tu pourrais en faire un grand secret. Mais tu as peur que, si tu prononces les mots à voix haute, tout disparaisse comme un rêve.
+
+Alors tu ne dis rien.
+
+Tu ranges le galet dans ta poche, puis dans un tiroir. Tu te promets de le reprendre demain, ou après-demain, quand tu auras le courage. Tu descends quand même à la cuisine, mais tu parles d'autre chose : de la pluie, du grenier, du repas. Ton grand-père te regarde, comme s'il attendait une phrase.
+
+Tu sens tes souvenirs bouger dans ta tête. Au début, ils sont très nets : la flamme qui danse, la peinture d'un bison sur la pierre, le bruit d'une presse, le sifflement du train. Mais plus le temps passe, plus certains détails deviennent flous, comme une photo qui se décolore. Tu te rappelles surtout l'émotion : la peur dans la forêt, la fierté d'être utile, l'étonnement devant une route romaine, la beauté d'un vitrail.
+
+Le soir, tu touches le galet. Il est froid. Pas méchant. Juste froid, comme un objet normal. Tu le tournes dans ta main. Il ne répond pas. Peut-être qu'il attend. Peut-être qu'il est fatigué. Peut-être que c'est toi qui n'es pas prêt.
+
+Tu comprends que l'Histoire peut te traverser sans que tu la gardes, si tu ne la transformes pas en quelque chose : un dessin, une parole, un carnet, une question.
+
+Tu n'as pas perdu l'aventure. Tu l'as simplement laissée s'éloigner, comme un bateau qu'on regarde partir sans monter dedans.
+
+Et un jour, peut-être, tu ouvriras le tiroir. Peut-être que le galet redeviendra tiède. Peut-être que tu choisiras, enfin, de raconter.
+
+Le lendemain, en regardant une carte de France ou une vieille photo dans un livre, tu as un petit frisson. Tu te dis : « Je suis déjà passé là. » Même si tu n'en es pas sûr, cette sensation reste, comme une empreinte légère dans la boue.`,
+      choices: [
+        { label: "Recommencer depuis le début", targetPageId: "page-1" },
+        { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" },
+        { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }
+      ],
+      isEnding: true,
+      endingType: "neutral"
+    },
+    // Page 35 - Fin négative : Perdu entre les époques
+    {
+      id: "page-35",
+      storyId: "les-chemins-du-temps",
+      image: page35CheminsTemps,
+      title: "Perdu entre les époques",
+      text: `Tu as voulu aller trop vite. Ou trop fort. Ou trop te prouver quelque chose. Peut-être que tu as sorti le galet au mauvais moment, dans une ville qui n'aime pas les secrets. Peut-être que tu as essayé de voler, de forcer, de jouer au héros là où il fallait être prudent.
+
+Au début, tu crois que tu vas t'en sortir. Puis tout s'effondre.
+
+Le galet devient brûlant, comme si on l'avait jeté au feu. Tu le lâches presque, mais la lanière de cuir le retient. Il vibre si fort que tes dents claquent. Le monde autour de toi se déchire comme du papier mouillé.
+
+Tu vois des images qui se mélangent : une torche dans une grotte, une route romaine, un vitrail, une presse, un carrosse, un train, une rue moderne. Tout tourne. Tu n'es plus dans une époque. Tu es entre elles.
+
+Quand tout s'arrête, tu es assis par terre, dans une pièce inconnue. Ce n'est pas une grotte. Ce n'est pas une maison. C'est une salle froide, avec des vitrines. Des objets alignés. Des casques, des poteries, des morceaux de pierre. Tu comprends avec un frisson : tu es dans un musée… mais pas comme visiteur. Comme quelqu'un qui est tombé derrière les vitrines, dans les réserves.
+
+Le galet est là, mais il est fendu. Une petite fissure traverse sa surface lisse. Il ne chauffe plus. Il ne répond plus. Comme si, à force de le pousser, tu avais cassé la porte.
+
+Tu entends des pas au loin. Tu te caches. Tu attends. Tu as peur, mais tu n'es pas blessé. Tu es juste… bloqué.
+
+Et c'est là que tu comprends la règle la plus dure : l'Histoire n'est pas un jouet. Si tu la traites comme un raccourci, elle te transforme en personnage perdu.
+
+Tu fermes les yeux très fort, en pensant à ton grand-père, à ta chambre, à la pluie sur les vitres. Et tu te fais une promesse : si tu as une deuxième chance, tu feras autrement.
+
+Parce que cette fois, tu as appris par la conséquence.`,
+      choices: [
+        { label: "Recommencer depuis le début", targetPageId: "page-1" },
+        { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" },
+        { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }
+      ],
+      isEnding: true,
+      endingType: "bad"
+    }
   ],
   "les-chemins-du-temps-lecture": [
     { id: "page-1", storyId: "les-chemins-du-temps-lecture", image: page1CheminsTemps, title: "Le galet hors du temps", text: `Tu passes quelques jours chez ton grand-père, dans une vieille maison en pierre au bord d'un petit village. Cet après-midi-là, la pluie tape sur les vitres. Ton grand-père te propose d'explorer le grenier. En fouillant, tu découvres un galet parfaitement lisse, gris clair. Quand tu le touches, une chaleur douce monte le long de tes doigts. Ton grand-père t'explique que l'objet se transmet dans la famille depuis des générations. Le soir venu, tu montes te coucher avec le galet. Des images te traversent l'esprit : une forêt immense, des flammes, des silhouettes humaines très anciennes.`, choices: [{ label: "Poser le galet sous ton oreiller", targetPageId: "page-2" }, { label: "Te concentrer sur les images", targetPageId: "page-3" }, { label: "Poser des questions à ton grand-père", targetPageId: "page-4" }] },
