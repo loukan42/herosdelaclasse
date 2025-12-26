@@ -252,4 +252,24 @@
   .animate-sparkle {
     animation: sparkle 2s ease-in-out infinite;
   }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.2;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  .animate-twinkle {
+    animation: twinkle 2s ease-in-out infinite;
+  }
+
+  .bg-auth-gradient {
+    background: radial-gradient(ellipse at top, hsl(250 40% 25%) 0%, hsl(240 35% 15%) 40%, hsl(25 60% 12%) 100%),
+                linear-gradient(180deg, hsl(250 40% 20%) 0%, hsl(20 50% 15%) 100%);
+  }
 }

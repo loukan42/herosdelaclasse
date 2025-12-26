@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, User, Mail, Lock, Sparkles } from 'lucide-react';
-import logo from '@/assets/logo.png';
+import coverLogo from '@/assets/cover-logo.png';
 
 const AVATARS = [
   { id: 'lion', emoji: '🦁', name: 'Lion' },
@@ -145,156 +145,194 @@ export default function Auth() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-auth-gradient flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-golden border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-background py-6 px-4">
-      <div className="container max-w-md mx-auto">
-        {/* Back button */}
-        <button
-          onClick={() => navigate('/')}
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Retour
-        </button>
+    <main className="min-h-screen bg-auth-gradient relative overflow-hidden">
+      {/* Animated particles/stars background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-golden/60 rounded-full animate-twinkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={`large-${i}`}
+            className="absolute w-2 h-2 bg-orange-400/40 rounded-full animate-twinkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${3 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
 
-        {/* Logo and Title */}
-        <div className="text-center mb-8">
-          <img src={logo} alt="Logo" className="w-32 h-32 mx-auto mb-4" />
-          <h1 className="font-display text-3xl text-foreground mb-2">
-            {mode === 'signin' ? 'Connexion' : 'Créer un compte'}
-          </h1>
-          <p className="text-muted-foreground">
-            {mode === 'signin' 
-              ? 'Retrouve tes histoires et ta progression !' 
-              : 'Crée un compte pour sauvegarder ta progression'}
-          </p>
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6 bg-card rounded-2xl p-6 shadow-lg border border-border">
-          {mode === 'signup' && (
-            <>
-              {/* Avatar Selection */}
-              <div className="space-y-3">
-                <Label className="text-base font-semibold flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                  Choisis ton avatar
-                </Label>
-                <div className="grid grid-cols-4 gap-3">
-                  {AVATARS.map((avatar) => (
-                    <button
-                      key={avatar.id}
-                      type="button"
-                      onClick={() => setSelectedAvatar(avatar.id)}
-                      className={`
-                        aspect-square rounded-xl text-3xl flex items-center justify-center
-                        transition-all duration-200 border-2
-                        ${selectedAvatar === avatar.id 
-                          ? 'border-primary bg-primary/10 scale-110 shadow-lg' 
-                          : 'border-border bg-muted/50 hover:border-primary/50 hover:scale-105'}
-                      `}
-                      title={avatar.name}
-                    >
-                      {avatar.emoji}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Prenom */}
-              <div className="space-y-2">
-                <Label htmlFor="prenom" className="text-base font-semibold flex items-center gap-2">
-                  <User className="w-4 h-4 text-primary" />
-                  Prénom de l'enfant
-                </Label>
-                <Input
-                  id="prenom"
-                  type="text"
-                  value={prenom}
-                  onChange={(e) => setPrenom(e.target.value)}
-                  placeholder="Comment t'appelles-tu ?"
-                  className="h-12 text-base"
-                />
-                {errors.prenom && (
-                  <p className="text-sm text-destructive">{errors.prenom}</p>
-                )}
-              </div>
-            </>
-          )}
-
-          {/* Email */}
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-base font-semibold flex items-center gap-2">
-              <Mail className="w-4 h-4 text-primary" />
-              Email {mode === 'signup' && <span className="text-muted-foreground font-normal">(des parents)</span>}
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="email@exemple.com"
-              className="h-12 text-base"
-            />
-            {errors.email && (
-              <p className="text-sm text-destructive">{errors.email}</p>
-            )}
-          </div>
-
-          {/* Password */}
-          <div className="space-y-2">
-            <Label htmlFor="password" className="text-base font-semibold flex items-center gap-2">
-              <Lock className="w-4 h-4 text-primary" />
-              Mot de passe
-            </Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="h-12 text-base"
-            />
-            {errors.password && (
-              <p className="text-sm text-destructive">{errors.password}</p>
-            )}
-          </div>
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full h-14 text-lg font-display font-bold"
+      <div className="relative z-10 py-6 px-4 min-h-screen flex flex-col">
+        <div className="container max-w-md mx-auto flex-1 flex flex-col">
+          {/* Back button */}
+          <button
+            onClick={() => navigate('/')}
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-4 self-start"
           >
-            {isSubmitting ? (
-              <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
-            ) : (
-              mode === 'signin' ? 'Se connecter' : 'Créer le compte'
-            )}
-          </Button>
+            <ArrowLeft className="w-5 h-5" />
+            Retour
+          </button>
 
-          {/* Toggle mode */}
-          <div className="text-center pt-2">
-            <button
-              type="button"
-              onClick={() => {
-                setMode(mode === 'signin' ? 'signup' : 'signin');
-                setErrors({});
-              }}
-              className="text-primary hover:underline font-medium"
-            >
-              {mode === 'signin' 
-                ? "Pas encore de compte ? Créer un compte" 
-                : "Déjà un compte ? Se connecter"}
-            </button>
+          {/* Logo */}
+          <div className="text-center mb-6 flex-shrink-0">
+            <img 
+              src={coverLogo} 
+              alt="Héros de la Classe" 
+              className="w-full max-w-xs mx-auto drop-shadow-2xl"
+            />
           </div>
-        </form>
+
+          {/* Title */}
+          <div className="text-center mb-6">
+            <h1 className="font-display text-3xl text-white mb-2 drop-shadow-lg">
+              {mode === 'signin' ? 'Connexion' : 'Créer un compte'}
+            </h1>
+            <p className="text-white/80">
+              {mode === 'signin' 
+                ? 'Retrouve tes histoires et ta progression !' 
+                : 'Crée un compte pour sauvegarder ta progression'}
+            </p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
+            {mode === 'signup' && (
+              <>
+                {/* Avatar Selection */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold flex items-center gap-2 text-white">
+                    <Sparkles className="w-4 h-4 text-golden" />
+                    Choisis ton avatar
+                  </Label>
+                  <div className="grid grid-cols-4 gap-3">
+                    {AVATARS.map((avatar) => (
+                      <button
+                        key={avatar.id}
+                        type="button"
+                        onClick={() => setSelectedAvatar(avatar.id)}
+                        className={`
+                          aspect-square rounded-xl text-3xl flex items-center justify-center
+                          transition-all duration-200 border-2
+                          ${selectedAvatar === avatar.id 
+                            ? 'border-golden bg-golden/30 scale-110 shadow-lg shadow-golden/30' 
+                            : 'border-white/30 bg-white/10 hover:border-golden/50 hover:scale-105'}
+                        `}
+                        title={avatar.name}
+                      >
+                        {avatar.emoji}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Prenom */}
+                <div className="space-y-2">
+                  <Label htmlFor="prenom" className="text-base font-semibold flex items-center gap-2 text-white">
+                    <User className="w-4 h-4 text-golden" />
+                    Prénom de l'enfant
+                  </Label>
+                  <Input
+                    id="prenom"
+                    type="text"
+                    value={prenom}
+                    onChange={(e) => setPrenom(e.target.value)}
+                    placeholder="Comment t'appelles-tu ?"
+                    className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                  />
+                  {errors.prenom && (
+                    <p className="text-sm text-red-300">{errors.prenom}</p>
+                  )}
+                </div>
+              </>
+            )}
+
+            {/* Email */}
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-base font-semibold flex items-center gap-2 text-white">
+                <Mail className="w-4 h-4 text-golden" />
+                Email {mode === 'signup' && <span className="text-white/60 font-normal">(des parents)</span>}
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="email@exemple.com"
+                className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+              />
+              {errors.email && (
+                <p className="text-sm text-red-300">{errors.email}</p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-base font-semibold flex items-center gap-2 text-white">
+                <Lock className="w-4 h-4 text-golden" />
+                Mot de passe
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+              />
+              {errors.password && (
+                <p className="text-sm text-red-300">{errors.password}</p>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full h-14 text-lg font-display font-bold bg-gradient-to-r from-golden to-orange-500 hover:from-golden/90 hover:to-orange-500/90 text-white border-0 shadow-lg shadow-golden/30"
+            >
+              {isSubmitting ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                mode === 'signin' ? 'Se connecter' : 'Créer le compte'
+              )}
+            </Button>
+
+            {/* Toggle mode */}
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMode(mode === 'signin' ? 'signup' : 'signin');
+                  setErrors({});
+                }}
+                className="text-golden hover:text-golden/80 hover:underline font-medium transition-colors"
+              >
+                {mode === 'signin' 
+                  ? "Pas encore de compte ? Créer un compte" 
+                  : "Déjà un compte ? Se connecter"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
   );
