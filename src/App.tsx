@@ -10,6 +10,7 @@ import StoryStart from "./pages/StoryStart";
 import StoryReader from "./pages/StoryReader";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
+import MyStories from "./pages/MyStories";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/" element={<SubjectsDashboard />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/my-stories" element={<MyStories />} />
             <Route path="/stories" element={<Navigate to="/" replace />} />
             <Route path="/subjects/:subjectId" element={<StoriesDashboard />} />
             <Route path="/stories/:storyId/start" element={<StoryStart />} />
