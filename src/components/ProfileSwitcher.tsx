@@ -16,21 +16,34 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ChevronDown, Plus, Settings, User, LogOut, Loader2 } from 'lucide-react';
+import { ChevronDown, Plus, Settings, User, LogOut, Loader2, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 export function ProfileSwitcher() {
   const navigate = useNavigate();
   const { isAuthenticated, signOut } = useAuthContext();
-  const { profiles, activeProfile, setActiveProfile, createProfile, loading } = useChildProfiles();
+  const { profiles, activeProfile, setActiveProfile, createProfile, deleteProfile, loading } = useChildProfiles();
   
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [newName, setNewName] = useState('');
   const [newAvatar, setNewAvatar] = useState(AVATARS[0]?.id || 'garcon_1');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isManageOpen, setIsManageOpen] = useState(false);
+  const [profileToDelete, setProfileToDelete] = useState<ChildProfile | null>(null);
 
   if (!isAuthenticated) {
     return (
@@ -66,6 +79,21 @@ export function ProfileSwitcher() {
       setNewAvatar(AVATARS[0]?.id || 'garcon_1');
     } else {
       toast.error('Erreur lors de la création');
+    }
+  };
+
+  const handleDeleteProfile = async () => {
+    if (!profileToDelete) return;
+    
+    setIsSubmitting(true);
+    const result = await deleteProfile(profileToDelete.id);
+    setIsSubmitting(false);
+    
+    if (result.success) {
+      toast.success(`Profil de ${profileToDelete.prenom} supprimé`);
+      setProfileToDelete(null);
+    } else {
+      toast.error('Erreur lors de la suppression');
     }
   };
 
@@ -158,6 +186,11 @@ export function ProfileSwitcher() {
             Ajouter un profil
           </DropdownMenuItem>
 
+          <DropdownMenuItem onClick={() => setIsManageOpen(true)} className="gap-2">
+            <Settings className="w-4 h-4" />
+            Gérer les profils
+          </DropdownMenuItem>
+
           <DropdownMenuItem onClick={() => navigate('/my-stories')} className="gap-2">
             <Settings className="w-4 h-4" />
             Mes histoires
@@ -188,6 +221,79 @@ export function ProfileSwitcher() {
           />
         </DialogContent>
       </Dialog>
+
+      {/* Manage Profiles Dialog */}
+      <Dialog open={isManageOpen} onOpenChange={setIsManageOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Gérer les profils</DialogTitle>
+            <DialogDescription>
+              Cliquez sur la corbeille pour supprimer un profil
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-2 py-4">
+            {profiles.map((profile) => {
+              const avatar = getAvatarById(profile.avatar);
+              return (
+                <div 
+                  key={profile.id}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-muted/50"
+                >
+                  {avatar ? (
+                    <img 
+                      src={avatar.image} 
+                      alt={profile.prenom}
+                      className="w-12 h-12 rounded-full object-contain"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+                      <User className="w-6 h-6" />
+                    </div>
+                  )}
+                  <span className="flex-1 font-medium text-lg">{profile.prenom}</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                    onClick={() => setProfileToDelete(profile)}
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex justify-end">
+            <Button variant="outline" onClick={() => setIsManageOpen(false)}>
+              Fermer
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={!!profileToDelete} onOpenChange={(open) => !open && setProfileToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Supprimer le profil ?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Êtes-vous sûr de vouloir supprimer le profil de <strong>{profileToDelete?.prenom}</strong> ?
+              Cette action supprimera également toutes les progressions et histoires terminées associées.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isSubmitting}>Annuler</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDeleteProfile}
+              disabled={isSubmitting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+              Supprimer
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }
