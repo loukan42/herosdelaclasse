@@ -106,7 +106,7 @@ export function UserMenu() {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link to="/" className="flex items-center gap-2 cursor-pointer">
+          <Link to="/my-stories" className="flex items-center gap-2 cursor-pointer">
             <BookOpen className="w-4 h-4" />
             Mes histoires
           </Link>
