@@ -221,7 +221,7 @@ export const stories: Story[] = [
     id: "la-planete-mystere",
     title: "La planète mystère",
     coverImage: coverPlaneteMystere,
-    level: "CE2",
+    level: "CE1",
     description: "Tu es dans ta fusée sur Terre. Pour décoller, tu dois identifier les planètes du système solaire. Un voyage spatial éducatif !",
     startPageId: "page-1",
     subjectId: "sciences"
@@ -230,7 +230,7 @@ export const stories: Story[] = [
     id: "la-planete-mystere-lecture",
     title: "La planète mystère",
     coverImage: coverPlaneteMystere,
-    level: "CE2",
+    level: "CE1",
     description: "Tu es dans ta fusée sur Terre. Pour décoller, tu dois identifier les planètes du système solaire. Un voyage spatial éducatif !",
     startPageId: "page-1",
     subjectId: "lecture"
@@ -239,7 +239,7 @@ export const stories: Story[] = [
     id: "les-chemins-du-temps",
     title: "Les chemins du temps",
     coverImage: page1CheminsTemps,
-    level: "CM2",
+    level: "CM1",
     description: "Chez ton grand-père, tu découvres un mystérieux galet qui permet de voyager dans le temps. De la Préhistoire aux Gaulois, en passant par les Romains, explore l'Histoire de France !",
     startPageId: "page-1",
     subjectId: "histoire"
@@ -248,7 +248,7 @@ export const stories: Story[] = [
     id: "les-chemins-du-temps-lecture",
     title: "Les chemins du temps",
     coverImage: page1CheminsTemps,
-    level: "CM2",
+    level: "CM1",
     description: "Chez ton grand-père, tu découvres un mystérieux galet qui permet de voyager dans le temps. De la Préhistoire aux Gaulois, en passant par les Romains, explore l'Histoire de France !",
     startPageId: "page-1",
     subjectId: "lecture"

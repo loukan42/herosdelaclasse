@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import GradesDashboard from "./pages/GradesDashboard";
 import SubjectsDashboard from "./pages/SubjectsDashboard";
 import StoriesDashboard from "./pages/StoriesDashboard";
 import StoryStart from "./pages/StoryStart";
@@ -23,12 +24,14 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<SubjectsDashboard />} />
+            <Route path="/" element={<GradesDashboard />} />
+            <Route path="/grade/:gradeId" element={<SubjectsDashboard />} />
+            <Route path="/grade/:gradeId/subjects/:subjectId" element={<StoriesDashboard />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/my-stories" element={<MyStories />} />
             <Route path="/stories" element={<Navigate to="/" replace />} />
-            <Route path="/subjects/:subjectId" element={<StoriesDashboard />} />
+            <Route path="/subjects/:subjectId" element={<Navigate to="/" replace />} />
             <Route path="/stories/:storyId/start" element={<StoryStart />} />
             <Route path="/stories/:storyId/page/:pageId" element={<StoryReader />} />
             <Route path="*" element={<NotFound />} />

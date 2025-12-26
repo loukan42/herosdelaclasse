@@ -5,15 +5,19 @@ import { Lock, Sparkles } from "lucide-react";
 interface SubjectCardProps {
   subject: Subject;
   index: number;
+  gradeId?: string;
 }
 
-export function SubjectCard({ subject, index }: SubjectCardProps) {
+export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
   const navigate = useNavigate();
   const Icon = subject.icon;
 
   const handleClick = () => {
     if (subject.available) {
-      navigate(`/subjects/${subject.id}`);
+      const path = gradeId 
+        ? `/grade/${gradeId}/subjects/${subject.id}` 
+        : `/subjects/${subject.id}`;
+      navigate(path);
     }
   };
 
