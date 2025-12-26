@@ -39,6 +39,7 @@ export default function Auth() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [prenom, setPrenom] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState('lion');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -58,6 +59,13 @@ export default function Auth() {
 
     try {
       if (mode === 'signup') {
+        // Check password confirmation first
+        if (password !== confirmPassword) {
+          setErrors({ confirmPassword: 'Les mots de passe ne correspondent pas' });
+          setIsSubmitting(false);
+          return;
+        }
+
         const validation = signUpSchema.safeParse({ email, password, prenom });
         if (!validation.success) {
           const fieldErrors: Record<string, string> = {};
@@ -305,6 +313,27 @@ export default function Auth() {
               )}
             </div>
 
+            {/* Confirm Password - only for signup */}
+            {mode === 'signup' && (
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword" className="text-base font-semibold flex items-center gap-2 text-white">
+                  <Lock className="w-4 h-4 text-golden" />
+                  Confirmer le mot de passe
+                </Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                />
+                {errors.confirmPassword && (
+                  <p className="text-sm text-red-300">{errors.confirmPassword}</p>
+                )}
+              </div>
+            )}
+
             {/* Submit Button */}
             <Button
               type="submit"
@@ -325,6 +354,7 @@ export default function Auth() {
                 onClick={() => {
                   setMode(mode === 'signin' ? 'signup' : 'signin');
                   setErrors({});
+                  setConfirmPassword('');
                 }}
                 className="text-golden hover:text-golden/80 hover:underline font-medium transition-colors"
               >

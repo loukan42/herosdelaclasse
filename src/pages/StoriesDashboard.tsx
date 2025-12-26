@@ -1,17 +1,19 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getStoriesBySubject } from "@/data/stories";
 import { getSubject } from "@/data/subjects";
 import { StoryCard } from "@/components/StoryCard";
-import { Sparkles, ArrowLeft } from "lucide-react";
+import { Sparkles, ArrowLeft, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
 import { useAllStoryProgress } from "@/hooks/useStoryProgress";
 import { UserMenu } from "@/components/UserMenu";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function StoriesDashboard() {
   const { subjectId } = useParams<{ subjectId: string }>();
   const navigate = useNavigate();
-  const { hasProgress, isCompleted, getCompletionCount } = useAllStoryProgress();
+  const { hasProgress, isCompleted, getCompletionCount, isAuthenticated } = useAllStoryProgress();
+  const { loading } = useAuthContext();
   
   const subject = getSubject(subjectId || "");
   const stories = getStoriesBySubject(subjectId || "");
@@ -64,6 +66,18 @@ export default function StoriesDashboard() {
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-2">
               {subject.description}
             </p>
+
+            {/* CTA for non-authenticated users */}
+            {!loading && !isAuthenticated && (
+              <div className="mt-6 fade-up stagger-3">
+                <Button asChild size="lg" className="gap-2 font-display">
+                  <Link to="/auth">
+                    <Save className="w-5 h-5" />
+                    Enregistrer ma progression
+                  </Link>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </header>
