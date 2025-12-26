@@ -83,6 +83,16 @@ export function useAuth() {
       password
     });
     
+    // Update last_login on successful sign in
+    if (!error && data.user) {
+      setTimeout(async () => {
+        await supabase
+          .from('profiles')
+          .update({ last_login: new Date().toISOString() })
+          .eq('id', data.user.id);
+      }, 0);
+    }
+    
     return { data, error };
   };
 
