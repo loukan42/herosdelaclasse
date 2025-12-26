@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -9,8 +9,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User, LogOut, BookOpen } from 'lucide-react';
+import { User, LogOut, BookOpen, Crown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const AVATAR_EMOJIS: Record<string, string> = {
   lion: '🦁',
@@ -25,9 +26,31 @@ const AVATAR_EMOJIS: Record<string, string> = {
 };
 
 export function UserMenu() {
-  const { profile, isAuthenticated, signOut, loading } = useAuthContext();
+  const { profile, isAuthenticated, signOut, loading, user } = useAuthContext();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check admin status
+  useEffect(() => {
+    const checkAdmin = async () => {
+      if (!user) {
+        setIsAdmin(false);
+        return;
+      }
+
+      const { data } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+
+      setIsAdmin(!!data);
+    };
+
+    checkAdmin();
+  }, [user]);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -73,6 +96,7 @@ export function UserMenu() {
           <span className="font-medium text-foreground hidden sm:inline">
             {profile?.prenom || 'Aventurier'}
           </span>
+          {isAdmin && <Crown className="w-4 h-4 text-golden" />}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
@@ -87,6 +111,14 @@ export function UserMenu() {
             Mes histoires
           </Link>
         </DropdownMenuItem>
+        {isAdmin && (
+          <DropdownMenuItem asChild>
+            <Link to="/admin" className="flex items-center gap-2 cursor-pointer text-golden">
+              <Crown className="w-4 h-4" />
+              Administration
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem 
           onClick={handleSignOut}
