@@ -9,6 +9,16 @@ import fille7 from '@/assets/avatars/fille_7.png';
 import garcon1 from '@/assets/avatars/garcon_1.png';
 import garcon2 from '@/assets/avatars/garcon_2.png';
 import garcon3 from '@/assets/avatars/garcon_3.png';
+import garcon4 from '@/assets/avatars/garcon_4.png';
+import garcon5 from '@/assets/avatars/garcon_5.png';
+import garcon6 from '@/assets/avatars/garcon_6.png';
+import garcon7 from '@/assets/avatars/garcon_7.png';
+import garcon8 from '@/assets/avatars/garcon_8.png';
+import prince1 from '@/assets/avatars/prince_1.png';
+import chevalier1 from '@/assets/avatars/chevalier_1.png';
+import chevalier2 from '@/assets/avatars/chevalier_2.png';
+import pirate1 from '@/assets/avatars/pirate_1.png';
+import pirate2 from '@/assets/avatars/pirate_2.png';
 
 export interface Avatar {
   id: string;
@@ -27,6 +37,16 @@ export const AVATARS: Avatar[] = [
   { id: 'garcon_1', name: 'Lucas', image: garcon1 },
   { id: 'garcon_2', name: 'Hugo', image: garcon2 },
   { id: 'garcon_3', name: 'Tom', image: garcon3 },
+  { id: 'garcon_4', name: 'Nathan', image: garcon4 },
+  { id: 'garcon_5', name: 'Adam', image: garcon5 },
+  { id: 'garcon_6', name: 'Malik', image: garcon6 },
+  { id: 'garcon_7', name: 'Kenji', image: garcon7 },
+  { id: 'garcon_8', name: 'Rayan', image: garcon8 },
+  { id: 'prince_1', name: 'Prince Arthur', image: prince1 },
+  { id: 'chevalier_1', name: 'Sir Lancelot', image: chevalier1 },
+  { id: 'chevalier_2', name: 'Sir Gauvain', image: chevalier2 },
+  { id: 'pirate_1', name: 'Capitaine Jack', image: pirate1 },
+  { id: 'pirate_2', name: 'Barbe Noire', image: pirate2 },
 ];
 
 export const getAvatarById = (id: string): Avatar | undefined => {
