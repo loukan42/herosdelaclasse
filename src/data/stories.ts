@@ -2168,19 +2168,27 @@ Ton cœur bat un peu plus vite. Tu sens que ce galet n'est pas un simple caillou
       storyId: "les-chemins-du-temps",
       image: page2CheminsTemps,
       title: "Le voyage pendant le sommeil",
-      text: `Tu glisses le galet sous ton oreiller. Peu à peu, ta respiration ralentit. Tes paupières deviennent lourdes. Tu t'endors.
+      text: `Tu glisses le galet sous ton oreiller et tu t'allonges. La pièce est sombre, mais tu devines le dessin des rideaux et la silhouette de ta chaise. Tu fermes les yeux en te disant que, si rien ne se passe, ce sera juste un galet un peu bizarre.
 
-Une odeur te réveille d'un coup. Ce n'est pas l'odeur de la maison de ton grand-père. Ça sent la fumée, la terre mouillée, la forêt.
+Au début, tu t'endors normalement. Tu rêves peut-être, ou tu crois rêver. Puis une odeur te réveille d'un coup : la fumée, la terre mouillée, quelque chose de sauvage, comme quand on marche en forêt après la pluie.
 
 Tu ouvres les yeux.
 
-Tu n'es plus dans ton lit. Tu es allongé sur un sol dur, couvert de feuilles mortes. Une lumière vacille entre les arbres. Un feu.
+Tu n'es plus dans ton lit.
 
-En te relevant, tu distingues des silhouettes. Des humains. Mais leurs vêtements sont étranges : ils portent des peaux d'animaux. Ils sont accroupis autour des flammes.
+Tu es allongé sur un sol dur, couvert de feuilles et de poussière. Ton dos te lance légèrement. Au-dessus de toi, un ciel noir sans lampadaire et sans bruit de ville. L'air est froid et humide. Tu entends des insectes, un craquement de branche, puis le silence revient, lourd.
 
-Tu comprends alors : tu es très loin dans le passé.
+Tu te redresses, les mains tremblantes. Tes vêtements sont les mêmes, mais ils te semblent absurdes ici, comme si tu étais venu avec la mauvaise tenue à une sortie. Le galet est contre ta poitrine, tiède. Il n'a pas disparu. Il ne bouge pas. Il attend.
 
-Tu es à la Préhistoire.`,
+Une lumière vacille entre les arbres. Un feu. Sa lueur orange dessine une clairière et des silhouettes. Tu distingues des humains, accroupis autour des flammes. Ils portent des peaux d'animaux. Leurs cheveux sont longs, leurs gestes précis, comme s'ils connaissaient cette nuit par cœur.
+
+Tu comprends sans qu'on te l'explique : tu es très loin dans le passé. Dans ce qui sera un jour la France, mais à une époque où il n'y a ni villages, ni routes, ni écriture. Juste la forêt, le froid… et le feu qui protège.
+
+Un cri d'animal résonne au loin. Les silhouettes près du feu se figent une seconde. Puis elles reprennent, plus discrètes, comme si elles avaient appris à ne pas gaspiller leurs forces.
+
+Tu avales ta salive. Tu sens ton cœur battre dans tes oreilles.
+
+Tu n'es pas seulement en train de regarder l'Histoire. Tu es dedans.`,
       choices: [
         { label: "T'approcher du feu", targetPageId: "page-5" },
         { label: "Suivre un bruit d'eau pour voir une rivière", targetPageId: "page-6" },
@@ -2193,22 +2201,25 @@ Tu es à la Préhistoire.`,
       storyId: "les-chemins-du-temps",
       image: page3CheminsTemps,
       title: "Les images prennent vie",
-      text: `Tu restes allongé dans le lit, mais tu gardes le galet dans ta main. Tu fermes les yeux et tu te concentres sur les images.
+      text: `Tu gardes le galet dans ta main, bien serré, comme si tu avais peur qu'il s'échappe. Tu te concentres sur les images qui traversent ton esprit : une forêt, des flammes, des silhouettes. Tu respires doucement, comme quand tu essaies de te calmer avant une évaluation.
 
-Elles deviennent plus nettes. Tu vois une forêt. Très ancienne. Les arbres sont immenses. Le ciel est clair mais il n'y a aucune route, aucune maison.
+La chaleur du galet augmente. Pas d'un coup, mais comme une bouilloire qui se mettrait à frémir. Tes doigts picotent. Tu entends un bruit qui n'existe pas dans ta chambre : le vent dans des feuilles, un oiseau qui crie, des pas sur la terre.
 
-La chaleur du galet augmente. Et soudain, tu as l'impression de tomber.
+Quand tu rouvres les yeux, tu es debout.
 
-Quand tu rouvres les yeux, tu n'es plus dans ta chambre.
+La chambre a disparu. À la place, une forêt immense t'entoure. La lumière est grise, comme au petit matin. L'air sent la mousse et la fumée froide. Tu n'as pas l'impression d'avoir été jeté ici. C'est plutôt comme si le monde s'était construit autour de toi, pièce par pièce, jusqu'à ce que tout devienne solide.
 
-Tu es debout dans cette forêt. Elle est vraie. L'air sent le bois humide, la terre, le feu au loin.
+Tu regardes tes pieds : le sol est couvert d'empreintes. Des pieds nus, des traces d'animaux, des branches cassées. Tu ne sais pas lire une carte, ici, mais tu peux lire la terre.
 
-Tu avances doucement. Au loin, tu vois un filet de fumée s'élever entre les arbres. Tu t'approches.
+Au loin, un filet de fumée s'élève. Tu avances à pas lents. Chaque bruit te paraît important. Tu arrives près d'une clairière. Un feu y brûle, entouré d'humains vêtus de peaux. Ils travaillent sans beaucoup parler. L'un taille un silex, un autre surveille l'obscurité, une femme berce un petit.
 
-Tu arrives près d'une clairière. Un feu brûle, entouré d'humains vêtus de peaux d'animaux.
+Ils ne t'ont pas vu. Tu es caché derrière un tronc épais.
 
-À ta droite, une ouverture dans la roche : une grotte.
-À ta gauche, des empreintes dans la boue mènent vers une rivière.`,
+À ta droite, tu remarques une ouverture sombre dans la roche, comme une petite grotte. Des traces de charbon noircissent l'entrée, comme si des torches y étaient passées. À ta gauche, des empreintes s'éloignent vers la rivière.
+
+Le galet est redevenu tiède. Il ne te pousse pas. Il te laisse choisir.
+
+Tu comprends alors ce que ton grand-père voulait dire : ce galet ne décide pas à ta place. Il t'ouvre une porte. C'est toi qui choisis le couloir.`,
       choices: [
         { label: "Te rapprocher du feu et des humains", targetPageId: "page-5" },
         { label: "Rester à distance et observer leurs gestes", targetPageId: "page-7" },
@@ -2221,19 +2232,29 @@ Tu arrives près d'une clairière. Un feu brûle, entouré d'humains vêtus de p
       storyId: "les-chemins-du-temps",
       image: page4CheminsTemps,
       title: "Les questions du soir",
-      text: `Tu redescends l'escalier avec le galet dans la main. Ton grand-père est assis près de la cheminée, un livre sur les genoux.
+      text: `Tu redescends l'escalier sur la pointe des pieds, galet en main. Dans la cuisine, ton grand-père est assis à la table. La lumière est douce, comme si la maison elle-même voulait parler plus bas.
 
-Il lève les yeux. Tu lui montres le galet.
+« Tu n'arrives pas à dormir ? » demande-t-il.
 
-« Tu veux savoir ce qu'il fait vraiment ? »
+Tu poses le galet devant lui. Rien qu'en le voyant, il soupire, mais pas de tristesse. Plutôt comme quelqu'un qui se souvient.
 
-Il t'explique que le galet réagit à ton intention. Si tu veux observer, tu observeras. Si tu veux comprendre, tu comprendras. Mais attention : tu ne peux pas changer ce qui s'est passé. Tu peux seulement apprendre.
+Tu lui poses toutes tes questions d'un coup : d'où vient ce galet ? Est-ce dangereux ? Est-ce qu'on peut se perdre ? Est-ce que ce que tu vois est vrai ou juste un rêve ?
 
-Avant que tu remontes te coucher, il te donne une petite lanière de cuir pour attacher le galet autour de ton cou.
+Ton grand-père écoute sans t'interrompre. Puis il te répond avec des mots simples :
+« Ce n'est pas un jouet. Ce que tu vis sera réel, parce que tu seras réellement là-bas. Mais tu ne peux pas changer toute l'Histoire, comme dans un film. Tu peux surtout comprendre. Et apprendre. »
 
-Tu te rendors, cette fois prêt à écouter.
+Il t'explique quelque chose d'important : le galet réagit à ton intention. Si tu cherches à observer, il te place où tu peux voir. Si tu fonces sans réfléchir, il te laisse parfois te débrouiller, pour que tu comprennes les risques.
 
-Les images reviennent. Et cette fois, elles t'emportent.`,
+« Et n'oublie jamais que, dans le passé, les gens ne sont pas "des personnages". Ce sont des humains », ajoute-t-il. « Ils ont faim, froid, peur, espoir. Comme toi. »
+
+Il se lève, ouvre un tiroir et en sort une petite lanière de cuir, simple, solide.
+« Tiens. Attache-le. Comme ça, tu ne le perdras pas. »
+
+Tu noues le cuir autour du galet. Il devient un pendentif que tu peux porter sous ton tee-shirt. Le geste te rassure, comme si tu mettais une ceinture avant de monter en voiture.
+
+Quand tu remontes te coucher, tu te sens moins seul. Tu n'as pas toutes les réponses, mais tu as une règle : observer avant d'agir.
+
+Le galet est tiède contre ta poitrine. Cette fois, tu es prêt à l'écouter.`,
       choices: [
         { label: "Aller vers le feu, au cœur du campement", targetPageId: "page-5" },
         { label: "Repérer d'abord la rivière", targetPageId: "page-6" },
@@ -2246,17 +2267,23 @@ Les images reviennent. Et cette fois, elles t'emportent.`,
       storyId: "les-chemins-du-temps",
       image: page5CheminsTemps,
       title: "Le cercle du feu",
-      text: `Tu avances vers la clairière. Le feu crépite. Tu sens la chaleur sur ton visage.
+      text: `Tu avances vers la clairière en faisant attention à tes pas. Les feuilles craquent quand même, et immédiatement, les silhouettes près du feu se tournent vers toi. Pendant une seconde, tu as envie de reculer. Mais tu te forces à respirer.
 
-Un homme se lève d'un bond. Il tient une lance. Il te regarde avec méfiance.
+Le feu crépite. Sa chaleur te frappe le visage. Tu vois mieux les humains : des adultes, un enfant, un plus jeune encore. Ils portent des peaux, des cordelettes, des colliers faits d'os ou de dents. Leurs yeux brillent dans la lumière orange.
 
-Tu lèves les mains, lentement, pour montrer que tu n'as rien. Autour du feu, les autres t'observent. Certains reculent. Mais un enfant, à peu près de ton âge, te fixe avec curiosité.
+Un homme se lève, une lance à la main. Il ne court pas. Il te regarde comme on regarde un animal qu'on ne connaît pas : avec prudence. Une femme serre le plus petit contre elle. L'enfant de ton âge, lui, te fixe avec une curiosité qui ressemble à la tienne.
 
-Il fait un signe, et les adultes semblent hésiter. Finalement, ils te laissent t'approcher.
+Tu lèves doucement les mains, pour montrer que tu n'as rien. Ton galet pend sous ton tee-shirt, tiède contre ta peau. Personne ne comprend tes mots, mais tout le monde comprend tes gestes.
 
-L'enfant te tend une branche sèche. Tu comprends : il t'invite à nourrir le feu.
+Tu remarques quelque chose : le feu est bas. Les braises sont couvertes de cendre grise. Un vent léger souffle, et la flamme vacille. Dans une forêt comme celle-ci, un feu qui s'éteint, c'est un danger immédiat. Le froid revient. Les bêtes s'approchent. La nuit devient trop grande.
 
-Tu comprends aussi autre chose, sans qu'on te le dise : ici, tu seras accepté si tu es utile.`,
+Un adulte s'accroupit et ajoute une branche. Le feu reprend, mais il manque de bois sec. Tu vois des morceaux de bois humides, et des pierres noircies.
+
+L'enfant s'approche. Il te tend un petit bout de branche sèche, comme une invitation. Tu comprends : ici, tu seras accepté si tu es utile.
+
+Plus loin, tu entends des voix courtes, des sons rapides. On parle de partir au lever du jour. De suivre des traces. De trouver de la nourriture.
+
+Tu as trois chemins possibles devant toi : rester auprès du feu, comprendre le camp… ou suivre ceux qui s'éloignent vers la roche sombre, torche à la main, comme s'ils allaient vers un endroit secret.`,
       choices: [
         { label: "Suivre l'enfant vers la grotte aux peintures", targetPageId: "page-8" },
         { label: "Aider à garder le feu toute la nuit", targetPageId: "page-9" },
@@ -2269,17 +2296,21 @@ Tu comprends aussi autre chose, sans qu'on te le dise : ici, tu seras accepté s
       storyId: "les-chemins-du-temps",
       image: page6CheminsTemps,
       title: "Les traces dans la boue",
-      text: `Tu suis le bruit de l'eau. Un ruisseau coule entre des pierres moussues. Près de la rive, tu vois des empreintes dans la boue.
+      text: `Tu choisis de t'éloigner du feu, mais pas trop. Tu suis le bruit léger de l'eau jusqu'à une rivière. Là, la forêt change : les arbres s'écartent un peu, le sol devient plus mou, et l'air sent la mousse humide.
 
-Des traces d'animaux. Des cerfs. Des sangliers. Peut-être un ours.
+Tu t'accroupis près de la berge. Dans la boue, tu vois des empreintes. Des pas humains, pieds nus, et des traces d'animaux : des sabots, des griffes, des marques profondes comme si quelque chose de lourd était passé. Tu n'es pas un spécialiste, mais tu comprends vite une chose : la rivière est une sorte de carrefour. Tout le monde vient boire ici. Les humains aussi.
 
-Un bruit derrière toi.
+Un craquement derrière toi. Tu te retournes d'un bond.
 
-L'enfant du camp est là. Il te rejoint sans un mot, observe les traces, et t'en montre une en particulier. Il t'apprend à reconnaître si une trace est fraîche ou ancienne, profonde ou légère.
+C'est l'enfant de tout à l'heure. Il n'a pas de lance, pas de pierre à la main. Il te regarde et pointe le sol. Puis il trace une ligne avec un doigt, comme s'il t'expliquait un chemin. Il te montre trois empreintes, puis imite un animal avec ses mains. Tu comprends : il sait lire la terre comme un livre.
 
-Tu comprends que les humains de cette époque savent lire la terre comme un livre.
+Il s'accroupit à côté de toi et t'apprend, par gestes, à distinguer une trace fraîche d'une trace ancienne. Il touche la boue, regarde l'eau qui s'y accumule. Il te fait sentir une feuille écrasée. Tu n'aurais jamais pensé qu'on pouvait apprendre autant sans un seul mot.
 
-En retournant vers le camp, tu vois une lueur au fond de la roche : une grotte. Et en chemin, l'enfant t'indique un endroit où le groupe installe parfois un campement plus permanent.`,
+Soudain, il s'arrête. Il montre l'autre rive, où des branches sont cassées en hauteur. Puis il pointe la clairière du feu. Son regard devient sérieux : il a vu quelque chose, et il se demande si tu es digne de le savoir.
+
+Tu comprends que ce choix est important. Si tu retournes au camp avec ce que tu as appris, tu peux être utile. Si tu continues la piste, tu risques de te perdre… mais tu découvriras peut-être comment ils trouvent leur nourriture.
+
+Et si tu suis les traces plus loin encore, tu pourrais tomber sur un endroit différent : un lieu où les humains ne bougent presque plus, comme s'ils avaient décidé de rester au même endroit.`,
       choices: [
         { label: "Retourner au camp pour la nuit", targetPageId: "page-9" },
         { label: "Proposer de suivre les traces pour une chasse", targetPageId: "page-10" },
@@ -2292,13 +2323,21 @@ En retournant vers le camp, tu vois une lueur au fond de la roche : une grotte. 
       storyId: "les-chemins-du-temps",
       image: page7CheminsTemps,
       title: "Dans l'ombre des branches",
-      text: `Tu restes à l'abri des branches, invisible.
+      text: `Tu restes caché derrière un tronc. De là, tu vois la clairière comme si tu étais assis au bord d'un spectacle silencieux. Le feu éclaire les mains, pas les visages. Ici, ce sont les gestes qui racontent l'histoire.
 
-Tu observes le groupe. Un adulte taille un silex avec précision. Un autre surveille le feu. Deux silhouettes se lèvent et s'éloignent avec une torche vers une ouverture dans la roche.
+Un adulte frappe deux pierres. Des éclats tombent. Il recommence, change d'angle, souffle sur la poussière. Petit à petit, un bord apparaît, tranchant comme une lame. Tu comprends que ce n'est pas de la magie : c'est de la patience, de l'habitude, et une connaissance de la matière.
 
-Le feu commence à baisser. Le groupe semble tendu. Quelqu'un murmure.
+Un autre humain vérifie les cordelettes, resserre un nœud, teste la solidité d'un manche. Un troisième, plus loin, écoute la forêt comme on écoute une porte derrière laquelle quelqu'un pourrait entrer.
 
-Tu comprends que tu as un choix à faire : rester étranger, ou agir pour te faire accepter.`,
+Tu remarques aussi un détail inquiétant : le feu baisse. Les braises rougissent moins. Une couche grise se forme. Personne n'a l'air de s'en soucier, parce que chacun a déjà son rôle. Mais toi, tu vois la flamme vaciller. Et tu sais, même sans l'avoir vécu, que le feu peut mourir vite.
+
+Dans le fond de la clairière, deux silhouettes prennent une torche et s'éloignent vers la roche sombre. Elles ne partent pas chasser. Elles ne partent pas chercher du bois. Elles partent vers un endroit secret.
+
+Ton ventre se serre. Si tu restes caché, tu apprends beaucoup, mais tu restes un étranger. Si tu te montres et que tu agis, tu risques de les effrayer… mais tu peux gagner ta place. Et si tu suis la torche vers la roche, tu découvriras peut-être ce que ces humains gardent comme un trésor.
+
+Le galet est tiède contre toi, comme un petit animal endormi. Il ne te dit pas quoi faire. Il attend que tu deviennes responsable de ta propre histoire.
+
+Tu entends au loin un hurlement, pas tout près, mais assez pour te rappeler que la forêt a ses règles. Tu penses à ta maison, à ta couette, puis tu chasses l'idée : ici, si tu restes immobile trop longtemps, tu deviens juste une ombre de plus. Et une ombre, ça ne survit pas.`,
       choices: [
         { label: "Suivre les silhouettes vers la grotte", targetPageId: "page-8" },
         { label: "Apporter du bois pour aider à maintenir le feu", targetPageId: "page-9" },
@@ -2311,17 +2350,23 @@ Tu comprends que tu as un choix à faire : rester étranger, ou agir pour te fai
       storyId: "les-chemins-du-temps",
       image: page8CheminsTemps,
       title: "La grotte des animaux peints",
-      text: `Tu suis la torche dans l'obscurité de la grotte. Le sol est humide. L'air est frais.
+      text: `Tu suis la torche à distance. La lumière tremble sur les troncs, puis disparaît derrière une paroi rocheuse. Une ouverture sombre apparaît : une grotte, pas très grande au début, mais qui semble s'enfoncer profondément.
 
-Et soudain, tu t'arrêtes.
+Tu hésites. L'air à l'intérieur est plus froid. L'odeur de fumée est plus forte, mélangée à celle de la pierre humide. Tu avances quand même, en posant les pieds doucement, comme si le sol pouvait se casser.
 
-Sur les parois de la roche, des animaux sont dessinés. Des chevaux. Des bisons. Des cerfs aux bois immenses. Les traits sont précis. Les couleurs sont faites de terre, de charbon, de pigments naturels.
+Plus loin, la torche éclaire les murs… et tu t'arrêtes, bouche ouverte.
 
-Ce n'est pas un simple dessin. C'est une mémoire. Une manière de raconter ce qu'on voit, ce qu'on chasse, ce qu'on respecte.
+Des animaux sont dessinés sur la roche : des chevaux, des bisons, des cerfs. Certains semblent courir. D'autres baissent la tête. Les lignes sont sûres, comme si la main qui les a tracées connaissait chaque muscle, chaque mouvement. Tu n'as jamais vu quelque chose d'aussi vivant sur une pierre.
 
-L'enfant te regarde. Il ne parle pas ta langue, mais tu comprends sa question : « Tu comprends ? »
+Les humains qui t'ont précédé ne parlent pas. Ils regardent les parois avec respect. L'un d'eux prend un morceau de charbon, souffle doucement dessus, puis ajoute quelques traits. Une simple courbe, et le ventre d'un animal devient rond. Une tache, et l'œil apparaît.
 
-Tu hoches la tête.`,
+Tu comprends sans qu'on te le dise : ce n'est pas "pour décorer". C'est une mémoire. Une manière de raconter sans écrire. Une manière de dire : "Nous avons vu cela. Nous vivons avec cela."
+
+Ton doigt te démange. Tu as envie de toucher, pour vérifier si c'est vrai. Mais tu vois aussi les mains noircies de charbon, les torches, la concentration. Ici, tout a une valeur. Une trace de main peut rester longtemps.
+
+Tu entends un souffle derrière toi. L'enfant de tout à l'heure est là. Il te regarde, puis regarde la paroi. Son visage dit clairement : « Tu comprends ? »
+
+À cet instant, tu sens que ton choix peut te rapprocher de ces humains… ou te couper d'eux. Et dehors, la nuit continue, avec ses dangers. Tu inspires lentement, comme si la grotte pouvait entendre ta respiration.`,
       choices: [
         { label: "Observer les peintures avec respect et retourner au camp", targetPageId: "page-9" },
         { label: "Aider en portant une torche vers le fond de la grotte", targetPageId: "page-10" },
@@ -2334,17 +2379,21 @@ Tu hoches la tête.`,
       storyId: "les-chemins-du-temps",
       image: page9CheminsTemps,
       title: "Gagner ta place",
-      text: `Le feu brûle encore. Tu t'assois près des braises.
+      text: `Ton geste, ton attitude, ou ce que tu as rapporté de la rivière change quelque chose. Tu le sens sans qu'on te fasse un discours. Les épaules se détendent un peu. Les regards deviennent moins durs. Dans ce monde, la confiance n'arrive pas avec des promesses : elle arrive avec des actes.
 
-Les regards autour de toi deviennent moins durs. On t'a vu aider. On t'a vu écouter.
+On t'autorise à rester près du feu. On te tend un morceau de nourriture simple, une racine cuite, peut-être un bout de viande séchée. Ce n'est pas un festin, mais c'est un partage. Et tu comprends que partager, ici, c'est survivre.
 
-L'enfant s'assoit près de toi. Il te tend un morceau de viande séchée. Tu l'acceptes. Tu manges.
+L'enfant s'assoit à côté de toi. Il te montre un silex, puis une branche. Il mime un geste, et tu comprends : il veut te montrer comment on fabrique un outil. Tu observes ses mains, la manière dont il place la pierre, le coup sec, l'angle. C'est précis. Ce n'est pas de la force, c'est de l'intelligence.
 
-Le lendemain matin, on te confie une tâche simple : surveiller les flammes pendant que les autres préparent les outils. Peu à peu, tu deviens utile.
+Plus tard, un adulte pointe le ciel qui pâlit. Le camp s'active. Certains se préparent à suivre une piste : aujourd'hui, on chassera, ou on cherchera des animaux, peut-être des poissons. D'autres rassemblent des objets, comme si le camp allait bouger.
 
-L'enfant te montre comment tailler un éclat de silex. Tu essaies. Tu te coupes un peu. Mais tu recommences.
+Et toi, tu te rends compte que tu peux choisir la façon dont tu vas apprendre cette époque.
 
-C'est ainsi qu'on apprend, à cette époque : par la répétition, par l'erreur, par le geste.`,
+Tu peux approfondir ce que tu as commencé : les traces, la rivière, comprendre la forêt. Tu peux participer à une chasse, voir comment la tribu se nourrit sans rien gaspiller. Ou tu peux suivre ceux qui parlent d'un endroit plus stable, un lieu où l'on ne plie pas tout chaque soir : une idée nouvelle, celle de rester.
+
+Le galet reste tiède. Il ne te tire pas encore vers une autre époque. Comme s'il te laissait le temps de mériter la suite.
+
+Tu remarques aussi des détails qui te frappent : un tas de pierres qui sert à protéger les braises du vent, des peaux posées toujours du même côté pour couper le froid, des outils rangés ensemble comme dans une boîte invisible. Même sans écriture, ils ont une organisation. Et cette organisation raconte déjà une partie de l'Histoire.`,
       choices: [
         { label: "Retourner à la rivière pour observer les traces", targetPageId: "page-6" },
         { label: "Proposer de partir avec les chasseurs", targetPageId: "page-10" },
@@ -2357,17 +2406,21 @@ C'est ainsi qu'on apprend, à cette époque : par la répétition, par l'erreur,
       storyId: "les-chemins-du-temps",
       image: page10CheminsTemps,
       title: "La chasse sans gaspiller",
-      text: `Tu pars avec le groupe. Le soleil n'est pas encore levé. L'air est froid. Les chasseurs avancent en silence.
+      text: `Tu pars avec le groupe qui suit les traces. On ne court pas tout de suite. D'abord, on marche en silence. Les adultes s'arrêtent souvent, touchent le sol, montrent du doigt une branche cassée, une touffe d'herbe aplatie. Tu comprends que la chasse commence bien avant la poursuite : elle commence avec l'attention.
 
-La chasse ne commence pas par la course. Elle commence par l'attention. On regarde les traces. On écoute les branches. On repère les zones où les animaux passent souvent.
+L'enfant pisteur t'explique à sa manière. Il te montre une empreinte plus profonde : "l'animal est lourd". Il te montre une trace qui glisse : "il a couru". Il te montre une goutte sombre sur une feuille : "il est passé tout à l'heure". Tu ne sais pas s'il a raison, mais tu vois que tous le suivent, comme s'il avait un don.
 
-Tu vois un cerf, au loin. Personne ne se précipite. Les adultes échangent des signes de la main.
+Tu arrives près d'une clairière. Au loin, des animaux broutent. Tu ne connais pas leurs noms, mais tu comprends qu'ils sont importants. Les adultes se répartissent. Personne ne crie. Personne ne se précipite. Les lances sont tenues fermement, mais pas levées comme dans un film.
 
-Finalement, le cerf est capturé. Pas par la force brute, mais par la coordination.
+Quand l'action commence, tu ne vois pas une "bagarre". Tu vois une stratégie : encercler, faire peur, pousser les animaux vers un endroit plus facile. Les humains ne cherchent pas à faire les héros. Ils cherchent à manger et à rester en vie.
 
-Ensuite, tu observes quelque chose d'important : on n'utilise pas seulement la viande. On garde la peau, les os, les tendons. Rien n'est jeté.
+Tu fais ce que tu peux. Tu portes des branches, tu restes derrière, tu imites les gestes. Tu sens la tension, le souffle court. Puis, tout se calme. Le groupe se rassemble. On ramasse, on partage, on ne laisse rien de précieux derrière. Même les os, même la peau, tout servira.
 
-En rentrant au camp, tu remarques que certains adultes parlent d'un endroit où le groupe pourrait rester plus longtemps. Un début de village, peut-être.`,
+Sur le chemin du retour, tu entends les anciens parler autrement. Pas seulement de la journée. Ils parlent d'un lieu où l'on reviendrait, encore et encore. Un endroit fixe. Un début de village.
+
+Tu regardes le galet sous ton tee-shirt. Il est chaud, comme s'il approuvait ce passage : de la course à l'idée, du moment à la durée.
+
+Et tu comprends que tu arrives à un tournant : rester nomade… ou devenir sédentaire.`,
       choices: [
         { label: "Revenir à la rivière pour réfléchir", targetPageId: "page-6" },
         { label: "Retourner au camp principal", targetPageId: "page-9" },
