@@ -1,0 +1,301 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import { ArrowLeft, User, Mail, Lock, Sparkles } from 'lucide-react';
+import logo from '@/assets/logo.png';
+
+const AVATARS = [
+  { id: 'lion', emoji: '🦁', name: 'Lion' },
+  { id: 'panda', emoji: '🐼', name: 'Panda' },
+  { id: 'lapin', emoji: '🐰', name: 'Lapin' },
+  { id: 'renard', emoji: '🦊', name: 'Renard' },
+  { id: 'hibou', emoji: '🦉', name: 'Hibou' },
+  { id: 'papillon', emoji: '🦋', name: 'Papillon' },
+  { id: 'dauphin', emoji: '🐬', name: 'Dauphin' },
+  { id: 'etoile', emoji: '⭐', name: 'Étoile' },
+];
+
+const signUpSchema = z.object({
+  email: z.string().email('Adresse email invalide'),
+  password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
+  prenom: z.string().min(1, 'Le prénom est requis').max(50, 'Le prénom est trop long'),
+});
+
+const signInSchema = z.object({
+  email: z.string().email('Adresse email invalide'),
+  password: z.string().min(1, 'Le mot de passe est requis'),
+});
+
+export default function Auth() {
+  const navigate = useNavigate();
+  const { signUp, signIn, isAuthenticated, loading } = useAuthContext();
+  const { toast } = useToast();
+  
+  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [selectedAvatar, setSelectedAvatar] = useState('lion');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, loading, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+    setIsSubmitting(true);
+
+    try {
+      if (mode === 'signup') {
+        const validation = signUpSchema.safeParse({ email, password, prenom });
+        if (!validation.success) {
+          const fieldErrors: Record<string, string> = {};
+          validation.error.errors.forEach(err => {
+            if (err.path[0]) {
+              fieldErrors[err.path[0] as string] = err.message;
+            }
+          });
+          setErrors(fieldErrors);
+          setIsSubmitting(false);
+          return;
+        }
+
+        const { error } = await signUp(email, password, prenom, selectedAvatar);
+        
+        if (error) {
+          if (error.message.includes('already registered')) {
+            toast({
+              title: "Compte existant",
+              description: "Un compte existe déjà avec cet email. Essayez de vous connecter.",
+              variant: "destructive"
+            });
+          } else {
+            toast({
+              title: "Erreur",
+              description: error.message,
+              variant: "destructive"
+            });
+          }
+        } else {
+          toast({
+            title: "Bienvenue !",
+            description: `Le compte de ${prenom} a été créé avec succès !`,
+          });
+          navigate('/');
+        }
+      } else {
+        const validation = signInSchema.safeParse({ email, password });
+        if (!validation.success) {
+          const fieldErrors: Record<string, string> = {};
+          validation.error.errors.forEach(err => {
+            if (err.path[0]) {
+              fieldErrors[err.path[0] as string] = err.message;
+            }
+          });
+          setErrors(fieldErrors);
+          setIsSubmitting(false);
+          return;
+        }
+
+        const { error } = await signIn(email, password);
+        
+        if (error) {
+          if (error.message.includes('Invalid login credentials')) {
+            toast({
+              title: "Erreur de connexion",
+              description: "Email ou mot de passe incorrect.",
+              variant: "destructive"
+            });
+          } else {
+            toast({
+              title: "Erreur",
+              description: error.message,
+              variant: "destructive"
+            });
+          }
+        } else {
+          toast({
+            title: "Connexion réussie !",
+            description: "Content de te revoir !",
+          });
+          navigate('/');
+        }
+      }
+    } catch (err) {
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue. Réessayez plus tard.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <main className="min-h-screen bg-background py-6 px-4">
+      <div className="container max-w-md mx-auto">
+        {/* Back button */}
+        <button
+          onClick={() => navigate('/')}
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Retour
+        </button>
+
+        {/* Logo and Title */}
+        <div className="text-center mb-8">
+          <img src={logo} alt="Logo" className="w-20 h-20 mx-auto mb-4" />
+          <h1 className="font-display text-3xl text-foreground mb-2">
+            {mode === 'signin' ? 'Connexion' : 'Créer un compte'}
+          </h1>
+          <p className="text-muted-foreground">
+            {mode === 'signin' 
+              ? 'Retrouve tes histoires et ta progression !' 
+              : 'Crée un compte pour sauvegarder ta progression'}
+          </p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-6 bg-card rounded-2xl p-6 shadow-lg border border-border">
+          {mode === 'signup' && (
+            <>
+              {/* Avatar Selection */}
+              <div className="space-y-3">
+                <Label className="text-base font-semibold flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  Choisis ton avatar
+                </Label>
+                <div className="grid grid-cols-4 gap-3">
+                  {AVATARS.map((avatar) => (
+                    <button
+                      key={avatar.id}
+                      type="button"
+                      onClick={() => setSelectedAvatar(avatar.id)}
+                      className={`
+                        aspect-square rounded-xl text-3xl flex items-center justify-center
+                        transition-all duration-200 border-2
+                        ${selectedAvatar === avatar.id 
+                          ? 'border-primary bg-primary/10 scale-110 shadow-lg' 
+                          : 'border-border bg-muted/50 hover:border-primary/50 hover:scale-105'}
+                      `}
+                      title={avatar.name}
+                    >
+                      {avatar.emoji}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Prenom */}
+              <div className="space-y-2">
+                <Label htmlFor="prenom" className="text-base font-semibold flex items-center gap-2">
+                  <User className="w-4 h-4 text-primary" />
+                  Prénom de l'enfant
+                </Label>
+                <Input
+                  id="prenom"
+                  type="text"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                  placeholder="Comment t'appelles-tu ?"
+                  className="h-12 text-base"
+                />
+                {errors.prenom && (
+                  <p className="text-sm text-destructive">{errors.prenom}</p>
+                )}
+              </div>
+            </>
+          )}
+
+          {/* Email */}
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-base font-semibold flex items-center gap-2">
+              <Mail className="w-4 h-4 text-primary" />
+              Email {mode === 'signup' && <span className="text-muted-foreground font-normal">(des parents)</span>}
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="email@exemple.com"
+              className="h-12 text-base"
+            />
+            {errors.email && (
+              <p className="text-sm text-destructive">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Password */}
+          <div className="space-y-2">
+            <Label htmlFor="password" className="text-base font-semibold flex items-center gap-2">
+              <Lock className="w-4 h-4 text-primary" />
+              Mot de passe
+            </Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className="h-12 text-base"
+            />
+            {errors.password && (
+              <p className="text-sm text-destructive">{errors.password}</p>
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full h-14 text-lg font-display font-bold"
+          >
+            {isSubmitting ? (
+              <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+            ) : (
+              mode === 'signin' ? 'Se connecter' : 'Créer le compte'
+            )}
+          </Button>
+
+          {/* Toggle mode */}
+          <div className="text-center pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                setMode(mode === 'signin' ? 'signup' : 'signin');
+                setErrors({});
+              }}
+              className="text-primary hover:underline font-medium"
+            >
+              {mode === 'signin' 
+                ? "Pas encore de compte ? Créer un compte" 
+                : "Déjà un compte ? Se connecter"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  );
+}

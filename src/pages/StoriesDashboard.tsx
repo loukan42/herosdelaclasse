@@ -5,10 +5,13 @@ import { StoryCard } from "@/components/StoryCard";
 import { Sparkles, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
+import { useAllStoryProgress } from "@/hooks/useStoryProgress";
+import { UserMenu } from "@/components/UserMenu";
 
 export default function StoriesDashboard() {
   const { subjectId } = useParams<{ subjectId: string }>();
   const navigate = useNavigate();
+  const { hasProgress, isCompleted, getCompletionCount } = useAllStoryProgress();
   
   const subject = getSubject(subjectId || "");
   const stories = getStoriesBySubject(subjectId || "");
@@ -22,8 +25,13 @@ export default function StoriesDashboard() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
+      {/* Header with UserMenu */}
+      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end">
+        <UserMenu />
+      </div>
+
       {/* Hero Section */}
-      <header className="relative overflow-hidden py-12 md:py-20 px-4">
+      <header className="relative overflow-hidden py-10 md:py-16 px-4">
         {/* Decorative elements */}
         <div className="absolute top-10 left-10 w-20 h-20 text-golden opacity-30 animate-float">
           <Sparkles className="w-full h-full" />
@@ -64,7 +72,14 @@ export default function StoriesDashboard() {
       <section className="container max-w-6xl mx-auto px-4 pb-20 flex-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {stories.map((story, index) => (
-            <StoryCard key={story.id} story={story} index={index} />
+            <StoryCard 
+              key={story.id} 
+              story={story} 
+              index={index}
+              hasProgress={hasProgress(story.id)}
+              isCompleted={isCompleted(story.id)}
+              completionCount={getCompletionCount(story.id)}
+            />
           ))}
         </div>
       </section>

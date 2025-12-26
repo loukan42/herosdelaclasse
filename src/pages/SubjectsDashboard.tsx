@@ -3,12 +3,18 @@ import { SubjectCard } from "@/components/SubjectCard";
 import { Sparkles } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Footer } from "@/components/Footer";
+import { UserMenu } from "@/components/UserMenu";
 
 export default function SubjectsDashboard() {
   return (
     <main className="min-h-screen bg-background flex flex-col">
+      {/* Header with UserMenu */}
+      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end">
+        <UserMenu />
+      </div>
+
       {/* Hero Section */}
-      <header className="relative overflow-hidden py-8 md:py-12 px-4">
+      <header className="relative overflow-hidden py-6 md:py-10 px-4">
         {/* Decorative elements */}
         <div className="absolute top-10 left-10 w-20 h-20 text-golden opacity-30 animate-float">
           <Sparkles className="w-full h-full" />

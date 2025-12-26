@@ -1,14 +1,17 @@
 import { Story } from "@/data/stories";
 import { useNavigate } from "react-router-dom";
-import { Sparkles, BookOpen } from "lucide-react";
+import { Sparkles, BookOpen, CheckCircle, PlayCircle } from "lucide-react";
 import { getStoredReadCount } from "@/hooks/useReadCount";
 
 interface StoryCardProps {
   story: Story;
   index: number;
+  hasProgress?: boolean;
+  isCompleted?: boolean;
+  completionCount?: number;
 }
 
-export function StoryCard({ story, index }: StoryCardProps) {
+export function StoryCard({ story, index, hasProgress, isCompleted, completionCount = 0 }: StoryCardProps) {
   const navigate = useNavigate();
   const readCount = getStoredReadCount(story.id);
 
@@ -31,8 +34,8 @@ export function StoryCard({ story, index }: StoryCardProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent" />
         
-        {/* Level Badge */}
-        <div className="absolute top-4 right-4 flex gap-2">
+        {/* Badges */}
+        <div className="absolute top-4 right-4 flex flex-wrap gap-2 justify-end">
           <div className="bg-golden text-golden-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
             <Sparkles className="w-3 h-3" />
             {story.level}
@@ -41,6 +44,22 @@ export function StoryCard({ story, index }: StoryCardProps) {
             <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
               <BookOpen className="w-3 h-3" />
               {readCount}
+            </div>
+          )}
+        </div>
+
+        {/* Progress/Completion indicators */}
+        <div className="absolute top-4 left-4 flex flex-col gap-2">
+          {isCompleted && (
+            <div className="bg-ending-happy text-white px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
+              <CheckCircle className="w-3 h-3" />
+              Terminée{completionCount > 1 ? ` (${completionCount}x)` : ''}
+            </div>
+          )}
+          {hasProgress && !isCompleted && (
+            <div className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg animate-pulse">
+              <PlayCircle className="w-3 h-3" />
+              En cours
             </div>
           )}
         </div>
@@ -57,7 +76,7 @@ export function StoryCard({ story, index }: StoryCardProps) {
         
         {/* CTA */}
         <div className="mt-4 flex items-center gap-2 text-primary font-semibold">
-          <span>Lire l'histoire</span>
+          <span>{hasProgress && !isCompleted ? "Continuer" : "Lire l'histoire"}</span>
           <svg 
             className="w-5 h-5 transition-transform group-hover:translate-x-2" 
             fill="none" 
