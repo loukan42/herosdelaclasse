@@ -86,9 +86,9 @@ export function ProfileSwitcher() {
         </Button>
 
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-4xl w-[95vw] max-h-[95vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Créer un profil enfant</DialogTitle>
+              <DialogTitle className="text-2xl text-center">Créer un profil enfant</DialogTitle>
             </DialogHeader>
             <CreateProfileForm
               name={newName}
@@ -173,9 +173,9 @@ export function ProfileSwitcher() {
       </DropdownMenu>
 
       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-4xl w-[95vw] max-h-[95vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Ajouter un profil enfant</DialogTitle>
+            <DialogTitle className="text-2xl text-center">Ajouter un profil enfant</DialogTitle>
           </DialogHeader>
           <CreateProfileForm
             name={newName}
@@ -210,42 +210,47 @@ function CreateProfileForm({
   onCancel: () => void;
 }) {
   return (
-    <div className="space-y-4 pt-2">
-      <div className="space-y-2">
-        <Label>Prénom de l'enfant</Label>
+    <div className="space-y-6 pt-2">
+      <div className="space-y-3 max-w-md mx-auto">
+        <Label className="text-lg font-semibold">Prénom de l'enfant</Label>
         <Input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Comment s'appelle-t-il/elle ?"
+          className="h-14 text-lg"
         />
       </div>
 
-      <div className="space-y-2">
-        <Label>Avatar</Label>
-        <div className="grid grid-cols-6 gap-2 max-h-48 overflow-y-auto p-1">
+      <div className="space-y-4">
+        <Label className="text-lg font-semibold block text-center">Choisis ton personnage !</Label>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6 p-2">
           {AVATARS.map((av) => (
             <button
               key={av.id}
               type="button"
               onClick={() => setAvatar(av.id)}
               className={`
-                w-12 h-12 rounded-full overflow-hidden transition-all
+                aspect-square rounded-2xl overflow-hidden transition-all p-2 bg-muted/50
                 ${avatar === av.id 
-                  ? 'ring-2 ring-primary ring-offset-2' 
-                  : 'hover:ring-2 hover:ring-primary/50'}
+                  ? 'ring-4 ring-primary ring-offset-4 scale-105 bg-primary/10' 
+                  : 'hover:ring-2 hover:ring-primary/50 hover:scale-102'}
               `}
             >
-              <img src={av.image} alt={av.name} className="w-full h-full object-contain" />
+              <img 
+                src={av.image} 
+                alt={av.name} 
+                className="w-full h-full object-contain drop-shadow-lg" 
+              />
             </button>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-end gap-2 pt-2">
-        <Button variant="outline" onClick={onCancel}>
+      <div className="flex justify-center gap-4 pt-4">
+        <Button variant="outline" onClick={onCancel} size="lg" className="px-8">
           Annuler
         </Button>
-        <Button onClick={onSubmit} disabled={isSubmitting}>
+        <Button onClick={onSubmit} disabled={isSubmitting} size="lg" className="px-8">
           {isSubmitting && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
           Créer le profil
         </Button>
