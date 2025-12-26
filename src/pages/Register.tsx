@@ -6,10 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Mail, Lock, Sparkles, User } from 'lucide-react';
+import { ArrowLeft, Mail, Lock, User } from 'lucide-react';
 import coverLogo from '@/assets/cover-logo.png';
-import { AvatarCarousel } from '@/components/AvatarCarousel';
-import { AVATARS } from '@/data/avatars';
 
 const signUpSchema = z.object({
   email: z.string().email('Adresse email invalide'),
@@ -26,7 +24,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [prenom, setPrenom] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]?.id || 'fille_1');
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -63,7 +61,7 @@ export default function Register() {
         return;
       }
 
-      const { error } = await signUp(email, password, prenom, selectedAvatar);
+      const { error } = await signUp(email, password, prenom);
       
       if (error) {
         if (error.message.includes('already registered')) {
@@ -176,17 +174,6 @@ export default function Register() {
               )}
             </div>
 
-            {/* Avatar */}
-            <div className="space-y-1.5 sm:space-y-2">
-              <Label className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
-                <Sparkles className="w-4 h-4 text-golden" />
-                Choisissez votre avatar
-              </Label>
-              <AvatarCarousel
-                selectedAvatar={selectedAvatar}
-                onSelect={setSelectedAvatar}
-              />
-            </div>
 
             {/* Email */}
             <div className="space-y-1.5 sm:space-y-2">
