@@ -3181,7 +3181,9 @@ export function processText(
   textMasculine?: string,
   textFeminine?: string
 ): string {
-  let processedText = text.replace(/{prenom}/g, prenom || "Aventurier");
+  let processedText = text
+    .replace(/{prenom}/gi, prenom || "Aventurier")
+    .replace(/{prénom}/gi, prenom || "Aventurier");
   
   // Handle gendered text replacements in main text
   if (genre === 'feminin') {
