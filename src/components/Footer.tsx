@@ -22,7 +22,7 @@ export function Footer() {
         </button>
 
         {isExpanded && (
-          <div className="pb-6 text-muted-foreground text-sm leading-relaxed space-y-4 animate-fade-in">
+          <div className="pb-6 text-muted-foreground text-sm leading-relaxed space-y-4 animate-fade-in text-left">
             <p>
               Je suis fan de jeux de rôle, d'informatique et bientôt papa.
             </p>
