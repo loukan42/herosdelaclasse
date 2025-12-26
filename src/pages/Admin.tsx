@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAdmin } from '@/hooks/useAdmin';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useAdminStories } from '@/hooks/useAdminStories';
+import { stories as staticStories } from '@/data/stories';
 import { 
   Users, 
   BookOpen, 
@@ -15,7 +16,8 @@ import {
   Eye,
   EyeOff,
   Pencil,
-  Trash2
+  Trash2,
+  Lock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -31,6 +33,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { subjects } from '@/data/subjects';
 import { toast } from 'sonner';
+import { Badge } from '@/components/ui/badge';
 
 const AVATAR_EMOJIS: Record<string, string> = {
   lion: '🦁',
@@ -44,12 +47,50 @@ const AVATAR_EMOJIS: Record<string, string> = {
   default: '👤',
 };
 
+// Combined story type for display
+interface DisplayStory {
+  id: string;
+  title: string;
+  description: string | null;
+  cover_image_url: string | null;
+  level: string;
+  subject_id: string;
+  is_published: boolean;
+  isStatic: boolean; // true for built-in stories
+}
+
 export default function Admin() {
   const navigate = useNavigate();
   const { loading: authLoading, isAuthenticated } = useAuthContext();
   const { isAdmin, loading, users, stats, refresh } = useAdmin();
-  const { stories, loading: storiesLoading, updateStory, deleteStory, fetchStories } = useAdminStories();
+  const { stories: adminStories, loading: storiesLoading, updateStory, deleteStory, fetchStories } = useAdminStories();
   const [activeTab, setActiveTab] = useState('users');
+
+  // Combine static and admin stories for display
+  const allDisplayStories: DisplayStory[] = [
+    // Static stories (built-in)
+    ...staticStories.map(s => ({
+      id: s.id,
+      title: s.title,
+      description: s.description,
+      cover_image_url: s.coverImage,
+      level: s.level,
+      subject_id: s.subjectId,
+      is_published: true,
+      isStatic: true
+    })),
+    // Admin-created stories
+    ...adminStories.map(s => ({
+      id: s.id,
+      title: s.title,
+      description: s.description,
+      cover_image_url: s.cover_image_url,
+      level: s.level,
+      subject_id: s.subject_id,
+      is_published: s.is_published,
+      isStatic: false
+    }))
+  ];
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -292,7 +333,7 @@ export default function Admin() {
                   <div className="flex items-center justify-center py-12">
                     <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                   </div>
-                ) : stories.length === 0 ? (
+                ) : allDisplayStories.length === 0 ? (
                   <div className="text-center py-12 text-muted-foreground">
                     <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
                     <p>Aucune histoire créée</p>
@@ -305,6 +346,7 @@ export default function Admin() {
                     <TableHeader>
                       <TableRow>
                         <TableHead>Histoire</TableHead>
+                        <TableHead>Type</TableHead>
                         <TableHead>Niveau</TableHead>
                         <TableHead>Matière</TableHead>
                         <TableHead>Statut</TableHead>
@@ -312,7 +354,7 @@ export default function Admin() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {stories.map((story) => (
+                      {allDisplayStories.map((story) => (
                         <TableRow key={story.id}>
                           <TableCell>
                             <div className="flex items-center gap-3">
@@ -328,6 +370,16 @@ export default function Admin() {
                                 <p className="text-xs text-muted-foreground line-clamp-1">{story.description}</p>
                               </div>
                             </div>
+                          </TableCell>
+                          <TableCell>
+                            {story.isStatic ? (
+                              <Badge variant="secondary" className="gap-1">
+                                <Lock className="w-3 h-3" />
+                                Intégrée
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline">Personnalisée</Badge>
+                            )}
                           </TableCell>
                           <TableCell>
                             <span className="bg-golden/20 text-golden-foreground px-2 py-1 rounded-full text-sm font-semibold">
@@ -349,30 +401,34 @@ export default function Admin() {
                             )}
                           </TableCell>
                           <TableCell className="text-right">
-                            <div className="flex items-center justify-end gap-2">
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => handleTogglePublish(story.id, story.is_published)}
-                                title={story.is_published ? 'Dépublier' : 'Publier'}
-                              >
-                                {story.is_published ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                              </Button>
-                              <Button variant="ghost" size="icon" asChild>
-                                <Link to={`/admin/stories/${story.id}`} title="Modifier">
-                                  <Pencil className="w-4 h-4" />
-                                </Link>
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => handleDeleteStory(story.id, story.title)}
-                                className="text-destructive hover:text-destructive"
-                                title="Supprimer"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </div>
+                            {story.isStatic ? (
+                              <span className="text-xs text-muted-foreground">Non modifiable</span>
+                            ) : (
+                              <div className="flex items-center justify-end gap-2">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => handleTogglePublish(story.id, story.is_published)}
+                                  title={story.is_published ? 'Dépublier' : 'Publier'}
+                                >
+                                  {story.is_published ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                </Button>
+                                <Button variant="ghost" size="icon" asChild>
+                                  <Link to={`/admin/stories/${story.id}`} title="Modifier">
+                                    <Pencil className="w-4 h-4" />
+                                  </Link>
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => handleDeleteStory(story.id, story.title)}
+                                  className="text-destructive hover:text-destructive"
+                                  title="Supprimer"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            )}
                           </TableCell>
                         </TableRow>
                       ))}
