@@ -9,6 +9,8 @@ import { StoryInventory } from "@/components/StoryInventory";
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX, Download } from "lucide-react";
 import dinosaurColoringPage from "@/assets/coloring/dinosaur-footprints-coloring.png";
 import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
+import { useStoryProgress } from "@/hooks/useStoryProgress";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
 
@@ -28,8 +30,10 @@ export default function StoryReader() {
   const genre = (sessionStorage.getItem(`story-${storyId}-genre`) || "neutre") as Genre;
 
   const { speak, stop, isSpeaking, isSupported } = useSpeechSynthesis({ lang: "fr-FR", rate: 0.9 });
+  const { saveProgress, markCompleted, isAuthenticated } = useStoryProgress(storyId);
+  const { profile } = useAuthContext();
 
-  // Load visited pages from sessionStorage
+  // Load visited pages from sessionStorage or from saved progress
   useEffect(() => {
     const saved = sessionStorage.getItem(`story-${storyId}-visited`);
     if (saved) {
@@ -55,6 +59,20 @@ export default function StoryReader() {
       previousVisitedRef.current = newVisited;
     }
   }, [pageId, storyId, visitedPages]);
+
+  // Save progress to database when page changes (for authenticated users)
+  useEffect(() => {
+    if (isAuthenticated && pageId && visitedPages.length > 0) {
+      saveProgress(pageId, visitedPages, prenom);
+    }
+  }, [pageId, visitedPages, isAuthenticated, saveProgress, prenom]);
+
+  // Mark story as completed when reaching an ending
+  useEffect(() => {
+    if (isAuthenticated && page?.isEnding) {
+      markCompleted(page.endingType);
+    }
+  }, [isAuthenticated, page?.isEnding, page?.endingType, markCompleted]);
 
   // Scroll to top when page changes
   useEffect(() => {
