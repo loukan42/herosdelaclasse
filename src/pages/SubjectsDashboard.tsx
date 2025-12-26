@@ -1,11 +1,16 @@
+import { Link } from "react-router-dom";
 import { subjects } from "@/data/subjects";
 import { SubjectCard } from "@/components/SubjectCard";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Save } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Footer } from "@/components/Footer";
 import { UserMenu } from "@/components/UserMenu";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
 
 export default function SubjectsDashboard() {
+  const { isAuthenticated, loading } = useAuthContext();
+
   return (
     <main className="min-h-screen bg-background flex flex-col">
       {/* Header with UserMenu */}
@@ -34,6 +39,18 @@ export default function SubjectsDashboard() {
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-1">
             Choisis une matière et découvre des histoires interactives pour apprendre en s'amusant.
           </p>
+
+          {/* CTA for non-authenticated users */}
+          {!loading && !isAuthenticated && (
+            <div className="mt-6 fade-up stagger-2">
+              <Button asChild size="lg" className="gap-2 font-display">
+                <Link to="/auth">
+                  <Save className="w-5 h-5" />
+                  Enregistrer ma progression
+                </Link>
+              </Button>
+            </div>
+          )}
         </div>
       </header>
 
