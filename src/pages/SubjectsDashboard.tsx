@@ -7,7 +7,9 @@ import { SubjectCard } from "@/components/SubjectCard";
 import { Sparkles, Save, ArrowLeft } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Footer } from "@/components/Footer";
-import { UserMenu } from "@/components/UserMenu";
+import { ProfileSwitcher } from "@/components/ProfileSwitcher";
+import { useAdmin } from "@/hooks/useAdmin";
+import { Crown } from "lucide-react";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 
@@ -15,6 +17,7 @@ export default function SubjectsDashboard() {
   const { gradeId } = useParams<{ gradeId: string }>();
   const navigate = useNavigate();
   const { isAuthenticated, loading } = useAuthContext();
+  const { isAdmin } = useAdmin();
 
   const grade = getGrade(gradeId || "");
 
@@ -41,9 +44,17 @@ export default function SubjectsDashboard() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
-      {/* Header with UserMenu */}
-      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end">
-        <UserMenu />
+      {/* Header with ProfileSwitcher and Admin button */}
+      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end items-center gap-2">
+        {isAdmin && (
+          <Button asChild variant="outline" size="sm" className="gap-2 text-golden border-golden/30 hover:bg-golden/10">
+            <Link to="/admin">
+              <Crown className="w-4 h-4" />
+              <span className="hidden sm:inline">Administration</span>
+            </Link>
+          </Button>
+        )}
+        <ProfileSwitcher />
       </div>
 
       {/* Hero Section */}
