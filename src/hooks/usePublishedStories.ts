@@ -43,6 +43,8 @@ export function usePublishedStories() {
       .select('id, slug, title, description, cover_image_url, level, subject_id, start_page_id, is_published, created_at, updated_at')
       .eq('is_published', true);
 
+    console.log('[usePublishedStories] Fetched stories:', storiesData?.length, storiesData);
+
     if (storiesError || !storiesData) {
       console.error('Error fetching published stories:', storiesError);
       setLoading(false);
