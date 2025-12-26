@@ -157,6 +157,37 @@ export default function Register() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20 shadow-2xl">
+            {/* Prénom */}
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="prenom" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
+                <User className="w-4 h-4 text-golden" />
+                Votre prénom
+              </Label>
+              <Input
+                id="prenom"
+                type="text"
+                value={prenom}
+                onChange={(e) => setPrenom(e.target.value)}
+                placeholder="Votre prénom"
+                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+              />
+              {errors.prenom && (
+                <p className="text-xs sm:text-sm text-red-300">{errors.prenom}</p>
+              )}
+            </div>
+
+            {/* Avatar */}
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
+                <Sparkles className="w-4 h-4 text-golden" />
+                Choisissez votre avatar
+              </Label>
+              <AvatarCarousel
+                selectedAvatar={selectedAvatar}
+                onSelect={setSelectedAvatar}
+              />
+            </div>
+
             {/* Email */}
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="email" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
