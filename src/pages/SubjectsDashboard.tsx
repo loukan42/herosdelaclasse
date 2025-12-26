@@ -2,6 +2,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { subjects } from "@/data/subjects";
 import { stories } from "@/data/stories";
 import { getGrade } from "@/data/grades";
+import { getSubjectsForGrade } from "@/data/gradeSubjects";
 import { SubjectCard } from "@/components/SubjectCard";
 import { Sparkles, Save, ArrowLeft } from "lucide-react";
 import logo from "@/assets/logo.png";
@@ -22,17 +23,21 @@ export default function SubjectsDashboard() {
     return null;
   }
 
-  // Get stories for this grade
-  const gradeStories = stories.filter(story => story.level === gradeId);
+  // Get subjects allowed for this grade from curriculum definition
+  const allowedSubjectIds = getSubjectsForGrade(gradeId || "");
   
-  // Get unique subject IDs that have stories for this grade
+  // Get stories for this grade to check which subjects have content
+  const gradeStories = stories.filter(story => story.level === gradeId);
   const subjectsWithStories = new Set(gradeStories.map(s => s.subjectId));
 
-  // Filter subjects to show which ones are available for this grade
-  const filteredSubjects = subjects.map(subject => ({
-    ...subject,
-    available: subjectsWithStories.has(subject.id)
-  }));
+  // Filter subjects: only show those in the curriculum for this grade
+  // Mark as available only if they have stories
+  const filteredSubjects = subjects
+    .filter(subject => allowedSubjectIds.includes(subject.id))
+    .map(subject => ({
+      ...subject,
+      available: subjectsWithStories.has(subject.id)
+    }));
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
@@ -98,7 +103,7 @@ export default function SubjectsDashboard() {
 
       {/* Subjects Grid */}
       <section className="container max-w-6xl mx-auto px-4 pb-20 flex-1">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSubjects.map((subject, index) => (
             <SubjectCard key={subject.id} subject={subject} index={index} gradeId={gradeId} />
           ))}

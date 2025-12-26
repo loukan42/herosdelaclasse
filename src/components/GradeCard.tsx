@@ -59,14 +59,14 @@ export function GradeCard({ grade, index }: GradeCardProps) {
       )}
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 p-6 text-white">
-        {/* Grade badge */}
+      <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 text-white">
+        {/* Grade badge - positioned at top of content area */}
         <div className={`
-          inline-flex items-center gap-2 px-4 py-2 rounded-full mb-3
+          inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full mb-2 md:mb-3
           bg-gradient-to-r ${grade.color} shadow-lg
           transform transition-transform duration-300 group-hover:scale-105
         `}>
-          <span className="font-display text-xl font-bold">{grade.name}</span>
+          <span className="font-display text-lg md:text-xl font-bold">{grade.name}</span>
         </div>
         
         {/* Title */}
