@@ -5,12 +5,15 @@ import { BookPage } from "@/components/BookPage";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { ImageChoiceButton } from "@/components/ImageChoiceButton";
 import { StoryInventory } from "@/components/StoryInventory";
+import { StoryTextEditor } from "@/components/StoryTextEditor";
 
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX, Download } from "lucide-react";
 import dinosaurColoringPage from "@/assets/coloring/dinosaur-footprints-coloring.png";
 import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 import { useStoryProgress } from "@/hooks/useStoryProgress";
+import { useStoryOverrides } from "@/hooks/useStoryOverrides";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { useAdmin } from "@/hooks/useAdmin";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
 
@@ -21,6 +24,7 @@ export default function StoryReader() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [visitedPages, setVisitedPages] = useState<string[]>([]);
   const [newlyCollectedItem, setNewlyCollectedItem] = useState<string | null>(null);
+  const [overriddenText, setOverriddenText] = useState<string | null>(null);
   const previousVisitedRef = useRef<string[]>([]);
 
   const story = getStory(storyId || "");
@@ -32,6 +36,8 @@ export default function StoryReader() {
   const { speak, stop, isSpeaking, isSupported } = useSpeechSynthesis({ lang: "fr-FR", rate: 0.9 });
   const { saveProgress, markCompleted, isAuthenticated } = useStoryProgress(storyId);
   const { profile } = useAuthContext();
+  const { isAdmin } = useAdmin();
+  const { getOverride } = useStoryOverrides();
 
   // Load visited pages from sessionStorage or from saved progress
   useEffect(() => {
@@ -82,10 +88,21 @@ export default function StoryReader() {
   useEffect(() => {
     setIsAnimating(true);
     setImageLoaded(false);
+    setOverriddenText(null); // Reset override on page change
     stop(); // Stop any playing audio when page changes
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
   }, [pageId, stop]);
+
+  // Check for text override
+  useEffect(() => {
+    if (storyId && pageId) {
+      const override = getOverride(storyId, pageId);
+      if (override) {
+        setOverriddenText(override.text);
+      }
+    }
+  }, [storyId, pageId, getOverride]);
 
   if (!story || !page) {
     return (
@@ -105,8 +122,11 @@ export default function StoryReader() {
     );
   }
 
+  // Use override text if available, otherwise original
+  const textToProcess = overriddenText || page.text;
+  
   const processedText = processText(
-    page.text,
+    textToProcess,
     prenom,
     genre,
     page.textMasculine,
@@ -267,6 +287,19 @@ export default function StoryReader() {
               )}
             </div>
 
+            {/* Admin Edit Button */}
+            {isAdmin && storyId && pageId && (
+              <StoryTextEditor
+                storyId={storyId}
+                pageId={pageId}
+                originalText={page.text}
+                originalTextMasculine={page.textMasculine}
+                originalTextFeminine={page.textFeminine}
+                currentText={overriddenText || page.text}
+                onTextUpdate={(newText) => setOverriddenText(newText)}
+              />
+            )}
+
             {/* Story Text - Line by line */}
             <div className="mb-6 md:mb-8 lg:mb-10 space-y-2 md:space-y-3 max-w-prose mx-auto">
               {textLines.map((line, index) => (
@@ -278,6 +311,7 @@ export default function StoryReader() {
                 </p>
               ))}
             </div>
+
 
             {/* Choices or Ending Actions */}
             {page.isEnding ? (

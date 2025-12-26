@@ -65,6 +65,42 @@ export type Database = {
         }
         Relationships: []
       }
+      story_page_overrides: {
+        Row: {
+          created_at: string
+          id: string
+          page_id: string
+          story_id: string
+          text: string
+          text_feminine: string | null
+          text_masculine: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page_id: string
+          story_id: string
+          text: string
+          text_feminine?: string | null
+          text_masculine?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page_id?: string
+          story_id?: string
+          text?: string
+          text_feminine?: string | null
+          text_masculine?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       story_progress: {
         Row: {
           current_page_id: string

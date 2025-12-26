@@ -53,6 +53,15 @@ export default function MyStories() {
   // Get unique completed story ids
   const uniqueCompletedStoryIds = [...new Set(completedStories.map(c => c.story_id))];
 
+  // Get stories in progress ids
+  const storiesInProgressIds = allProgress.map(p => p.story_id);
+
+  // Get unread stories (not in progress and not completed)
+  const unreadStories = stories.filter(story => 
+    !storiesInProgressIds.includes(story.id) && 
+    !uniqueCompletedStoryIds.includes(story.id)
+  );
+
   // Stats
   const totalStoriesRead = uniqueCompletedStoryIds.length;
   const totalEndings = completedStories.length;
@@ -150,6 +159,39 @@ export default function MyStories() {
                   </Link>
                 );
               })}
+            </div>
+          </section>
+        )}
+
+        {/* Unread Stories */}
+        {unreadStories.length > 0 && (
+          <section className="mb-10">
+            <h2 className="font-display text-2xl text-foreground mb-4 flex items-center gap-2">
+              <BookOpen className="w-6 h-6 text-primary" />
+              À découvrir
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {unreadStories.map((story) => (
+                <Link
+                  key={story.id}
+                  to={`/stories/${story.id}/start`}
+                  className="flex items-center gap-4 bg-card rounded-xl p-4 border border-border shadow-sm hover:shadow-md hover:border-primary/30 transition-all group"
+                >
+                  <img 
+                    src={story.coverImage} 
+                    alt={story.title}
+                    className="w-16 h-16 rounded-lg object-cover"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                      {story.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {story.description}
+                    </p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </section>
         )}
