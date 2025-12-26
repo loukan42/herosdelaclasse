@@ -118,8 +118,36 @@ export type Database = {
           },
         ]
       }
+      children_profiles: {
+        Row: {
+          avatar: string
+          created_at: string
+          id: string
+          parent_user_id: string
+          prenom: string
+          updated_at: string
+        }
+        Insert: {
+          avatar?: string
+          created_at?: string
+          id?: string
+          parent_user_id: string
+          prenom: string
+          updated_at?: string
+        }
+        Update: {
+          avatar?: string
+          created_at?: string
+          id?: string
+          parent_user_id?: string
+          prenom?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       completed_stories: {
         Row: {
+          child_profile_id: string | null
           completed_at: string
           ending_type: string | null
           id: string
@@ -127,6 +155,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          child_profile_id?: string | null
           completed_at?: string
           ending_type?: string | null
           id?: string
@@ -134,13 +163,22 @@ export type Database = {
           user_id: string
         }
         Update: {
+          child_profile_id?: string | null
           completed_at?: string
           ending_type?: string | null
           id?: string
           story_id?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "completed_stories_child_profile_id_fkey"
+            columns: ["child_profile_id"]
+            isOneToOne: false
+            referencedRelation: "children_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -207,6 +245,7 @@ export type Database = {
       }
       story_progress: {
         Row: {
+          child_profile_id: string | null
           current_page_id: string
           id: string
           prenom_histoire: string | null
@@ -216,6 +255,7 @@ export type Database = {
           visited_pages: Json | null
         }
         Insert: {
+          child_profile_id?: string | null
           current_page_id: string
           id?: string
           prenom_histoire?: string | null
@@ -225,6 +265,7 @@ export type Database = {
           visited_pages?: Json | null
         }
         Update: {
+          child_profile_id?: string | null
           current_page_id?: string
           id?: string
           prenom_histoire?: string | null
@@ -233,7 +274,15 @@ export type Database = {
           user_id?: string
           visited_pages?: Json | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "story_progress_child_profile_id_fkey"
+            columns: ["child_profile_id"]
+            isOneToOne: false
+            referencedRelation: "children_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

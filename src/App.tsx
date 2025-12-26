@@ -4,12 +4,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ChildProfileProvider } from "@/contexts/ChildProfileContext";
 import GradesDashboard from "./pages/GradesDashboard";
 import SubjectsDashboard from "./pages/SubjectsDashboard";
 import StoriesDashboard from "./pages/StoriesDashboard";
 import StoryStart from "./pages/StoryStart";
 import StoryReader from "./pages/StoryReader";
 import Auth from "./pages/Auth";
+import Register from "./pages/Register";
 import Admin from "./pages/Admin";
 import AdminStories from "./pages/AdminStories";
 import AdminStoryEditor from "./pages/AdminStoryEditor";
@@ -21,27 +23,30 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<GradesDashboard />} />
-            <Route path="/grade/:gradeId" element={<SubjectsDashboard />} />
-            <Route path="/grade/:gradeId/subjects/:subjectId" element={<StoriesDashboard />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/stories" element={<AdminStories />} />
-            <Route path="/admin/stories/:storyId" element={<AdminStoryEditor />} />
-            <Route path="/my-stories" element={<MyStories />} />
-            <Route path="/stories" element={<Navigate to="/" replace />} />
-            <Route path="/subjects/:subjectId" element={<Navigate to="/" replace />} />
-            <Route path="/stories/:storyId/start" element={<StoryStart />} />
-            <Route path="/stories/:storyId/page/:pageId" element={<StoryReader />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <ChildProfileProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<GradesDashboard />} />
+              <Route path="/grade/:gradeId" element={<SubjectsDashboard />} />
+              <Route path="/grade/:gradeId/subjects/:subjectId" element={<StoriesDashboard />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/stories" element={<AdminStories />} />
+              <Route path="/admin/stories/:storyId" element={<AdminStoryEditor />} />
+              <Route path="/my-stories" element={<MyStories />} />
+              <Route path="/stories" element={<Navigate to="/" replace />} />
+              <Route path="/subjects/:subjectId" element={<Navigate to="/" replace />} />
+              <Route path="/stories/:storyId/start" element={<StoryStart />} />
+              <Route path="/stories/:storyId/page/:pageId" element={<StoryReader />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ChildProfileProvider>
     </AuthProvider>
   </QueryClientProvider>
 );

@@ -6,21 +6,27 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Mail, Lock } from 'lucide-react';
+import { ArrowLeft, Mail, Lock, Sparkles, User } from 'lucide-react';
 import coverLogo from '@/assets/cover-logo.png';
+import { AvatarCarousel } from '@/components/AvatarCarousel';
+import { AVATARS } from '@/data/avatars';
 
-const signInSchema = z.object({
+const signUpSchema = z.object({
   email: z.string().email('Adresse email invalide'),
-  password: z.string().min(1, 'Le mot de passe est requis'),
+  password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
+  prenom: z.string().min(1, 'Le prénom est requis').max(50, 'Le prénom est trop long'),
 });
 
-export default function Auth() {
+export default function Register() {
   const navigate = useNavigate();
-  const { signIn, isAuthenticated, loading } = useAuthContext();
+  const { signUp, isAuthenticated, loading } = useAuthContext();
   const { toast } = useToast();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]?.id || 'fille_1');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -37,7 +43,14 @@ export default function Auth() {
     setIsSubmitting(true);
 
     try {
-      const validation = signInSchema.safeParse({ email, password });
+      // Check password confirmation first
+      if (password !== confirmPassword) {
+        setErrors({ confirmPassword: 'Les mots de passe ne correspondent pas' });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const validation = signUpSchema.safeParse({ email, password, prenom });
       if (!validation.success) {
         const fieldErrors: Record<string, string> = {};
         validation.error.errors.forEach(err => {
@@ -50,13 +63,13 @@ export default function Auth() {
         return;
       }
 
-      const { error } = await signIn(email, password);
+      const { error } = await signUp(email, password, prenom, selectedAvatar);
       
       if (error) {
-        if (error.message.includes('Invalid login credentials')) {
+        if (error.message.includes('already registered')) {
           toast({
-            title: "Erreur de connexion",
-            description: "Email ou mot de passe incorrect.",
+            title: "Compte existant",
+            description: "Un compte existe déjà avec cet email. Essayez de vous connecter.",
             variant: "destructive"
           });
         } else {
@@ -68,8 +81,8 @@ export default function Auth() {
         }
       } else {
         toast({
-          title: "Connexion réussie !",
-          description: "Content de te revoir !",
+          title: "Bienvenue !",
+          description: `Le compte a été créé avec succès ! Vous pouvez maintenant créer des profils pour vos enfants.`,
         });
         navigate('/');
       }
@@ -135,10 +148,10 @@ export default function Auth() {
           {/* Title */}
           <div className="text-center mb-4 sm:mb-6">
             <h1 className="font-display text-2xl sm:text-3xl text-white mb-1 sm:mb-2 drop-shadow-lg">
-              Connexion
+              Créer un compte
             </h1>
             <p className="text-white/80 text-sm sm:text-base px-2">
-              Retrouve tes histoires et ta progression !
+              Créez un compte pour sauvegarder la progression de vos enfants
             </p>
           </div>
 
@@ -148,7 +161,7 @@ export default function Auth() {
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="email" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Mail className="w-4 h-4 text-golden" />
-                Email
+                Email <span className="text-white/60 font-normal text-xs sm:text-sm">(des parents)</span>
               </Label>
               <Input
                 id="email"
@@ -182,6 +195,25 @@ export default function Auth() {
               )}
             </div>
 
+            {/* Confirm Password */}
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="confirmPassword" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
+                <Lock className="w-4 h-4 text-golden" />
+                Confirmer le mot de passe
+              </Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+              />
+              {errors.confirmPassword && (
+                <p className="text-xs sm:text-sm text-red-300">{errors.confirmPassword}</p>
+              )}
+            </div>
+
             {/* Submit Button */}
             <Button
               type="submit"
@@ -191,17 +223,17 @@ export default function Auth() {
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
-                'Se connecter'
+                'Créer le compte'
               )}
             </Button>
 
-            {/* Toggle to register */}
+            {/* Toggle to login */}
             <div className="text-center pt-1 sm:pt-2">
               <Link
-                to="/register"
+                to="/auth"
                 className="text-golden hover:text-golden/80 hover:underline font-medium transition-colors text-sm sm:text-base"
               >
-                Pas encore de compte ? Créer un compte
+                Déjà un compte ? Se connecter
               </Link>
             </div>
           </form>
