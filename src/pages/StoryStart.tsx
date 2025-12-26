@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getStory } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
-import { ArrowLeft, Sparkles, User, Heart } from "lucide-react";
+import { ArrowLeft, Sparkles, User } from "lucide-react";
 import { useReadCount } from "@/hooks/useReadCount";
-
-type Genre = 'masculin' | 'feminin' | 'neutre';
+import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function StoryStart() {
   const { storyId } = useParams<{ storyId: string }>();
   const navigate = useNavigate();
   const story = getStory(storyId || "");
+  const { isAuthenticated, profile, loading } = useAuthContext();
 
   const [prenom, setPrenom] = useState("");
-  const [genre, setGenre] = useState<Genre>("neutre");
+
+  // Pre-fill prenom from profile when authenticated
+  useEffect(() => {
+    if (isAuthenticated && profile?.prenom) {
+      setPrenom(profile.prenom);
+    }
+  }, [isAuthenticated, profile]);
 
   if (!story) {
     return (
@@ -41,11 +47,14 @@ export default function StoryStart() {
     }
     // Store preferences in sessionStorage
     sessionStorage.setItem(`story-${storyId}-prenom`, prenom);
-    sessionStorage.setItem(`story-${storyId}-genre`, genre);
+    sessionStorage.setItem(`story-${storyId}-genre`, 'neutre');
     // Increment read count
     incrementCount();
     navigate(`/stories/${storyId}/page/${story.startPageId}`);
   };
+
+  // If authenticated with profile prenom, skip directly to story
+  const canAutoStart = isAuthenticated && profile?.prenom && !loading;
 
   return (
     <main className="min-h-screen bg-background py-8 px-4">
@@ -88,45 +97,67 @@ export default function StoryStart() {
 
           {/* Form Section */}
           <div className="border-t border-border pt-8">
-            <h2 className="font-display text-2xl text-foreground text-center mb-8">
-              Personnalise ton aventure !
-            </h2>
+            {canAutoStart ? (
+              // Authenticated user with known prenom - simplified view
+              <div className="max-w-md mx-auto text-center space-y-6">
+                <div className="flex items-center justify-center gap-3 text-foreground">
+                  <User className="w-6 h-6 text-primary" />
+                  <span className="font-display text-2xl">
+                    Prêt(e) pour l'aventure, <span className="text-primary font-bold">{profile.prenom}</span> ?
+                  </span>
+                </div>
 
-            <div className="max-w-md mx-auto space-y-6">
-              {/* Prenom Input */}
-              <div>
-                <label className="flex items-center gap-2 text-foreground font-semibold mb-3">
-                  <User className="w-5 h-5 text-primary" />
-                  Comment t'appelles-tu ?
-                </label>
-                <input
-                  type="text"
-                  value={prenom}
-                  onChange={(e) => setPrenom(e.target.value)}
-                  placeholder="Ton prénom..."
-                  className="w-full px-6 py-4 rounded-xl bg-background border-2 border-border focus:border-primary focus:outline-none font-body text-xl transition-colors"
-                  maxLength={20}
-                />
+                <button
+                  onClick={handleStart}
+                  className="w-full py-5 px-8 rounded-2xl font-display font-bold text-xl bg-primary text-primary-foreground hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                >
+                  <Sparkles className="w-6 h-6" />
+                  Commencer l'aventure !
+                </button>
               </div>
+            ) : (
+              // Guest user - show name input
+              <>
+                <h2 className="font-display text-2xl text-foreground text-center mb-8">
+                  Personnalise ton aventure !
+                </h2>
 
+                <div className="max-w-md mx-auto space-y-6">
+                  {/* Prenom Input */}
+                  <div>
+                    <label className="flex items-center gap-2 text-foreground font-semibold mb-3">
+                      <User className="w-5 h-5 text-primary" />
+                      Comment t'appelles-tu ?
+                    </label>
+                    <input
+                      type="text"
+                      value={prenom}
+                      onChange={(e) => setPrenom(e.target.value)}
+                      placeholder="Ton prénom..."
+                      className="w-full px-6 py-4 rounded-xl bg-background border-2 border-border focus:border-primary focus:outline-none font-body text-xl transition-colors"
+                      maxLength={20}
+                    />
+                  </div>
 
-              {/* Start Button */}
-              <button
-                onClick={handleStart}
-                disabled={!prenom.trim()}
-                className={`
-                  w-full py-5 px-8 rounded-2xl font-display font-bold text-xl
-                  transition-all duration-300 shadow-lg hover:shadow-xl
-                  flex items-center justify-center gap-3
-                  ${prenom.trim()
-                    ? 'bg-primary text-primary-foreground hover:-translate-y-1'
-                    : 'bg-muted text-muted-foreground cursor-not-allowed'}
-                `}
-              >
-                <Sparkles className="w-6 h-6" />
-                Commencer l'aventure !
-              </button>
-            </div>
+                  {/* Start Button */}
+                  <button
+                    onClick={handleStart}
+                    disabled={!prenom.trim()}
+                    className={`
+                      w-full py-5 px-8 rounded-2xl font-display font-bold text-xl
+                      transition-all duration-300 shadow-lg hover:shadow-xl
+                      flex items-center justify-center gap-3
+                      ${prenom.trim()
+                        ? 'bg-primary text-primary-foreground hover:-translate-y-1'
+                        : 'bg-muted text-muted-foreground cursor-not-allowed'}
+                    `}
+                  >
+                    <Sparkles className="w-6 h-6" />
+                    Commencer l'aventure !
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </BookPage>
       </div>
