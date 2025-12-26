@@ -2,23 +2,33 @@ import { Link } from "react-router-dom";
 import { grades } from "@/data/grades";
 import { stories } from "@/data/stories";
 import { GradeCard } from "@/components/GradeCard";
-import { Sparkles, Save, Users, BookOpen, History, UserCircle } from "lucide-react";
+import { Sparkles, Save, Users, BookOpen, History, UserCircle, Crown } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Footer } from "@/components/Footer";
 import { ProfileSwitcher } from "@/components/ProfileSwitcher";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { useAdmin } from "@/hooks/useAdmin";
 import { Button } from "@/components/ui/button";
 
 export default function GradesDashboard() {
   const { isAuthenticated, loading } = useAuthContext();
+  const { isAdmin } = useAdmin();
 
   // Get unique levels from stories to know which grades have content
   const availableGrades = new Set(stories.map(s => s.level));
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
-      {/* Header with ProfileSwitcher */}
-      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end">
+      {/* Header with ProfileSwitcher and Admin button */}
+      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end items-center gap-2">
+        {isAdmin && (
+          <Button asChild variant="outline" size="sm" className="gap-2 text-golden border-golden/30 hover:bg-golden/10">
+            <Link to="/admin">
+              <Crown className="w-4 h-4" />
+              <span className="hidden sm:inline">Administration</span>
+            </Link>
+          </Button>
+        )}
         <ProfileSwitcher />
       </div>
 

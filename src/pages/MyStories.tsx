@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useChildProfiles } from '@/contexts/ChildProfileContext';
 import { useAllStoryProgress } from '@/hooks/useStoryProgress';
-import { stories } from '@/data/stories';
+import { useCombinedStories } from '@/hooks/useCombinedStories';
 import { Button } from '@/components/ui/button';
-import { UserMenu } from '@/components/UserMenu';
+import { ProfileSwitcher } from '@/components/ProfileSwitcher';
 import { Footer } from '@/components/Footer';
 import { 
   ArrowLeft, 
@@ -13,14 +14,17 @@ import {
   CheckCircle, 
   Clock,
   Trophy,
-  Sparkles
+  Sparkles,
+  UserPlus
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 export default function MyStories() {
   const navigate = useNavigate();
-  const { isAuthenticated, loading: authLoading, profile } = useAuthContext();
+  const { isAuthenticated, loading: authLoading } = useAuthContext();
+  const { activeProfile, profiles, loading: profilesLoading } = useChildProfiles();
+  const { getAllStories, getStory } = useCombinedStories();
   const { 
     allProgress, 
     completedStories, 
@@ -35,7 +39,7 @@ export default function MyStories() {
     }
   }, [authLoading, isAuthenticated, navigate]);
 
-  if (authLoading || progressLoading) {
+  if (authLoading || progressLoading || profilesLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -47,8 +51,37 @@ export default function MyStories() {
     return null;
   }
 
-  // Get story details by id
-  const getStory = (storyId: string) => stories.find(s => s.id === storyId);
+  // If no child profile is selected, prompt to create one
+  if (profiles.length === 0) {
+    return (
+      <main className="min-h-screen bg-background flex flex-col">
+        <div className="container max-w-4xl mx-auto px-4 pt-4 flex justify-between items-center">
+          <Button variant="ghost" onClick={() => navigate('/')} className="gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            Retour
+          </Button>
+          <ProfileSwitcher />
+        </div>
+
+        <div className="flex-1 flex items-center justify-center px-4">
+          <div className="bg-card rounded-2xl p-8 border border-border shadow-sm text-center max-w-md">
+            <UserPlus className="w-16 h-16 text-primary mx-auto mb-4" />
+            <h1 className="font-display text-2xl text-foreground mb-2">
+              Créez un profil enfant
+            </h1>
+            <p className="text-muted-foreground mb-6">
+              Pour suivre les histoires, vous devez d'abord créer un profil pour votre enfant.
+            </p>
+            <ProfileSwitcher />
+          </div>
+        </div>
+
+        <Footer />
+      </main>
+    );
+  }
+
+  const allStoriesList = getAllStories();
 
   // Get unique completed story ids
   const uniqueCompletedStoryIds = [...new Set(completedStories.map(c => c.story_id))];
@@ -57,7 +90,7 @@ export default function MyStories() {
   const storiesInProgressIds = allProgress.map(p => p.story_id);
 
   // Get unread stories (not in progress and not completed)
-  const unreadStories = stories.filter(story => 
+  const unreadStories = allStoriesList.filter(story => 
     !storiesInProgressIds.includes(story.id) && 
     !uniqueCompletedStoryIds.includes(story.id)
   );
@@ -79,7 +112,7 @@ export default function MyStories() {
           <ArrowLeft className="w-4 h-4" />
           Retour
         </Button>
-        <UserMenu />
+        <ProfileSwitcher />
       </div>
 
       <div className="container max-w-4xl mx-auto px-4 py-8 flex-1">
@@ -89,7 +122,7 @@ export default function MyStories() {
             Mes histoires
           </h1>
           <p className="text-muted-foreground">
-            Bonjour {profile?.prenom} ! Voici ton parcours de lecture.
+            Bonjour {activeProfile?.prenom} ! Voici ton parcours de lecture.
           </p>
         </div>
 
