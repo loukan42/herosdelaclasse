@@ -116,6 +116,13 @@ export type Database = {
             referencedRelation: "admin_stories"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "admin_story_pages_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "published_stories_view"
+            referencedColumns: ["id"]
+          },
         ]
       }
       children_profiles: {
@@ -307,7 +314,48 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      published_stories_view: {
+        Row: {
+          cover_image_url: string | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          is_published: boolean | null
+          level: string | null
+          slug: string | null
+          start_page_id: string | null
+          subject_id: string | null
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          cover_image_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          is_published?: boolean | null
+          level?: string | null
+          slug?: string | null
+          start_page_id?: string | null
+          subject_id?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          cover_image_url?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          is_published?: boolean | null
+          level?: string | null
+          slug?: string | null
+          start_page_id?: string | null
+          subject_id?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_admin_stats: { Args: never; Returns: Json }
