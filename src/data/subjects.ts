@@ -41,7 +41,7 @@ export const subjects: Subject[] = [
     description: "Voyages dans le temps et découvertes",
     icon: Clock,
     color: "from-purple-500 to-violet-600",
-    available: false,
+    available: true,
     backgroundImage: histoireImage
   },
   {
