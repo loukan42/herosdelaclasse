@@ -194,11 +194,13 @@ export default function Auth() {
 
           {/* Logo */}
           <div className="text-center mb-6 flex-shrink-0">
-            <img 
-              src={coverLogo} 
-              alt="Héros de la Classe" 
-              className="w-full max-w-xs mx-auto drop-shadow-2xl"
-            />
+            <div className="inline-block p-4 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 shadow-2xl">
+              <img 
+                src={coverLogo} 
+                alt="Héros de la Classe" 
+                className="w-full max-w-xs mx-auto drop-shadow-2xl rounded-2xl"
+              />
+            </div>
           </div>
 
           {/* Title */}
