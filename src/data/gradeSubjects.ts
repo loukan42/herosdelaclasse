@@ -5,8 +5,8 @@ export const gradeSubjectsMap: Record<string, string[]> = {
   "CP": ["lecture", "mathematiques"],
   "CE1": ["lecture", "mathematiques", "sciences"],
   "CE2": ["lecture", "mathematiques", "sciences"],
-  "CM1": ["lecture", "mathematiques", "sciences", "histoire", "geographie", "langues"],
-  "CM2": ["lecture", "mathematiques", "sciences", "histoire", "geographie", "langues"]
+  "CM1": ["mathematiques", "sciences", "histoire", "geographie", "langues"],
+  "CM2": ["mathematiques", "sciences", "histoire", "geographie", "langues"]
 };
 
 export function getSubjectsForGrade(gradeId: string): string[] {
