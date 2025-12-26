@@ -245,11 +245,11 @@ export default function StoryReader() {
             </div>
 
             {/* Story Text - Line by line */}
-            <div className="mb-6 md:mb-8 lg:mb-10 space-y-2 md:space-y-3">
+            <div className="mb-6 md:mb-8 lg:mb-10 space-y-2 md:space-y-3 max-w-prose mx-auto">
               {textLines.map((line, index) => (
                 <p 
                   key={index}
-                  className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-center font-body"
+                  className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-left font-body"
                 >
                   {line}
                 </p>
