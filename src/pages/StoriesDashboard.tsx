@@ -1,5 +1,4 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getStoriesBySubject } from "@/data/stories";
 import { getSubject } from "@/data/subjects";
 import { getGrade } from "@/data/grades";
 import { StoryCard } from "@/components/StoryCard";
@@ -9,21 +8,23 @@ import { Footer } from "@/components/Footer";
 import { useAllStoryProgress } from "@/hooks/useStoryProgress";
 import { UserMenu } from "@/components/UserMenu";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { useCombinedStories } from "@/hooks/useCombinedStories";
 
 export default function StoriesDashboard() {
   const { subjectId, gradeId } = useParams<{ subjectId: string; gradeId: string }>();
   const navigate = useNavigate();
   const { hasProgress, isCompleted, getCompletionCount, isAuthenticated } = useAllStoryProgress();
   const { loading } = useAuthContext();
+  const { getStoriesBySubject } = useCombinedStories();
   
   const subject = getSubject(subjectId || "");
   const grade = getGrade(gradeId || "");
   
   // Get stories filtered by both subject and grade
-  const allSubjectStories = getStoriesBySubject(subjectId || "");
+  const allStories = getStoriesBySubject(subjectId || "");
   const stories = gradeId 
-    ? allSubjectStories.filter(story => story.level === gradeId)
-    : allSubjectStories;
+    ? allStories.filter(story => story.level === gradeId)
+    : allStories;
   
   if (!subject || !grade) {
     navigate("/");
@@ -84,7 +85,7 @@ export default function StoriesDashboard() {
             {!loading && !isAuthenticated && (
               <div className="mt-6 fade-up stagger-3">
                 <Button asChild size="lg" className="gap-2 font-display">
-                  <Link to="/auth">
+                  <Link to="/register">
                     <Save className="w-5 h-5" />
                     Enregistrer ma progression
                   </Link>
