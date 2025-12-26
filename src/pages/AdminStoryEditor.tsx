@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { ImageUpload } from '@/components/ImageUpload';
 import {
   Select,
   SelectContent,
@@ -300,11 +301,11 @@ export default function AdminStoryEditor() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>URL de couverture</Label>
-                  <Input
-                    value={story.cover_image_url || ''}
-                    onChange={(e) => setStory({ ...story, cover_image_url: e.target.value })}
-                    placeholder="https://..."
+                  <Label>Image de couverture</Label>
+                  <ImageUpload
+                    value={story.cover_image_url}
+                    onChange={(url) => setStory({ ...story, cover_image_url: url })}
+                    folder="covers"
                   />
                 </div>
 
@@ -452,11 +453,11 @@ export default function AdminStoryEditor() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>URL de l'image</Label>
-                  <Input
-                    value={editingPage.image_url || ''}
-                    onChange={(e) => setEditingPage({ ...editingPage, image_url: e.target.value || null })}
-                    placeholder="https://..."
+                  <Label>Image de la page</Label>
+                  <ImageUpload
+                    value={editingPage.image_url}
+                    onChange={(url) => setEditingPage({ ...editingPage, image_url: url })}
+                    folder="pages"
                   />
                 </div>
 

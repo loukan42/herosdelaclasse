@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { ImageUpload } from '@/components/ImageUpload';
 import {
   Select,
   SelectContent,
@@ -228,12 +229,11 @@ export default function AdminStories() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="cover">URL de la couverture</Label>
-                  <Input
-                    id="cover"
-                    value={newStory.cover_image_url}
-                    onChange={(e) => setNewStory({ ...newStory, cover_image_url: e.target.value })}
-                    placeholder="https://..."
+                  <Label>Image de couverture</Label>
+                  <ImageUpload
+                    value={newStory.cover_image_url || null}
+                    onChange={(url) => setNewStory({ ...newStory, cover_image_url: url || '' })}
+                    folder="covers"
                   />
                 </div>
 
