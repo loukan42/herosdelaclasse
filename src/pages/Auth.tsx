@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, User, Mail, Lock, Sparkles } from 'lucide-react';
 import coverLogo from '@/assets/cover-logo.png';
-import { AvatarSelector } from '@/components/AvatarSelector';
+import { AvatarCarousel } from '@/components/AvatarCarousel';
 import { AVATARS } from '@/data/avatars';
 
 const signUpSchema = z.object({
@@ -220,14 +220,13 @@ export default function Auth() {
               <>
                 {/* Avatar Selection */}
                 <div className="space-y-3">
-                  <Label className="text-base font-semibold flex items-center gap-2 text-white">
+                  <Label className="text-base font-semibold flex items-center gap-2 text-white justify-center">
                     <Sparkles className="w-4 h-4 text-golden" />
                     Choisis ton avatar
                   </Label>
-                  <AvatarSelector 
+                  <AvatarCarousel 
                     selectedAvatar={selectedAvatar}
                     onSelect={setSelectedAvatar}
-                    size="sm"
                   />
                 </div>
 
