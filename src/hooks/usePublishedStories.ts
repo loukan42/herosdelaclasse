@@ -37,10 +37,10 @@ export function usePublishedStories() {
   const fetchPublishedStories = useCallback(async () => {
     setLoading(true);
     
-    // Fetch published stories
+    // Fetch published stories - explicitly select only public columns (excluding created_by for security)
     const { data: storiesData, error: storiesError } = await supabase
       .from('admin_stories')
-      .select('*')
+      .select('id, slug, title, description, cover_image_url, level, subject_id, start_page_id, is_published, created_at, updated_at')
       .eq('is_published', true);
 
     if (storiesError || !storiesData) {
@@ -67,7 +67,7 @@ export function usePublishedStories() {
       const storyIds = storiesData.map(s => s.id);
       const { data: pagesData, error: pagesError } = await supabase
         .from('admin_story_pages')
-        .select('*')
+        .select('id, story_id, page_id, title, text, text_masculine, text_feminine, image_url, choices, is_ending, ending_type, sort_order')
         .in('story_id', storyIds)
         .order('sort_order');
 
