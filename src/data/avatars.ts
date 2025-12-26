@@ -28,6 +28,8 @@ import cowboy1 from '@/assets/avatars/cowboy_1.png';
 import cowboy2 from '@/assets/avatars/cowboy_2.png';
 import indien1 from '@/assets/avatars/indien_1.png';
 import indien2 from '@/assets/avatars/indien_2.png';
+import pompier1 from '@/assets/avatars/pompier_1.png';
+import pompier2 from '@/assets/avatars/pompier_2.png';
 
 export interface Avatar {
   id: string;
@@ -65,6 +67,8 @@ export const AVATARS: Avatar[] = [
   { id: 'cowboy_2', name: 'Jessie', image: cowboy2 },
   { id: 'indien_1', name: 'Petit Ours', image: indien1 },
   { id: 'indien_2', name: 'Plume Légère', image: indien2 },
+  { id: 'pompier_1', name: 'Sam', image: pompier1 },
+  { id: 'pompier_2', name: 'Julie', image: pompier2 },
 ];
 
 export const getAvatarById = (id: string): Avatar | undefined => {
