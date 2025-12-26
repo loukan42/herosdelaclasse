@@ -2138,15 +2138,24 @@ Regarde encore.`,
       storyId: "les-chemins-du-temps",
       image: page1CheminsTemps,
       title: "Le galet hors du temps",
-      text: `Tu passes quelques jours chez ton grand-père, dans une vieille maison en pierre au bord d'un petit village. Cet après-midi-là, la pluie tape sur les vitres. Tu t'ennuies un peu, alors ton grand-père te propose d'explorer le grenier.
+      text: `Tu passes quelques jours chez ton grand-père, dans une vieille maison en pierre au bord d'un petit village. Ici, tout paraît plus lent : les voitures passent rarement, les oiseaux s'entendent très bien, et même l'air semble avoir une odeur différente, un mélange de bois humide et de cheminée froide.
 
-En fouillant dans une malle, tu trouves un objet étrange : un galet parfaitement lisse, gris clair, presque rond. Quand tu le touches, tu ressens une chaleur douce qui monte le long de tes doigts.
+Ton grand-père aime les histoires. Pas celles des films, mais celles qui restent cachées dans les objets : un vieux clou tordu, une photo jaunie, une carte postale avec un timbre étrange. Il dit souvent que le passé n'est jamais vraiment loin. Il suffit de savoir regarder.
 
-Ton grand-père te regarde avec un sourire mystérieux. Il t'explique que cet objet se transmet dans la famille depuis des générations. Personne ne sait d'où il vient vraiment, mais on dit qu'il porte en lui des souvenirs très anciens.
+Cet après-midi-là, la pluie tape sur les vitres. Ton grand-père te propose d'explorer le grenier. Là-haut, le plancher grince, les poutres font des ombres, et des malles s'empilent comme si elles avaient été oubliées depuis cent ans. En fouillant, tu découvres un petit tissu soigneusement noué.
 
-Le soir venu, tu montes te coucher avec le galet. Tu le poses sur ta table de nuit, mais tu n'arrives pas à t'endormir. Des images te traversent l'esprit : une forêt immense, des flammes, des silhouettes humaines très anciennes.
+À l'intérieur, il y a un galet parfaitement lisse, gris clair, pas plus gros qu'un œuf. Il tient exactement dans ta main, comme s'il avait été taillé pour toi. Quand tu le touches, une chaleur douce monte le long de tes doigts. Ce n'est pas brûlant, c'est… vivant.
 
-Le galet chauffe légèrement dans ta main.`,
+Ton grand-père s'immobilise derrière toi.
+« Ah… » murmure-t-il. « Tu l'as trouvé. »
+
+Il s'assoit sur une caisse, comme si ce galet lui rappelait quelque chose de très ancien. Il t'explique que l'objet se transmet dans la famille depuis des générations. Personne ne sait d'où il vient vraiment. Certains racontent qu'un ancêtre l'a ramassé près d'une grotte. D'autres qu'il a été offert par quelqu'un "de passage".
+
+« Il ne montre jamais tout », ajoute ton grand-père. « Il réagit surtout à ce que toi, tu décides de faire. »
+
+Le soir venu, tu montes te coucher avec le galet. Dehors, la pluie s'est calmée. La maison craque doucement, comme si elle respirait. Tu fixes le galet à la lueur de ta lampe, et des images te traversent l'esprit : une forêt immense, des flammes, des silhouettes humaines très anciennes.
+
+Ton cœur bat un peu plus vite. Tu sens que ce galet n'est pas un simple caillou. Il ressemble à une porte… mais une porte qui attend ton geste pour s'ouvrir.`,
       choices: [
         { label: "Poser le galet sous ton oreiller et t'endormir", targetPageId: "page-2" },
         { label: "Te concentrer sur les images dans ta tête", targetPageId: "page-3" },
