@@ -37,11 +37,10 @@ export function usePublishedStories() {
   const fetchPublishedStories = useCallback(async () => {
     setLoading(true);
     
-    // Fetch published stories - explicitly select only public columns (excluding created_by for security)
+    // Fetch published stories using the secure view that excludes sensitive admin data (created_by)
     const { data: storiesData, error: storiesError } = await supabase
-      .from('admin_stories')
-      .select('id, slug, title, description, cover_image_url, level, subject_id, start_page_id, is_published, created_at, updated_at')
-      .eq('is_published', true);
+      .from('published_stories_view')
+      .select('*');
 
     console.log('[usePublishedStories] Fetched stories:', storiesData?.length, storiesData);
 
