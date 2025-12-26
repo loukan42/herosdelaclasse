@@ -23,9 +23,9 @@ export function AvatarCarousel({ selectedAvatar, onSelect }: AvatarCarouselProps
         }}
         className="w-full"
       >
-        <CarouselContent className="-ml-1 sm:-ml-2">
+        <CarouselContent className="-ml-2">
           {AVATARS.map((avatar) => (
-            <CarouselItem key={avatar.id} className="pl-1 sm:pl-2 basis-1/3 sm:basis-1/4 md:basis-1/5">
+            <CarouselItem key={avatar.id} className="pl-2 basis-1/3">
               <button
                 type="button"
                 onClick={() => onSelect(avatar.id)}
