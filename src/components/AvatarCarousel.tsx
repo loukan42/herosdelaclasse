@@ -41,7 +41,7 @@ export function AvatarCarousel({ selectedAvatar, onSelect }: AvatarCarouselProps
                 <img 
                   src={avatar.image} 
                   alt={avatar.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </button>
             </CarouselItem>
