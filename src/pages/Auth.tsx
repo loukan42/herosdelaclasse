@@ -165,7 +165,7 @@ export default function Auth() {
 
         {/* Logo and Title */}
         <div className="text-center mb-8">
-          <img src={logo} alt="Logo" className="w-20 h-20 mx-auto mb-4" />
+          <img src={logo} alt="Logo" className="w-32 h-32 mx-auto mb-4" />
           <h1 className="font-display text-3xl text-foreground mb-2">
             {mode === 'signin' ? 'Connexion' : 'Créer un compte'}
           </h1>
