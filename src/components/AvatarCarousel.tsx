@@ -15,7 +15,7 @@ interface AvatarCarouselProps {
 
 export function AvatarCarousel({ selectedAvatar, onSelect }: AvatarCarouselProps) {
   return (
-    <div className="w-full px-8 sm:px-10">
+    <div className="w-full px-12 sm:px-10">
       <Carousel
         opts={{
           align: 'start',
@@ -48,10 +48,10 @@ export function AvatarCarousel({ selectedAvatar, onSelect }: AvatarCarouselProps
           ))}
         </CarouselContent>
         <CarouselPrevious 
-          className="-left-2 sm:left-0 w-7 h-7 sm:w-8 sm:h-8 bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white"
+          className="-left-10 sm:-left-4 w-8 h-8 sm:w-8 sm:h-8 bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white"
         />
         <CarouselNext 
-          className="-right-2 sm:right-0 w-7 h-7 sm:w-8 sm:h-8 bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white"
+          className="-right-10 sm:-right-4 w-8 h-8 sm:w-8 sm:h-8 bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white"
         />
       </Carousel>
     </div>
