@@ -42,7 +42,9 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${subject.backgroundImage})` }}
           />
-          <div className={`absolute inset-0 bg-gradient-to-br ${subject.color} opacity-30`} />
+          {/* Stronger overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className={`absolute inset-0 bg-gradient-to-br ${subject.color} opacity-20`} />
         </>
       ) : (
         <div className={`absolute inset-0 bg-gradient-to-br ${subject.color}`} />
@@ -117,15 +119,20 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
           <Icon className="w-8 h-8 text-white drop-shadow-md" />
         </div>
 
-        {/* Title with playful shadow */}
-        <h3 className="font-display text-2xl md:text-[1.7rem] font-bold text-white mb-2 drop-shadow-md">
-          {subject.name}
-        </h3>
+        {/* Text container with semi-transparent background for readability */}
+        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-4 -mx-1">
+          {/* Title with strong shadow */}
+          <h3 className="font-display text-2xl md:text-[1.7rem] font-bold text-white mb-2" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+            {subject.name}
+          </h3>
 
-        {/* Description */}
-        <p className="text-white/85 text-sm leading-relaxed mb-auto drop-shadow-sm">
-          {subject.description}
-        </p>
+          {/* Description */}
+          <p className="text-white text-sm leading-relaxed" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.7)' }}>
+            {subject.description}
+          </p>
+        </div>
+
+        <div className="flex-1" />
 
         {/* Status badge */}
         <div className="mt-4">
