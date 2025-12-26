@@ -70,20 +70,54 @@ export function useStoryProgress(storyId?: string) {
   const saveProgress = async (pageId: string, visitedPages: string[], prenomHistoire?: string) => {
     if (!user || !storyId) return { error: new Error('Non connecté') };
 
-    const { data, error } = await supabase
+    // First check if progress exists for this user/story/child combination
+    let existingQuery = supabase
       .from('story_progress')
-      .upsert({
-        user_id: user.id,
-        child_profile_id: activeProfile?.id || null,
-        story_id: storyId,
-        current_page_id: pageId,
-        visited_pages: visitedPages,
-        prenom_histoire: prenomHistoire || null
-      }, {
-        onConflict: 'user_id,story_id,child_profile_id'
-      })
-      .select()
-      .single();
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('story_id', storyId);
+
+    if (activeProfile) {
+      existingQuery = existingQuery.eq('child_profile_id', activeProfile.id);
+    } else {
+      existingQuery = existingQuery.is('child_profile_id', null);
+    }
+
+    const { data: existing } = await existingQuery.maybeSingle();
+
+    let data, error;
+
+    if (existing) {
+      // Update existing progress
+      const result = await supabase
+        .from('story_progress')
+        .update({
+          current_page_id: pageId,
+          visited_pages: visitedPages,
+          prenom_histoire: prenomHistoire || null
+        })
+        .eq('id', existing.id)
+        .select()
+        .single();
+      data = result.data;
+      error = result.error;
+    } else {
+      // Insert new progress
+      const result = await supabase
+        .from('story_progress')
+        .insert({
+          user_id: user.id,
+          child_profile_id: activeProfile?.id || null,
+          story_id: storyId,
+          current_page_id: pageId,
+          visited_pages: visitedPages,
+          prenom_histoire: prenomHistoire || null
+        })
+        .select()
+        .single();
+      data = result.data;
+      error = result.error;
+    }
 
     if (!error && data) {
       setProgress({
