@@ -151,10 +151,10 @@ export default function Auth() {
   }
 
   return (
-    <main className="min-h-screen bg-auth-gradient relative overflow-hidden">
+    <main className="min-h-screen bg-auth-gradient relative overflow-x-hidden overflow-y-auto">
       {/* Animated particles/stars background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-golden/60 rounded-full animate-twinkle"
@@ -166,7 +166,7 @@ export default function Auth() {
             }}
           />
         ))}
-        {[...Array(15)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <div
             key={`large-${i}`}
             className="absolute w-2 h-2 bg-orange-400/40 rounded-full animate-twinkle"
@@ -180,34 +180,34 @@ export default function Auth() {
         ))}
       </div>
 
-      <div className="relative z-10 py-6 px-4 min-h-screen flex flex-col">
-        <div className="container max-w-md mx-auto flex-1 flex flex-col">
+      <div className="relative z-10 py-4 sm:py-6 px-3 sm:px-4 min-h-screen flex flex-col">
+        <div className="container max-w-md mx-auto flex-1 flex flex-col w-full">
           {/* Back button */}
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-4 self-start"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-3 sm:mb-4 self-start text-sm sm:text-base"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             Retour
           </button>
 
-          {/* Logo */}
-          <div className="text-center mb-6 flex-shrink-0">
-            <div className="inline-block p-4 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 shadow-2xl">
+          {/* Logo - smaller on mobile */}
+          <div className="text-center mb-4 sm:mb-6 flex-shrink-0">
+            <div className="inline-block p-2 sm:p-4 bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-white/20 shadow-2xl">
               <img 
                 src={coverLogo} 
                 alt="Héros de la Classe" 
-                className="w-full max-w-xs mx-auto drop-shadow-2xl rounded-2xl"
+                className="w-full max-w-[200px] sm:max-w-xs mx-auto drop-shadow-2xl rounded-xl sm:rounded-2xl"
               />
             </div>
           </div>
 
           {/* Title */}
-          <div className="text-center mb-6">
-            <h1 className="font-display text-3xl text-white mb-2 drop-shadow-lg">
+          <div className="text-center mb-4 sm:mb-6">
+            <h1 className="font-display text-2xl sm:text-3xl text-white mb-1 sm:mb-2 drop-shadow-lg">
               {mode === 'signin' ? 'Connexion' : 'Créer un compte'}
             </h1>
-            <p className="text-white/80">
+            <p className="text-white/80 text-sm sm:text-base px-2">
               {mode === 'signin' 
                 ? 'Retrouve tes histoires et ta progression !' 
                 : 'Crée un compte pour sauvegarder ta progression'}
@@ -215,12 +215,12 @@ export default function Auth() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20 shadow-2xl">
             {mode === 'signup' && (
               <>
                 {/* Avatar Selection */}
-                <div className="space-y-3">
-                  <Label className="text-base font-semibold flex items-center gap-2 text-white justify-center">
+                <div className="space-y-2 sm:space-y-3">
+                  <Label className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white justify-center">
                     <Sparkles className="w-4 h-4 text-golden" />
                     Choisis ton avatar
                   </Label>
@@ -231,8 +231,8 @@ export default function Auth() {
                 </div>
 
                 {/* Prenom */}
-                <div className="space-y-2">
-                  <Label htmlFor="prenom" className="text-base font-semibold flex items-center gap-2 text-white">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label htmlFor="prenom" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                     <User className="w-4 h-4 text-golden" />
                     Prénom de l'enfant
                   </Label>
@@ -242,20 +242,20 @@ export default function Auth() {
                     value={prenom}
                     onChange={(e) => setPrenom(e.target.value)}
                     placeholder="Comment t'appelles-tu ?"
-                    className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                    className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
                   />
                   {errors.prenom && (
-                    <p className="text-sm text-red-300">{errors.prenom}</p>
+                    <p className="text-xs sm:text-sm text-red-300">{errors.prenom}</p>
                   )}
                 </div>
               </>
             )}
 
             {/* Email */}
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-base font-semibold flex items-center gap-2 text-white">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="email" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Mail className="w-4 h-4 text-golden" />
-                Email {mode === 'signup' && <span className="text-white/60 font-normal">(des parents)</span>}
+                Email {mode === 'signup' && <span className="text-white/60 font-normal text-xs sm:text-sm">(des parents)</span>}
               </Label>
               <Input
                 id="email"
@@ -263,16 +263,16 @@ export default function Auth() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@exemple.com"
-                className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
               />
               {errors.email && (
-                <p className="text-sm text-red-300">{errors.email}</p>
+                <p className="text-xs sm:text-sm text-red-300">{errors.email}</p>
               )}
             </div>
 
             {/* Password */}
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-base font-semibold flex items-center gap-2 text-white">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="password" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Lock className="w-4 h-4 text-golden" />
                 Mot de passe
               </Label>
@@ -282,17 +282,17 @@ export default function Auth() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
               />
               {errors.password && (
-                <p className="text-sm text-red-300">{errors.password}</p>
+                <p className="text-xs sm:text-sm text-red-300">{errors.password}</p>
               )}
             </div>
 
             {/* Confirm Password - only for signup */}
             {mode === 'signup' && (
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-base font-semibold flex items-center gap-2 text-white">
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="confirmPassword" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                   <Lock className="w-4 h-4 text-golden" />
                   Confirmer le mot de passe
                 </Label>
@@ -302,10 +302,10 @@ export default function Auth() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="h-12 text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                  className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
                 />
                 {errors.confirmPassword && (
-                  <p className="text-sm text-red-300">{errors.confirmPassword}</p>
+                  <p className="text-xs sm:text-sm text-red-300">{errors.confirmPassword}</p>
                 )}
               </div>
             )}
@@ -314,7 +314,7 @@ export default function Auth() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-14 text-lg font-display font-bold bg-gradient-to-r from-golden to-orange-500 hover:from-golden/90 hover:to-orange-500/90 text-white border-0 shadow-lg shadow-golden/30"
+              className="w-full h-12 sm:h-14 text-base sm:text-lg font-display font-bold bg-gradient-to-r from-golden to-orange-500 hover:from-golden/90 hover:to-orange-500/90 text-white border-0 shadow-lg shadow-golden/30"
             >
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -324,7 +324,7 @@ export default function Auth() {
             </Button>
 
             {/* Toggle mode */}
-            <div className="text-center pt-2">
+            <div className="text-center pt-1 sm:pt-2">
               <button
                 type="button"
                 onClick={() => {
@@ -332,7 +332,7 @@ export default function Auth() {
                   setErrors({});
                   setConfirmPassword('');
                 }}
-                className="text-golden hover:text-golden/80 hover:underline font-medium transition-colors"
+                className="text-golden hover:text-golden/80 hover:underline font-medium transition-colors text-sm sm:text-base"
               >
                 {mode === 'signin' 
                   ? "Pas encore de compte ? Créer un compte" 
