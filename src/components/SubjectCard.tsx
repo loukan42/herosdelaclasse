@@ -25,154 +25,97 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
     <article
       onClick={handleClick}
       className={`
-        group relative overflow-hidden rounded-[2rem] 
+        group relative overflow-hidden rounded-3xl 
         transition-all duration-500 fade-up
-        border-4 border-white/50 shadow-xl
+        border-4 border-border/30 shadow-xl bg-card
         ${subject.available 
-          ? 'cursor-pointer hover:scale-[1.03] hover:shadow-2xl hover:-translate-y-2' 
+          ? 'cursor-pointer hover:scale-[1.02] hover:shadow-2xl hover:-translate-y-2' 
           : 'cursor-not-allowed'
         }
       `}
       style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'both' }}
     >
-      {/* Main gradient background or image */}
-      {subject.backgroundImage ? (
-        <>
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${subject.backgroundImage})` }}
+      {/* Image Section */}
+      <div className="relative aspect-[4/3] overflow-hidden">
+        {subject.backgroundImage ? (
+          <img 
+            src={subject.backgroundImage} 
+            alt={subject.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
-          {/* Stronger overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-          <div className={`absolute inset-0 bg-gradient-to-br ${subject.color} opacity-20`} />
-        </>
-      ) : (
-        <div className={`absolute inset-0 bg-gradient-to-br ${subject.color}`} />
-      )}
-      
-      {/* Cartoon-style pattern overlay */}
-      {!subject.backgroundImage && (
-        <div className="absolute inset-0 opacity-30">
-          {/* Dots pattern */}
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px)',
-            backgroundSize: '20px 20px'
-          }} />
-        </div>
-      )}
+        ) : (
+          <div className={`w-full h-full bg-gradient-to-br ${subject.color}`}>
+            {/* Dots pattern for non-image backgrounds */}
+            <div className="absolute inset-0 opacity-30" style={{
+              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px)',
+              backgroundSize: '20px 20px'
+            }} />
+          </div>
+        )}
+        
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
-      {/* Wavy decoration at bottom */}
-      <svg 
-        className="absolute bottom-0 left-0 right-0 text-white/20" 
-        viewBox="0 0 400 60" 
-        preserveAspectRatio="none"
-        style={{ height: '40px', width: '100%' }}
-      >
-        <path 
-          d="M0,30 Q50,0 100,30 T200,30 T300,30 T400,30 L400,60 L0,60 Z" 
-          fill="currentColor"
-        />
-      </svg>
-
-      {/* Floating decorative elements */}
-      <div className={`
-        absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 
-        transition-transform duration-700
-        ${subject.available ? 'group-hover:scale-150 group-hover:opacity-0' : ''}
-      `} />
-      <div className={`
-        absolute top-12 right-12 w-4 h-4 rounded-full bg-white/30
-        transition-transform duration-500 delay-100
-        ${subject.available ? 'group-hover:translate-y-2 group-hover:translate-x-2' : ''}
-      `} />
-      <div className={`
-        absolute bottom-16 left-6 w-6 h-6 rounded-full bg-white/15
-        transition-transform duration-500
-        ${subject.available ? 'group-hover:scale-125' : ''}
-      `} />
-
-      {/* Star decorations */}
-      {subject.available && (
-        <>
-          <Sparkles className="absolute top-6 left-6 w-5 h-5 text-white/40 group-hover:text-white/70 transition-colors" />
-          <Sparkles className="absolute bottom-20 right-8 w-4 h-4 text-white/30 group-hover:rotate-45 transition-transform" />
-        </>
-      )}
-
-      {/* Disabled overlay */}
-      {!subject.available && (
-        <div className="absolute inset-0 bg-foreground/40 backdrop-blur-[2px]" />
-      )}
-      
-      {/* Content */}
-      <div className="relative z-10 p-7 pb-8 min-h-[320px] h-full flex flex-col">
-        {/* Icon with cartoon bubble effect */}
+        {/* Icon badge */}
         <div className={`
-          w-16 h-16 rounded-2xl 
-          bg-white/25 backdrop-blur-sm
-          border-2 border-white/40
-          flex items-center justify-center mb-5
+          absolute top-4 left-4
+          w-14 h-14 rounded-2xl 
+          bg-white/90 backdrop-blur-sm
+          border-2 border-white
+          flex items-center justify-center
           shadow-lg
           transition-all duration-300
-          ${subject.available ? 'group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white/35' : ''}
+          ${subject.available ? 'group-hover:scale-110 group-hover:rotate-6' : ''}
         `}>
-          <Icon className="w-8 h-8 text-white drop-shadow-md" />
+          <Icon className={`w-7 h-7 ${subject.available ? 'text-primary' : 'text-muted-foreground'}`} />
         </div>
 
-        {/* Text container with semi-transparent background for readability */}
-        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-4 -mx-1">
-          {/* Title with strong shadow */}
-          <h3 className="font-display text-2xl md:text-[1.7rem] font-bold text-white mb-2" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
-            {subject.name}
-          </h3>
+        {/* Star decorations */}
+        {subject.available && (
+          <>
+            <Sparkles className="absolute top-5 right-5 w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            <Sparkles className="absolute bottom-8 right-8 w-4 h-4 text-white/50 group-hover:rotate-45 transition-transform" />
+          </>
+        )}
 
-          {/* Description */}
-          <p className="text-white text-sm leading-relaxed" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.7)' }}>
-            {subject.description}
-          </p>
-        </div>
-
-        <div className="flex-1" />
-
-        {/* Status badge */}
-        <div className="mt-4">
-          {subject.available ? (
-            <div className={`
-              inline-flex items-center gap-2 
-              bg-white/30 backdrop-blur-sm 
-              border-2 border-white/50
-              px-5 py-2.5 rounded-full
-              shadow-md
-              transition-all duration-300
-              group-hover:bg-white/40 group-hover:scale-105
-            `}>
-              <span className="text-white font-bold text-sm drop-shadow-sm">C'est parti !</span>
-              <svg 
-                className="w-4 h-4 text-white transition-transform group-hover:translate-x-1" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </div>
-          ) : (
-            <div className="inline-flex items-center gap-2 bg-foreground/50 backdrop-blur-sm px-4 py-2 rounded-full border-2 border-white/30">
-              <Lock className="w-4 h-4 text-white" />
-              <span className="text-white font-semibold text-sm">Bientôt disponible</span>
-            </div>
-          )}
-        </div>
+        {/* Disabled overlay */}
+        {!subject.available && (
+          <div className="absolute inset-0 bg-foreground/40 backdrop-blur-[2px]" />
+        )}
       </div>
 
-      {/* Cartoon corner fold effect */}
-      {subject.available && (
-        <div className="absolute top-0 right-0 w-0 h-0 
-          border-l-[30px] border-l-transparent
-          border-t-[30px] border-t-white/30
-          group-hover:border-t-white/50 transition-colors
-        " />
-      )}
+      {/* Text Content Section */}
+      <div className="p-6">
+        {/* Title */}
+        <h3 className="font-display text-2xl md:text-[1.6rem] font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+          {subject.name}
+        </h3>
+
+        {/* Description */}
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
+          {subject.description}
+        </p>
+
+        {/* Status badge */}
+        {subject.available ? (
+          <div className="inline-flex items-center gap-2 text-primary font-semibold">
+            <span>C'est parti !</span>
+            <svg 
+              className="w-5 h-5 transition-transform group-hover:translate-x-2" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        ) : (
+          <div className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
+            <Lock className="w-4 h-4 text-muted-foreground" />
+            <span className="text-muted-foreground font-semibold text-sm">Bientôt disponible</span>
+          </div>
+        )}
+      </div>
     </article>
   );
 }
