@@ -9,13 +9,13 @@ interface AvatarSelectorProps {
 
 export function AvatarSelector({ selectedAvatar, onSelect, size = 'md' }: AvatarSelectorProps) {
   const sizeClasses = {
-    sm: 'w-12 h-12',
-    md: 'w-16 h-16',
-    lg: 'w-20 h-20',
+    sm: 'w-16 h-16',
+    md: 'w-20 h-20',
+    lg: 'w-24 h-24',
   };
 
   return (
-    <div className="grid grid-cols-5 gap-3">
+    <div className="grid grid-cols-5 gap-4">
       {AVATARS.map((avatar) => (
         <button
           key={avatar.id}
