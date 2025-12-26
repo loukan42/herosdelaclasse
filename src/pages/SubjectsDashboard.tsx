@@ -2,6 +2,7 @@ import { subjects } from "@/data/subjects";
 import { SubjectCard } from "@/components/SubjectCard";
 import { Sparkles } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { Footer } from "@/components/Footer";
 
 export default function SubjectsDashboard() {
   return (
@@ -39,12 +40,7 @@ export default function SubjectsDashboard() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-6 text-center border-t border-border bg-muted/30">
-        <p className="text-muted-foreground text-sm">
-          © Lou Husson 2025
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }

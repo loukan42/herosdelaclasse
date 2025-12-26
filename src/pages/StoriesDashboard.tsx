@@ -4,6 +4,7 @@ import { getSubject } from "@/data/subjects";
 import { StoryCard } from "@/components/StoryCard";
 import { Sparkles, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Footer } from "@/components/Footer";
 
 export default function StoriesDashboard() {
   const { subjectId } = useParams<{ subjectId: string }>();
@@ -68,12 +69,7 @@ export default function StoriesDashboard() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-6 text-center border-t border-border bg-muted/30">
-        <p className="text-muted-foreground text-sm">
-          © Lou Husson 2025
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 }
