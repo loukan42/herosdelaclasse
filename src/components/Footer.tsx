@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Heart } from "lucide-react";
+import { ChevronDown, ChevronUp, Heart, Instagram } from "lucide-react";
 
 export function Footer() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -44,11 +44,22 @@ export function Footer() {
         )}
       </div>
 
-      {/* Copyright */}
-      <div className="py-4 text-center border-t border-border/50">
-        <p className="text-muted-foreground text-sm">
-          © Lou Husson 2025
-        </p>
+      {/* Copyright & Social */}
+      <div className="py-4 border-t border-border/50">
+        <div className="container max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <p className="text-muted-foreground text-sm">
+            © Lou Husson 2025
+          </p>
+          <a
+            href="https://www.instagram.com/herosdelaclasse/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white text-sm font-medium hover:opacity-90 transition-opacity"
+          >
+            <Instagram className="w-4 h-4" />
+            @herosdelaclasse
+          </a>
+        </div>
       </div>
     </footer>
   );
