@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getStory, getPage, processText } from "@/data/stories";
+import { processText } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
 import { ChoiceButton } from "@/components/ChoiceButton";
 import { ImageChoiceButton } from "@/components/ImageChoiceButton";
@@ -14,6 +14,7 @@ import { useStoryProgress } from "@/hooks/useStoryProgress";
 import { useStoryOverrides } from "@/hooks/useStoryOverrides";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useAdmin } from "@/hooks/useAdmin";
+import { useCombinedStories } from "@/hooks/useCombinedStories";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
 
@@ -27,6 +28,7 @@ export default function StoryReader() {
   const [overriddenText, setOverriddenText] = useState<string | null>(null);
   const previousVisitedRef = useRef<string[]>([]);
 
+  const { getStory, getPage } = useCombinedStories();
   const story = getStory(storyId || "");
   const page = getPage(storyId || "", pageId || "");
 

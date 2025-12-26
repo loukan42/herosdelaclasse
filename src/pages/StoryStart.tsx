@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getStory } from "@/data/stories";
 import { BookPage } from "@/components/BookPage";
 import { ArrowLeft, Sparkles, User } from "lucide-react";
 import { useReadCount } from "@/hooks/useReadCount";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { useCombinedStories } from "@/hooks/useCombinedStories";
 
 export default function StoryStart() {
   const { storyId } = useParams<{ storyId: string }>();
   const navigate = useNavigate();
+  const { getStory } = useCombinedStories();
   const story = getStory(storyId || "");
   const { isAuthenticated, profile, loading } = useAuthContext();
 
