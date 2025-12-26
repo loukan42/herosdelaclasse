@@ -8,17 +8,8 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, User, Mail, Lock, Sparkles } from 'lucide-react';
 import coverLogo from '@/assets/cover-logo.png';
-
-const AVATARS = [
-  { id: 'lion', emoji: '🦁', name: 'Lion' },
-  { id: 'panda', emoji: '🐼', name: 'Panda' },
-  { id: 'lapin', emoji: '🐰', name: 'Lapin' },
-  { id: 'renard', emoji: '🦊', name: 'Renard' },
-  { id: 'hibou', emoji: '🦉', name: 'Hibou' },
-  { id: 'papillon', emoji: '🦋', name: 'Papillon' },
-  { id: 'dauphin', emoji: '🐬', name: 'Dauphin' },
-  { id: 'etoile', emoji: '⭐', name: 'Étoile' },
-];
+import { AvatarSelector } from '@/components/AvatarSelector';
+import { AVATARS } from '@/data/avatars';
 
 const signUpSchema = z.object({
   email: z.string().email('Adresse email invalide'),
@@ -41,7 +32,7 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [prenom, setPrenom] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState('lion');
+  const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]?.id || 'fille_1');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -233,25 +224,11 @@ export default function Auth() {
                     <Sparkles className="w-4 h-4 text-golden" />
                     Choisis ton avatar
                   </Label>
-                  <div className="grid grid-cols-4 gap-3">
-                    {AVATARS.map((avatar) => (
-                      <button
-                        key={avatar.id}
-                        type="button"
-                        onClick={() => setSelectedAvatar(avatar.id)}
-                        className={`
-                          aspect-square rounded-xl text-3xl flex items-center justify-center
-                          transition-all duration-200 border-2
-                          ${selectedAvatar === avatar.id 
-                            ? 'border-golden bg-golden/30 scale-110 shadow-lg shadow-golden/30' 
-                            : 'border-white/30 bg-white/10 hover:border-golden/50 hover:scale-105'}
-                        `}
-                        title={avatar.name}
-                      >
-                        {avatar.emoji}
-                      </button>
-                    ))}
-                  </div>
+                  <AvatarSelector 
+                    selectedAvatar={selectedAvatar}
+                    onSelect={setSelectedAvatar}
+                    size="sm"
+                  />
                 </div>
 
                 {/* Prenom */}
