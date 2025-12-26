@@ -56,6 +56,11 @@ export default function StoryReader() {
     }
   }, [pageId, storyId, visitedPages]);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pageId]);
+
   useEffect(() => {
     setIsAnimating(true);
     setImageLoaded(false);
