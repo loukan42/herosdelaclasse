@@ -22,21 +22,30 @@ export default function GradesDashboard() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
-      {/* Header with ProfileSwitcher and Admin button */}
-      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end items-center gap-2">
-        {isAdmin && (
-          <Button asChild variant="outline" size="sm" className="gap-2 text-golden border-golden/30 hover:bg-golden/10">
-            <Link to="/admin">
-              <Crown className="w-4 h-4" />
-              <span className="hidden sm:inline">Administration</span>
-            </Link>
-          </Button>
-        )}
-        <ProfileSwitcher />
+      {/* Header with Logo and ProfileSwitcher */}
+      <div className="container max-w-6xl mx-auto px-4 pt-3 flex justify-between items-center">
+        <Link to="/">
+          <img 
+            src={logo} 
+            alt="Héros de la Classe" 
+            className="w-16 md:w-20 drop-shadow-lg"
+          />
+        </Link>
+        <div className="flex items-center gap-2">
+          {isAdmin && (
+            <Button asChild variant="outline" size="sm" className="gap-2 text-golden border-golden/30 hover:bg-golden/10">
+              <Link to="/admin">
+                <Crown className="w-4 h-4" />
+                <span className="hidden sm:inline">Administration</span>
+              </Link>
+            </Button>
+          )}
+          <ProfileSwitcher />
+        </div>
       </div>
 
       {/* Hero Section */}
-      <header className="relative overflow-hidden py-6 md:py-10 px-4">
+      <header className="relative overflow-hidden py-4 md:py-6 px-4">
         {/* Decorative elements */}
         <div className="absolute top-10 left-10 w-20 h-20 text-golden opacity-30 animate-float">
           <Sparkles className="w-full h-full" />
@@ -46,12 +55,6 @@ export default function GradesDashboard() {
         </div>
         
         <div className="container max-w-6xl mx-auto text-center">
-          {/* Logo */}
-          <img 
-            src={logo} 
-            alt="Héros de la Classe" 
-            className="w-32 md:w-40 lg:w-48 mx-auto mb-6 fade-up drop-shadow-2xl"
-          />
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-1">
             Choisis ta classe et découvre des histoires interactives pour apprendre en s'amusant !
