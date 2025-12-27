@@ -98,7 +98,6 @@ export default function GradesDashboard() {
                   alt="Profils personnalisés" 
                   className="w-full rounded-3xl shadow-lg mb-4"
                 />
-                <h3 className="font-semibold text-lg mb-2">Profils personnalisés</h3>
                 <p className="text-muted-foreground text-sm">
                   Créez un profil pour chaque enfant avec son avatar et son prénom pour des histoires plus immersives.
                 </p>
@@ -110,7 +109,6 @@ export default function GradesDashboard() {
                   alt="Historique sauvegardé" 
                   className="w-full rounded-3xl shadow-lg mb-4"
                 />
-                <h3 className="font-semibold text-lg mb-2">Historique sauvegardé</h3>
                 <p className="text-muted-foreground text-sm">
                   Retrouvez facilement les lectures en cours et reprenez exactement là où vous vous êtes arrêtés.
                 </p>
@@ -122,7 +120,6 @@ export default function GradesDashboard() {
                   alt="Suivi de lecture" 
                   className="w-full rounded-3xl shadow-lg mb-4"
                 />
-                <h3 className="font-semibold text-lg mb-2">Suivi de lecture</h3>
                 <p className="text-muted-foreground text-sm">
                   Visualisez les histoires déjà lues et celles qui restent à découvrir pour chaque enfant.
                 </p>
