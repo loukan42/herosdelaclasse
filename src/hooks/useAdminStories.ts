@@ -20,6 +20,13 @@ export interface AdminStoryPage {
   is_ending: boolean;
   ending_type: 'happy' | 'neutral' | 'sad' | null;
   sort_order: number;
+  collected_item_id: string | null;
+}
+
+export interface InventoryItem {
+  id: string;
+  name: string;
+  icon: string;
 }
 
 export interface AdminStory {
@@ -35,6 +42,7 @@ export interface AdminStory {
   created_at: string;
   updated_at: string;
   pages?: AdminStoryPage[];
+  inventory_items?: InventoryItem[];
 }
 
 export function useAdminStories() {
@@ -49,7 +57,10 @@ export function useAdminStories() {
       .order('created_at', { ascending: false });
 
     if (!error && data) {
-      setStories(data as AdminStory[]);
+      setStories(data.map(s => ({
+        ...s,
+        inventory_items: (Array.isArray(s.inventory_items) ? s.inventory_items : []) as unknown as InventoryItem[]
+      })) as AdminStory[]);
     }
     setLoading(false);
   }, []);
@@ -61,33 +72,55 @@ export function useAdminStories() {
   const createStory = async (story: Omit<AdminStory, 'id' | 'created_at' | 'updated_at' | 'pages'>) => {
     const { data: { user } } = await supabase.auth.getUser();
     
+    const insertData = {
+      slug: story.slug,
+      title: story.title,
+      description: story.description,
+      cover_image_url: story.cover_image_url,
+      level: story.level,
+      subject_id: story.subject_id,
+      start_page_id: story.start_page_id,
+      is_published: story.is_published,
+      inventory_items: story.inventory_items ? JSON.parse(JSON.stringify(story.inventory_items)) : [],
+      created_by: user?.id
+    };
+    
     const { data, error } = await supabase
       .from('admin_stories')
-      .insert({
-        ...story,
-        created_by: user?.id
-      })
+      .insert(insertData)
       .select()
       .single();
 
     if (!error && data) {
       await fetchStories();
-      return { success: true, data: data as AdminStory };
+      return { success: true, data: { ...data, inventory_items: (Array.isArray(data.inventory_items) ? data.inventory_items : []) as unknown as InventoryItem[] } as AdminStory };
     }
     return { success: false, error };
   };
 
   const updateStory = async (id: string, updates: Partial<AdminStory>) => {
+    const updateData: Record<string, unknown> = {};
+    if (updates.title !== undefined) updateData.title = updates.title;
+    if (updates.description !== undefined) updateData.description = updates.description;
+    if (updates.cover_image_url !== undefined) updateData.cover_image_url = updates.cover_image_url;
+    if (updates.level !== undefined) updateData.level = updates.level;
+    if (updates.subject_id !== undefined) updateData.subject_id = updates.subject_id;
+    if (updates.start_page_id !== undefined) updateData.start_page_id = updates.start_page_id;
+    if (updates.is_published !== undefined) updateData.is_published = updates.is_published;
+    if (updates.inventory_items !== undefined) {
+      updateData.inventory_items = JSON.parse(JSON.stringify(updates.inventory_items));
+    }
+    
     const { data, error } = await supabase
       .from('admin_stories')
-      .update(updates)
+      .update(updateData)
       .eq('id', id)
       .select()
       .single();
 
     if (!error && data) {
       await fetchStories();
-      return { success: true, data: data as AdminStory };
+      return { success: true, data: { ...data, inventory_items: (Array.isArray(data.inventory_items) ? data.inventory_items : []) as unknown as InventoryItem[] } as AdminStory };
     }
     return { success: false, error };
   };
@@ -125,7 +158,8 @@ export function useAdminStories() {
     return { 
       success: true, 
       data: { 
-        ...story, 
+        ...story,
+        inventory_items: (Array.isArray(story.inventory_items) ? story.inventory_items : []) as unknown as InventoryItem[],
         pages: pages.map(p => ({
           ...p,
           choices: (Array.isArray(p.choices) ? p.choices : []) as unknown as StoryChoice[]
@@ -188,7 +222,8 @@ export function useAdminStoryPages(storyId: string | undefined) {
       choices: JSON.parse(JSON.stringify(page.choices)),
       is_ending: page.is_ending,
       ending_type: page.ending_type,
-      sort_order: page.sort_order
+      sort_order: page.sort_order,
+      collected_item_id: page.collected_item_id
     };
     
     const { data, error } = await supabase
@@ -215,6 +250,7 @@ export function useAdminStoryPages(storyId: string | undefined) {
     if (updates.is_ending !== undefined) updateData.is_ending = updates.is_ending;
     if (updates.ending_type !== undefined) updateData.ending_type = updates.ending_type;
     if (updates.sort_order !== undefined) updateData.sort_order = updates.sort_order;
+    if (updates.collected_item_id !== undefined) updateData.collected_item_id = updates.collected_item_id;
     if (updates.choices !== undefined) {
       updateData.choices = updates.choices as unknown as Record<string, unknown>[];
     }

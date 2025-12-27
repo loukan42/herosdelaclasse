@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAdmin } from '@/hooks/useAdmin';
-import { useAdminStories, useAdminStoryPages, AdminStoryPage, StoryChoice } from '@/hooks/useAdminStories';
+import { useAdminStories, useAdminStoryPages, AdminStoryPage, StoryChoice, InventoryItem } from '@/hooks/useAdminStories';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -30,7 +30,23 @@ import {
   Loader2,
   GripVertical,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Package,
+  Gem,
+  TreeDeciduous,
+  Flame,
+  Key,
+  Sprout,
+  Droplets,
+  Star,
+  Heart,
+  Zap,
+  Shield,
+  Crown,
+  Compass,
+  Map,
+  Scroll,
+  Feather
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { subjects } from '@/data/subjects';
@@ -52,7 +68,10 @@ export default function AdminStoryEditor() {
     cover_image_url: string | null;
     start_page_id: string;
     is_published: boolean;
+    inventory_items: InventoryItem[];
   } | null>(null);
+  const [isInventoryDialogOpen, setIsInventoryDialogOpen] = useState(false);
+  const [editingInventoryItem, setEditingInventoryItem] = useState<InventoryItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   
@@ -74,7 +93,8 @@ export default function AdminStoryEditor() {
           subject_id: result.data.subject_id,
           cover_image_url: result.data.cover_image_url,
           start_page_id: result.data.start_page_id,
-          is_published: result.data.is_published
+          is_published: result.data.is_published,
+          inventory_items: result.data.inventory_items || []
         });
       }
       setLoading(false);
@@ -111,7 +131,8 @@ export default function AdminStoryEditor() {
       level: story.level as 'CP' | 'CE1' | 'CE2' | 'CM1' | 'CM2',
       subject_id: story.subject_id,
       cover_image_url: story.cover_image_url,
-      start_page_id: story.start_page_id
+      start_page_id: story.start_page_id,
+      inventory_items: story.inventory_items
     });
     setIsSaving(false);
     
@@ -120,6 +141,58 @@ export default function AdminStoryEditor() {
     } else {
       toast.error('Erreur lors de la sauvegarde');
     }
+  };
+
+  const iconOptions = [
+    { id: 'gem', name: 'Gemme', icon: Gem },
+    { id: 'tree', name: 'Arbre', icon: TreeDeciduous },
+    { id: 'flame', name: 'Flamme', icon: Flame },
+    { id: 'key', name: 'Clé', icon: Key },
+    { id: 'sprout', name: 'Pousse', icon: Sprout },
+    { id: 'droplets', name: 'Eau', icon: Droplets },
+    { id: 'star', name: 'Étoile', icon: Star },
+    { id: 'heart', name: 'Cœur', icon: Heart },
+    { id: 'zap', name: 'Éclair', icon: Zap },
+    { id: 'shield', name: 'Bouclier', icon: Shield },
+    { id: 'crown', name: 'Couronne', icon: Crown },
+    { id: 'compass', name: 'Boussole', icon: Compass },
+    { id: 'map', name: 'Carte', icon: Map },
+    { id: 'scroll', name: 'Parchemin', icon: Scroll },
+    { id: 'feather', name: 'Plume', icon: Feather },
+  ];
+
+  const getIconComponent = (iconId: string) => {
+    const iconOption = iconOptions.find(opt => opt.id === iconId);
+    return iconOption?.icon || Package;
+  };
+
+  const handleAddInventoryItem = () => {
+    setEditingInventoryItem({ id: `item-${Date.now()}`, name: '', icon: 'gem' });
+  };
+
+  const handleSaveInventoryItem = () => {
+    if (!editingInventoryItem || !story) return;
+    
+    const existingIndex = story.inventory_items.findIndex(item => item.id === editingInventoryItem.id);
+    let newItems: InventoryItem[];
+    
+    if (existingIndex >= 0) {
+      newItems = [...story.inventory_items];
+      newItems[existingIndex] = editingInventoryItem;
+    } else {
+      newItems = [...story.inventory_items, editingInventoryItem];
+    }
+    
+    setStory({ ...story, inventory_items: newItems });
+    setEditingInventoryItem(null);
+  };
+
+  const handleDeleteInventoryItem = (itemId: string) => {
+    if (!story) return;
+    setStory({ 
+      ...story, 
+      inventory_items: story.inventory_items.filter(item => item.id !== itemId) 
+    });
   };
 
   const handleAddPage = () => {
@@ -136,7 +209,8 @@ export default function AdminStoryEditor() {
       choices: [],
       is_ending: false,
       ending_type: null,
-      sort_order: pages.length
+      sort_order: pages.length,
+      collected_item_id: null
     });
     setIsPageDialogOpen(true);
   };
@@ -332,6 +406,55 @@ export default function AdminStoryEditor() {
                 </div>
               </div>
             </div>
+
+            {/* Inventory Section */}
+            <div className="bg-card rounded-xl p-6 border border-border">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-semibold text-lg flex items-center gap-2">
+                  <Package className="w-5 h-5" />
+                  Inventaire
+                </h2>
+                <Button size="sm" variant="outline" onClick={handleAddInventoryItem} className="gap-1">
+                  <Plus className="w-3 h-3" />
+                  Ajouter
+                </Button>
+              </div>
+              
+              {story.inventory_items.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  Aucun objet défini
+                </p>
+              ) : (
+                <div className="space-y-2">
+                  {story.inventory_items.map((item) => {
+                    const IconComponent = getIconComponent(item.icon);
+                    return (
+                      <div key={item.id} className="flex items-center gap-3 p-2 bg-muted/50 rounded-lg">
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <IconComponent className="w-4 h-4 text-primary" />
+                        </div>
+                        <span className="flex-1 text-sm font-medium">{item.name || 'Sans nom'}</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => setEditingInventoryItem(item)}
+                        >
+                          Modifier
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-destructive"
+                          onClick={() => handleDeleteInventoryItem(item.id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Pages List */}
@@ -369,6 +492,12 @@ export default function AdminStoryEditor() {
                             {page.is_ending && (
                               <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">
                                 Fin {page.ending_type}
+                              </span>
+                            )}
+                            {page.collected_item_id && story.inventory_items.find(i => i.id === page.collected_item_id) && (
+                              <span className="px-2 py-0.5 bg-golden/10 text-golden text-xs rounded-full flex items-center gap-1">
+                                <Package className="w-3 h-3" />
+                                {story.inventory_items.find(i => i.id === page.collected_item_id)?.name}
                               </span>
                             )}
                           </div>
@@ -507,6 +636,41 @@ export default function AdminStoryEditor() {
                   )}
                 </div>
 
+                {/* Collected Item */}
+                {story.inventory_items.length > 0 && (
+                  <div className="space-y-2 p-4 bg-golden/10 rounded-lg border border-golden/20">
+                    <Label className="flex items-center gap-2">
+                      <Package className="w-4 h-4 text-golden" />
+                      Objet collecté sur cette page
+                    </Label>
+                    <Select
+                      value={editingPage.collected_item_id || 'none'}
+                      onValueChange={(value) => setEditingPage({ 
+                        ...editingPage, 
+                        collected_item_id: value === 'none' ? null : value 
+                      })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Aucun objet" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">Aucun objet</SelectItem>
+                        {story.inventory_items.map((item) => {
+                          const IconComponent = getIconComponent(item.icon);
+                          return (
+                            <SelectItem key={item.id} value={item.id}>
+                              <span className="flex items-center gap-2">
+                                <IconComponent className="w-4 h-4" />
+                                {item.name}
+                              </span>
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
                 {!editingPage.is_ending && (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
@@ -550,6 +714,63 @@ export default function AdminStoryEditor() {
                   </Button>
                   <Button onClick={handleSavePage} disabled={isSaving}>
                     {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                    Enregistrer
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Inventory Item Edit Dialog */}
+        <Dialog open={editingInventoryItem !== null} onOpenChange={(open) => !open && setEditingInventoryItem(null)}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>
+                {editingInventoryItem?.id.startsWith('item-') ? 'Nouvel objet' : 'Modifier l\'objet'}
+              </DialogTitle>
+            </DialogHeader>
+            
+            {editingInventoryItem && (
+              <div className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <Label>Nom de l'objet</Label>
+                  <Input
+                    value={editingInventoryItem.name}
+                    onChange={(e) => setEditingInventoryItem({ ...editingInventoryItem, name: e.target.value })}
+                    placeholder="Pierre brillante"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Icône</Label>
+                  <div className="grid grid-cols-5 gap-2">
+                    {iconOptions.map((opt) => {
+                      const IconComponent = opt.icon;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          className={`p-3 rounded-lg border-2 transition-all ${
+                            editingInventoryItem.icon === opt.id 
+                              ? 'border-primary bg-primary/10' 
+                              : 'border-border hover:border-primary/50'
+                          }`}
+                          onClick={() => setEditingInventoryItem({ ...editingInventoryItem, icon: opt.id })}
+                          title={opt.name}
+                        >
+                          <IconComponent className="w-5 h-5 mx-auto" />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button variant="outline" onClick={() => setEditingInventoryItem(null)}>
+                    Annuler
+                  </Button>
+                  <Button onClick={handleSaveInventoryItem} disabled={!editingInventoryItem.name}>
                     Enregistrer
                   </Button>
                 </div>
