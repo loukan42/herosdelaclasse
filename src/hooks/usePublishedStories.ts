@@ -2,6 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Story, StoryPage, Choice } from '@/data/stories';
 
+interface InventoryItem {
+  id: string;
+  name: string;
+  icon: string;
+}
+
 interface AdminStoryRow {
   id: string;
   slug: string;
@@ -12,6 +18,7 @@ interface AdminStoryRow {
   subject_id: string;
   start_page_id: string;
   is_published: boolean;
+  inventory_items: unknown;
 }
 
 interface AdminPageRow {
@@ -27,11 +34,18 @@ interface AdminPageRow {
   is_ending: boolean;
   ending_type: string | null;
   sort_order: number;
+  collected_item_id: string | null;
+}
+
+export interface StoryInventoryConfig {
+  items: InventoryItem[];
+  pageItems: Record<string, string>; // pageId -> itemId
 }
 
 export function usePublishedStories() {
   const [stories, setStories] = useState<Story[]>([]);
   const [pages, setPages] = useState<Record<string, StoryPage[]>>({});
+  const [inventoryConfigs, setInventoryConfigs] = useState<Record<string, StoryInventoryConfig>>({});
   const [loading, setLoading] = useState(true);
 
   const fetchPublishedStories = useCallback(async () => {
@@ -42,6 +56,12 @@ export function usePublishedStories() {
       .from('published_stories_view')
       .select('*');
 
+    // Also fetch inventory_items from admin_stories table directly
+    const { data: inventoryData } = await supabase
+      .from('admin_stories')
+      .select('slug, inventory_items')
+      .eq('is_published', true);
+
     console.log('[usePublishedStories] Fetched stories:', storiesData?.length, storiesData);
 
     if (storiesError || !storiesData) {
@@ -51,7 +71,7 @@ export function usePublishedStories() {
     }
 
     // Transform to Story format
-    const transformedStories: Story[] = (storiesData as AdminStoryRow[]).map(s => ({
+    const transformedStories: Story[] = storiesData.map(s => ({
       id: `admin-${s.slug}`,
       title: s.title,
       coverImage: s.cover_image_url || '',
@@ -63,12 +83,37 @@ export function usePublishedStories() {
 
     setStories(transformedStories);
 
-    // Fetch all pages for these stories
+    // Fetch all pages for these stories and build inventory configs
+    const inventoryConfigsMap: Record<string, StoryInventoryConfig> = {};
+    
+    // Initialize inventory configs from story data
+    if (inventoryData) {
+      inventoryData.forEach(s => {
+        const rawItems = s.inventory_items;
+        const items: InventoryItem[] = Array.isArray(rawItems) 
+          ? rawItems.map((item: unknown) => {
+              const obj = item as { id?: string; name?: string; icon?: string };
+              return {
+                id: obj.id || '',
+                name: obj.name || '',
+                icon: obj.icon || 'gem'
+              };
+            })
+          : [];
+        if (items.length > 0) {
+          inventoryConfigsMap[`admin-${s.slug}`] = {
+            items,
+            pageItems: {}
+          };
+        }
+      });
+    }
+
     if (storiesData.length > 0) {
       const storyIds = storiesData.map(s => s.id);
       const { data: pagesData, error: pagesError } = await supabase
         .from('admin_story_pages')
-        .select('id, story_id, page_id, title, text, text_masculine, text_feminine, image_url, choices, is_ending, ending_type, sort_order')
+        .select('id, story_id, page_id, title, text, text_masculine, text_feminine, image_url, choices, is_ending, ending_type, sort_order, collected_item_id')
         .in('story_id', storyIds)
         .order('sort_order');
 
@@ -104,9 +149,15 @@ export function usePublishedStories() {
             isEnding: p.is_ending,
             endingType: p.ending_type as 'happy' | 'alternative' | 'neutral' | 'bad' | undefined
           });
+
+          // Add page item mapping for inventory
+          if (p.collected_item_id && inventoryConfigsMap[storyKey]) {
+            inventoryConfigsMap[storyKey].pageItems[p.page_id] = p.collected_item_id;
+          }
         });
         
         setPages(pagesMap);
+        setInventoryConfigs(inventoryConfigsMap);
       }
     }
 
@@ -120,6 +171,7 @@ export function usePublishedStories() {
   return {
     stories,
     pages,
+    inventoryConfigs,
     loading,
     refresh: fetchPublishedStories
   };

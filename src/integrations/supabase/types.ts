@@ -21,6 +21,7 @@ export type Database = {
           created_by: string | null
           description: string | null
           id: string
+          inventory_items: Json | null
           is_published: boolean
           level: string
           slug: string
@@ -35,6 +36,7 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           id?: string
+          inventory_items?: Json | null
           is_published?: boolean
           level: string
           slug: string
@@ -49,6 +51,7 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           id?: string
+          inventory_items?: Json | null
           is_published?: boolean
           level?: string
           slug?: string
@@ -62,6 +65,7 @@ export type Database = {
       admin_story_pages: {
         Row: {
           choices: Json
+          collected_item_id: string | null
           created_at: string
           ending_type: string | null
           id: string
@@ -78,6 +82,7 @@ export type Database = {
         }
         Insert: {
           choices?: Json
+          collected_item_id?: string | null
           created_at?: string
           ending_type?: string | null
           id?: string
@@ -94,6 +99,7 @@ export type Database = {
         }
         Update: {
           choices?: Json
+          collected_item_id?: string | null
           created_at?: string
           ending_type?: string | null
           id?: string
