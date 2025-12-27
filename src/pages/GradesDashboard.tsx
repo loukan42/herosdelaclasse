@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { grades } from "@/data/grades";
 import { stories } from "@/data/stories";
 import { GradeCard } from "@/components/GradeCard";
-import { Sparkles, Save, Users, BookOpen, History, UserCircle, Crown } from "lucide-react";
+import { Sparkles, Save, UserCircle, Crown } from "lucide-react";
 import logo from "@/assets/logo.png";
+import profilsImage from "@/assets/features/profils.png";
+import historiqueImage from "@/assets/features/historique.png";
+import suiviImage from "@/assets/features/suivi.png";
 import { Footer } from "@/components/Footer";
 import { ProfileSwitcher } from "@/components/ProfileSwitcher";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -86,30 +89,36 @@ export default function GradesDashboard() {
             </h2>
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-card rounded-2xl p-6 border border-border shadow-sm text-center">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-7 h-7 text-primary" />
-                </div>
+              <div className="text-center">
+                <img 
+                  src={profilsImage} 
+                  alt="Profils personnalisés" 
+                  className="w-full rounded-3xl shadow-lg mb-4"
+                />
                 <h3 className="font-semibold text-lg mb-2">Profils personnalisés</h3>
                 <p className="text-muted-foreground text-sm">
                   Créez un profil pour chaque enfant avec son avatar et son prénom pour des histoires plus immersives.
                 </p>
               </div>
 
-              <div className="bg-card rounded-2xl p-6 border border-border shadow-sm text-center">
-                <div className="w-14 h-14 rounded-xl bg-golden/10 flex items-center justify-center mx-auto mb-4">
-                  <History className="w-7 h-7 text-golden" />
-                </div>
+              <div className="text-center">
+                <img 
+                  src={historiqueImage} 
+                  alt="Historique sauvegardé" 
+                  className="w-full rounded-3xl shadow-lg mb-4"
+                />
                 <h3 className="font-semibold text-lg mb-2">Historique sauvegardé</h3>
                 <p className="text-muted-foreground text-sm">
                   Retrouvez facilement les lectures en cours et reprenez exactement là où vous vous êtes arrêtés.
                 </p>
               </div>
 
-              <div className="bg-card rounded-2xl p-6 border border-border shadow-sm text-center">
-                <div className="w-14 h-14 rounded-xl bg-ending-happy/10 flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="w-7 h-7 text-ending-happy" />
-                </div>
+              <div className="text-center">
+                <img 
+                  src={suiviImage} 
+                  alt="Suivi de lecture" 
+                  className="w-full rounded-3xl shadow-lg mb-4"
+                />
                 <h3 className="font-semibold text-lg mb-2">Suivi de lecture</h3>
                 <p className="text-muted-foreground text-sm">
                   Visualisez les histoires déjà lues et celles qui restent à découvrir pour chaque enfant.
