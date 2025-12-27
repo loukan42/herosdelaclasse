@@ -8,6 +8,7 @@ import { StoryInventory } from "@/components/StoryInventory";
 import { StoryTextEditor } from "@/components/StoryTextEditor";
 
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX, Download } from "lucide-react";
+import { SocialShare } from "@/components/SocialShare";
 import dinosaurColoringPage from "@/assets/coloring/dinosaur-footprints-coloring.png";
 import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 import { useStoryProgress } from "@/hooks/useStoryProgress";
@@ -317,22 +318,29 @@ export default function StoryReader() {
 
             {/* Choices or Ending Actions */}
             {page.isEnding ? (
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-                <button
-                  onClick={handleRestart}
-                  className="inline-flex items-center justify-center gap-2 md:gap-3 bg-primary text-primary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
-                >
-                  <RotateCcw className="w-4 h-4 md:w-5 md:h-5" />
-                  Recommencer cette histoire
-                </button>
-                
-                <button
-                  onClick={handleBackToStories}
-                  className="inline-flex items-center justify-center gap-2 md:gap-3 bg-secondary text-secondary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
-                >
-                  <Home className="w-4 h-4 md:w-5 md:h-5" />
-                  Autres histoires
-                </button>
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+                  <button
+                    onClick={handleRestart}
+                    className="inline-flex items-center justify-center gap-2 md:gap-3 bg-primary text-primary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    <RotateCcw className="w-4 h-4 md:w-5 md:h-5" />
+                    Recommencer cette histoire
+                  </button>
+                  
+                  <button
+                    onClick={handleBackToStories}
+                    className="inline-flex items-center justify-center gap-2 md:gap-3 bg-secondary text-secondary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    <Home className="w-4 h-4 md:w-5 md:h-5" />
+                    Autres histoires
+                  </button>
+                </div>
+
+                {/* Social Share Section */}
+                <div className="pt-4 border-t border-border/50">
+                  <SocialShare />
+                </div>
               </div>
             ) : (
               <div className="space-y-3 md:space-y-4">

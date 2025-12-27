@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Heart, Instagram } from "lucide-react";
+import { SocialShare } from "./SocialShare";
 
 export function Footer() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -42,6 +43,13 @@ export function Footer() {
             </p>
           </div>
         )}
+      </div>
+
+      {/* Social Share */}
+      <div className="py-4 border-t border-border/50">
+        <div className="container max-w-4xl mx-auto px-4">
+          <SocialShare />
+        </div>
       </div>
 
       {/* Copyright & Social */}
