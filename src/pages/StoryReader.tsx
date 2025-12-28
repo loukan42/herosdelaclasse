@@ -354,7 +354,7 @@ export default function StoryReader() {
                       <ImageChoiceButton
                         key={index}
                         image={choice.image!}
-                        label={choice.label}
+                        label={processText(choice.label, prenom, genre)}
                         onClick={() => handleChoice(choice.targetPageId)}
                         className="fade-up"
                         style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
@@ -371,7 +371,7 @@ export default function StoryReader() {
                         className="fade-up text-base md:text-lg"
                         style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
                       >
-                        {choice.label}
+                        {processText(choice.label, prenom, genre)}
                       </ChoiceButton>
                     ))}
                   </div>
