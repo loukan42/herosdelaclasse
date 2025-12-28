@@ -7,7 +7,7 @@ import {
 } from '@/data/stories';
 
 export function useCombinedStories() {
-  const { stories: publishedStories, pages: publishedPages } = usePublishedStoriesContext();
+  const { stories: publishedStories, pages: publishedPages, loading } = usePublishedStoriesContext();
 
   const getAllStories = (): Story[] => {
     // Combine static and published stories, avoiding duplicates by id
@@ -58,6 +58,7 @@ export function useCombinedStories() {
     getStory,
     getStoryPages,
     getPage,
-    getStoriesBySubject
+    getStoriesBySubject,
+    loading
   };
 }
