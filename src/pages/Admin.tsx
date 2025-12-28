@@ -54,7 +54,7 @@ interface DisplayStory {
   description: string | null;
   cover_image_url: string | null;
   level: string;
-  subject_id: string;
+  subject_id: string[]; // Now an array
   is_published: boolean;
   isStatic: boolean; // true for built-in stories
 }
@@ -68,18 +68,18 @@ export default function Admin() {
 
   // Combine static and admin stories for display
   const allDisplayStories: DisplayStory[] = [
-    // Static stories (built-in)
+    // Static stories (built-in) - convert single subjectId to array
     ...staticStories.map(s => ({
       id: s.id,
       title: s.title,
       description: s.description,
       cover_image_url: s.coverImage,
       level: s.level,
-      subject_id: s.subjectId,
+      subject_id: [s.subjectId], // Convert to array
       is_published: true,
       isStatic: true
     })),
-    // Admin-created stories
+    // Admin-created stories (already have array)
     ...adminStories.map(s => ({
       id: s.id,
       title: s.title,
@@ -129,9 +129,12 @@ export default function Admin() {
     });
   };
 
-  const getSubjectName = (subjectId: string) => {
-    const subject = subjects.find(s => s.id === subjectId);
-    return subject?.name || subjectId;
+  const getSubjectNames = (subjectIds: string[]) => {
+    if (!subjectIds || subjectIds.length === 0) return 'Non défini';
+    return subjectIds.map(id => {
+      const subject = subjects.find(s => s.id === id);
+      return subject?.name || id;
+    }).join(', ');
   };
 
   const handleTogglePublish = async (storyId: string, isPublished: boolean) => {
@@ -386,7 +389,7 @@ export default function Admin() {
                               {story.level}
                             </span>
                           </TableCell>
-                          <TableCell>{getSubjectName(story.subject_id)}</TableCell>
+                          <TableCell>{getSubjectNames(story.subject_id)}</TableCell>
                           <TableCell>
                             {story.is_published ? (
                               <span className="flex items-center gap-1 text-ending-happy">

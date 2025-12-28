@@ -26,7 +26,7 @@ export type Database = {
           level: string
           slug: string
           start_page_id: string
-          subject_id: string
+          subject_id: string[]
           title: string
           updated_at: string
         }
@@ -41,7 +41,7 @@ export type Database = {
           level: string
           slug: string
           start_page_id?: string
-          subject_id: string
+          subject_id?: string[]
           title: string
           updated_at?: string
         }
@@ -56,7 +56,7 @@ export type Database = {
           level?: string
           slug?: string
           start_page_id?: string
-          subject_id?: string
+          subject_id?: string[]
           title?: string
           updated_at?: string
         }
@@ -330,7 +330,7 @@ export type Database = {
           level: string | null
           slug: string | null
           start_page_id: string | null
-          subject_id: string | null
+          subject_id: string[] | null
           title: string | null
           updated_at: string | null
         }
@@ -343,7 +343,7 @@ export type Database = {
           level?: string | null
           slug?: string | null
           start_page_id?: string | null
-          subject_id?: string | null
+          subject_id?: string[] | null
           title?: string | null
           updated_at?: string | null
         }
@@ -356,7 +356,7 @@ export type Database = {
           level?: string | null
           slug?: string | null
           start_page_id?: string | null
-          subject_id?: string | null
+          subject_id?: string[] | null
           title?: string | null
           updated_at?: string | null
         }
