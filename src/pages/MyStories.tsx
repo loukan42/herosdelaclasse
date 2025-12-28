@@ -83,17 +83,45 @@ export default function MyStories() {
 
   const allStoriesList = getAllStories();
 
+  // We consider some stories as "aliases" of the same adventure (e.g. "-lecture" variants,
+  // or published stories prefixed with "admin-"). On this page, we dedupe these aliases
+  // so "À découvrir" doesn't show the same story twice.
+  const normalizeStoryKey = (storyId: string) => {
+    let id = storyId.startsWith('admin-') ? storyId.slice('admin-'.length) : storyId;
+    if (id.endsWith('-lecture')) id = id.slice(0, -'-lecture'.length);
+    return id;
+  };
+
   // Get unique completed story ids
   const uniqueCompletedStoryIds = [...new Set(completedStories.map(c => c.story_id))];
 
   // Get stories in progress ids
   const storiesInProgressIds = allProgress.map(p => p.story_id);
 
-  // Get unread stories (not in progress and not completed)
-  const unreadStories = allStoriesList.filter(story => 
-    !storiesInProgressIds.includes(story.id) && 
-    !uniqueCompletedStoryIds.includes(story.id)
+  // If any alias of an adventure is in progress or completed, we consider the adventure started.
+  const startedKeys = new Set(
+    [...storiesInProgressIds, ...uniqueCompletedStoryIds].map(normalizeStoryKey)
   );
+
+  const storyScore = (storyId: string) => {
+    let score = 0;
+    if (storyId.startsWith('admin-')) score += 100; // prefer published stories
+    if (storyId.endsWith('-lecture')) score += 10;  // prefer the variant that actually has pages in static data
+    return score;
+  };
+
+  // Get unread stories (not in progress and not completed), deduped by base story key
+  const unreadStoriesMap = new Map<string, (typeof allStoriesList)[number]>();
+  for (const story of allStoriesList) {
+    const key = normalizeStoryKey(story.id);
+    if (startedKeys.has(key)) continue;
+
+    const existing = unreadStoriesMap.get(key);
+    if (!existing || storyScore(story.id) > storyScore(existing.id)) {
+      unreadStoriesMap.set(key, story);
+    }
+  }
+  const unreadStories = Array.from(unreadStoriesMap.values());
 
   // Stats
   const totalStoriesRead = uniqueCompletedStoryIds.length;
