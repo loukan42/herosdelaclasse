@@ -1,6 +1,5 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { subjects } from "@/data/subjects";
-import { stories } from "@/data/stories";
 import { getGrade } from "@/data/grades";
 import { getSubjectsForGrade } from "@/data/gradeSubjects";
 import { SubjectCard } from "@/components/SubjectCard";
@@ -12,12 +11,14 @@ import { useAdmin } from "@/hooks/useAdmin";
 import { Crown } from "lucide-react";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import { useCombinedStories } from "@/hooks/useCombinedStories";
 
 export default function SubjectsDashboard() {
   const { gradeId } = useParams<{ gradeId: string }>();
   const navigate = useNavigate();
   const { isAuthenticated, loading } = useAuthContext();
   const { isAdmin } = useAdmin();
+  const { getAllStories } = useCombinedStories();
 
   const grade = getGrade(gradeId || "");
 
@@ -29,8 +30,9 @@ export default function SubjectsDashboard() {
   // Get subjects allowed for this grade from curriculum definition
   const allowedSubjectIds = getSubjectsForGrade(gradeId || "");
   
-  // Get stories for this grade to check which subjects have content
-  const gradeStories = stories.filter(story => story.level === gradeId);
+  // Get stories for this grade to check which subjects have content (static + published)
+  const allStories = getAllStories();
+  const gradeStories = allStories.filter(story => story.level === gradeId);
   const subjectsWithStories = new Set(gradeStories.map(s => s.subjectId));
 
   // Filter subjects: only show those in the curriculum for this grade
