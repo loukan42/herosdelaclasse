@@ -10,10 +10,11 @@ interface GradeCardProps {
 
 export function GradeCard({ grade, index }: GradeCardProps) {
   const navigate = useNavigate();
-  const { getAllStories } = useCombinedStories();
+  const { getAllStories, loading } = useCombinedStories();
   
   // Check if this grade has any stories (static + published)
-  const hasStories = getAllStories().some(story => story.level === grade.id);
+  // While loading, assume all grades are available to avoid flicker
+  const hasStories = loading || getAllStories().some(story => story.level === grade.id);
   
   const handleClick = () => {
     if (hasStories) {
