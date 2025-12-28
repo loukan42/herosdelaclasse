@@ -73,20 +73,31 @@ export function usePublishedStories() {
     // Transform to Story format - create one entry per subject for each story
     const transformedStories: Story[] = [];
     storiesData.forEach(s => {
-      const subjectIds = Array.isArray(s.subject_id) ? s.subject_id : [s.subject_id].filter(Boolean);
+      // Handle subject_id as array (new format) or string (old format)
+      const rawSubjectId = s.subject_id as unknown;
+      const subjectIds: string[] = Array.isArray(rawSubjectId) 
+        ? rawSubjectId 
+        : (typeof rawSubjectId === 'string' ? [rawSubjectId] : []);
+      
+      if (subjectIds.length === 0) {
+        console.warn('[usePublishedStories] Story has no subjects:', s.slug);
+        return;
+      }
+      
       subjectIds.forEach(subjectId => {
         transformedStories.push({
           id: `admin-${s.slug}`,
-          title: s.title,
+          title: s.title || '',
           coverImage: s.cover_image_url || '',
-          level: s.level,
+          level: s.level || 'CP',
           description: s.description || '',
-          startPageId: s.start_page_id,
+          startPageId: s.start_page_id || 'page-1',
           subjectId: subjectId
         });
       });
     });
 
+    console.log('[usePublishedStories] Transformed stories:', transformedStories.length, transformedStories);
     setStories(transformedStories);
 
     // Fetch all pages for these stories and build inventory configs
