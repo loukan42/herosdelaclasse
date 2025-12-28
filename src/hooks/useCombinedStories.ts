@@ -10,7 +10,19 @@ export function useCombinedStories() {
   const { stories: publishedStories, pages: publishedPages } = usePublishedStoriesContext();
 
   const getAllStories = (): Story[] => {
-    return [...staticStories, ...publishedStories];
+    // Combine static and published stories, avoiding duplicates by id
+    const allStories = [...staticStories, ...publishedStories];
+    const uniqueStoriesMap = new Map<string, Story>();
+    
+    // Published stories (admin-) take priority over static stories with same base id
+    for (const story of allStories) {
+      const existingStory = uniqueStoriesMap.get(story.id);
+      if (!existingStory) {
+        uniqueStoriesMap.set(story.id, story);
+      }
+    }
+    
+    return Array.from(uniqueStoriesMap.values());
   };
 
   const getStory = (storyId: string): Story | undefined => {
