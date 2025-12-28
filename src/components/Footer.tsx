@@ -45,6 +45,24 @@ export function Footer() {
         )}
       </div>
 
+      {/* Contact */}
+      <div className="py-4 border-t border-border/50">
+        <div className="container max-w-4xl mx-auto px-4 text-center">
+          <h3 className="text-sm font-semibold text-foreground mb-2">Contact</h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            Pour toute suggestion, proposition d'amélioration ou signalement de bug, vous pouvez me contacter directement sur{" "}
+            <a
+              href="https://www.instagram.com/herosdelaclasse/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline font-medium"
+            >
+              Instagram
+            </a>.
+          </p>
+        </div>
+      </div>
+
       {/* Social Share */}
       <div className="py-4 border-t border-border/50">
         <div className="container max-w-4xl mx-auto px-4">
