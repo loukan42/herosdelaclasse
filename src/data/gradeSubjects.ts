@@ -4,7 +4,7 @@
 export const gradeSubjectsMap: Record<string, string[]> = {
   "CP": ["lecture", "mathematiques"],
   "CE1": ["lecture", "mathematiques", "sciences"],
-  "CE2": ["lecture", "mathematiques", "sciences"],
+  "CE2": ["lecture", "mathematiques", "sciences", "histoire"],
   "CM1": ["mathematiques", "sciences", "histoire", "geographie", "langues"],
   "CM2": ["mathematiques", "sciences", "histoire", "geographie", "langues"]
 };
