@@ -64,7 +64,7 @@ export default function AdminStoryEditor() {
     title: string;
     description: string | null;
     level: string;
-    subject_id: string;
+    subject_id: string[];
     cover_image_url: string | null;
     start_page_id: string;
     is_published: boolean;
@@ -356,22 +356,26 @@ export default function AdminStoryEditor() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Matière</Label>
-                  <Select
-                    value={story.subject_id}
-                    onValueChange={(value) => setStory({ ...story, subject_id: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {subjects.map((subject) => (
-                        <SelectItem key={subject.id} value={subject.id}>
-                          {subject.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Label>Matières</Label>
+                  <div className="space-y-2 p-3 border rounded-lg bg-muted/30">
+                    {subjects.map((subject) => (
+                      <label key={subject.id} className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={story.subject_id.includes(subject.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setStory({ ...story, subject_id: [...story.subject_id, subject.id] });
+                            } else {
+                              setStory({ ...story, subject_id: story.subject_id.filter(id => id !== subject.id) });
+                            }
+                          }}
+                          className="rounded border-border"
+                        />
+                        <span className="text-sm">{subject.name}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="space-y-2">

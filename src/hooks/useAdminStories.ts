@@ -36,7 +36,7 @@ export interface AdminStory {
   description: string | null;
   cover_image_url: string | null;
   level: 'CP' | 'CE1' | 'CE2' | 'CM1' | 'CM2';
-  subject_id: string;
+  subject_id: string[]; // Array of subject IDs
   start_page_id: string;
   is_published: boolean;
   created_at: string;
@@ -59,6 +59,7 @@ export function useAdminStories() {
     if (!error && data) {
       setStories(data.map(s => ({
         ...s,
+        subject_id: Array.isArray(s.subject_id) ? s.subject_id : [],
         inventory_items: (Array.isArray(s.inventory_items) ? s.inventory_items : []) as unknown as InventoryItem[]
       })) as AdminStory[]);
     }
@@ -93,7 +94,11 @@ export function useAdminStories() {
 
     if (!error && data) {
       await fetchStories();
-      return { success: true, data: { ...data, inventory_items: (Array.isArray(data.inventory_items) ? data.inventory_items : []) as unknown as InventoryItem[] } as AdminStory };
+      return { success: true, data: { 
+        ...data, 
+        subject_id: Array.isArray(data.subject_id) ? data.subject_id : [],
+        inventory_items: (Array.isArray(data.inventory_items) ? data.inventory_items : []) as unknown as InventoryItem[] 
+      } as AdminStory };
     }
     return { success: false, error };
   };
@@ -120,7 +125,11 @@ export function useAdminStories() {
 
     if (!error && data) {
       await fetchStories();
-      return { success: true, data: { ...data, inventory_items: (Array.isArray(data.inventory_items) ? data.inventory_items : []) as unknown as InventoryItem[] } as AdminStory };
+      return { success: true, data: { 
+        ...data, 
+        subject_id: Array.isArray(data.subject_id) ? data.subject_id : [],
+        inventory_items: (Array.isArray(data.inventory_items) ? data.inventory_items : []) as unknown as InventoryItem[] 
+      } as AdminStory };
     }
     return { success: false, error };
   };
@@ -159,6 +168,7 @@ export function useAdminStories() {
       success: true, 
       data: { 
         ...story,
+        subject_id: Array.isArray(story.subject_id) ? story.subject_id : [],
         inventory_items: (Array.isArray(story.inventory_items) ? story.inventory_items : []) as unknown as InventoryItem[],
         pages: pages.map(p => ({
           ...p,

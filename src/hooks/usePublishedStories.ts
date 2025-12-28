@@ -15,7 +15,7 @@ interface AdminStoryRow {
   description: string | null;
   cover_image_url: string | null;
   level: string;
-  subject_id: string;
+  subject_id: string[]; // Now an array
   start_page_id: string;
   is_published: boolean;
   inventory_items: unknown;
@@ -70,16 +70,22 @@ export function usePublishedStories() {
       return;
     }
 
-    // Transform to Story format
-    const transformedStories: Story[] = storiesData.map(s => ({
-      id: `admin-${s.slug}`,
-      title: s.title,
-      coverImage: s.cover_image_url || '',
-      level: s.level,
-      description: s.description || '',
-      startPageId: s.start_page_id,
-      subjectId: s.subject_id
-    }));
+    // Transform to Story format - create one entry per subject for each story
+    const transformedStories: Story[] = [];
+    storiesData.forEach(s => {
+      const subjectIds = Array.isArray(s.subject_id) ? s.subject_id : [s.subject_id].filter(Boolean);
+      subjectIds.forEach(subjectId => {
+        transformedStories.push({
+          id: `admin-${s.slug}`,
+          title: s.title,
+          coverImage: s.cover_image_url || '',
+          level: s.level,
+          description: s.description || '',
+          startPageId: s.start_page_id,
+          subjectId: subjectId
+        });
+      });
+    });
 
     setStories(transformedStories);
 

@@ -55,13 +55,13 @@ export default function AdminStories() {
     title: string;
     description: string;
     level: 'CP' | 'CE1' | 'CE2' | 'CM1' | 'CM2';
-    subject_id: string;
+    subject_id: string[];
     cover_image_url: string;
   }>({
     title: '',
     description: '',
     level: 'CP',
-    subject_id: 'lecture',
+    subject_id: ['lecture'],
     cover_image_url: ''
   });
 
@@ -108,7 +108,7 @@ export default function AdminStories() {
         title: '',
         description: '',
         level: 'CP',
-        subject_id: 'lecture',
+        subject_id: ['lecture'],
         cover_image_url: ''
       });
       // Navigate to edit the new story
@@ -138,8 +138,9 @@ export default function AdminStories() {
     }
   };
 
-  const getSubjectName = (subjectId: string) => {
-    return subjects.find(s => s.id === subjectId)?.name || subjectId;
+  const getSubjectNames = (subjectIds: string[]) => {
+    if (!subjectIds || subjectIds.length === 0) return 'Non défini';
+    return subjectIds.map(id => subjects.find(s => s.id === id)?.name || id).join(', ');
   };
 
   return (
@@ -209,22 +210,26 @@ export default function AdminStories() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Matière *</Label>
-                    <Select
-                      value={newStory.subject_id}
-                      onValueChange={(value) => setNewStory({ ...newStory, subject_id: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {subjects.map((subject) => (
-                          <SelectItem key={subject.id} value={subject.id}>
-                            {subject.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Label>Matières *</Label>
+                    <div className="space-y-2 p-3 border rounded-lg bg-muted/30 max-h-40 overflow-y-auto">
+                      {subjects.map((subject) => (
+                        <label key={subject.id} className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={newStory.subject_id.includes(subject.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setNewStory({ ...newStory, subject_id: [...newStory.subject_id, subject.id] });
+                              } else {
+                                setNewStory({ ...newStory, subject_id: newStory.subject_id.filter(id => id !== subject.id) });
+                              }
+                            }}
+                            className="rounded border-border"
+                          />
+                          <span className="text-sm">{subject.name}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -303,7 +308,7 @@ export default function AdminStories() {
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    {story.level} • {getSubjectName(story.subject_id)}
+                    {story.level} • {getSubjectNames(story.subject_id)}
                   </p>
                   {story.description && (
                     <p className="text-sm text-muted-foreground truncate mt-1">
