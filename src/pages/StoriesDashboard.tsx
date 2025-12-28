@@ -14,8 +14,8 @@ export default function StoriesDashboard() {
   const { subjectId, gradeId } = useParams<{ subjectId: string; gradeId: string }>();
   const navigate = useNavigate();
   const { hasProgress, isCompleted, getCompletionCount, isAuthenticated } = useAllStoryProgress();
-  const { loading } = useAuthContext();
-  const { getStoriesBySubject } = useCombinedStories();
+  const { loading: authLoading } = useAuthContext();
+  const { getStoriesBySubject, loading: storiesLoading } = useCombinedStories();
   
   const subject = getSubject(subjectId || "");
   const grade = getGrade(gradeId || "");
@@ -82,7 +82,7 @@ export default function StoriesDashboard() {
             </p>
 
             {/* CTA for non-authenticated users */}
-            {!loading && !isAuthenticated && (
+            {!authLoading && !isAuthenticated && (
               <div className="mt-6 fade-up stagger-3">
                 <Button asChild size="lg" className="gap-2 font-display">
                   <Link to="/register">
@@ -98,7 +98,13 @@ export default function StoriesDashboard() {
 
       {/* Stories Grid */}
       <section className="container max-w-6xl mx-auto px-4 pb-20 flex-1">
-        {stories.length > 0 ? (
+        {storiesLoading ? (
+          <div className="text-center py-16">
+            <p className="text-xl text-muted-foreground animate-pulse">
+              Chargement des histoires...
+            </p>
+          </div>
+        ) : stories.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {stories.map((story, index) => (
               <StoryCard 
