@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Grade } from "@/data/grades";
-import { stories } from "@/data/stories";
+import { useCombinedStories } from "@/hooks/useCombinedStories";
 import { Lock, Sparkles } from "lucide-react";
 
 interface GradeCardProps {
@@ -10,9 +10,10 @@ interface GradeCardProps {
 
 export function GradeCard({ grade, index }: GradeCardProps) {
   const navigate = useNavigate();
+  const { getAllStories } = useCombinedStories();
   
-  // Check if this grade has any stories
-  const hasStories = stories.some(story => story.level === grade.id);
+  // Check if this grade has any stories (static + published)
+  const hasStories = getAllStories().some(story => story.level === grade.id);
   
   const handleClick = () => {
     if (hasStories) {
