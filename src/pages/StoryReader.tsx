@@ -77,12 +77,15 @@ export default function StoryReader() {
     }
   }, [pageId, visitedPages, isAuthenticated, saveProgress, prenom]);
 
-  // Mark story as completed when reaching an ending
+  // Mark story as completed when reaching an ending (only once per page)
   useEffect(() => {
-    if (isAuthenticated && page?.isEnding) {
+    const currentPageId = pageId || '';
+    // Only mark as completed if we haven't already for this specific ending page
+    if (isAuthenticated && page?.isEnding && hasMarkedCompleteRef.current !== currentPageId) {
+      hasMarkedCompleteRef.current = currentPageId;
       markCompleted(page.endingType);
     }
-  }, [isAuthenticated, page?.isEnding, page?.endingType, markCompleted]);
+  }, [isAuthenticated, page?.isEnding, page?.endingType, markCompleted, pageId]);
 
   // Scroll to top when page changes
   useEffect(() => {
