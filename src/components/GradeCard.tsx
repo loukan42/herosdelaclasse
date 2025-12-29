@@ -44,7 +44,7 @@ export function GradeCard({ grade, index }: GradeCardProps) {
       <div className="relative aspect-[4/3] overflow-hidden">
         <img 
           src={grade.image} 
-          alt={grade.fullName}
+          alt={t(grade.fullNameKey)}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         {/* Overlay gradient */}
@@ -76,12 +76,12 @@ export function GradeCard({ grade, index }: GradeCardProps) {
       <div className="p-6">
         {/* Title */}
         <h2 className="font-display text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-          {grade.fullName}
+          {t(grade.fullNameKey)}
         </h2>
         
         {/* Description */}
         <p className="text-muted-foreground text-sm md:text-base mb-4 line-clamp-2">
-          {grade.description}
+          {t(grade.descriptionKey)}
         </p>
 
         {/* Action indicator */}
