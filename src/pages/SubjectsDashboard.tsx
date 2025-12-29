@@ -89,7 +89,7 @@ export default function SubjectsDashboard() {
             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 bg-gradient-to-r ${grade.color} text-white shadow-lg fade-up`}>
               <span className="font-display text-lg font-bold">{grade.name}</span>
               <span className="text-white/80">•</span>
-              <span className="text-sm">{grade.fullName}</span>
+              <span className="text-sm">{t(grade.fullNameKey)}</span>
             </div>
 
             {/* Logo */}
