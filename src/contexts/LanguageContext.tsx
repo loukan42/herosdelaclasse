@@ -115,7 +115,25 @@ const translations: Record<Language, Record<string, string>> = {
     // Footer
     'footer.tagline': 'Des histoires magiques pour apprendre en s\'amusant',
     'footer.rights': 'Tous droits réservés.',
-    
+    'footer.why': 'Pourquoi ce site ?',
+    'footer.contact': 'Une idée ? Une question ?',
+    'footer.contactText': 'N\'hésite pas à me contacter sur',
+
+    // Subjects
+    'subjects.subtitle': 'Choisis une matière pour découvrir des histoires passionnantes !',
+
+    // Stories
+    'stories.notFound': 'Histoire introuvable',
+    'stories.notFoundDesc': 'Cette histoire n\'existe pas ou a été supprimée.',
+
+    // Start page
+    'start.customize': 'Personnalise ton aventure',
+    'start.ready': 'Prêt',
+    'start.begin': 'C\'est parti !',
+
+    // Nav
+    'nav.backToGrades': 'Retour aux niveaux',
+
     // Grades
     'grades.title': 'À quel niveau es-tu ?',
     'grades.subtitle': 'Choisis ta classe pour découvrir des aventures adaptées !',
@@ -238,7 +256,25 @@ const translations: Record<Language, Record<string, string>> = {
     // Footer
     'footer.tagline': 'Magical stories to learn while having fun',
     'footer.rights': 'All rights reserved.',
-    
+    'footer.why': 'Why this site?',
+    'footer.contact': 'Got an idea? A question?',
+    'footer.contactText': 'Feel free to contact me on',
+
+    // Subjects
+    'subjects.subtitle': 'Choose a subject to discover exciting stories!',
+
+    // Stories
+    'stories.notFound': 'Story not found',
+    'stories.notFoundDesc': 'This story does not exist or has been deleted.',
+
+    // Start page
+    'start.customize': 'Customize your adventure',
+    'start.ready': 'Ready',
+    'start.begin': 'Let\'s go!',
+
+    // Nav
+    'nav.backToGrades': 'Back to grades',
+
     // Grades
     'grades.title': 'What grade are you in?',
     'grades.subtitle': 'Choose your class to discover tailored adventures!',
@@ -346,6 +382,16 @@ const translations: Record<Language, Record<string, string>> = {
     'start.back': 'Zurück',
     'footer.tagline': 'Magische Geschichten zum spielerischen Lernen',
     'footer.rights': 'Alle Rechte vorbehalten.',
+    'footer.why': 'Warum diese Seite?',
+    'footer.contact': 'Eine Idee? Eine Frage?',
+    'footer.contactText': 'Kontaktiere mich gerne auf',
+    'subjects.subtitle': 'Wähle ein Fach, um spannende Geschichten zu entdecken!',
+    'stories.notFound': 'Geschichte nicht gefunden',
+    'stories.notFoundDesc': 'Diese Geschichte existiert nicht oder wurde gelöscht.',
+    'start.customize': 'Passe dein Abenteuer an',
+    'start.ready': 'Bereit',
+    'start.begin': 'Los geht\'s!',
+    'nav.backToGrades': 'Zurück zu den Stufen',
     'grades.title': 'In welcher Klasse bist du?',
     'grades.subtitle': 'Wähle deine Klasse für passende Abenteuer!',
     'myStories.title': 'Meine Geschichten',
@@ -444,6 +490,16 @@ const translations: Record<Language, Record<string, string>> = {
     'start.back': 'Назад',
     'footer.tagline': 'Волшебные истории для весёлого обучения',
     'footer.rights': 'Все права защищены.',
+    'footer.why': 'Почему этот сайт?',
+    'footer.contact': 'Есть идея? Вопрос?',
+    'footer.contactText': 'Свяжитесь со мной в',
+    'subjects.subtitle': 'Выбери предмет, чтобы открыть увлекательные истории!',
+    'stories.notFound': 'История не найдена',
+    'stories.notFoundDesc': 'Эта история не существует или была удалена.',
+    'start.customize': 'Настрой своё приключение',
+    'start.ready': 'Готов',
+    'start.begin': 'Поехали!',
+    'nav.backToGrades': 'Вернуться к уровням',
     'grades.title': 'В каком ты классе?',
     'grades.subtitle': 'Выбери класс для подходящих приключений!',
     'myStories.title': 'Мои истории',
@@ -542,6 +598,16 @@ const translations: Record<Language, Record<string, string>> = {
     'start.back': 'Volver',
     'footer.tagline': 'Historias mágicas para aprender jugando',
     'footer.rights': 'Todos los derechos reservados.',
+    'footer.why': '¿Por qué este sitio?',
+    'footer.contact': '¿Tienes una idea? ¿Una pregunta?',
+    'footer.contactText': 'No dudes en contactarme en',
+    'subjects.subtitle': '¡Elige una materia para descubrir historias emocionantes!',
+    'stories.notFound': 'Historia no encontrada',
+    'stories.notFoundDesc': 'Esta historia no existe o ha sido eliminada.',
+    'start.customize': 'Personaliza tu aventura',
+    'start.ready': 'Listo',
+    'start.begin': '¡Vamos!',
+    'nav.backToGrades': 'Volver a los niveles',
     'grades.title': '¿En qué grado estás?',
     'grades.subtitle': '¡Elige tu clase para descubrir aventuras adaptadas!',
     'myStories.title': 'Mis historias',
@@ -640,6 +706,16 @@ const translations: Record<Language, Record<string, string>> = {
     'start.back': '返回',
     'footer.tagline': '在欢乐中学习的魔法故事',
     'footer.rights': '版权所有。',
+    'footer.why': '为什么有这个网站？',
+    'footer.contact': '有想法？有问题？',
+    'footer.contactText': '请通过以下方式联系我',
+    'subjects.subtitle': '选择一个科目来发现精彩的故事！',
+    'stories.notFound': '故事未找到',
+    'stories.notFoundDesc': '这个故事不存在或已被删除。',
+    'start.customize': '定制你的冒险',
+    'start.ready': '准备好了',
+    'start.begin': '出发！',
+    'nav.backToGrades': '返回年级',
     'grades.title': '你在几年级？',
     'grades.subtitle': '选择你的年级来发现适合的冒险！',
     'myStories.title': '我的故事',
@@ -738,6 +814,16 @@ const translations: Record<Language, Record<string, string>> = {
     'start.back': 'Voltar',
     'footer.tagline': 'Histórias mágicas para aprender brincando',
     'footer.rights': 'Todos os direitos reservados.',
+    'footer.why': 'Por que este site?',
+    'footer.contact': 'Tem uma ideia? Uma pergunta?',
+    'footer.contactText': 'Fique à vontade para me contatar no',
+    'subjects.subtitle': 'Escolha uma matéria para descobrir histórias emocionantes!',
+    'stories.notFound': 'História não encontrada',
+    'stories.notFoundDesc': 'Esta história não existe ou foi excluída.',
+    'start.customize': 'Personalize sua aventura',
+    'start.ready': 'Pronto',
+    'start.begin': 'Vamos lá!',
+    'nav.backToGrades': 'Voltar às séries',
     'grades.title': 'Em que série você está?',
     'grades.subtitle': 'Escolha sua série para descobrir aventuras adaptadas!',
     'myStories.title': 'Minhas histórias',
