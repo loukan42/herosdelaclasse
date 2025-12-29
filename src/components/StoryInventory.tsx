@@ -1,6 +1,7 @@
 import { Gem, TreeDeciduous, Flame, Key, Sprout, Droplets, Sparkles, Star, Heart, Zap, Shield, Crown, Compass, Map, Scroll, Feather, Package, LucideIcon } from "lucide-react";
 import { StoryInventoryConfig } from "@/hooks/usePublishedStories";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslatedString } from "@/hooks/useTranslatedString";
 
 interface StoryInventoryProps {
   visitedPages: string[];
@@ -116,43 +117,61 @@ export function StoryInventory({ visitedPages, storyId, newlyCollectedPageId, in
           const isNewlyCollected = item.id === newlyCollectedItemId;
           
           return (
-            <div
+            <TranslatedInventoryItem
               key={item.id}
-              className={`
-                relative flex flex-col items-center justify-center
-                w-14 h-14 md:w-16 md:h-16 rounded-xl
-                transition-all duration-500
-                ${item.collected 
-                  ? isNewlyCollected
-                    ? 'bg-golden/30 text-golden shadow-lg shadow-golden/40 scale-110 ring-2 ring-golden ring-offset-2 ring-offset-card' 
-                    : 'bg-primary/20 text-primary shadow-md scale-100' 
-                  : 'bg-muted/50 text-muted-foreground/40 scale-95 opacity-60'}
-              `}
-              title={item.collected ? item.name : `${item.name} (non trouvé)`}
-            >
-              {isNewlyCollected && (
-                <div className="absolute inset-0 rounded-xl bg-golden/50 animate-ping" />
-              )}
-              
-              <div className={`relative transition-transform duration-500 ${isNewlyCollected ? 'animate-bounce scale-110' : ''}`}>
-                {getIcon(item.icon)}
-              </div>
-              
-              {item.collected && (
-                <div className={`absolute -top-1 -right-1 w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center transition-all duration-300 ${isNewlyCollected ? 'bg-golden scale-125' : 'bg-ending-happy'}`}>
-                  <span className="text-white text-xs font-bold">✓</span>
-                </div>
-              )}
-              
-              {isNewlyCollected && (
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-golden text-golden-foreground text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-fade-in">
-                  {item.name}
-                </div>
-              )}
-            </div>
+              item={item}
+              isNewlyCollected={isNewlyCollected}
+            />
           );
         })}
       </div>
+    </div>
+  );
+}
+
+// Sub-component to handle translation per item
+function TranslatedInventoryItem({ 
+  item, 
+  isNewlyCollected 
+}: { 
+  item: { id: string; name: string; icon: string; collected: boolean }; 
+  isNewlyCollected: boolean;
+}) {
+  const { text: translatedName } = useTranslatedString(item.name);
+  
+  return (
+    <div
+      className={`
+        relative flex flex-col items-center justify-center
+        w-14 h-14 md:w-16 md:h-16 rounded-xl
+        transition-all duration-500
+        ${item.collected 
+          ? isNewlyCollected
+            ? 'bg-golden/30 text-golden shadow-lg shadow-golden/40 scale-110 ring-2 ring-golden ring-offset-2 ring-offset-card' 
+            : 'bg-primary/20 text-primary shadow-md scale-100' 
+          : 'bg-muted/50 text-muted-foreground/40 scale-95 opacity-60'}
+      `}
+      title={item.collected ? translatedName : `${translatedName} (non trouvé)`}
+    >
+      {isNewlyCollected && (
+        <div className="absolute inset-0 rounded-xl bg-golden/50 animate-ping" />
+      )}
+      
+      <div className={`relative transition-transform duration-500 ${isNewlyCollected ? 'animate-bounce scale-110' : ''}`}>
+        {getIcon(item.icon)}
+      </div>
+      
+      {item.collected && (
+        <div className={`absolute -top-1 -right-1 w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center transition-all duration-300 ${isNewlyCollected ? 'bg-golden scale-125' : 'bg-ending-happy'}`}>
+          <span className="text-white text-xs font-bold">✓</span>
+        </div>
+      )}
+      
+      {isNewlyCollected && (
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-golden text-golden-foreground text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-fade-in">
+          {translatedName}
+        </div>
+      )}
     </div>
   );
 }

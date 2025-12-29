@@ -229,6 +229,10 @@ const translations: Record<Language, Record<string, string>> = {
     'editor.restoreError': 'Erreur lors de la restauration',
     'editor.restoreOriginal': 'Restaurer l\'original',
     'editor.modified': 'modifié',
+
+    // Inventory
+    'inventory.title': 'Inventaire',
+    'inventory.newItem': 'Nouvel objet !',
   },
   en: {
     // Navigation
@@ -393,6 +397,10 @@ const translations: Record<Language, Record<string, string>> = {
     'card.comingSoon': 'Coming soon',
     'card.share': 'Share:',
     'card.shareThis': 'Share this site',
+
+    // Inventory
+    'inventory.title': 'Inventory',
+    'inventory.newItem': 'New item!',
 
     // Account benefits
     'account.whyCreate': 'Why create an account?',
@@ -588,6 +596,10 @@ const translations: Record<Language, Record<string, string>> = {
     'editor.restoreError': 'Fehler beim Wiederherstellen',
     'editor.restoreOriginal': 'Original wiederherstellen',
     'editor.modified': 'geändert',
+
+    // Inventory
+    'inventory.title': 'Inventar',
+    'inventory.newItem': 'Neuer Gegenstand!',
   },
   ru: {
     'nav.back': 'Назад',
@@ -746,6 +758,10 @@ const translations: Record<Language, Record<string, string>> = {
     'editor.restoreError': 'Ошибка при восстановлении',
     'editor.restoreOriginal': 'Восстановить оригинал',
     'editor.modified': 'изменено',
+
+    // Inventory
+    'inventory.title': 'Инвентарь',
+    'inventory.newItem': 'Новый предмет!',
   },
   es: {
     'nav.back': 'Volver',
@@ -904,6 +920,10 @@ const translations: Record<Language, Record<string, string>> = {
     'editor.restoreError': 'Error al restaurar',
     'editor.restoreOriginal': 'Restaurar original',
     'editor.modified': 'modificado',
+
+    // Inventory
+    'inventory.title': 'Inventario',
+    'inventory.newItem': '¡Nuevo objeto!',
   },
   zh: {
     'nav.back': '返回',
@@ -1062,6 +1082,10 @@ const translations: Record<Language, Record<string, string>> = {
     'editor.restoreError': '恢复时出错',
     'editor.restoreOriginal': '恢复原始',
     'editor.modified': '已修改',
+
+    // Inventory
+    'inventory.title': '物品栏',
+    'inventory.newItem': '新物品！',
   },
   'pt-br': {
     'nav.back': 'Voltar',
@@ -1220,6 +1244,10 @@ const translations: Record<Language, Record<string, string>> = {
     'editor.restoreError': 'Erro ao restaurar',
     'editor.restoreOriginal': 'Restaurar original',
     'editor.modified': 'modificado',
+
+    // Inventory
+    'inventory.title': 'Inventário',
+    'inventory.newItem': 'Novo item!',
   },
 };
 
