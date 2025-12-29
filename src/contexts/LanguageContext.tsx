@@ -1293,9 +1293,42 @@ const translations: Record<Language, Record<string, string>> = {
   },
 };
 
-// Translation cache to avoid repeated API calls
-const translationCache = new Map<string, string>();
+// Translation cache with localStorage persistence
+const CACHE_KEY = 'translation-cache';
+const MAX_CACHE_SIZE = 500;
+
+// Load cache from localStorage on startup
+const loadCacheFromStorage = (): Map<string, string> => {
+  try {
+    const stored = localStorage.getItem(CACHE_KEY);
+    if (stored) {
+      const entries = JSON.parse(stored) as [string, string][];
+      return new Map(entries);
+    }
+  } catch (e) {
+    console.error('Failed to load translation cache:', e);
+  }
+  return new Map();
+};
+
+// Save cache to localStorage
+const saveCacheToStorage = (cache: Map<string, string>) => {
+  try {
+    // Limit cache size
+    const entries = Array.from(cache.entries()).slice(-MAX_CACHE_SIZE);
+    localStorage.setItem(CACHE_KEY, JSON.stringify(entries));
+  } catch (e) {
+    console.error('Failed to save translation cache:', e);
+  }
+};
+
+const translationCache = loadCacheFromStorage();
 const pendingTranslations = new Map<string, Promise<string>>();
+
+// Export for useTranslatedString to check cache synchronously
+export const getFromTranslationCache = (cacheKey: string): string | undefined => {
+  return translationCache.get(cacheKey);
+};
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
@@ -1361,8 +1394,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         const data = await response.json();
         const translatedText = data.translatedText || text;
         
-        // Cache successful translation
+        // Cache successful translation (memory + localStorage)
         translationCache.set(cacheKey, translatedText);
+        saveCacheToStorage(translationCache);
         return translatedText;
       } catch (error) {
         clearTimeout(timeoutId);
