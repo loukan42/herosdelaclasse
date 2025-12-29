@@ -95,7 +95,7 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
 
         {/* Description */}
         <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
-          {subject.description}
+          {t(subject.descriptionKey)}
         </p>
 
         {/* Status badge */}
