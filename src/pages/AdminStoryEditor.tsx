@@ -51,6 +51,7 @@ import {
 import { toast } from 'sonner';
 import { subjects } from '@/data/subjects';
 import { grades } from '@/data/grades';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function AdminStoryEditor() {
   const { storyId } = useParams<{ storyId: string }>();
@@ -58,6 +59,7 @@ export default function AdminStoryEditor() {
   const { isAdmin, loading: adminLoading } = useAdmin();
   const { getStoryWithPages, updateStory } = useAdminStories();
   const { pages, createPage, updatePage, deletePage, fetchPages } = useAdminStoryPages(storyId);
+  const { t } = useLanguage();
 
   const [story, setStory] = useState<{
     id: string;
@@ -372,7 +374,7 @@ export default function AdminStoryEditor() {
                           }}
                           className="rounded border-border"
                         />
-                        <span className="text-sm">{subject.name}</span>
+                        <span className="text-sm">{t(subject.nameKey)}</span>
                       </label>
                     ))}
                   </div>

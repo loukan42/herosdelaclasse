@@ -33,6 +33,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { subjects } from '@/data/subjects';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Badge } from '@/components/ui/badge';
 
 const AVATAR_EMOJIS: Record<string, string> = {
@@ -65,6 +66,7 @@ export default function Admin() {
   const { isAdmin, loading, users, stats, refresh } = useAdmin();
   const { stories: adminStories, loading: storiesLoading, updateStory, deleteStory, fetchStories } = useAdminStories();
   const [activeTab, setActiveTab] = useState('users');
+  const { t } = useLanguage();
 
   // Combine static and admin stories for display
   const allDisplayStories: DisplayStory[] = [
@@ -133,7 +135,7 @@ export default function Admin() {
     if (!subjectIds || subjectIds.length === 0) return 'Non défini';
     return subjectIds.map(id => {
       const subject = subjects.find(s => s.id === id);
-      return subject?.name || id;
+      return subject ? t(subject.nameKey) : id;
     }).join(', ');
   };
 

@@ -34,6 +34,7 @@ import {
 import { toast } from 'sonner';
 import { subjects } from '@/data/subjects';
 import { grades } from '@/data/grades';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const generateSlug = (title: string) => {
   return title
@@ -48,6 +49,7 @@ export default function AdminStories() {
   const navigate = useNavigate();
   const { isAdmin, loading: adminLoading } = useAdmin();
   const { stories, loading: storiesLoading, createStory, updateStory, deleteStory } = useAdminStories();
+  const { t } = useLanguage();
   
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -140,7 +142,10 @@ export default function AdminStories() {
 
   const getSubjectNames = (subjectIds: string[]) => {
     if (!subjectIds || subjectIds.length === 0) return 'Non défini';
-    return subjectIds.map(id => subjects.find(s => s.id === id)?.name || id).join(', ');
+    return subjectIds.map(id => {
+      const subject = subjects.find(s => s.id === id);
+      return subject ? t(subject.nameKey) : id;
+    }).join(', ');
   };
 
   return (
@@ -226,7 +231,7 @@ export default function AdminStories() {
                             }}
                             className="rounded border-border"
                           />
-                          <span className="text-sm">{subject.name}</span>
+                          <span className="text-sm">{t(subject.nameKey)}</span>
                         </label>
                       ))}
                     </div>
