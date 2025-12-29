@@ -147,7 +147,7 @@ export function useAdminStories() {
     return { success: false, error };
   };
 
-  const getStoryWithPages = async (storyId: string) => {
+  const getStoryWithPages = useCallback(async (storyId: string) => {
     const { data: story, error: storyError } = await supabase
       .from('admin_stories')
       .select('*')
@@ -164,9 +164,9 @@ export function useAdminStories() {
 
     if (pagesError) return { success: false, error: pagesError };
 
-    return { 
-      success: true, 
-      data: { 
+    return {
+      success: true,
+      data: {
         ...story,
         subject_id: Array.isArray(story.subject_id) ? story.subject_id : [],
         inventory_items: (Array.isArray(story.inventory_items) ? story.inventory_items : []) as unknown as InventoryItem[],
@@ -174,9 +174,9 @@ export function useAdminStories() {
           ...p,
           choices: (Array.isArray(p.choices) ? p.choices : []) as unknown as StoryChoice[]
         }))
-      } as AdminStory 
+      } as AdminStory
     };
-  };
+  }, []);
 
   return {
     stories,
