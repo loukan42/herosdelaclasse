@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Grade } from "@/data/grades";
 import { useCombinedStories } from "@/hooks/useCombinedStories";
 import { Lock, Sparkles } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface GradeCardProps {
   grade: Grade;
@@ -11,6 +12,7 @@ interface GradeCardProps {
 export function GradeCard({ grade, index }: GradeCardProps) {
   const navigate = useNavigate();
   const { getAllStories, loading } = useCombinedStories();
+  const { t } = useLanguage();
   
   // Check if this grade has any stories (static + published)
   // While loading, assume all grades are available to avoid flicker
@@ -85,7 +87,7 @@ export function GradeCard({ grade, index }: GradeCardProps) {
         {/* Action indicator */}
         {hasStories ? (
           <div className="inline-flex items-center gap-2 text-primary font-semibold">
-            <span>C'est parti !</span>
+            <span>{t('card.letsGo')}</span>
             <svg 
               className="w-5 h-5 transition-transform group-hover:translate-x-2" 
               fill="none" 
@@ -98,7 +100,7 @@ export function GradeCard({ grade, index }: GradeCardProps) {
         ) : (
           <div className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
             <Lock className="w-4 h-4 text-muted-foreground" />
-            <span className="text-muted-foreground font-semibold text-sm">Bientôt disponible</span>
+            <span className="text-muted-foreground font-semibold text-sm">{t('card.comingSoon')}</span>
           </div>
         )}
       </div>

@@ -2,6 +2,7 @@ import { Story } from "@/data/stories";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, BookOpen, CheckCircle, PlayCircle } from "lucide-react";
 import { getStoredReadCount } from "@/hooks/useReadCount";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface StoryCardProps {
   story: Story;
@@ -14,6 +15,7 @@ interface StoryCardProps {
 export function StoryCard({ story, index, hasProgress, isCompleted, completionCount = 0 }: StoryCardProps) {
   const navigate = useNavigate();
   const readCount = getStoredReadCount(story.id);
+  const { t } = useLanguage();
 
   const handleClick = () => {
     navigate(`/stories/${story.id}/start`);
@@ -53,13 +55,13 @@ export function StoryCard({ story, index, hasProgress, isCompleted, completionCo
           {isCompleted && (
             <div className="bg-ending-happy text-white px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg">
               <CheckCircle className="w-3 h-3" />
-              Terminée{completionCount > 1 ? ` (${completionCount}x)` : ''}
+              {t('card.completed')}{completionCount > 1 ? ` (${completionCount}x)` : ''}
             </div>
           )}
           {hasProgress && !isCompleted && (
             <div className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-display font-semibold flex items-center gap-1 shadow-lg animate-pulse">
               <PlayCircle className="w-3 h-3" />
-              En cours
+              {t('card.inProgress')}
             </div>
           )}
         </div>
@@ -76,7 +78,7 @@ export function StoryCard({ story, index, hasProgress, isCompleted, completionCo
         
         {/* CTA */}
         <div className="mt-4 flex items-center gap-2 text-primary font-semibold">
-          <span>{hasProgress && !isCompleted ? "Continuer" : "Lire l'histoire"}</span>
+          <span>{hasProgress && !isCompleted ? t('stories.continue') : t('stories.readStory')}</span>
           <svg 
             className="w-5 h-5 transition-transform group-hover:translate-x-2" 
             fill="none" 

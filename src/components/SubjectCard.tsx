@@ -1,6 +1,7 @@
 import { Subject } from "@/data/subjects";
 import { useNavigate } from "react-router-dom";
 import { Lock, Sparkles } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface SubjectCardProps {
   subject: Subject;
@@ -11,6 +12,7 @@ interface SubjectCardProps {
 export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
   const navigate = useNavigate();
   const Icon = subject.icon;
+  const { t } = useLanguage();
 
   const handleClick = () => {
     if (subject.available) {
@@ -99,7 +101,7 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
         {/* Status badge */}
         {subject.available ? (
           <div className="inline-flex items-center gap-2 text-primary font-semibold">
-            <span>C'est parti !</span>
+            <span>{t('card.letsGo')}</span>
             <svg 
               className="w-5 h-5 transition-transform group-hover:translate-x-2" 
               fill="none" 
@@ -112,7 +114,7 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
         ) : (
           <div className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
             <Lock className="w-4 h-4 text-muted-foreground" />
-            <span className="text-muted-foreground font-semibold text-sm">Bientôt disponible</span>
+            <span className="text-muted-foreground font-semibold text-sm">{t('card.comingSoon')}</span>
           </div>
         )}
       </div>
