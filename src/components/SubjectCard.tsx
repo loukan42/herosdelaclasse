@@ -42,7 +42,7 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
         {subject.backgroundImage ? (
           <img 
             src={subject.backgroundImage} 
-            alt={subject.name}
+            alt={t(subject.nameKey)}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
@@ -90,7 +90,7 @@ export function SubjectCard({ subject, index, gradeId }: SubjectCardProps) {
       <div className="p-6">
         {/* Title */}
         <h3 className="font-display text-2xl md:text-[1.6rem] font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-          {subject.name}
+          {t(subject.nameKey)}
         </h3>
 
         {/* Description */}

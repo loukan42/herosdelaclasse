@@ -8,7 +8,7 @@ import languesImage from "@/assets/subjects/langues.png";
 
 export interface Subject {
   id: string;
-  name: string;
+  nameKey: string;
   descriptionKey: string; // i18n key for description
   icon: typeof BookOpen;
   color: string;
@@ -19,7 +19,7 @@ export interface Subject {
 export const subjects: Subject[] = [
   {
     id: "lecture",
-    name: "Lecture",
+    nameKey: "subjects.lecture.name",
     descriptionKey: "subjects.lecture",
     icon: BookOpen,
     color: "from-amber-500 to-orange-600",
@@ -28,7 +28,7 @@ export const subjects: Subject[] = [
   },
   {
     id: "mathematiques",
-    name: "Mathématiques",
+    nameKey: "subjects.mathematiques.name",
     descriptionKey: "subjects.mathematiques",
     icon: Calculator,
     color: "from-blue-500 to-indigo-600",
@@ -37,7 +37,7 @@ export const subjects: Subject[] = [
   },
   {
     id: "histoire",
-    name: "Histoire",
+    nameKey: "subjects.histoire.name",
     descriptionKey: "subjects.histoire",
     icon: Clock,
     color: "from-purple-500 to-violet-600",
@@ -46,7 +46,7 @@ export const subjects: Subject[] = [
   },
   {
     id: "geographie",
-    name: "Géographie",
+    nameKey: "subjects.geographie.name",
     descriptionKey: "subjects.geographie",
     icon: Globe,
     color: "from-emerald-500 to-teal-600",
@@ -55,7 +55,7 @@ export const subjects: Subject[] = [
   },
   {
     id: "sciences",
-    name: "Sciences",
+    nameKey: "subjects.sciences.name",
     descriptionKey: "subjects.sciences",
     icon: FlaskConical,
     color: "from-green-500 to-lime-600",
@@ -64,7 +64,7 @@ export const subjects: Subject[] = [
   },
   {
     id: "langues",
-    name: "Langues vivantes",
+    nameKey: "subjects.langues.name",
     descriptionKey: "subjects.langues",
     icon: Languages,
     color: "from-red-500 to-orange-600",

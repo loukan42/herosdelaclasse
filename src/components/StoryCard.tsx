@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Sparkles, BookOpen, CheckCircle, PlayCircle } from "lucide-react";
 import { getStoredReadCount } from "@/hooks/useReadCount";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslatedString } from "@/hooks/useTranslatedString";
 
 interface StoryCardProps {
   story: Story;
@@ -16,6 +17,8 @@ export function StoryCard({ story, index, hasProgress, isCompleted, completionCo
   const navigate = useNavigate();
   const readCount = getStoredReadCount(story.id);
   const { t } = useLanguage();
+  const { text: titleText } = useTranslatedString(story.title);
+  const { text: descriptionText } = useTranslatedString(story.description);
 
   const handleClick = () => {
     navigate(`/stories/${story.id}/start`);
@@ -31,7 +34,7 @@ export function StoryCard({ story, index, hasProgress, isCompleted, completionCo
       <div className="relative aspect-[4/3] overflow-hidden rounded-t-3xl">
         <img
           src={story.coverImage}
-          alt={`Couverture de ${story.title}`}
+          alt={titleText}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent" />
@@ -70,10 +73,10 @@ export function StoryCard({ story, index, hasProgress, isCompleted, completionCo
       {/* Content */}
       <div className="p-6">
         <h3 className="font-display text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-          {story.title}
+          {titleText}
         </h3>
         <p className="text-muted-foreground text-base leading-relaxed line-clamp-2">
-          {story.description}
+          {descriptionText}
         </p>
         
         {/* CTA */}

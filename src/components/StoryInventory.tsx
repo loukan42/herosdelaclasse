@@ -1,5 +1,6 @@
 import { Gem, TreeDeciduous, Flame, Key, Sprout, Droplets, Sparkles, Star, Heart, Zap, Shield, Crown, Compass, Map, Scroll, Feather, Package, LucideIcon } from "lucide-react";
 import { StoryInventoryConfig } from "@/hooks/usePublishedStories";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface StoryInventoryProps {
   visitedPages: string[];
@@ -47,6 +48,7 @@ const getIcon = (iconId: string) => {
 };
 
 export function StoryInventory({ visitedPages, storyId, newlyCollectedPageId, inventoryConfig }: StoryInventoryProps) {
+  const { t } = useLanguage();
   // Use dynamic config if available, otherwise fall back to legacy
   let items: { id: string; name: string; icon: string; pageId?: string }[] = [];
   let pageItemMapping: Record<string, string> = {};
@@ -102,7 +104,7 @@ export function StoryInventory({ visitedPages, storyId, newlyCollectedPageId, in
 
       <div className="relative flex items-center justify-between mb-2 md:mb-3">
         <h3 className={`font-display text-sm md:text-base transition-colors duration-300 ${hasNewItem ? 'text-golden font-bold' : 'text-muted-foreground'}`}>
-          {hasNewItem ? '✨ Nouvel objet trouvé !' : 'Inventaire'}
+          {hasNewItem ? t('inventory.newItem') : t('inventory.title')}
         </h3>
         <span className={`text-xs md:text-sm font-semibold transition-colors duration-300 ${hasNewItem ? 'text-golden' : 'text-muted-foreground'}`}>
           {collectedCount}/{items.length}
