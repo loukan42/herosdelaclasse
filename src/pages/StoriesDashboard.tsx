@@ -73,7 +73,7 @@ export default function StoriesDashboard() {
               </div>
               <div className="inline-flex items-center gap-2 bg-golden/20 text-golden-foreground px-4 py-2 rounded-full">
                 <Icon className="w-4 h-4 text-golden" />
-                <span className="font-semibold text-sm">{subject.name}</span>
+                <span className="font-semibold text-sm">{t(subject.nameKey)}</span>
               </div>
             </div>
             

@@ -7,6 +7,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { useCombinedStories } from "@/hooks/useCombinedStories";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTranslatedString } from "@/hooks/useTranslatedString";
 
 export default function StoryStart() {
   const { storyId } = useParams<{ storyId: string }>();
@@ -44,6 +45,8 @@ export default function StoryStart() {
   }
 
   const { incrementCount } = useReadCount(storyId || "");
+  const { text: titleText } = useTranslatedString(story.title);
+  const { text: descriptionText } = useTranslatedString(story.description);
 
   const handleStart = () => {
     if (!prenom.trim()) {
@@ -83,7 +86,7 @@ export default function StoryStart() {
             <div className="w-full lg:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden shadow-book">
               <img 
                 src={story.coverImage} 
-                alt={story.title}
+                alt={titleText}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -95,11 +98,11 @@ export default function StoryStart() {
               </div>
               
               <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-                {story.title}
+                {titleText}
               </h1>
               
               <p className="text-lg text-muted-foreground leading-relaxed">
-                {story.description}
+                {descriptionText}
               </p>
             </div>
           </div>

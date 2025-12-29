@@ -31,6 +31,9 @@ export default function StoryReader() {
   const [overriddenText, setOverriddenText] = useState<string | null>(null);
   const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [isTranslating, setIsTranslating] = useState(false);
+  const [translatedStoryTitle, setTranslatedStoryTitle] = useState<string | null>(null);
+  const [translatedPageTitle, setTranslatedPageTitle] = useState<string | null>(null);
+  const [translatedChoices, setTranslatedChoices] = useState<string[] | null>(null);
   const previousVisitedRef = useRef<string[]>([]);
   const hasMarkedCompleteRef = useRef<string | null>(null);
 
@@ -117,7 +120,7 @@ export default function StoryReader() {
     }
   }, [storyId, pageId, getOverride]);
 
-  // Translate text when language changes or page changes
+  // Translate page main text when language changes or page changes
   useEffect(() => {
     let isCancelled = false;
     
@@ -170,6 +173,49 @@ export default function StoryReader() {
       clearTimeout(timeoutId);
     };
   }, [language, page, overriddenText, prenom, genre, translateText]);
+
+  // Translate story title, page title, and choices (non-blocking)
+  useEffect(() => {
+    let cancelled = false;
+
+    const run = async () => {
+      if (language === 'fr' || !story || !page) {
+        setTranslatedStoryTitle(null);
+        setTranslatedPageTitle(null);
+        setTranslatedChoices(null);
+        return;
+      }
+
+      try {
+        const processedChoices = page.choices.map((c) => processText(c.label, prenom, genre));
+
+        const [storyTitle, pageTitle, ...choices] = await Promise.all([
+          translateText(story.title),
+          page.title ? translateText(page.title) : Promise.resolve(''),
+          ...processedChoices.map((l) => translateText(l)),
+        ]);
+
+        if (cancelled) return;
+
+        setTranslatedStoryTitle(storyTitle);
+        setTranslatedPageTitle(page.title ? pageTitle : null);
+        setTranslatedChoices(choices);
+      } catch (e) {
+        console.error('Meta translation failed:', e);
+        if (!cancelled) {
+          setTranslatedStoryTitle(null);
+          setTranslatedPageTitle(null);
+          setTranslatedChoices(null);
+        }
+      }
+    };
+
+    run();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [language, story?.title, pageId, page?.title, prenom, genre, translateText]);
 
   if (!story || !page) {
     return (
@@ -252,7 +298,7 @@ export default function StoryReader() {
           <div className="flex items-center gap-2">
             <LanguageSelector />
             <span className="font-display text-base md:text-lg text-muted-foreground">
-              {story.title}
+              {translatedStoryTitle || story.title}
             </span>
           </div>
         </nav>
@@ -314,7 +360,7 @@ export default function StoryReader() {
             {/* Page Title */}
             {page.title && (
               <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 md:mb-6 text-center">
-                {page.title}
+                {translatedPageTitle || page.title}
               </h1>
             )}
 
@@ -424,30 +470,36 @@ export default function StoryReader() {
                 {/* Check if choices have images */}
                 {page.choices.some(choice => choice.image) ? (
                   <div className="grid grid-cols-2 gap-4 md:gap-6">
-                    {page.choices.map((choice, index) => (
-                      <ImageChoiceButton
-                        key={index}
-                        image={choice.image!}
-                        label={processText(choice.label, prenom, genre)}
-                        onClick={() => handleChoice(choice.targetPageId)}
-                        className="fade-up"
-                        style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
-                      />
-                    ))}
+                    {page.choices.map((choice, index) => {
+                      const processedLabel = processText(choice.label, prenom, genre);
+                      return (
+                        <ImageChoiceButton
+                          key={index}
+                          image={choice.image!}
+                          label={translatedChoices?.[index] || processedLabel}
+                          onClick={() => handleChoice(choice.targetPageId)}
+                          className="fade-up"
+                          style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
+                        />
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="grid gap-3 md:gap-4">
-                    {page.choices.map((choice, index) => (
-                      <ChoiceButton
-                        key={index}
-                        variant={(index + 1) as 1 | 2 | 3 | 4}
-                        onClick={() => handleChoice(choice.targetPageId)}
-                        className="fade-up text-base md:text-lg"
-                        style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
-                      >
-                        {processText(choice.label, prenom, genre)}
-                      </ChoiceButton>
-                    ))}
+                    {page.choices.map((choice, index) => {
+                      const processedLabel = processText(choice.label, prenom, genre);
+                      return (
+                        <ChoiceButton
+                          key={index}
+                          variant={(index + 1) as 1 | 2 | 3 | 4}
+                          onClick={() => handleChoice(choice.targetPageId)}
+                          className="fade-up text-base md:text-lg"
+                          style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'both' }}
+                        >
+                          {translatedChoices?.[index] || processedLabel}
+                        </ChoiceButton>
+                      );
+                    })}
                   </div>
                 )}
               </div>
