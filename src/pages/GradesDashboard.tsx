@@ -92,7 +92,7 @@ export default function GradesDashboard() {
         <section className="bg-muted/50 py-12 md:py-16 px-4">
           <div className="container max-w-4xl mx-auto">
             <h2 className="font-display text-2xl md:text-3xl text-foreground text-center mb-8">
-              Pourquoi créer un compte ?
+              {t('account.whyCreate')}
             </h2>
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -103,7 +103,7 @@ export default function GradesDashboard() {
                   className="w-full rounded-3xl shadow-lg mb-4"
                 />
                 <p className="text-muted-foreground text-sm">
-                  Créez un profil pour chaque enfant avec son avatar et son prénom pour des histoires plus immersives.
+                  {t('account.profileDesc')}
                 </p>
               </div>
 
@@ -114,7 +114,7 @@ export default function GradesDashboard() {
                   className="w-full rounded-3xl shadow-lg mb-4"
                 />
                 <p className="text-muted-foreground text-sm">
-                  Retrouvez facilement les lectures en cours et reprenez exactement là où vous vous êtes arrêtés.
+                  {t('account.historyDesc')}
                 </p>
               </div>
 
@@ -125,20 +125,20 @@ export default function GradesDashboard() {
                   className="w-full rounded-3xl shadow-lg mb-4"
                 />
                 <p className="text-muted-foreground text-sm">
-                  Visualisez les histoires déjà lues et celles qui restent à découvrir pour chaque enfant.
+                  {t('account.trackingDesc')}
                 </p>
               </div>
             </div>
 
             <div className="bg-card rounded-2xl p-6 md:p-8 border border-border shadow-sm">
               <p className="text-muted-foreground text-center leading-relaxed mb-6">
-                Créer un compte, c'est la garantie d'un suivi simple, d'une lecture fluide et d'une expérience personnalisée qui évolue au rythme de vos enfants.
+                {t('account.benefitText')}
               </p>
               <div className="text-center">
                 <Button asChild size="lg" className="gap-2 font-display">
                   <Link to="/register">
                     <UserCircle className="w-5 h-5" />
-                    Créer un compte gratuit
+                    {t('account.createFree')}
                   </Link>
                 </Button>
               </div>

@@ -1,4 +1,5 @@
 import { MessageCircle } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SHARE_URL = "https://herosdelaclasse.com";
 const SHARE_MESSAGE = "On a découvert ce site d'histoires interactives pour enfants. Après chaque page, l'enfant fait un choix qui change la suite de l'aventure. Un vrai moment de lecture ludique et participatif, idéal pour stimuler l'imagination des enfants de 4 à 10 ans. À partager sans hésiter.";
@@ -8,6 +9,7 @@ interface SocialShareProps {
 }
 
 export function SocialShare({ compact = false }: SocialShareProps) {
+  const { t } = useLanguage();
   const encodedMessage = encodeURIComponent(`${SHARE_MESSAGE}\n\n${SHARE_URL}`);
 
   // Instagram DM - opens Instagram direct messages
@@ -23,7 +25,7 @@ export function SocialShare({ compact = false }: SocialShareProps) {
   if (compact) {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-sm text-muted-foreground mr-1">Partager :</span>
+        <span className="text-sm text-muted-foreground mr-1">{t('card.share')}</span>
         <button
           onClick={handleInstagramDM}
           className="p-2 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white hover:opacity-90 transition-opacity"
@@ -46,7 +48,7 @@ export function SocialShare({ compact = false }: SocialShareProps) {
 
   return (
     <div className="space-y-3">
-      <p className="text-center text-muted-foreground font-medium">Partager ce site</p>
+      <p className="text-center text-muted-foreground font-medium">{t('card.shareThis')}</p>
       <div className="flex flex-wrap gap-3 justify-center">
         <button
           onClick={handleInstagramDM}
