@@ -5,6 +5,8 @@ import { ArrowLeft, Sparkles, User } from "lucide-react";
 import { useReadCount } from "@/hooks/useReadCount";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useCombinedStories } from "@/hooks/useCombinedStories";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function StoryStart() {
   const { storyId } = useParams<{ storyId: string }>();
@@ -12,6 +14,7 @@ export default function StoryStart() {
   const { getStory } = useCombinedStories();
   const story = getStory(storyId || "");
   const { isAuthenticated, profile, loading } = useAuthContext();
+  const { t } = useLanguage();
 
   const [prenom, setPrenom] = useState("");
 
@@ -26,14 +29,14 @@ export default function StoryStart() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <BookPage className="max-w-md text-center">
-          <h1 className="font-display text-3xl text-foreground mb-4">Histoire introuvable</h1>
-          <p className="text-muted-foreground mb-6">Cette histoire n'existe pas encore.</p>
+          <h1 className="font-display text-3xl text-foreground mb-4">{t('stories.notFound')}</h1>
+          <p className="text-muted-foreground mb-6">{t('stories.notFoundDesc')}</p>
           <Link 
             to="/stories" 
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Retour aux histoires
+            {t('nav.backToStories')}
           </Link>
         </BookPage>
       </div>
@@ -59,6 +62,11 @@ export default function StoryStart() {
 
   return (
     <main className="min-h-screen bg-background py-8 px-4">
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSelector />
+      </div>
+
       <div className="container max-w-4xl mx-auto">
         {/* Back Link */}
         <Link 
@@ -66,7 +74,7 @@ export default function StoryStart() {
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8 font-semibold"
         >
           <ArrowLeft className="w-5 h-5" />
-          Retour aux histoires
+          {t('nav.backToStories')}
         </Link>
 
         <BookPage className="fade-up">
@@ -104,7 +112,7 @@ export default function StoryStart() {
                 <div className="flex items-center justify-center gap-3 text-foreground">
                   <User className="w-6 h-6 text-primary" />
                   <span className="font-display text-2xl">
-                    Prêt(e) pour l'aventure, <span className="text-primary font-bold">{profile.prenom}</span> ?
+                    {t('start.ready')} <span className="text-primary font-bold">{profile.prenom}</span> ?
                   </span>
                 </div>
 
@@ -113,14 +121,14 @@ export default function StoryStart() {
                   className="w-full py-5 px-8 rounded-2xl font-display font-bold text-xl bg-primary text-primary-foreground hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
                 >
                   <Sparkles className="w-6 h-6" />
-                  Commencer l'aventure !
+                  {t('start.begin')}
                 </button>
               </div>
             ) : (
               // Guest user - show name input
               <>
                 <h2 className="font-display text-2xl text-foreground text-center mb-8">
-                  Personnalise ton aventure !
+                  {t('start.customize')}
                 </h2>
 
                 <div className="max-w-md mx-auto space-y-6">
@@ -128,13 +136,13 @@ export default function StoryStart() {
                   <div>
                     <label className="flex items-center gap-2 text-foreground font-semibold mb-3">
                       <User className="w-5 h-5 text-primary" />
-                      Comment t'appelles-tu ?
+                      {t('start.yourName')}
                     </label>
                     <input
                       type="text"
                       value={prenom}
                       onChange={(e) => setPrenom(e.target.value)}
-                      placeholder="Ton prénom..."
+                      placeholder={t('start.namePlaceholder')}
                       className="w-full px-6 py-4 rounded-xl bg-background border-2 border-border focus:border-primary focus:outline-none font-body text-xl transition-colors"
                       maxLength={20}
                     />
@@ -154,7 +162,7 @@ export default function StoryStart() {
                     `}
                   >
                     <Sparkles className="w-6 h-6" />
-                    Commencer l'aventure !
+                    {t('start.begin')}
                   </button>
                 </div>
               </>

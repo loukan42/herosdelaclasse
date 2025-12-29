@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Heart, Instagram } from "lucide-react";
 import { SocialShare } from "./SocialShare";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Footer() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <footer className="border-t border-border bg-muted/30">
@@ -14,7 +16,7 @@ export function Footer() {
           className="w-full py-4 flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
         >
           <Heart className="w-4 h-4 text-primary" />
-          <span className="font-medium">Pourquoi ce site ?</span>
+          <span className="font-medium">{t('footer.why')}</span>
           {isExpanded ? (
             <ChevronUp className="w-4 h-4 transition-transform" />
           ) : (
@@ -48,9 +50,9 @@ export function Footer() {
       {/* Contact */}
       <div className="py-4 border-t border-border/50">
         <div className="container max-w-4xl mx-auto px-4 text-center">
-          <h3 className="text-sm font-semibold text-foreground mb-2">Contact</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-2">{t('footer.contact')}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Pour toute suggestion, proposition d'amélioration ou signalement de bug, vous pouvez me contacter directement sur{" "}
+            {t('footer.contactText')}{" "}
             <a
               href="https://www.instagram.com/herosdelaclasse/"
               target="_blank"

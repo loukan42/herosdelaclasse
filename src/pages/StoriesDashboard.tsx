@@ -9,6 +9,8 @@ import { useAllStoryProgress } from "@/hooks/useStoryProgress";
 import { UserMenu } from "@/components/UserMenu";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useCombinedStories } from "@/hooks/useCombinedStories";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function StoriesDashboard() {
   const { subjectId, gradeId } = useParams<{ subjectId: string; gradeId: string }>();
@@ -16,6 +18,7 @@ export default function StoriesDashboard() {
   const { hasProgress, isCompleted, getCompletionCount, isAuthenticated } = useAllStoryProgress();
   const { loading: authLoading } = useAuthContext();
   const { getStoriesBySubject, loading: storiesLoading } = useCombinedStories();
+  const { t } = useLanguage();
   
   const subject = getSubject(subjectId || "");
   const grade = getGrade(gradeId || "");
@@ -35,8 +38,9 @@ export default function StoriesDashboard() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
-      {/* Header with UserMenu */}
-      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end">
+      {/* Header with UserMenu and LanguageSelector */}
+      <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end items-center gap-2">
+        <LanguageSelector />
         <UserMenu />
       </div>
 
@@ -58,7 +62,7 @@ export default function StoriesDashboard() {
             className="mb-6 fade-up"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Retour aux matières
+            {t('nav.backToSubjects')}
           </Button>
 
           <div className="text-center">
@@ -74,7 +78,7 @@ export default function StoriesDashboard() {
             </div>
             
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 fade-up stagger-1">
-              Choisis ton aventure !
+              {t('stories.title')}
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-2">
@@ -87,7 +91,7 @@ export default function StoriesDashboard() {
                 <Button asChild size="lg" className="gap-2 font-display">
                   <Link to="/register">
                     <Save className="w-5 h-5" />
-                    Enregistrer ma progression
+                    {t('stories.saveProgress')}
                   </Link>
                 </Button>
               </div>
@@ -101,7 +105,7 @@ export default function StoriesDashboard() {
         {storiesLoading ? (
           <div className="text-center py-16">
             <p className="text-xl text-muted-foreground animate-pulse">
-              Chargement des histoires...
+              {t('stories.loading')}
             </p>
           </div>
         ) : stories.length > 0 ? (
@@ -120,14 +124,14 @@ export default function StoriesDashboard() {
         ) : (
           <div className="text-center py-16">
             <p className="text-xl text-muted-foreground">
-              Aucune histoire disponible pour cette matière en {grade.name}.
+              {t('stories.noStories')}
             </p>
             <Button 
               variant="outline" 
               onClick={() => navigate(`/grade/${gradeId}`)}
               className="mt-4"
             >
-              Choisir une autre matière
+              {t('stories.chooseOther')}
             </Button>
           </div>
         )}

@@ -12,6 +12,8 @@ import { Crown } from "lucide-react";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { useCombinedStories } from "@/hooks/useCombinedStories";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function SubjectsDashboard() {
   const { gradeId } = useParams<{ gradeId: string }>();
@@ -19,6 +21,7 @@ export default function SubjectsDashboard() {
   const { isAuthenticated, loading } = useAuthContext();
   const { isAdmin } = useAdmin();
   const { getAllStories } = useCombinedStories();
+  const { t } = useLanguage();
 
   const grade = getGrade(gradeId || "");
 
@@ -48,11 +51,12 @@ export default function SubjectsDashboard() {
     <main className="min-h-screen bg-background flex flex-col">
       {/* Header with ProfileSwitcher and Admin button */}
       <div className="container max-w-6xl mx-auto px-4 pt-4 flex justify-end items-center gap-2">
+        <LanguageSelector />
         {isAdmin && (
           <Button asChild variant="outline" size="sm" className="gap-2 text-golden border-golden/30 hover:bg-golden/10">
             <Link to="/admin">
               <Crown className="w-4 h-4" />
-              <span className="hidden sm:inline">Administration</span>
+              <span className="hidden sm:inline">{t('menu.admin')}</span>
             </Link>
           </Button>
         )}
@@ -77,7 +81,7 @@ export default function SubjectsDashboard() {
             className="mb-4 fade-up"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Retour aux classes
+            {t('nav.backToGrades')}
           </Button>
 
           <div className="text-center">
@@ -96,7 +100,7 @@ export default function SubjectsDashboard() {
             />
             
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-1">
-              Choisis une matière et découvre des histoires interactives pour apprendre en s'amusant.
+              {t('subjects.subtitle')}
             </p>
 
             {/* CTA for non-authenticated users */}
@@ -105,7 +109,7 @@ export default function SubjectsDashboard() {
                 <Button asChild size="lg" className="gap-2 font-display">
                   <Link to="/auth">
                     <Save className="w-5 h-5" />
-                    Enregistrer ma progression
+                    {t('stories.saveProgress')}
                   </Link>
                 </Button>
               </div>

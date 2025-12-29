@@ -2,27 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { z } from 'zod';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Mail, Lock } from 'lucide-react';
 import coverLogo from '@/assets/cover-logo.png';
-
-const signInSchema = z.object({
-  email: z.string().email('Adresse email invalide'),
-  password: z.string().min(1, 'Le mot de passe est requis'),
-});
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default function Auth() {
   const navigate = useNavigate();
   const { signIn, isAuthenticated, loading } = useAuthContext();
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const signInSchema = z.object({
+    email: z.string().email(t('auth.invalidCredentials')),
+    password: z.string().min(1, t('auth.password')),
+  });
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -55,28 +58,28 @@ export default function Auth() {
       if (error) {
         if (error.message.includes('Invalid login credentials')) {
           toast({
-            title: "Erreur de connexion",
-            description: "Email ou mot de passe incorrect.",
+            title: t('auth.loginError'),
+            description: t('auth.invalidCredentials'),
             variant: "destructive"
           });
         } else {
           toast({
-            title: "Erreur",
+            title: t('common.error'),
             description: error.message,
             variant: "destructive"
           });
         }
       } else {
         toast({
-          title: "Connexion réussie !",
-          description: "Content de te revoir !",
+          title: t('auth.loginSuccess'),
+          description: t('auth.loginSuccessDesc'),
         });
         navigate('/');
       }
     } catch (err) {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue. Réessayez plus tard.",
+        title: t('common.error'),
+        description: t('common.error'),
         variant: "destructive"
       });
     } finally {
@@ -94,6 +97,11 @@ export default function Auth() {
 
   return (
     <main className="min-h-screen bg-auth-gradient relative overflow-x-hidden overflow-y-auto">
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSelector />
+      </div>
+
       {/* Animated particles/stars background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
@@ -118,7 +126,7 @@ export default function Auth() {
             className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-3 sm:mb-4 self-start text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-            Retour
+            {t('nav.back')}
           </button>
 
           {/* Logo */}
@@ -135,10 +143,10 @@ export default function Auth() {
           {/* Title */}
           <div className="text-center mb-4 sm:mb-6">
             <h1 className="font-display text-2xl sm:text-3xl text-white mb-1 sm:mb-2 drop-shadow-lg">
-              Connexion
+              {t('auth.loginTitle')}
             </h1>
             <p className="text-white/80 text-sm sm:text-base px-2">
-              Retrouve tes histoires et ta progression !
+              {t('auth.loginSubtitle')}
             </p>
           </div>
 
@@ -148,7 +156,7 @@ export default function Auth() {
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="email" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Mail className="w-4 h-4 text-golden" />
-                Email
+                {t('auth.email')}
               </Label>
               <Input
                 id="email"
@@ -167,7 +175,7 @@ export default function Auth() {
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="password" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Lock className="w-4 h-4 text-golden" />
-                Mot de passe
+                {t('auth.password')}
               </Label>
               <Input
                 id="password"
@@ -191,7 +199,7 @@ export default function Auth() {
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
-                'Se connecter'
+                t('auth.loginButton')
               )}
             </Button>
 
@@ -201,7 +209,7 @@ export default function Auth() {
                 to="/register"
                 className="text-golden hover:text-golden/80 hover:underline font-medium transition-colors text-sm sm:text-base"
               >
-                Pas encore de compte ? Créer un compte
+                {t('auth.noAccount')}
               </Link>
             </div>
           </form>
