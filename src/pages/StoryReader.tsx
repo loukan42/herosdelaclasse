@@ -28,6 +28,7 @@ export default function StoryReader() {
   const [newlyCollectedItem, setNewlyCollectedItem] = useState<string | null>(null);
   const [overriddenText, setOverriddenText] = useState<string | null>(null);
   const previousVisitedRef = useRef<string[]>([]);
+  const hasMarkedCompleteRef = useRef<string | null>(null);
 
   const { getStory, getPage } = useCombinedStories();
   const story = getStory(storyId || "");
