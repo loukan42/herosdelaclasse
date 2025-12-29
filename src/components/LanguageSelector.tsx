@@ -6,7 +6,29 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Globe } from 'lucide-react';
+
+// Map language codes to country codes for flags
+const flagCodes: Record<Language, string> = {
+  'fr': 'fr',
+  'en': 'gb',
+  'de': 'de',
+  'ru': 'ru',
+  'es': 'es',
+  'zh': 'cn',
+  'pt-br': 'br',
+};
+
+function FlagIcon({ code, className = "" }: { code: Language; className?: string }) {
+  const countryCode = flagCodes[code];
+  return (
+    <img 
+      src={`https://flagcdn.com/w40/${countryCode}.png`}
+      srcSet={`https://flagcdn.com/w80/${countryCode}.png 2x`}
+      alt={code}
+      className={`w-5 h-auto rounded-sm ${className}`}
+    />
+  );
+}
 
 export function LanguageSelector() {
   const { language, setLanguage } = useLanguage();
@@ -17,8 +39,7 @@ export function LanguageSelector() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="flex items-center gap-1.5 px-2 py-1.5 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors text-sm font-medium">
-          <Globe className="w-4 h-4 text-primary" />
-          <span className="hidden sm:inline font-semibold text-xs text-primary">{currentLanguage?.flag}</span>
+          <FlagIcon code={language} />
           <span className="hidden md:inline text-foreground">{currentLanguage?.name}</span>
         </button>
       </DropdownMenuTrigger>
@@ -31,7 +52,7 @@ export function LanguageSelector() {
               language === lang.code ? 'bg-primary/10 text-primary' : ''
             }`}
           >
-            <span className="font-semibold text-xs w-6 text-muted-foreground">{lang.flag}</span>
+            <FlagIcon code={lang.code} />
             <span>{lang.name}</span>
           </DropdownMenuItem>
         ))}
