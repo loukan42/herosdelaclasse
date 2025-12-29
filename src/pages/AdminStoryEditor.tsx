@@ -557,7 +557,10 @@ export default function AdminStoryEditor() {
 
         {/* Page Edit Dialog */}
         <Dialog open={isPageDialogOpen} onOpenChange={setIsPageDialogOpen}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent 
+            className="max-w-2xl max-h-[90vh] overflow-y-auto"
+            onInteractOutside={(e) => e.preventDefault()}
+          >
             <DialogHeader>
               <DialogTitle>
                 {editingPage?.id ? `Modifier ${editingPage.page_id}` : 'Nouvelle page'}

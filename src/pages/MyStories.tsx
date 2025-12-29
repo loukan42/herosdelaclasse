@@ -172,7 +172,7 @@ export default function MyStories() {
             {t('myStories.title')}
           </h1>
           <p className="text-muted-foreground">
-            {t('myStories.greeting', { name: activeProfile?.prenom || '' })}
+            {t('myStories.greeting').replace('{name}', activeProfile?.prenom || '')}
           </p>
         </div>
 
