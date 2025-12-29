@@ -26,23 +26,11 @@ export function Footer() {
 
         {isExpanded && (
           <div className="pb-6 text-muted-foreground text-sm leading-relaxed space-y-4 animate-fade-in text-left">
-            <p>
-              Je suis fan de jeux de rôle, d'informatique et bientôt papa.
-            </p>
-            <p>
-              Je suis parti d'un constat simple : le programme scolaire existe, mais la façon de l'apprendre ne convient pas à tous les enfants.
-            </p>
-            <p>
-              J'ai donc créé un site éducatif sous forme de livre dont vous êtes le héros.
-              L'enfant devient le personnage principal, fait des choix, avance dans une histoire… et apprend le programme scolaire sans s'en rendre compte.
-            </p>
-            <p>
-              Ça commence au CP, avec une ambition claire : construire chaque niveau, classe après classe.
-              Aujourd'hui, il y a déjà plusieurs histoires, encore un peu exploratoires, mais les retours sont très positifs.
-            </p>
-            <p>
-              L'objectif maintenant : enrichir l'univers, ajouter de plus en plus d'aventures, et proposer une alternative plus engageante, plus ludique, et peut-être plus adaptée à la diversité des enfants.
-            </p>
+            <p>{t('footer.whyText1')}</p>
+            <p>{t('footer.whyText2')}</p>
+            <p>{t('footer.whyText3')}</p>
+            <p>{t('footer.whyText4')}</p>
+            <p>{t('footer.whyText5')}</p>
           </div>
         )}
       </div>

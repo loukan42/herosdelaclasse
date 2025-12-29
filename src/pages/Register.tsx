@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Mail, Lock, User } from 'lucide-react';
+import { ArrowLeft, Mail, Lock } from 'lucide-react';
 import coverLogo from '@/assets/cover-logo.png';
 import { LanguageSelector } from '@/components/LanguageSelector';
 
@@ -20,7 +20,6 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [prenom, setPrenom] = useState('');
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -28,7 +27,6 @@ export default function Register() {
   const signUpSchema = z.object({
     email: z.string().email(t('auth.invalidCredentials')),
     password: z.string().min(6, t('auth.password')),
-    prenom: z.string().min(1, t('auth.firstName')).max(50),
   });
 
   // Redirect if already authenticated
@@ -51,7 +49,7 @@ export default function Register() {
         return;
       }
 
-      const validation = signUpSchema.safeParse({ email, password, prenom });
+      const validation = signUpSchema.safeParse({ email, password });
       if (!validation.success) {
         const fieldErrors: Record<string, string> = {};
         validation.error.errors.forEach(err => {
@@ -64,7 +62,8 @@ export default function Register() {
         return;
       }
 
-      const { error } = await signUp(email, password, prenom);
+      // Sign up without prenom - child profiles handle names
+      const { error } = await signUp(email, password, '');
       
       if (error) {
         if (error.message.includes('already registered')) {
@@ -163,30 +162,11 @@ export default function Register() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20 shadow-2xl">
-            {/* Prénom */}
-            <div className="space-y-1.5 sm:space-y-2">
-              <Label htmlFor="prenom" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
-                <User className="w-4 h-4 text-golden" />
-                {t('auth.firstName')}
-              </Label>
-              <Input
-                id="prenom"
-                type="text"
-                value={prenom}
-                onChange={(e) => setPrenom(e.target.value)}
-                placeholder={t('auth.firstName')}
-                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
-              />
-              {errors.prenom && (
-                <p className="text-xs sm:text-sm text-red-300">{errors.prenom}</p>
-              )}
-            </div>
-
             {/* Email */}
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="email" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Mail className="w-4 h-4 text-golden" />
-                {t('auth.email')} <span className="text-white/60 font-normal text-xs sm:text-sm">{t('auth.parentEmail')}</span>
+                {t('auth.email')}
               </Label>
               <Input
                 id="email"
