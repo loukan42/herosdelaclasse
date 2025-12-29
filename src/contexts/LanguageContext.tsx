@@ -9,13 +9,13 @@ export interface LanguageConfig {
 }
 
 export const languages: LanguageConfig[] = [
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
-  { code: 'pt-br', name: 'Português (BR)', flag: '🇧🇷' },
+  { code: 'fr', name: 'Français', flag: 'FR' },
+  { code: 'en', name: 'English', flag: 'GB' },
+  { code: 'de', name: 'Deutsch', flag: 'DE' },
+  { code: 'ru', name: 'Русский', flag: 'RU' },
+  { code: 'es', name: 'Español', flag: 'ES' },
+  { code: 'zh', name: '中文', flag: 'CN' },
+  { code: 'pt-br', name: 'Português (BR)', flag: 'BR' },
 ];
 
 interface LanguageContextType {
