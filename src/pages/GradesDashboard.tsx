@@ -12,10 +12,13 @@ import { ProfileSwitcher } from "@/components/ProfileSwitcher";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useAdmin } from "@/hooks/useAdmin";
 import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function GradesDashboard() {
   const { isAuthenticated, loading } = useAuthContext();
   const { isAdmin } = useAdmin();
+  const { t } = useLanguage();
 
   // Get unique levels from stories to know which grades have content
   const availableGrades = new Set(stories.map(s => s.level));
@@ -32,11 +35,12 @@ export default function GradesDashboard() {
           />
         </Link>
         <div className="flex items-center gap-2">
+          <LanguageSelector />
           {isAdmin && (
             <Button asChild variant="outline" size="sm" className="gap-2 text-golden border-golden/30 hover:bg-golden/10">
               <Link to="/admin">
                 <Crown className="w-4 h-4" />
-                <span className="hidden sm:inline">Administration</span>
+                <span className="hidden sm:inline">{t('menu.admin')}</span>
               </Link>
             </Button>
           )}
@@ -57,7 +61,7 @@ export default function GradesDashboard() {
         <div className="container max-w-6xl mx-auto text-center">
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed fade-up stagger-1">
-            Choisis ta classe et découvre des histoires interactives pour apprendre en s'amusant !
+            {t('grades.subtitle')}
           </p>
 
           {/* CTA for non-authenticated users */}
@@ -66,7 +70,7 @@ export default function GradesDashboard() {
               <Button asChild size="lg" className="gap-2 font-display">
                 <Link to="/register">
                   <Save className="w-5 h-5" />
-                  Enregistrer ma progression
+                  {t('stories.saveProgress')}
                 </Link>
               </Button>
             </div>
