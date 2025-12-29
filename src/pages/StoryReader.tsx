@@ -119,9 +119,12 @@ export default function StoryReader() {
 
   // Translate text when language changes or page changes
   useEffect(() => {
+    let isCancelled = false;
+    
     const doTranslation = async () => {
       if (language === 'fr' || !page) {
         setTranslatedText(null);
+        setIsTranslating(false);
         return;
       }
 
@@ -137,16 +140,35 @@ export default function StoryReader() {
       setIsTranslating(true);
       try {
         const translated = await translateText(processedFrench);
-        setTranslatedText(translated);
+        if (!isCancelled) {
+          setTranslatedText(translated);
+        }
       } catch (err) {
         console.error('Translation failed:', err);
-        setTranslatedText(null);
+        if (!isCancelled) {
+          // On error, show original French text instead of staying in loading state
+          setTranslatedText(null);
+        }
       } finally {
-        setIsTranslating(false);
+        if (!isCancelled) {
+          setIsTranslating(false);
+        }
       }
     };
 
+    // Add a maximum timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      if (!isCancelled) {
+        setIsTranslating(false);
+      }
+    }, 15000); // 15s max
+
     doTranslation();
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timeoutId);
+    };
   }, [language, page, overriddenText, prenom, genre, translateText]);
 
   if (!story || !page) {
@@ -351,21 +373,20 @@ export default function StoryReader() {
 
             {/* Story Text - Line by line */}
             <div className="mb-6 md:mb-8 lg:mb-10 space-y-2 md:space-y-3 max-w-prose mx-auto">
-              {isTranslating ? (
-                <div className="flex items-center justify-center py-4">
-                  <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mr-2" />
-                  <span className="text-muted-foreground">{t('common.loading')}</span>
+              {isTranslating && (
+                <div className="flex items-center justify-center py-2 mb-2">
+                  <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin mr-2" />
+                  <span className="text-sm text-muted-foreground">{t('common.loading')}</span>
                 </div>
-              ) : (
-                textLines.map((line, index) => (
-                  <p 
-                    key={index}
-                    className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-left font-body"
-                  >
-                    {line}
-                  </p>
-                ))
               )}
+              {textLines.map((line, index) => (
+                <p 
+                  key={index}
+                  className={`text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-left font-body ${isTranslating ? 'opacity-60' : ''}`}
+                >
+                  {line}
+                </p>
+              ))}
             </div>
 
 

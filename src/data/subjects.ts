@@ -9,7 +9,7 @@ import languesImage from "@/assets/subjects/langues.png";
 export interface Subject {
   id: string;
   name: string;
-  description: string;
+  descriptionKey: string; // i18n key for description
   icon: typeof BookOpen;
   color: string;
   available: boolean;
@@ -20,7 +20,7 @@ export const subjects: Subject[] = [
   {
     id: "lecture",
     name: "Lecture",
-    description: "Histoires interactives pour apprendre à lire",
+    descriptionKey: "subjects.lecture",
     icon: BookOpen,
     color: "from-amber-500 to-orange-600",
     available: true,
@@ -29,7 +29,7 @@ export const subjects: Subject[] = [
   {
     id: "mathematiques",
     name: "Mathématiques",
-    description: "Aventures pour découvrir les nombres",
+    descriptionKey: "subjects.mathematiques",
     icon: Calculator,
     color: "from-blue-500 to-indigo-600",
     available: true,
@@ -38,7 +38,7 @@ export const subjects: Subject[] = [
   {
     id: "histoire",
     name: "Histoire",
-    description: "Voyages dans le temps et découvertes",
+    descriptionKey: "subjects.histoire",
     icon: Clock,
     color: "from-purple-500 to-violet-600",
     available: true,
@@ -47,7 +47,7 @@ export const subjects: Subject[] = [
   {
     id: "geographie",
     name: "Géographie",
-    description: "Explorations du monde entier",
+    descriptionKey: "subjects.geographie",
     icon: Globe,
     color: "from-emerald-500 to-teal-600",
     available: false,
@@ -56,7 +56,7 @@ export const subjects: Subject[] = [
   {
     id: "sciences",
     name: "Sciences",
-    description: "Expériences et découvertes scientifiques",
+    descriptionKey: "subjects.sciences",
     icon: FlaskConical,
     color: "from-green-500 to-lime-600",
     available: true,
@@ -65,7 +65,7 @@ export const subjects: Subject[] = [
   {
     id: "langues",
     name: "Langues vivantes",
-    description: "Apprendre l'anglais en s'amusant",
+    descriptionKey: "subjects.langues",
     icon: Languages,
     color: "from-red-500 to-orange-600",
     available: false,

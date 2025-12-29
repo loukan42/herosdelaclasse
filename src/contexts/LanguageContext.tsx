@@ -121,7 +121,12 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Subjects
     'subjects.subtitle': 'Choisis une matière pour découvrir des histoires passionnantes !',
-
+    'subjects.lecture': 'Histoires interactives pour apprendre à lire',
+    'subjects.mathematiques': 'Aventures pour découvrir les nombres',
+    'subjects.histoire': 'Voyages dans le temps et découvertes',
+    'subjects.geographie': 'Explorations du monde entier',
+    'subjects.sciences': 'Expériences et découvertes scientifiques',
+    'subjects.langues': 'Apprendre l\'anglais en s\'amusant',
     // Stories
     'stories.notFound': 'Histoire introuvable',
     'stories.notFoundDesc': 'Cette histoire n\'existe pas ou a été supprimée.',
@@ -204,6 +209,16 @@ const translations: Record<Language, Record<string, string>> = {
     'general.delete': 'Supprimer',
     'general.edit': 'Modifier',
     'general.close': 'Fermer',
+
+    // Editor
+    'editor.adminMode': 'Mode édition admin',
+    'editor.placeholder': 'Texte de la page...',
+    'editor.textUpdated': 'Texte mis à jour pour tous les utilisateurs',
+    'editor.saveError': 'Erreur lors de la sauvegarde',
+    'editor.textRestored': 'Texte restauré à la version originale',
+    'editor.restoreError': 'Erreur lors de la restauration',
+    'editor.restoreOriginal': 'Restaurer l\'original',
+    'editor.modified': 'modifié',
   },
   en: {
     // Navigation
@@ -296,6 +311,12 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Subjects
     'subjects.subtitle': 'Choose a subject to discover exciting stories!',
+    'subjects.lecture': 'Interactive stories to learn to read',
+    'subjects.mathematiques': 'Adventures to discover numbers',
+    'subjects.histoire': 'Time travel and discoveries',
+    'subjects.geographie': 'Explorations around the world',
+    'subjects.sciences': 'Experiments and scientific discoveries',
+    'subjects.langues': 'Learn English while having fun',
 
     // Stories
     'stories.notFound': 'Story not found',
@@ -379,6 +400,16 @@ const translations: Record<Language, Record<string, string>> = {
     'general.delete': 'Delete',
     'general.edit': 'Edit',
     'general.close': 'Close',
+
+    // Editor
+    'editor.adminMode': 'Admin editing mode',
+    'editor.placeholder': 'Page text...',
+    'editor.textUpdated': 'Text updated for all users',
+    'editor.saveError': 'Error while saving',
+    'editor.textRestored': 'Text restored to original version',
+    'editor.restoreError': 'Error while restoring',
+    'editor.restoreOriginal': 'Restore original',
+    'editor.modified': 'modified',
   },
   de: {
     'nav.back': 'Zurück',
@@ -454,6 +485,12 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.contact': 'Eine Idee? Eine Frage?',
     'footer.contactText': 'Kontaktiere mich gerne auf',
     'subjects.subtitle': 'Wähle ein Fach, um spannende Geschichten zu entdecken!',
+    'subjects.lecture': 'Interaktive Geschichten zum Lesenlernen',
+    'subjects.mathematiques': 'Abenteuer zum Entdecken von Zahlen',
+    'subjects.histoire': 'Zeitreisen und Entdeckungen',
+    'subjects.geographie': 'Erkundungen der ganzen Welt',
+    'subjects.sciences': 'Experimente und wissenschaftliche Entdeckungen',
+    'subjects.langues': 'Englisch lernen mit Spaß',
     'stories.notFound': 'Geschichte nicht gefunden',
     'stories.notFoundDesc': 'Diese Geschichte existiert nicht oder wurde gelöscht.',
     'start.customize': 'Passe dein Abenteuer an',
@@ -513,6 +550,14 @@ const translations: Record<Language, Record<string, string>> = {
     'general.delete': 'Löschen',
     'general.edit': 'Bearbeiten',
     'general.close': 'Schließen',
+    'editor.adminMode': 'Admin-Bearbeitungsmodus',
+    'editor.placeholder': 'Seitentext...',
+    'editor.textUpdated': 'Text für alle Benutzer aktualisiert',
+    'editor.saveError': 'Fehler beim Speichern',
+    'editor.textRestored': 'Text auf Originalversion zurückgesetzt',
+    'editor.restoreError': 'Fehler beim Wiederherstellen',
+    'editor.restoreOriginal': 'Original wiederherstellen',
+    'editor.modified': 'geändert',
   },
   ru: {
     'nav.back': 'Назад',
@@ -588,6 +633,12 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.contact': 'Есть идея? Вопрос?',
     'footer.contactText': 'Свяжитесь со мной в',
     'subjects.subtitle': 'Выбери предмет, чтобы открыть увлекательные истории!',
+    'subjects.lecture': 'Интерактивные истории для обучения чтению',
+    'subjects.mathematiques': 'Приключения для изучения чисел',
+    'subjects.histoire': 'Путешествия во времени и открытия',
+    'subjects.geographie': 'Исследования мира',
+    'subjects.sciences': 'Эксперименты и научные открытия',
+    'subjects.langues': 'Изучение английского с удовольствием',
     'stories.notFound': 'История не найдена',
     'stories.notFoundDesc': 'Эта история не существует или была удалена.',
     'start.customize': 'Настрой своё приключение',
@@ -647,6 +698,14 @@ const translations: Record<Language, Record<string, string>> = {
     'general.delete': 'Удалить',
     'general.edit': 'Редактировать',
     'general.close': 'Закрыть',
+    'editor.adminMode': 'Режим редактирования администратора',
+    'editor.placeholder': 'Текст страницы...',
+    'editor.textUpdated': 'Текст обновлён для всех пользователей',
+    'editor.saveError': 'Ошибка при сохранении',
+    'editor.textRestored': 'Текст восстановлен до оригинала',
+    'editor.restoreError': 'Ошибка при восстановлении',
+    'editor.restoreOriginal': 'Восстановить оригинал',
+    'editor.modified': 'изменено',
   },
   es: {
     'nav.back': 'Volver',
@@ -722,6 +781,12 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.contact': '¿Tienes una idea? ¿Una pregunta?',
     'footer.contactText': 'No dudes en contactarme en',
     'subjects.subtitle': '¡Elige una materia para descubrir historias emocionantes!',
+    'subjects.lecture': 'Historias interactivas para aprender a leer',
+    'subjects.mathematiques': 'Aventuras para descubrir los números',
+    'subjects.histoire': 'Viajes en el tiempo y descubrimientos',
+    'subjects.geographie': 'Exploraciones del mundo entero',
+    'subjects.sciences': 'Experimentos y descubrimientos científicos',
+    'subjects.langues': 'Aprender inglés divirtiéndose',
     'stories.notFound': 'Historia no encontrada',
     'stories.notFoundDesc': 'Esta historia no existe o ha sido eliminada.',
     'start.customize': 'Personaliza tu aventura',
@@ -781,6 +846,14 @@ const translations: Record<Language, Record<string, string>> = {
     'general.delete': 'Eliminar',
     'general.edit': 'Editar',
     'general.close': 'Cerrar',
+    'editor.adminMode': 'Modo de edición admin',
+    'editor.placeholder': 'Texto de la página...',
+    'editor.textUpdated': 'Texto actualizado para todos los usuarios',
+    'editor.saveError': 'Error al guardar',
+    'editor.textRestored': 'Texto restaurado a la versión original',
+    'editor.restoreError': 'Error al restaurar',
+    'editor.restoreOriginal': 'Restaurar original',
+    'editor.modified': 'modificado',
   },
   zh: {
     'nav.back': '返回',
@@ -856,6 +929,12 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.contact': '有想法？有问题？',
     'footer.contactText': '请通过以下方式联系我',
     'subjects.subtitle': '选择一个科目来发现精彩的故事！',
+    'subjects.lecture': '互动故事学习阅读',
+    'subjects.mathematiques': '探索数字的冒险',
+    'subjects.histoire': '时间旅行和发现',
+    'subjects.geographie': '探索整个世界',
+    'subjects.sciences': '实验和科学发现',
+    'subjects.langues': '快乐学英语',
     'stories.notFound': '故事未找到',
     'stories.notFoundDesc': '这个故事不存在或已被删除。',
     'start.customize': '定制你的冒险',
@@ -915,6 +994,14 @@ const translations: Record<Language, Record<string, string>> = {
     'general.delete': '删除',
     'general.edit': '编辑',
     'general.close': '关闭',
+    'editor.adminMode': '管理员编辑模式',
+    'editor.placeholder': '页面文本...',
+    'editor.textUpdated': '已为所有用户更新文本',
+    'editor.saveError': '保存时出错',
+    'editor.textRestored': '文本已恢复为原始版本',
+    'editor.restoreError': '恢复时出错',
+    'editor.restoreOriginal': '恢复原始',
+    'editor.modified': '已修改',
   },
   'pt-br': {
     'nav.back': 'Voltar',
@@ -990,6 +1077,12 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.contact': 'Tem uma ideia? Uma pergunta?',
     'footer.contactText': 'Fique à vontade para me contatar no',
     'subjects.subtitle': 'Escolha uma matéria para descobrir histórias emocionantes!',
+    'subjects.lecture': 'Histórias interativas para aprender a ler',
+    'subjects.mathematiques': 'Aventuras para descobrir os números',
+    'subjects.histoire': 'Viagens no tempo e descobertas',
+    'subjects.geographie': 'Explorações do mundo inteiro',
+    'subjects.sciences': 'Experimentos e descobertas científicas',
+    'subjects.langues': 'Aprender inglês brincando',
     'stories.notFound': 'História não encontrada',
     'stories.notFoundDesc': 'Esta história não existe ou foi excluída.',
     'start.customize': 'Personalize sua aventura',
@@ -1049,8 +1142,20 @@ const translations: Record<Language, Record<string, string>> = {
     'general.delete': 'Excluir',
     'general.edit': 'Editar',
     'general.close': 'Fechar',
+    'editor.adminMode': 'Modo de edição admin',
+    'editor.placeholder': 'Texto da página...',
+    'editor.textUpdated': 'Texto atualizado para todos os usuários',
+    'editor.saveError': 'Erro ao salvar',
+    'editor.textRestored': 'Texto restaurado para versão original',
+    'editor.restoreError': 'Erro ao restaurar',
+    'editor.restoreOriginal': 'Restaurar original',
+    'editor.modified': 'modificado',
   },
 };
+
+// Translation cache to avoid repeated API calls
+const translationCache = new Map<string, string>();
+const pendingTranslations = new Map<string, Promise<string>>();
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
@@ -1075,31 +1180,62 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const translateText = async (text: string, targetLang?: Language): Promise<string> => {
     const lang = targetLang || language;
     if (lang === 'fr') return text; // No translation needed for French
+    if (!text || text.trim() === '') return text;
 
-    setIsTranslating(true);
-    try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/translate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({ text, targetLanguage: lang }),
-      });
-
-      if (!response.ok) {
-        console.error('Translation error:', response.status);
-        return text;
-      }
-
-      const data = await response.json();
-      return data.translatedText || text;
-    } catch (error) {
-      console.error('Translation failed:', error);
-      return text;
-    } finally {
-      setIsTranslating(false);
+    // Check cache first
+    const cacheKey = `${lang}:${text}`;
+    if (translationCache.has(cacheKey)) {
+      return translationCache.get(cacheKey)!;
     }
+
+    // Check if already pending (deduplication)
+    if (pendingTranslations.has(cacheKey)) {
+      return pendingTranslations.get(cacheKey)!;
+    }
+
+    // Create the translation promise with timeout
+    const translationPromise = (async (): Promise<string> => {
+      setIsTranslating(true);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+      try {
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/translate`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ text, targetLanguage: lang }),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          console.error('Translation error:', response.status);
+          // On 429/402 errors, just return original text without caching to allow retry later
+          return text;
+        }
+
+        const data = await response.json();
+        const translatedText = data.translatedText || text;
+        
+        // Cache successful translation
+        translationCache.set(cacheKey, translatedText);
+        return translatedText;
+      } catch (error) {
+        clearTimeout(timeoutId);
+        console.error('Translation failed:', error);
+        return text; // Return original on error
+      } finally {
+        setIsTranslating(false);
+        pendingTranslations.delete(cacheKey);
+      }
+    })();
+
+    pendingTranslations.set(cacheKey, translationPromise);
+    return translationPromise;
   };
 
   return (
