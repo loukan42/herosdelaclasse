@@ -8,23 +8,25 @@ import { useCombinedStories } from "@/hooks/useCombinedStories";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTranslatedString } from "@/hooks/useTranslatedString";
+import { useChildProfiles } from "@/contexts/ChildProfileContext";
 
 export default function StoryStart() {
   const { storyId } = useParams<{ storyId: string }>();
   const navigate = useNavigate();
   const { getStory } = useCombinedStories();
   const story = getStory(storyId || "");
-  const { isAuthenticated, profile, loading } = useAuthContext();
+  const { isAuthenticated, loading } = useAuthContext();
+  const { activeProfile } = useChildProfiles();
   const { t } = useLanguage();
 
   const [prenom, setPrenom] = useState("");
 
-  // Pre-fill prenom from profile when authenticated
+  // Pre-fill prenom from CHILD profile when authenticated
   useEffect(() => {
-    if (isAuthenticated && profile?.prenom) {
-      setPrenom(profile.prenom);
+    if (isAuthenticated && activeProfile?.prenom) {
+      setPrenom(activeProfile.prenom);
     }
-  }, [isAuthenticated, profile]);
+  }, [isAuthenticated, activeProfile]);
 
   if (!story) {
     return (
@@ -60,8 +62,8 @@ export default function StoryStart() {
     navigate(`/stories/${storyId}/page/${story.startPageId}`);
   };
 
-  // If authenticated with profile prenom, skip directly to story
-  const canAutoStart = isAuthenticated && profile?.prenom && !loading;
+  // If authenticated with child profile prenom, skip directly to story
+  const canAutoStart = isAuthenticated && activeProfile?.prenom && !loading;
 
   return (
     <main className="min-h-screen bg-background py-8 px-4">
@@ -115,7 +117,7 @@ export default function StoryStart() {
                 <div className="flex items-center justify-center gap-3 text-foreground">
                   <User className="w-6 h-6 text-primary" />
                   <span className="font-display text-2xl">
-                    {t('start.ready')} <span className="text-primary font-bold">{profile.prenom}</span> ?
+                    {t('start.ready')} <span className="text-primary font-bold">{activeProfile?.prenom}</span> ?
                   </span>
                 </div>
 
