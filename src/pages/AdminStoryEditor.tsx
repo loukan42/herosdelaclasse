@@ -342,12 +342,15 @@ export default function AdminStoryEditor() {
                   <Label>Niveau</Label>
                   <Select
                     value={story.level}
-                    onValueChange={(value) => setStory({ ...story, level: value })}
+                    onValueChange={(value) => {
+                      console.log('Level changed to:', value);
+                      setStory({ ...story, level: value });
+                    }}
                   >
                     <SelectTrigger>
-                      <SelectValue />
+                      <SelectValue placeholder="Choisir un niveau" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="pointer-events-auto z-[100]">
                       {grades.map((grade) => (
                         <SelectItem key={grade.id} value={grade.id}>
                           {grade.name}
