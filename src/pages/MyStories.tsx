@@ -7,6 +7,8 @@ import { useCombinedStories } from '@/hooks/useCombinedStories';
 import { Button } from '@/components/ui/button';
 import { ProfileSwitcher } from '@/components/ProfileSwitcher';
 import { Footer } from '@/components/Footer';
+import { LanguageSelector } from '@/components/LanguageSelector';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   ArrowLeft, 
   BookOpen, 
@@ -17,14 +19,25 @@ import {
   Sparkles,
   UserPlus
 } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { formatDistanceToNow, Locale } from 'date-fns';
+import { fr, enUS, de, ru, es, zhCN, ptBR } from 'date-fns/locale';
+
+const locales: Record<string, Locale> = {
+  fr,
+  en: enUS,
+  de,
+  ru,
+  es,
+  zh: zhCN,
+  'pt-br': ptBR,
+};
 
 export default function MyStories() {
   const navigate = useNavigate();
   const { isAuthenticated, loading: authLoading } = useAuthContext();
   const { activeProfile, profiles, loading: profilesLoading } = useChildProfiles();
   const { getAllStories, getStory } = useCombinedStories();
+  const { t, language } = useLanguage();
   const { 
     allProgress, 
     completedStories, 
@@ -58,19 +71,22 @@ export default function MyStories() {
         <div className="container max-w-4xl mx-auto px-4 pt-4 flex justify-between items-center">
           <Button variant="ghost" onClick={() => navigate('/')} className="gap-2">
             <ArrowLeft className="w-4 h-4" />
-            Retour
+            {t('nav.back')}
           </Button>
-          <ProfileSwitcher />
+          <div className="flex items-center gap-2">
+            <LanguageSelector />
+            <ProfileSwitcher />
+          </div>
         </div>
 
         <div className="flex-1 flex items-center justify-center px-4">
           <div className="bg-card rounded-2xl p-8 border border-border shadow-sm text-center max-w-md">
             <UserPlus className="w-16 h-16 text-primary mx-auto mb-4" />
             <h1 className="font-display text-2xl text-foreground mb-2">
-              Créez un profil enfant
+              {t('myStories.createProfile')}
             </h1>
             <p className="text-muted-foreground mb-6">
-              Pour suivre les histoires, vous devez d'abord créer un profil pour votre enfant.
+              {t('myStories.createProfileDesc')}
             </p>
             <ProfileSwitcher />
           </div>
@@ -129,7 +145,10 @@ export default function MyStories() {
   const storiesInProgress = allProgress.length;
 
   const formatDate = (dateString: string) => {
-    return formatDistanceToNow(new Date(dateString), { addSuffix: true, locale: fr });
+    return formatDistanceToNow(new Date(dateString), { 
+      addSuffix: true, 
+      locale: locales[language] || locales.fr 
+    });
   };
 
   return (
@@ -138,19 +157,22 @@ export default function MyStories() {
       <div className="container max-w-4xl mx-auto px-4 pt-4 flex justify-between items-center">
         <Button variant="ghost" onClick={() => navigate('/')} className="gap-2">
           <ArrowLeft className="w-4 h-4" />
-          Retour
+          {t('nav.back')}
         </Button>
-        <ProfileSwitcher />
+        <div className="flex items-center gap-2">
+          <LanguageSelector />
+          <ProfileSwitcher />
+        </div>
       </div>
 
       <div className="container max-w-4xl mx-auto px-4 py-8 flex-1">
         {/* Title */}
         <div className="text-center mb-8">
           <h1 className="font-display text-4xl text-foreground mb-2">
-            Mes histoires
+            {t('myStories.title')}
           </h1>
           <p className="text-muted-foreground">
-            Bonjour {activeProfile?.prenom} ! Voici ton parcours de lecture.
+            {t('myStories.greeting', { name: activeProfile?.prenom || '' })}
           </p>
         </div>
 
@@ -161,7 +183,7 @@ export default function MyStories() {
               <Trophy className="w-6 h-6 text-ending-happy" />
             </div>
             <p className="text-3xl font-bold text-foreground">{totalStoriesRead}</p>
-            <p className="text-sm text-muted-foreground">Histoires terminées</p>
+            <p className="text-sm text-muted-foreground">{t('myStories.completed')}</p>
           </div>
 
           <div className="bg-card rounded-2xl p-6 border border-border shadow-sm text-center">
@@ -169,7 +191,7 @@ export default function MyStories() {
               <Sparkles className="w-6 h-6 text-golden" />
             </div>
             <p className="text-3xl font-bold text-foreground">{totalEndings}</p>
-            <p className="text-sm text-muted-foreground">Fins découvertes</p>
+            <p className="text-sm text-muted-foreground">{t('myStories.endings')}</p>
           </div>
 
           <div className="bg-card rounded-2xl p-6 border border-border shadow-sm text-center">
@@ -177,7 +199,7 @@ export default function MyStories() {
               <PlayCircle className="w-6 h-6 text-secondary-foreground" />
             </div>
             <p className="text-3xl font-bold text-foreground">{storiesInProgress}</p>
-            <p className="text-sm text-muted-foreground">En cours</p>
+            <p className="text-sm text-muted-foreground">{t('myStories.inProgress')}</p>
           </div>
         </div>
 
@@ -186,7 +208,7 @@ export default function MyStories() {
           <section className="mb-10">
             <h2 className="font-display text-2xl text-foreground mb-4 flex items-center gap-2">
               <PlayCircle className="w-6 h-6 text-primary" />
-              Continuer la lecture
+              {t('myStories.continueReading')}
             </h2>
             <div className="space-y-3">
               {allProgress.map((progress) => {
@@ -215,7 +237,7 @@ export default function MyStories() {
                     </div>
                     <Button size="sm" className="gap-2 shrink-0">
                       <PlayCircle className="w-4 h-4" />
-                      Reprendre
+                      {t('stories.continue')}
                     </Button>
                   </Link>
                 );
@@ -229,7 +251,7 @@ export default function MyStories() {
           <section className="mb-10">
             <h2 className="font-display text-2xl text-foreground mb-4 flex items-center gap-2">
               <BookOpen className="w-6 h-6 text-primary" />
-              À découvrir
+              {t('myStories.toDiscover')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {unreadStories.map((story) => (
@@ -261,17 +283,17 @@ export default function MyStories() {
         <section>
           <h2 className="font-display text-2xl text-foreground mb-4 flex items-center gap-2">
             <CheckCircle className="w-6 h-6 text-ending-happy" />
-            Histoires terminées
+            {t('myStories.completedStories')}
           </h2>
           
           {uniqueCompletedStoryIds.length === 0 ? (
             <div className="bg-card rounded-xl p-8 border border-border text-center">
               <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground mb-4">
-                Tu n'as pas encore terminé d'histoire.
+                {t('myStories.noCompleted')}
               </p>
               <Button asChild>
-                <Link to="/">Découvrir les histoires</Link>
+                <Link to="/">{t('myStories.discover')}</Link>
               </Button>
             </div>
           ) : (
@@ -299,7 +321,7 @@ export default function MyStories() {
                         {story.title}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        Terminée {formatDate(lastCompletion.completed_at)}
+                        {t('common.completed')} - {formatDate(lastCompletion.completed_at)}
                       </p>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
@@ -308,12 +330,12 @@ export default function MyStories() {
                           {completionCount}
                         </span>
                         <p className="text-xs text-muted-foreground mt-1">
-                          {completionCount > 1 ? 'fins' : 'fin'}
+                          {completionCount > 1 ? t('common.ends') : t('common.end')}
                         </p>
                       </div>
                       <Button asChild variant="outline" size="sm">
                         <Link to={`/stories/${story.id}/start`}>
-                          Rejouer
+                          {t('myStories.replay')}
                         </Link>
                       </Button>
                     </div>

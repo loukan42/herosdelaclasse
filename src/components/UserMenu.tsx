@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -26,6 +27,7 @@ export function UserMenu() {
   const { profile, isAuthenticated, signOut, loading, user, updateProfile } = useAuthContext();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAvatarDialogOpen, setIsAvatarDialogOpen] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(profile?.avatar || 'fille_1');
@@ -63,14 +65,14 @@ export function UserMenu() {
     const { error } = await signOut();
     if (error) {
       toast({
-        title: "Erreur",
-        description: "Impossible de se déconnecter",
+        title: t('common.error'),
+        description: t('common.error'),
         variant: "destructive"
       });
     } else {
       toast({
-        title: "À bientôt !",
-        description: "Tu as été déconnecté.",
+        title: t('auth.goodbye'),
+        description: t('auth.logoutSuccess'),
       });
       navigate('/');
     }
@@ -83,14 +85,14 @@ export function UserMenu() {
     
     if (error) {
       toast({
-        title: "Erreur",
-        description: "Impossible de changer l'avatar",
+        title: t('common.error'),
+        description: t('common.error'),
         variant: "destructive"
       });
     } else {
       toast({
-        title: "Avatar modifié !",
-        description: "Ton nouvel avatar est super !",
+        title: t('menu.avatarChanged'),
+        description: t('menu.avatarChangedDesc'),
       });
       setIsAvatarDialogOpen(false);
     }
@@ -107,7 +109,7 @@ export function UserMenu() {
       <Button asChild variant="outline" size="sm" className="gap-2">
         <Link to="/auth">
           <User className="w-4 h-4" />
-          <span className="hidden sm:inline">Connexion</span>
+          <span className="hidden sm:inline">{t('auth.login')}</span>
         </Link>
       </Button>
     );
@@ -134,7 +136,7 @@ export function UserMenu() {
         <DropdownMenuContent align="end" className="w-48">
           <div className="px-3 py-2">
             <p className="font-semibold">{profile?.prenom || 'Aventurier'}</p>
-            <p className="text-xs text-muted-foreground">Mon compte</p>
+            <p className="text-xs text-muted-foreground">{t('menu.myAccount')}</p>
           </div>
           <DropdownMenuSeparator />
           <DropdownMenuItem 
@@ -142,19 +144,19 @@ export function UserMenu() {
             className="flex items-center gap-2 cursor-pointer"
           >
             <Pencil className="w-4 h-4" />
-            Changer d'avatar
+            {t('menu.changeAvatar')}
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link to="/my-stories" className="flex items-center gap-2 cursor-pointer">
               <BookOpen className="w-4 h-4" />
-              Mes histoires
+              {t('menu.myStories')}
             </Link>
           </DropdownMenuItem>
           {isAdmin && (
             <DropdownMenuItem asChild>
               <Link to="/admin" className="flex items-center gap-2 cursor-pointer text-golden">
                 <Crown className="w-4 h-4" />
-                Administration
+                {t('menu.admin')}
               </Link>
             </DropdownMenuItem>
           )}
@@ -164,7 +166,7 @@ export function UserMenu() {
             className="flex items-center gap-2 text-destructive focus:text-destructive cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
-            Se déconnecter
+            {t('auth.logout')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -173,9 +175,9 @@ export function UserMenu() {
       <Dialog open={isAvatarDialogOpen} onOpenChange={setIsAvatarDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-center">Choisis ton avatar</DialogTitle>
+            <DialogTitle className="text-center">{t('menu.chooseAvatar')}</DialogTitle>
             <DialogDescription className="text-center">
-              Sélectionne le personnage qui te ressemble !
+              {t('menu.chooseAvatarDesc')}
             </DialogDescription>
           </DialogHeader>
           <div className="py-4">
@@ -190,14 +192,14 @@ export function UserMenu() {
               variant="outline" 
               onClick={() => setIsAvatarDialogOpen(false)}
             >
-              Annuler
+              {t('menu.cancel')}
             </Button>
             <Button 
               onClick={handleSaveAvatar}
               disabled={isSaving || selectedAvatar === profile?.avatar}
               className="bg-gradient-to-r from-golden to-orange-500 text-white"
             >
-              {isSaving ? 'Enregistrement...' : 'Enregistrer'}
+              {isSaving ? t('menu.saving') : t('menu.save')}
             </Button>
           </div>
         </DialogContent>

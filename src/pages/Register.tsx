@@ -2,23 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { z } from 'zod';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Mail, Lock, User } from 'lucide-react';
 import coverLogo from '@/assets/cover-logo.png';
-
-const signUpSchema = z.object({
-  email: z.string().email('Adresse email invalide'),
-  password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
-  prenom: z.string().min(1, 'Le prénom est requis').max(50, 'Le prénom est trop long'),
-});
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default function Register() {
   const navigate = useNavigate();
   const { signUp, isAuthenticated, loading } = useAuthContext();
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +24,12 @@ export default function Register() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const signUpSchema = z.object({
+    email: z.string().email(t('auth.invalidCredentials')),
+    password: z.string().min(6, t('auth.password')),
+    prenom: z.string().min(1, t('auth.firstName')).max(50),
+  });
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -43,7 +46,7 @@ export default function Register() {
     try {
       // Check password confirmation first
       if (password !== confirmPassword) {
-        setErrors({ confirmPassword: 'Les mots de passe ne correspondent pas' });
+        setErrors({ confirmPassword: t('auth.passwordMismatch') });
         setIsSubmitting(false);
         return;
       }
@@ -66,28 +69,28 @@ export default function Register() {
       if (error) {
         if (error.message.includes('already registered')) {
           toast({
-            title: "Compte existant",
-            description: "Un compte existe déjà avec cet email. Essayez de vous connecter.",
+            title: t('common.error'),
+            description: t('auth.accountExists'),
             variant: "destructive"
           });
         } else {
           toast({
-            title: "Erreur",
+            title: t('common.error'),
             description: error.message,
             variant: "destructive"
           });
         }
       } else {
         toast({
-          title: "Bienvenue !",
-          description: `Le compte a été créé avec succès ! Vous pouvez maintenant créer des profils pour vos enfants.`,
+          title: t('auth.registerSuccess'),
+          description: t('auth.registerSuccessDesc'),
         });
         navigate('/');
       }
     } catch (err) {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue. Réessayez plus tard.",
+        title: t('common.error'),
+        description: t('common.error'),
         variant: "destructive"
       });
     } finally {
@@ -105,6 +108,11 @@ export default function Register() {
 
   return (
     <main className="min-h-screen bg-auth-gradient relative overflow-x-hidden overflow-y-auto">
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSelector />
+      </div>
+
       {/* Animated particles/stars background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
@@ -129,7 +137,7 @@ export default function Register() {
             className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-3 sm:mb-4 self-start text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-            Retour
+            {t('nav.back')}
           </button>
 
           {/* Logo */}
@@ -146,10 +154,10 @@ export default function Register() {
           {/* Title */}
           <div className="text-center mb-4 sm:mb-6">
             <h1 className="font-display text-2xl sm:text-3xl text-white mb-1 sm:mb-2 drop-shadow-lg">
-              Créer un compte
+              {t('auth.registerTitle')}
             </h1>
             <p className="text-white/80 text-sm sm:text-base px-2">
-              Créez un compte pour sauvegarder la progression de vos enfants
+              {t('auth.registerSubtitle')}
             </p>
           </div>
 
@@ -159,14 +167,14 @@ export default function Register() {
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="prenom" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <User className="w-4 h-4 text-golden" />
-                Votre prénom
+                {t('auth.firstName')}
               </Label>
               <Input
                 id="prenom"
                 type="text"
                 value={prenom}
                 onChange={(e) => setPrenom(e.target.value)}
-                placeholder="Votre prénom"
+                placeholder={t('auth.firstName')}
                 className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
               />
               {errors.prenom && (
@@ -174,12 +182,11 @@ export default function Register() {
               )}
             </div>
 
-
             {/* Email */}
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="email" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Mail className="w-4 h-4 text-golden" />
-                Email <span className="text-white/60 font-normal text-xs sm:text-sm">(des parents)</span>
+                {t('auth.email')} <span className="text-white/60 font-normal text-xs sm:text-sm">{t('auth.parentEmail')}</span>
               </Label>
               <Input
                 id="email"
@@ -198,7 +205,7 @@ export default function Register() {
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="password" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Lock className="w-4 h-4 text-golden" />
-                Mot de passe
+                {t('auth.password')}
               </Label>
               <Input
                 id="password"
@@ -217,7 +224,7 @@ export default function Register() {
             <div className="space-y-1.5 sm:space-y-2">
               <Label htmlFor="confirmPassword" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-white">
                 <Lock className="w-4 h-4 text-golden" />
-                Confirmer le mot de passe
+                {t('auth.confirmPassword')}
               </Label>
               <Input
                 id="confirmPassword"
@@ -241,7 +248,7 @@ export default function Register() {
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
-                'Créer le compte'
+                t('auth.registerButton')
               )}
             </Button>
 
@@ -251,7 +258,7 @@ export default function Register() {
                 to="/auth"
                 className="text-golden hover:text-golden/80 hover:underline font-medium transition-colors text-sm sm:text-base"
               >
-                Déjà un compte ? Se connecter
+                {t('auth.hasAccount')}
               </Link>
             </div>
           </form>

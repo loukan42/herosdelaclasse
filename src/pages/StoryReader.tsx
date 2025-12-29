@@ -16,6 +16,8 @@ import { useStoryOverrides } from "@/hooks/useStoryOverrides";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useCombinedStories } from "@/hooks/useCombinedStories";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
 
@@ -27,12 +29,15 @@ export default function StoryReader() {
   const [visitedPages, setVisitedPages] = useState<string[]>([]);
   const [newlyCollectedItem, setNewlyCollectedItem] = useState<string | null>(null);
   const [overriddenText, setOverriddenText] = useState<string | null>(null);
+  const [translatedText, setTranslatedText] = useState<string | null>(null);
+  const [isTranslating, setIsTranslating] = useState(false);
   const previousVisitedRef = useRef<string[]>([]);
   const hasMarkedCompleteRef = useRef<string | null>(null);
 
   const { getStory, getPage } = useCombinedStories();
   const story = getStory(storyId || "");
   const page = getPage(storyId || "", pageId || "");
+  const { t, translateText, language } = useLanguage();
 
   const prenom = sessionStorage.getItem(`story-${storyId}-prenom`) || "Aventurier";
   const genre = (sessionStorage.getItem(`story-${storyId}-genre`) || "neutre") as Genre;
@@ -96,6 +101,7 @@ export default function StoryReader() {
     setIsAnimating(true);
     setImageLoaded(false);
     setOverriddenText(null); // Reset override on page change
+    setTranslatedText(null); // Reset translation on page change
     stop(); // Stop any playing audio when page changes
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
@@ -111,18 +117,50 @@ export default function StoryReader() {
     }
   }, [storyId, pageId, getOverride]);
 
+  // Translate text when language changes or page changes
+  useEffect(() => {
+    const doTranslation = async () => {
+      if (language === 'fr' || !page) {
+        setTranslatedText(null);
+        return;
+      }
+
+      const textToTranslate = overriddenText || page.text;
+      const processedFrench = processText(
+        textToTranslate,
+        prenom,
+        genre,
+        page.textMasculine,
+        page.textFeminine
+      );
+
+      setIsTranslating(true);
+      try {
+        const translated = await translateText(processedFrench);
+        setTranslatedText(translated);
+      } catch (err) {
+        console.error('Translation failed:', err);
+        setTranslatedText(null);
+      } finally {
+        setIsTranslating(false);
+      }
+    };
+
+    doTranslation();
+  }, [language, page, overriddenText, prenom, genre, translateText]);
+
   if (!story || !page) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <BookPage className="max-w-md text-center">
-          <h1 className="font-display text-3xl text-foreground mb-4">Page introuvable</h1>
-          <p className="text-muted-foreground mb-6">Cette page n'existe pas.</p>
+          <h1 className="font-display text-3xl text-foreground mb-4">{t('stories.pageNotFound')}</h1>
+          <p className="text-muted-foreground mb-6">{t('stories.pageNotFoundDesc')}</p>
           <Link 
             to="/stories" 
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors"
           >
             <Home className="w-4 h-4" />
-            Retour aux histoires
+            {t('nav.backToStories')}
           </Link>
         </BookPage>
       </div>
@@ -132,7 +170,8 @@ export default function StoryReader() {
   // Use override text if available, otherwise original
   const textToProcess = overriddenText || page.text;
   
-  const processedText = processText(
+  // Use translated text if available, otherwise process the French text
+  const displayText = translatedText || processText(
     textToProcess,
     prenom,
     genre,
@@ -153,13 +192,13 @@ export default function StoryReader() {
   };
 
   // Split text into lines for better readability
-  const textLines = processedText.split('\n').filter(line => line.trim());
+  const textLines = displayText.split('\n').filter(line => line.trim());
 
   const handlePlayAudio = () => {
     if (isSpeaking) {
       stop();
     } else {
-      speak(processedText);
+      speak(displayText);
     }
   };
 
@@ -185,12 +224,15 @@ export default function StoryReader() {
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors font-semibold"
           >
             <ArrowLeft className="w-5 h-5" />
-            <span className="hidden sm:inline">Quitter l'histoire</span>
+            <span className="hidden sm:inline">{t('nav.leaveStory')}</span>
           </Link>
           
-          <span className="font-display text-base md:text-lg text-muted-foreground">
-            {story.title}
-          </span>
+          <div className="flex items-center gap-2">
+            <LanguageSelector />
+            <span className="font-display text-base md:text-lg text-muted-foreground">
+              {story.title}
+            </span>
+          </div>
         </nav>
 
         {/* Book Content */}
@@ -208,13 +250,13 @@ export default function StoryReader() {
                   {page.endingType === 'happy' ? (
                     <>
                       <Trophy className="w-5 h-5 md:w-6 md:h-6" />
-                      <span>Fin de l'histoire !</span>
+                      <span>{t('reader.endingHappy')}</span>
                       <Star className="w-4 h-4 md:w-5 md:h-5 animate-sparkle" />
                     </>
                   ) : (
                     <>
                       <Sparkles className="w-5 h-5 md:w-6 md:h-6" />
-                      <span>Une autre fin...</span>
+                      <span>{t('reader.endingAlt')}</span>
                     </>
                   )}
                 </div>
@@ -270,12 +312,12 @@ export default function StoryReader() {
                   {isSpeaking ? (
                     <>
                       <VolumeX className="w-4 h-4 md:w-5 md:h-5" />
-                      Arrêter
+                      {t('reader.stop')}
                     </>
                   ) : (
                     <>
                       <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
-                      Écouter l'histoire
+                      {t('reader.listen')}
                     </>
                   )}
                 </button>
@@ -289,7 +331,7 @@ export default function StoryReader() {
                     bg-amber-500 text-white hover:bg-amber-600"
                 >
                   <Download className="w-4 h-4 md:w-5 md:h-5" />
-                  Coloriage dinosaures
+                  {t('reader.coloringDownload')}
                 </button>
               )}
             </div>
@@ -309,14 +351,21 @@ export default function StoryReader() {
 
             {/* Story Text - Line by line */}
             <div className="mb-6 md:mb-8 lg:mb-10 space-y-2 md:space-y-3 max-w-prose mx-auto">
-              {textLines.map((line, index) => (
-                <p 
-                  key={index}
-                  className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-left font-body"
-                >
-                  {line}
-                </p>
-              ))}
+              {isTranslating ? (
+                <div className="flex items-center justify-center py-4">
+                  <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mr-2" />
+                  <span className="text-muted-foreground">{t('common.loading')}</span>
+                </div>
+              ) : (
+                textLines.map((line, index) => (
+                  <p 
+                    key={index}
+                    className="text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground text-left font-body"
+                  >
+                    {line}
+                  </p>
+                ))
+              )}
             </div>
 
 
@@ -329,7 +378,7 @@ export default function StoryReader() {
                     className="inline-flex items-center justify-center gap-2 md:gap-3 bg-primary text-primary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
                   >
                     <RotateCcw className="w-4 h-4 md:w-5 md:h-5" />
-                    Recommencer cette histoire
+                    {t('stories.restart')}
                   </button>
                   
                   <button
@@ -337,7 +386,7 @@ export default function StoryReader() {
                     className="inline-flex items-center justify-center gap-2 md:gap-3 bg-secondary text-secondary-foreground px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-display font-bold text-base md:text-lg hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
                   >
                     <Home className="w-4 h-4 md:w-5 md:h-5" />
-                    Autres histoires
+                    {t('stories.otherStories')}
                   </button>
                 </div>
 
@@ -349,7 +398,7 @@ export default function StoryReader() {
             ) : (
               <div className="space-y-3 md:space-y-4">
                 <h2 className="font-display text-lg md:text-xl text-center text-muted-foreground mb-4 md:mb-6">
-                  Que veux-tu faire ?
+                  {t('reader.whatToDo')}
                 </h2>
                 {/* Check if choices have images */}
                 {page.choices.some(choice => choice.image) ? (
