@@ -18,7 +18,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export default function GradesDashboard() {
   const { isAuthenticated, loading } = useAuthContext();
   const { isAdmin } = useAdmin();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   // Get unique levels from stories to know which grades have content
   const availableGrades = new Set(stories.map(s => s.level));
@@ -97,33 +97,39 @@ export default function GradesDashboard() {
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="text-center">
-                <img 
-                  src={profilsImage} 
-                  alt="Profils personnalisés" 
-                  className="w-full rounded-3xl shadow-lg mb-4"
-                />
+                {language === 'fr' && (
+                  <img 
+                    src={profilsImage} 
+                    alt="Profils personnalisés" 
+                    className="w-full rounded-3xl shadow-lg mb-4"
+                  />
+                )}
                 <p className="text-muted-foreground text-sm">
                   {t('account.profileDesc')}
                 </p>
               </div>
 
               <div className="text-center">
-                <img 
-                  src={historiqueImage} 
-                  alt="Historique sauvegardé" 
-                  className="w-full rounded-3xl shadow-lg mb-4"
-                />
+                {language === 'fr' && (
+                  <img 
+                    src={historiqueImage} 
+                    alt="Historique sauvegardé" 
+                    className="w-full rounded-3xl shadow-lg mb-4"
+                  />
+                )}
                 <p className="text-muted-foreground text-sm">
                   {t('account.historyDesc')}
                 </p>
               </div>
 
               <div className="text-center">
-                <img 
-                  src={suiviImage} 
-                  alt="Suivi de lecture" 
-                  className="w-full rounded-3xl shadow-lg mb-4"
-                />
+                {language === 'fr' && (
+                  <img 
+                    src={suiviImage} 
+                    alt="Suivi de lecture" 
+                    className="w-full rounded-3xl shadow-lg mb-4"
+                  />
+                )}
                 <p className="text-muted-foreground text-sm">
                   {t('account.trackingDesc')}
                 </p>
