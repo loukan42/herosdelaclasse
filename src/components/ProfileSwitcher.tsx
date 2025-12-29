@@ -32,11 +32,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ChevronDown, Plus, Settings, User, LogOut, Loader2, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export function ProfileSwitcher() {
   const navigate = useNavigate();
   const { isAuthenticated, signOut } = useAuthContext();
   const { profiles, activeProfile, setActiveProfile, createProfile, deleteProfile, loading } = useChildProfiles();
+  const { t } = useLanguage();
   
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [newName, setNewName] = useState('');
@@ -49,7 +51,7 @@ export function ProfileSwitcher() {
     return (
       <Button variant="outline" onClick={() => navigate('/auth')} className="gap-2">
         <User className="w-4 h-4" />
-        Connexion
+        {t('auth.login')}
       </Button>
     );
   }
