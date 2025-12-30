@@ -42,8 +42,16 @@ export default function StoryReader() {
   const page = getPage(storyId || "", pageId || "");
   const { t, translateText, language } = useLanguage();
 
-  const prenom = sessionStorage.getItem(`story-${storyId}-prenom`) || "Aventurier";
+  const storedPrenom = sessionStorage.getItem(`story-${storyId}-prenom`);
+  const prenom = storedPrenom || "Aventurier";
   const genre = (sessionStorage.getItem(`story-${storyId}-genre`) || "neutre") as Genre;
+
+  // Redirect to start page if no prenom is set (user accessed page directly)
+  useEffect(() => {
+    if (!storedPrenom && storyId && story) {
+      navigate(`/stories/${storyId}/start`, { replace: true });
+    }
+  }, [storedPrenom, storyId, story, navigate]);
 
   const { speak, stop, isSpeaking, isSupported } = useSpeechSynthesis({ lang: "fr-FR", rate: 0.9 });
   const { saveProgress, markCompleted, isAuthenticated } = useStoryProgress(storyId);
