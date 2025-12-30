@@ -265,6 +265,7 @@ export default function Admin() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Utilisateur</TableHead>
+                      <TableHead>Email</TableHead>
                       <TableHead>Date d'inscription</TableHead>
                       <TableHead>Dernière connexion</TableHead>
                       <TableHead className="text-center">Histoires terminées</TableHead>
@@ -274,7 +275,7 @@ export default function Admin() {
                   <TableBody>
                     {users.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                        <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                           Aucun utilisateur inscrit
                         </TableCell>
                       </TableRow>
@@ -291,6 +292,11 @@ export default function Admin() {
                                 <p className="text-xs text-muted-foreground font-mono">{user.id.slice(0, 8)}...</p>
                               </div>
                             </div>
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-sm text-muted-foreground">
+                              {user.email || '-'}
+                            </span>
                           </TableCell>
                           <TableCell>
                             <span title={formatFullDate(user.created_at)}>

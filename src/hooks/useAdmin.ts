@@ -66,18 +66,23 @@ export function useAdmin() {
     }
 
     // Fetch completed stories counts
-    const { data: completedCounts, error: completedError } = await supabase
+    const { data: completedCounts } = await supabase
       .from('completed_stories')
       .select('user_id');
 
     // Fetch in progress counts
-    const { data: progressCounts, error: progressError } = await supabase
+    const { data: progressCounts } = await supabase
       .from('story_progress')
       .select('user_id');
 
-    // Get emails from auth.users via a workaround (we'll use the user metadata)
-    // Since we can't access auth.users directly, we'll need to store email in profiles
-    // For now, we'll show the user_id and rely on the profile data
+    // Fetch user emails via secure RPC function
+    const { data: userEmails } = await supabase.rpc('get_user_emails');
+    const emailMap = new Map<string, string>();
+    if (userEmails) {
+      userEmails.forEach((u: { user_id: string; email: string }) => {
+        emailMap.set(u.user_id, u.email);
+      });
+    }
 
     const usersWithStats: AdminUser[] = profiles.map(profile => {
       const completed = completedCounts?.filter(c => c.user_id === profile.id).length || 0;
@@ -87,7 +92,7 @@ export function useAdmin() {
         id: profile.id,
         prenom: profile.prenom,
         avatar: profile.avatar,
-        email: '', // We'll need to add email to profiles
+        email: emailMap.get(profile.id) || '',
         created_at: profile.created_at,
         last_login: profile.last_login,
         stories_completed: completed,
