@@ -309,9 +309,7 @@ Tu entres doucement.
 Sur le sol, il y a du bois très sec.
 Parfait pour faire du feu.
 Tu en prends un morceau.
-Tu ressors fier de ta trouvaille.`,
-      textMasculine: "Tu ressors fier de ta trouvaille.",
-      textFeminine: "Tu ressors fière de ta trouvaille.",
+Tu ressors fier(ère) de ta trouvaille.`,
       choices: [
         { label: "Retourner au feu", targetPageId: "page-5" },
         { label: "Chercher des pierres", targetPageId: "page-2" },
@@ -362,11 +360,9 @@ Le clan est heureux grâce à toi.`,
       text: `La nuit arrive doucement.
 Le feu crépite.
 Le clan se rassemble.
-Tu te sens fier.
+Tu te sens fier(ère).
 Grâce à toi, tout le monde est au chaud.
 Demain sera une belle journée.`,
-      textMasculine: "Tu te sens fier.",
-      textFeminine: "Tu te sens fière.",
       choices: [
         { label: "Recommencer l'aventure", targetPageId: "page-1" },
         { label: "Choisir une nouvelle aventure", targetPageId: "menu" }
@@ -569,9 +565,7 @@ La forme apparaît très bien.
 C'est une empreinte complète.
 Elle est grande, mais pas énorme.
 Tu peux la garder pour comparer.
-Tu es fier de ton travail.`,
-      textMasculine: "Tu es fier de ton travail.",
-      textFeminine: "Tu es fière de ton travail.",
+Tu es fier(ère) de ton travail.`,
       inventoryAdd: [{ id: "empreinte", name: "Empreinte moulée" }],
       choices: [
         { label: "Comparer avec d'autres traces", targetPageId: "page-6" },
@@ -645,9 +639,7 @@ Puis tu découvres une famille de dinos.
 Les petits courent autour des grands.
 Ils jouent.
 Les traces racontaient leur histoire.
-Tu es heureux d'avoir compris.`,
-      textMasculine: "Tu es heureux d'avoir compris.",
-      textFeminine: "Tu es heureuse d'avoir compris.",
+Tu es heureux(se) d'avoir compris.`,
       choices: [
         { label: "Observer en silence", targetPageId: "page-9" },
         { label: "Dessiner la scène", targetPageId: "page-9" }
@@ -664,10 +656,8 @@ Les traces ne sont plus un mystère.
 Elles racontent une histoire.
 Observer aide à comprendre.
 Comparer aide à apprendre.
-Tu te sens fier.
-Tu es devenu un vrai explorateur.`,
-      textMasculine: "Tu te sens fier.\nTu es devenu un vrai explorateur.",
-      textFeminine: "Tu te sens fière.\nTu es devenue une vraie exploratrice.",
+Tu te sens fier(ère).
+Tu es devenu(e) un(e) vrai(e) explorateur(rice).`,
       choices: [
         { label: "Recommencer l'aventure", targetPageId: "page-1" },
         { label: "Choisir une autre aventure", targetPageId: "menu" }
@@ -758,9 +748,7 @@ Une fleur bleue brille au soleil.
 Elle sent très bon.
 Tu la cueilles doucement.
 Elle est magique.
-Tu es content.`,
-      textMasculine: "Tu es content.",
-      textFeminine: "Tu es contente.",
+Tu es content(e).`,
       inventoryAdd: [{ id: "fleur", name: "🌸 Fleur bleue magique" }],
       choices: [
         { label: "Aller à la fontaine", targetPageId: "page-6" }
@@ -810,9 +798,7 @@ Le chien se réveille aussi.
 Les ronflements disparaissent.
 Tout le monde sourit.
 Le château est sauvé.
-Tu es un vrai héros.`,
-      textMasculine: "Tu es un vrai héros.",
-      textFeminine: "Tu es une vraie héroïne.",
+Tu es un(e) vrai(e) héros/héroïne.`,
       choices: [
         { label: "Rejouer avec Chevalier 3 Dents", targetPageId: "page-10" }
       ],
@@ -899,9 +885,7 @@ Une lumière douce envahit tout.
 Les ronflements s'arrêtent.
 Tout le monde se réveille.
 Le château est heureux.
-Tu es un héros plein d'amour.`,
-      textMasculine: "Tu es un héros plein d'amour.",
-      textFeminine: "Tu es une héroïne pleine d'amour.",
+Tu es un(e) héros/héroïne plein(e) d'amour.`,
       choices: [
         { label: "Rejouer avec Chevalier Viande Grillé", targetPageId: "page-2" }
       ],
@@ -1097,9 +1081,7 @@ Puis tu choisis le groupe qui a le plus de chevaliers.`,
 Vous comptez d'abord le premier groupe.
 Puis vous comptez le deuxième groupe.
 Tu souris.
-Tu es prêt.`,
-      textMasculine: "Tu es prêt.",
-      textFeminine: "Tu es prête.",
+Tu es prêt(e).`,
       choices: [
         { label: "Dire que 6 est plus grand que 4", targetPageId: "page-10" },
         { label: "Recompter tout seul une dernière fois", targetPageId: "page-8" }
@@ -1116,9 +1098,7 @@ Tu as réussi toutes les épreuves.
 Tu sais compter.
 Tu sais additionner.
 Tu sais comparer les nombres.
-Tu es un vrai chevalier des maths !`,
-      textMasculine: "Tu es un vrai chevalier des maths !",
-      textFeminine: "Tu es une vraie chevalière des maths !",
+Tu es un(e) vrai(e) chevalier(ère) des maths !`,
       choices: [
         { label: "Recommencer l'aventure", targetPageId: "page-1" },
         { label: "Choisir une autre aventure", targetPageId: "menu" }
@@ -1315,9 +1295,7 @@ Puis tu choisis le groupe qui a le plus de chevaliers.`,
 Vous comptez d'abord le premier groupe.
 Puis vous comptez le deuxième groupe.
 Tu souris.
-Tu es prêt.`,
-      textMasculine: "Tu es prêt.",
-      textFeminine: "Tu es prête.",
+Tu es prêt(e).`,
       choices: [
         { label: "Dire que 6 est plus grand que 4", targetPageId: "page-10" },
         { label: "Recompter tout seul une dernière fois", targetPageId: "page-8" }
@@ -1334,9 +1312,7 @@ Tu as réussi toutes les épreuves.
 Tu sais compter.
 Tu sais additionner.
 Tu sais comparer les nombres.
-Tu es un vrai chevalier des maths !`,
-      textMasculine: "Tu es un vrai chevalier des maths !",
-      textFeminine: "Tu es une vraie chevalière des maths !",
+Tu es un(e) vrai(e) chevalier(ère) des maths !`,
       choices: [
         { label: "Recommencer l'aventure", targetPageId: "page-1" },
         { label: "Choisir une autre aventure", targetPageId: "menu" }
@@ -1641,7 +1617,7 @@ Je te confie une mission.
 Tu deviens le Gardien du Soleil.
 Tu veilles sur l'équilibre de l'espace. »
 
-Tu es fier de toi.`,
+Tu es fier(ère) de toi.`,
       choices: [
         { label: "Recommencer l'aventure", targetPageId: "page-1" }
       ],
@@ -1712,7 +1688,7 @@ Quelle planète est-ce ?`,
       image: page24PlaneteMystere,
       title: "Voyageur des étoiles",
       text: `Bravo.
-Tu es très curieux.
+Tu es très curieux(se).
 Le Soleil apparaît.
 Mais ta fusée capte un signal.
 Au-delà du Soleil.
@@ -2034,7 +2010,7 @@ Je te confie une mission.
 Tu deviens le Gardien du Soleil.
 Tu veilles sur l'équilibre de l'espace. »
 
-Tu es fier de toi.`,
+Tu es fier(ère) de toi.`,
       choices: [
         { label: "Recommencer l'aventure", targetPageId: "page-1" }
       ],
@@ -2105,7 +2081,7 @@ Quelle planète est-ce ?`,
       image: page24PlaneteMystere,
       title: "Voyageur des étoiles",
       text: `Bravo.
-Tu es très curieux.
+Tu es très curieux(se).
 Le Soleil apparaît.
 Mais ta fusée capte un signal.
 Au-delà du Soleil.
@@ -2254,7 +2230,7 @@ Tu noues le cuir autour du galet. Il devient un pendentif que tu peux porter sou
 
 Quand tu remontes te coucher, tu te sens moins seul. Tu n'as pas toutes les réponses, mais tu as une règle : observer avant d'agir.
 
-Le galet est tiède contre ta poitrine. Cette fois, tu es prêt à l'écouter.`,
+Le galet est tiède contre ta poitrine. Cette fois, tu es prêt(e) à l'écouter.`,
       choices: [
         { label: "Aller vers le feu, au cœur du campement", targetPageId: "page-5" },
         { label: "Repérer d'abord la rivière", targetPageId: "page-6" },
@@ -3071,7 +3047,7 @@ Tu ranges le galet dans ta poche, puis dans un tiroir. Tu te promets de le repre
 
 Tu sens tes souvenirs bouger dans ta tête. Au début, ils sont très nets : la flamme qui danse, la peinture d'un bison sur la pierre, le bruit d'une presse, le sifflement du train. Mais plus le temps passe, plus certains détails deviennent flous, comme une photo qui se décolore. Tu te rappelles surtout l'émotion : la peur dans la forêt, la fierté d'être utile, l'étonnement devant une route romaine, la beauté d'un vitrail.
 
-Le soir, tu touches le galet. Il est froid. Pas méchant. Juste froid, comme un objet normal. Tu le tournes dans ta main. Il ne répond pas. Peut-être qu'il attend. Peut-être qu'il est fatigué. Peut-être que c'est toi qui n'es pas prêt.
+Le soir, tu touches le galet. Il est froid. Pas méchant. Juste froid, comme un objet normal. Tu le tournes dans ta main. Il ne répond pas. Peut-être qu'il attend. Peut-être qu'il est fatigué. Peut-être que c'est toi qui n'es pas prêt(e).
 
 Tu comprends que l'Histoire peut te traverser sans que tu la gardes, si tu ne la transformes pas en quelque chose : un dessin, une parole, un carnet, une question.
 
@@ -3094,7 +3070,7 @@ Le lendemain, en regardant une carte de France ou une vieille photo dans un livr
       storyId: "les-chemins-du-temps",
       image: page35CheminsTemps,
       title: "Perdu entre les époques",
-      text: `Tu as voulu aller trop vite. Ou trop fort. Ou trop te prouver quelque chose. Peut-être que tu as sorti le galet au mauvais moment, dans une ville qui n'aime pas les secrets. Peut-être que tu as essayé de voler, de forcer, de jouer au héros là où il fallait être prudent.
+      text: `Tu as voulu aller trop vite. Ou trop fort. Ou trop te prouver quelque chose. Peut-être que tu as sorti le galet au mauvais moment, dans une ville qui n'aime pas les secrets. Peut-être que tu as essayé de voler, de forcer, de jouer au héros/à l'héroïne là où il fallait être prudent(e).
 
 Au début, tu crois que tu vas t'en sortir. Puis tout s'effondre.
 
@@ -3126,7 +3102,7 @@ Parce que cette fois, tu as appris par la conséquence.`,
     { id: "page-1", storyId: "les-chemins-du-temps-lecture", image: page1CheminsTemps, title: "Le galet hors du temps", text: `Tu passes quelques jours chez ton grand-père, dans une vieille maison en pierre au bord d'un petit village. Cet après-midi-là, la pluie tape sur les vitres. Ton grand-père te propose d'explorer le grenier. En fouillant, tu découvres un galet parfaitement lisse, gris clair. Quand tu le touches, une chaleur douce monte le long de tes doigts. Ton grand-père t'explique que l'objet se transmet dans la famille depuis des générations. Le soir venu, tu montes te coucher avec le galet. Des images te traversent l'esprit : une forêt immense, des flammes, des silhouettes humaines très anciennes.`, choices: [{ label: "Poser le galet sous ton oreiller", targetPageId: "page-2" }, { label: "Te concentrer sur les images", targetPageId: "page-3" }, { label: "Poser des questions à ton grand-père", targetPageId: "page-4" }] },
     { id: "page-2", storyId: "les-chemins-du-temps-lecture", image: page2CheminsTemps, title: "Le voyage pendant le sommeil", text: `Tu glisses le galet sous ton oreiller. Une odeur te réveille d'un coup : la fumée, la terre mouillée. Tu n'es plus dans ton lit. Tu es allongé sur un sol dur, couvert de feuilles. Une lumière vacille entre les arbres. Un feu. Tu distingues des humains accroupis autour des flammes. Ils portent des peaux d'animaux. Tu comprends : tu es très loin dans le passé, à la Préhistoire.`, choices: [{ label: "T'approcher du feu", targetPageId: "page-5" }, { label: "Suivre un bruit d'eau", targetPageId: "page-6" }, { label: "Observer depuis l'ombre", targetPageId: "page-7" }] },
     { id: "page-3", storyId: "les-chemins-du-temps-lecture", image: page3CheminsTemps, title: "Les images prennent vie", text: `Tu gardes le galet dans ta main. La chaleur augmente. Quand tu rouvres les yeux, tu es debout dans une forêt immense. Au loin, un filet de fumée s'élève. Tu arrives près d'une clairière où un feu brûle, entouré d'humains vêtus de peaux. À ta droite, une grotte. À ta gauche, des empreintes vers la rivière.`, choices: [{ label: "Te rapprocher du feu", targetPageId: "page-5" }, { label: "Observer leurs gestes", targetPageId: "page-7" }, { label: "Entrer dans la grotte", targetPageId: "page-8" }] },
-    { id: "page-4", storyId: "les-chemins-du-temps-lecture", image: page4CheminsTemps, title: "Les questions du soir", text: `Tu redescends voir ton grand-père. Il t'explique : ce galet réagit à ton intention. Tu peux comprendre et apprendre, mais pas changer l'Histoire. Il te donne une lanière de cuir pour attacher le galet. Tu remontes te coucher, prêt à l'écouter.`, choices: [{ label: "Aller vers le feu", targetPageId: "page-5" }, { label: "Repérer la rivière", targetPageId: "page-6" }, { label: "Observer d'abord", targetPageId: "page-7" }] },
+    { id: "page-4", storyId: "les-chemins-du-temps-lecture", image: page4CheminsTemps, title: "Les questions du soir", text: `Tu redescends voir ton grand-père. Il t'explique : ce galet réagit à ton intention. Tu peux comprendre et apprendre, mais pas changer l'Histoire. Il te donne une lanière de cuir pour attacher le galet. Tu remontes te coucher, prêt(e) à l'écouter.`, choices: [{ label: "Aller vers le feu", targetPageId: "page-5" }, { label: "Repérer la rivière", targetPageId: "page-6" }, { label: "Observer d'abord", targetPageId: "page-7" }] },
     { id: "page-5", storyId: "les-chemins-du-temps-lecture", image: page5CheminsTemps, title: "Le cercle du feu", text: `Tu avances vers la clairière. Le feu crépite. Un homme se lève avec une lance. Tu lèves les mains pour montrer que tu n'as rien. L'enfant de ton âge te fixe avec curiosité. Il te tend une branche sèche. Tu comprends : ici, tu seras accepté si tu es utile.`, choices: [{ label: "Suivre vers la grotte", targetPageId: "page-8" }, { label: "Aider à garder le feu", targetPageId: "page-9" }, { label: "Accompagner la chasse", targetPageId: "page-10" }] },
     { id: "page-6", storyId: "les-chemins-du-temps-lecture", image: page6CheminsTemps, title: "Les traces dans la boue", text: `Tu suis le bruit de l'eau jusqu'à une rivière. Dans la boue, tu vois des empreintes. L'enfant préhistorique t'apprend à distinguer une trace fraîche d'une trace ancienne. Il sait lire la terre comme un livre.`, choices: [{ label: "Retourner au camp", targetPageId: "page-9" }, { label: "Suivre vers une chasse", targetPageId: "page-10" }, { label: "Vers un lieu d'installation", targetPageId: "page-11" }] },
     { id: "page-7", storyId: "les-chemins-du-temps-lecture", image: page7CheminsTemps, title: "Dans l'ombre des branches", text: `Tu restes caché. Un adulte taille un silex. Deux silhouettes prennent une torche vers la roche sombre. Le feu baisse. Tu dois choisir : rester étranger ou agir.`, choices: [{ label: "Suivre vers la grotte", targetPageId: "page-8" }, { label: "Aider le feu", targetPageId: "page-9" }, { label: "Vers un lieu stable", targetPageId: "page-11" }] },
@@ -3156,7 +3132,7 @@ Parce que cette fois, tu as appris par la conséquence.`,
     { id: "page-31", storyId: "les-chemins-du-temps-lecture", image: page31CheminsTemps, title: "Le siècle de la vapeur", text: `Tu es au XIXe siècle. Sur le port, des bateaux entrent et sortent. Certains ont une cheminée. Un homme te montre le château d'If au loin. Il parle de prisonniers, d'évasions. Tu penses au Comte de Monte-Cristo. Un train à vapeur passe. Les distances rétrécissent.`, choices: [{ label: "Suivre le train vers le XXe siècle", targetPageId: "page-32" }, { label: "Rester au XIXe siècle", targetPageId: "page-34" }, { label: "T'approcher du château d'If", targetPageId: "page-35" }] },
     { id: "page-32", storyId: "les-chemins-du-temps-lecture", image: page32CheminsTemps, title: "Le siècle des tempêtes", text: `Tu es au XXe siècle, pendant une période de guerre. Les gens parlent bas. Un bruit de cloches éclate. Des gens sortent, certains rient, d'autres pleurent. C'est la Libération. Puis le galet te ramène dans ta chambre chez ton grand-père.`, choices: [{ label: "Tout raconter à ton grand-père", targetPageId: "page-33" }, { label: "Garder l'aventure pour toi", targetPageId: "page-34" }, { label: "Forcer le galet", targetPageId: "page-35" }] },
     { id: "page-33", storyId: "les-chemins-du-temps-lecture", image: page33CheminsTemps, title: "Le carnet du temps", text: `Tu descends tout raconter à ton grand-père. Il écoute comme on écoute un témoin. Il te propose un cahier pour garder tes sensations, tes rencontres, tes questions. Tu ne regardes plus les époques comme des cases sur une frise. Tu les vois comme une aventure humaine.`, choices: [{ label: "Recommencer depuis le début", targetPageId: "page-1" }, { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" }, { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }], isEnding: true, endingType: "happy" },
-    { id: "page-34", storyId: "les-chemins-du-temps-lecture", image: page34CheminsTemps, title: "Le galet refroidit", text: `Tu restes un moment assis sur ton lit. Tu ranges le galet dans un tiroir. Plus le temps passe, plus certains détails deviennent flous. Le soir, tu touches le galet. Il est froid. Peut-être qu'il attend. Peut-être que c'est toi qui n'es pas prêt.`, choices: [{ label: "Recommencer depuis le début", targetPageId: "page-1" }, { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" }, { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }], isEnding: true, endingType: "neutral" },
+    { id: "page-34", storyId: "les-chemins-du-temps-lecture", image: page34CheminsTemps, title: "Le galet refroidit", text: `Tu restes un moment assis sur ton lit. Tu ranges le galet dans un tiroir. Plus le temps passe, plus certains détails deviennent flous. Le soir, tu touches le galet. Il est froid. Peut-être qu'il attend. Peut-être que c'est toi qui n'es pas prêt(e).`, choices: [{ label: "Recommencer depuis le début", targetPageId: "page-1" }, { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" }, { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }], isEnding: true, endingType: "neutral" },
     { id: "page-35", storyId: "les-chemins-du-temps-lecture", image: page35CheminsTemps, title: "Perdu entre les époques", text: `Tu as voulu aller trop vite. Le galet devient brûlant. Le monde se déchire. Tu te retrouves dans une salle froide avec des vitrines : un musée. Le galet est fendu. Il ne répond plus. Tu es bloqué. L'Histoire n'est pas un jouet.`, choices: [{ label: "Recommencer depuis le début", targetPageId: "page-1" }, { label: "Rejouer depuis la Préhistoire", targetPageId: "page-5" }, { label: "Rejouer depuis les Gaulois", targetPageId: "page-12" }], isEnding: true, endingType: "bad" }
   ]
 };
@@ -3184,15 +3160,6 @@ export function processText(
   let processedText = text
     .replace(/{prenom}/gi, prenom || "Aventurier")
     .replace(/{prénom}/gi, prenom || "Aventurier");
-  
-  // Handle gendered text replacements in main text
-  if (genre === 'feminin') {
-    processedText = processedText.replace(/Tu ressors fier/g, "Tu ressors fière");
-    processedText = processedText.replace(/Tu te sens fier/g, "Tu te sens fière");
-    processedText = processedText.replace(/Tu es fier/g, "Tu es fière");
-    processedText = processedText.replace(/Tu es heureux/g, "Tu es heureuse");
-    processedText = processedText.replace(/Tu es devenu un vrai explorateur/g, "Tu es devenue une vraie exploratrice");
-  }
   
   return processedText;
 }
