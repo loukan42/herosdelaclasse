@@ -6,6 +6,7 @@ import { ChoiceButton } from "@/components/ChoiceButton";
 import { ImageChoiceButton } from "@/components/ImageChoiceButton";
 import { StoryInventory } from "@/components/StoryInventory";
 import { StoryTextEditor } from "@/components/StoryTextEditor";
+import { AccountPromotion } from "@/components/AccountPromotion";
 
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX, Download } from "lucide-react";
 import { SocialShare } from "@/components/SocialShare";
@@ -469,6 +470,9 @@ export default function StoryReader() {
                 <div className="pt-4 border-t border-border/50">
                   <SocialShare />
                 </div>
+
+                {/* Account Promotion for non-authenticated users */}
+                {!isAuthenticated && <AccountPromotion />}
               </div>
             ) : (
               <div className="space-y-3 md:space-y-4">
