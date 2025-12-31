@@ -6,6 +6,7 @@ export interface ChildProfile {
   parent_user_id: string;
   prenom: string;
   avatar: string;
+  genre?: 'masculin' | 'feminin' | null;
   created_at: string;
   updated_at: string;
 }
@@ -16,8 +17,8 @@ interface ChildProfileContextType {
   loading: boolean;
   setActiveProfile: (profile: ChildProfile | null) => void;
   fetchProfiles: () => Promise<void>;
-  createProfile: (prenom: string, avatar: string) => Promise<{ success: boolean; data?: ChildProfile; error?: Error }>;
-  updateProfile: (id: string, updates: { prenom?: string; avatar?: string }) => Promise<{ success: boolean; error?: Error }>;
+  createProfile: (prenom: string, avatar: string, genre?: 'masculin' | 'feminin' | null) => Promise<{ success: boolean; data?: ChildProfile; error?: Error }>;
+  updateProfile: (id: string, updates: { prenom?: string; avatar?: string; genre?: 'masculin' | 'feminin' | null }) => Promise<{ success: boolean; error?: Error }>;
   deleteProfile: (id: string) => Promise<{ success: boolean; error?: Error }>;
 }
 
@@ -81,13 +82,13 @@ export function ChildProfileProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const createProfile = async (prenom: string, avatar: string) => {
+  const createProfile = async (prenom: string, avatar: string, genre?: 'masculin' | 'feminin' | null) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return { success: false, error: new Error('Non authentifié') };
 
     const { data, error } = await supabase
       .from('children_profiles')
-      .insert([{ parent_user_id: user.id, prenom, avatar }])
+      .insert([{ parent_user_id: user.id, prenom, avatar, genre }])
       .select()
       .single();
 
@@ -103,7 +104,7 @@ export function ChildProfileProvider({ children }: { children: ReactNode }) {
     return { success: true, data: data as ChildProfile };
   };
 
-  const updateProfile = async (id: string, updates: { prenom?: string; avatar?: string }) => {
+  const updateProfile = async (id: string, updates: { prenom?: string; avatar?: string; genre?: 'masculin' | 'feminin' | null }) => {
     const { error } = await supabase
       .from('children_profiles')
       .update(updates)

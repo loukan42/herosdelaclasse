@@ -3157,9 +3157,52 @@ export function processText(
   textMasculine?: string,
   textFeminine?: string
 ): string {
-  let processedText = text
+  // Use gender-specific text if available
+  let baseText = text;
+  if (genre === 'masculin' && textMasculine) {
+    baseText = textMasculine;
+  } else if (genre === 'feminin' && textFeminine) {
+    baseText = textFeminine;
+  }
+  
+  // Replace name placeholders
+  let processedText = baseText
     .replace(/{prenom}/gi, prenom || "Aventurier")
     .replace(/{prénom}/gi, prenom || "Aventurier");
+  
+  // Handle inclusive notation like "fier(ère)", "content(e)", "prêt(e)"
+  // For masculine: remove the parentheses and their content
+  // For feminine: replace with feminine form
+  if (genre === 'masculin') {
+    // Remove (e), (ère), (ne), (te), etc. - keep masculine form
+    processedText = processedText
+      .replace(/\(e\)/g, '')
+      .replace(/\(ère\)/g, '')
+      .replace(/\(ne\)/g, '')
+      .replace(/\(te\)/g, '')
+      .replace(/\(ve\)/g, '')
+      .replace(/\(se\)/g, '')
+      .replace(/\(euse\)/g, '')
+      .replace(/héros\/héroïne/gi, 'héros')
+      .replace(/un\(e\)/gi, 'un')
+      .replace(/le\/la/gi, 'le');
+  } else if (genre === 'feminin') {
+    // Apply feminine forms
+    processedText = processedText
+      .replace(/\(e\)/g, 'e')
+      .replace(/fier\(ère\)/gi, 'fière')
+      .replace(/\(ère\)/g, 'ère')
+      .replace(/\(ne\)/g, 'ne')
+      .replace(/\(te\)/g, 'te')
+      .replace(/\(ve\)/g, 've')
+      .replace(/\(se\)/g, 'se')
+      .replace(/curieux\(euse\)/gi, 'curieuse')
+      .replace(/\(euse\)/g, 'euse')
+      .replace(/héros\/héroïne/gi, 'héroïne')
+      .replace(/un\(e\)/gi, 'une')
+      .replace(/le\/la/gi, 'la');
+  }
+  // For 'neutre', keep the inclusive notation as is
   
   return processedText;
 }

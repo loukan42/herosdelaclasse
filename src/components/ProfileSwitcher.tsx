@@ -43,6 +43,7 @@ export function ProfileSwitcher() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [newName, setNewName] = useState('');
   const [newAvatar, setNewAvatar] = useState(AVATARS[0]?.id || 'garcon_1');
+  const [newGenre, setNewGenre] = useState<'masculin' | 'feminin' | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isManageOpen, setIsManageOpen] = useState(false);
   const [profileToDelete, setProfileToDelete] = useState<ChildProfile | null>(null);
@@ -71,7 +72,7 @@ export function ProfileSwitcher() {
     }
 
     setIsSubmitting(true);
-    const result = await createProfile(newName.trim(), newAvatar);
+    const result = await createProfile(newName.trim(), newAvatar, newGenre);
     setIsSubmitting(false);
 
     if (result.success) {
@@ -79,6 +80,7 @@ export function ProfileSwitcher() {
       setIsCreateOpen(false);
       setNewName('');
       setNewAvatar(AVATARS[0]?.id || 'garcon_1');
+      setNewGenre(null);
     } else {
       toast.error('Erreur lors de la création');
     }
@@ -125,6 +127,8 @@ export function ProfileSwitcher() {
               setName={setNewName}
               avatar={newAvatar}
               setAvatar={setNewAvatar}
+              genre={newGenre}
+              setGenre={setNewGenre}
               onSubmit={handleCreateProfile}
               isSubmitting={isSubmitting}
               onCancel={() => setIsCreateOpen(false)}
@@ -217,6 +221,8 @@ export function ProfileSwitcher() {
             setName={setNewName}
             avatar={newAvatar}
             setAvatar={setNewAvatar}
+            genre={newGenre}
+            setGenre={setNewGenre}
             onSubmit={handleCreateProfile}
             isSubmitting={isSubmitting}
             onCancel={() => setIsCreateOpen(false)}
@@ -305,6 +311,8 @@ function CreateProfileForm({
   setName,
   avatar,
   setAvatar,
+  genre,
+  setGenre,
   onSubmit,
   isSubmitting,
   onCancel
@@ -313,6 +321,8 @@ function CreateProfileForm({
   setName: (v: string) => void;
   avatar: string;
   setAvatar: (v: string) => void;
+  genre: 'masculin' | 'feminin' | null;
+  setGenre: (v: 'masculin' | 'feminin' | null) => void;
   onSubmit: () => void;
   isSubmitting: boolean;
   onCancel: () => void;
@@ -327,6 +337,40 @@ function CreateProfileForm({
           placeholder="Comment s'appelle-t-il/elle ?"
           className="h-14 text-lg"
         />
+      </div>
+
+      {/* Genre Selection */}
+      <div className="space-y-4 max-w-md mx-auto">
+        <Label className="text-lg font-semibold block text-center">Fille ou garçon ?</Label>
+        <p className="text-sm text-muted-foreground text-center -mt-2">
+          Les histoires seront adaptées au féminin ou au masculin
+        </p>
+        <div className="flex justify-center gap-4">
+          <button
+            type="button"
+            onClick={() => setGenre('feminin')}
+            className={`
+              flex-1 max-w-[140px] py-4 px-6 rounded-2xl font-bold text-lg transition-all
+              ${genre === 'feminin' 
+                ? 'bg-pink-500 text-white ring-4 ring-pink-300 scale-105' 
+                : 'bg-pink-100 text-pink-700 hover:bg-pink-200'}
+            `}
+          >
+            👧 Fille
+          </button>
+          <button
+            type="button"
+            onClick={() => setGenre('masculin')}
+            className={`
+              flex-1 max-w-[140px] py-4 px-6 rounded-2xl font-bold text-lg transition-all
+              ${genre === 'masculin' 
+                ? 'bg-blue-500 text-white ring-4 ring-blue-300 scale-105' 
+                : 'bg-blue-100 text-blue-700 hover:bg-blue-200'}
+            `}
+          >
+            👦 Garçon
+          </button>
+        </div>
       </div>
 
       <div className="space-y-4">

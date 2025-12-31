@@ -135,6 +135,7 @@ export type Database = {
         Row: {
           avatar: string
           created_at: string
+          genre: string | null
           id: string
           parent_user_id: string
           prenom: string
@@ -143,6 +144,7 @@ export type Database = {
         Insert: {
           avatar?: string
           created_at?: string
+          genre?: string | null
           id?: string
           parent_user_id: string
           prenom: string
@@ -151,6 +153,7 @@ export type Database = {
         Update: {
           avatar?: string
           created_at?: string
+          genre?: string | null
           id?: string
           parent_user_id?: string
           prenom?: string
