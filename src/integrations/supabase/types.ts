@@ -483,6 +483,36 @@ export type Database = {
         }
         Relationships: []
       }
+      story_page_overrides_public_view: {
+        Row: {
+          id: string | null
+          page_id: string | null
+          story_id: string | null
+          text: string | null
+          text_feminine: string | null
+          text_masculine: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string | null
+          page_id?: string | null
+          story_id?: string | null
+          text?: string | null
+          text_feminine?: string | null
+          text_masculine?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string | null
+          page_id?: string | null
+          story_id?: string | null
+          text?: string | null
+          text_feminine?: string | null
+          text_masculine?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_admin_stats: { Args: never; Returns: Json }
