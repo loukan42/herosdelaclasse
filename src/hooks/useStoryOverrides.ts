@@ -18,17 +18,17 @@ let cacheInitialized = false;
 export function useStoryOverrides() {
   const [loading, setLoading] = useState(!cacheInitialized);
 
-  // Fetch all overrides and cache them
+  // Fetch all overrides and cache them (using secure public view without updated_by)
   const fetchAllOverrides = useCallback(async () => {
     if (cacheInitialized) return;
     
     const { data, error } = await supabase
-      .from('story_page_overrides')
+      .from('story_page_overrides_public_view')
       .select('*');
 
     if (!error && data) {
-      data.forEach((override: StoryPageOverride) => {
-        overridesCache[`${override.story_id}-${override.page_id}`] = override;
+      data.forEach((override: any) => {
+        overridesCache[`${override.story_id}-${override.page_id}`] = override as StoryPageOverride;
       });
       cacheInitialized = true;
     }
