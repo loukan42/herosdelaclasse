@@ -188,10 +188,17 @@ export default function Collection() {
                                   </div>
                                 </>
                               ) : (
-                                <div className="w-full h-full bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center border-2 border-dashed border-muted-foreground/20">
-                                  <div className="text-center">
-                                    <Lock className="w-8 h-8 text-muted-foreground/40 mx-auto mb-1" />
-                                    <span className="text-xs text-muted-foreground/40">?</span>
+                                <div className="w-full h-full relative">
+                                  <img
+                                    src={card.image_url}
+                                    alt="Carte verrouillée"
+                                    className="w-full h-full object-cover blur-xl scale-110 opacity-50"
+                                  />
+                                  <div className="absolute inset-0 bg-muted/60 flex items-center justify-center">
+                                    <div className="text-center">
+                                      <Lock className="w-8 h-8 text-muted-foreground/50 mx-auto mb-1" />
+                                      <span className="text-xs text-muted-foreground/50">?</span>
+                                    </div>
                                   </div>
                                 </div>
                               )}
