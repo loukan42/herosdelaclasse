@@ -32,10 +32,10 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
         {/* Card Frame */}
         <div
           className={`
-            relative rounded-xl overflow-hidden
+            relative rounded-lg sm:rounded-xl overflow-hidden
             ${unlocked 
-              ? 'bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300 p-1.5 shadow-[0_8px_30px_rgba(217,164,50,0.4),0_4px_10px_rgba(0,0,0,0.1)]' 
-              : 'bg-gradient-to-br from-slate-400 via-slate-300 to-slate-400 p-1.5 shadow-[0_4px_15px_rgba(0,0,0,0.15)]'
+              ? 'bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300 p-1 sm:p-1.5 shadow-[0_4px_20px_rgba(217,164,50,0.3),0_2px_6px_rgba(0,0,0,0.1)] sm:shadow-[0_8px_30px_rgba(217,164,50,0.4),0_4px_10px_rgba(0,0,0,0.1)]' 
+              : 'bg-gradient-to-br from-slate-400 via-slate-300 to-slate-400 p-1 sm:p-1.5 shadow-[0_2px_10px_rgba(0,0,0,0.1)] sm:shadow-[0_4px_15px_rgba(0,0,0,0.15)]'
             }
           `}
           style={{
@@ -43,7 +43,7 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
           }}
         >
           {/* Inner Card */}
-          <div className="relative rounded-lg overflow-hidden bg-card">
+          <div className="relative rounded-md sm:rounded-lg overflow-hidden bg-card">
             {/* Aspect ratio container - portrait card format */}
             <div className="aspect-[3/4] relative">
               {unlocked ? (
@@ -68,9 +68,9 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
                     transition={{ duration: 0.6, ease: "easeInOut" }}
                   />
                   
-                  {/* Sparkle corners */}
-                  <div className="absolute top-2 right-2 w-2 h-2 bg-amber-400/80 rounded-full animate-pulse" />
-                  <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-amber-300/60 rounded-full animate-pulse delay-300" />
+                  {/* Sparkle corners - hidden on mobile for cleaner look */}
+                  <div className="hidden sm:block absolute top-2 right-2 w-2 h-2 bg-amber-400/80 rounded-full animate-pulse" />
+                  <div className="hidden sm:block absolute bottom-2 left-2 w-1.5 h-1.5 bg-amber-300/60 rounded-full animate-pulse delay-300" />
                 </>
               ) : (
                 <>
@@ -87,10 +87,10 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
                     {/* Mystery overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-slate-400/40 via-slate-500/50 to-slate-600/40 flex items-center justify-center">
                       <div className="text-center transform-gpu">
-                        <div className="w-14 h-14 rounded-full bg-slate-600/30 backdrop-blur-sm flex items-center justify-center mx-auto mb-2 border border-slate-500/20">
-                          <Lock className="w-7 h-7 text-slate-500/70" />
+                        <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-slate-600/30 backdrop-blur-sm flex items-center justify-center mx-auto mb-1 sm:mb-2 border border-slate-500/20">
+                          <Lock className="w-5 h-5 sm:w-7 sm:h-7 text-slate-500/70" />
                         </div>
-                        <span className="text-2xl font-bold text-slate-500/50">?</span>
+                        <span className="text-xl sm:text-2xl font-bold text-slate-500/50">?</span>
                       </div>
                     </div>
                   </div>
@@ -101,7 +101,7 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
           
           {/* Reflective edge effect for unlocked cards */}
           {unlocked && (
-            <div className="absolute inset-0 rounded-xl pointer-events-none border border-white/30" />
+            <div className="absolute inset-0 rounded-lg sm:rounded-xl pointer-events-none border border-white/30" />
           )}
         </div>
         
@@ -121,13 +121,13 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
       </motion.div>
 
       {/* Title below card */}
-      <div className="mt-3 text-center w-full px-1">
+      <div className="mt-2 sm:mt-3 text-center w-full px-0.5 sm:px-1">
         {unlocked ? (
-          <p className="font-medium text-sm text-foreground line-clamp-2 leading-tight">
+          <p className="font-medium text-xs sm:text-sm text-foreground line-clamp-2 leading-tight">
             {title}
           </p>
         ) : (
-          <p className="text-sm text-muted-foreground/60 italic">
+          <p className="text-xs sm:text-sm text-muted-foreground/60 italic">
             ???
           </p>
         )}
