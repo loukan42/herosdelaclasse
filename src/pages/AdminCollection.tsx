@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { ArrowLeft, Plus, Trash2, Upload, Folder, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Upload, Folder, Image as ImageIcon, Check, X } from 'lucide-react';
 import { useAdmin } from '@/hooks/useAdmin';
 import { useCollection } from '@/hooks/useCollection';
 import { Button } from '@/components/ui/button';
@@ -35,6 +35,7 @@ export default function AdminCollection() {
     updateTheme,
     deleteTheme,
     createCard,
+    updateCardTitle,
     deleteCard
   } = useCollection();
   const { toast } = useToast();
@@ -45,13 +46,14 @@ export default function AdminCollection() {
   const [editingThemeId, setEditingThemeId] = useState<string | null>(null);
   const [isSavingTheme, setIsSavingTheme] = useState(false);
 
-  // Card dialog state
-  const [isCardDialogOpen, setIsCardDialogOpen] = useState(false);
-  const [selectedThemeId, setSelectedThemeId] = useState<string | null>(null);
-  const [cardTitle, setCardTitle] = useState('');
-  const [cardImage, setCardImage] = useState<File | null>(null);
-  const [cardPreview, setCardPreview] = useState<string | null>(null);
-  const [isSavingCard, setIsSavingCard] = useState(false);
+  // Multi-card upload state
+  const [selectedThemeForUpload, setSelectedThemeForUpload] = useState<string | null>(null);
+  const [uploadingCards, setUploadingCards] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Inline title editing state
+  const [editingCardId, setEditingCardId] = useState<string | null>(null);
+  const [editingCardTitle, setEditingCardTitle] = useState('');
 
   // Delete confirmation state
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: 'theme' | 'card'; id: string } | null>(null);
@@ -112,38 +114,62 @@ export default function AdminCollection() {
     setDeleteConfirm(null);
   };
 
-  // Card handlers
-  const handleOpenCardDialog = (themeId: string) => {
-    setSelectedThemeId(themeId);
-    setCardTitle('');
-    setCardImage(null);
-    setCardPreview(null);
-    setIsCardDialogOpen(true);
+  // Multi-card upload handlers
+  const handleOpenFileDialog = (themeId: string) => {
+    setSelectedThemeForUpload(themeId);
+    fileInputRef.current?.click();
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setCardImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setCardPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+  const handleFilesSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0 || !selectedThemeForUpload) return;
+
+    setUploadingCards(true);
+    let successCount = 0;
+
+    for (const file of Array.from(files)) {
+      // Use filename without extension as default title
+      const defaultTitle = file.name.replace(/\.[^/.]+$/, '');
+      const card = await createCard(selectedThemeForUpload, defaultTitle, file);
+      if (card) successCount++;
+    }
+
+    toast({ 
+      title: 'Cartes ajoutées', 
+      description: `${successCount} carte(s) ajoutée(s) avec succès.` 
+    });
+
+    setUploadingCards(false);
+    setSelectedThemeForUpload(null);
+    
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
-  const handleSaveCard = async () => {
-    if (!cardTitle.trim() || !cardImage || !selectedThemeId) return;
-    setIsSavingCard(true);
+  // Inline title editing handlers
+  const handleStartEditTitle = (cardId: string, currentTitle: string) => {
+    setEditingCardId(cardId);
+    setEditingCardTitle(currentTitle);
+  };
 
-    const card = await createCard(selectedThemeId, cardTitle.trim(), cardImage);
-    if (card) {
-      toast({ title: 'Carte créée', description: 'La nouvelle carte a été ajoutée.' });
+  const handleSaveCardTitle = async () => {
+    if (!editingCardId || !editingCardTitle.trim()) {
+      setEditingCardId(null);
+      return;
     }
 
-    setIsSavingCard(false);
-    setIsCardDialogOpen(false);
+    const success = await updateCardTitle(editingCardId, editingCardTitle.trim());
+    if (success) {
+      toast({ title: 'Titre modifié', description: 'Le titre de la carte a été mis à jour.' });
+    }
+    setEditingCardId(null);
+  };
+
+  const handleCancelEditTitle = () => {
+    setEditingCardId(null);
+    setEditingCardTitle('');
   };
 
   const handleDeleteCard = async () => {
@@ -158,6 +184,16 @@ export default function AdminCollection() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Hidden file input for multi-upload */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        className="hidden"
+        onChange={handleFilesSelected}
+      />
+
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
         <div className="container mx-auto px-4 py-3">
@@ -217,11 +253,14 @@ export default function AdminCollection() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleOpenCardDialog(theme.id)}
+                        onClick={() => handleOpenFileDialog(theme.id)}
+                        disabled={uploadingCards}
                         className="gap-1"
                       >
                         <Upload className="w-4 h-4" />
-                        Ajouter carte
+                        {uploadingCards && selectedThemeForUpload === theme.id 
+                          ? 'Import...' 
+                          : 'Ajouter cartes'}
                       </Button>
                       <Button
                         variant="destructive"
@@ -245,24 +284,58 @@ export default function AdminCollection() {
                       {themeCards.map((card) => (
                         <div 
                           key={card.id}
-                          className="relative group aspect-square rounded-xl overflow-hidden shadow-md"
+                          className="relative group"
                         >
-                          <img
-                            src={card.image_url}
-                            alt={card.title}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                            <p className="text-white text-sm font-medium text-center truncate">
-                              {card.title}
-                            </p>
+                          <div className="aspect-square rounded-xl overflow-hidden shadow-md">
+                            <img
+                              src={card.image_url}
+                              alt={card.title}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              onClick={() => setDeleteConfirm({ type: 'card', id: card.id })}
+                              className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
                           </div>
-                          <button
-                            onClick={() => setDeleteConfirm({ type: 'card', id: card.id })}
-                            className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
+                          
+                          {/* Inline title editing */}
+                          <div className="mt-2">
+                            {editingCardId === card.id ? (
+                              <div className="flex items-center gap-1">
+                                <Input
+                                  value={editingCardTitle}
+                                  onChange={(e) => setEditingCardTitle(e.target.value)}
+                                  className="h-8 text-sm"
+                                  autoFocus
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleSaveCardTitle();
+                                    if (e.key === 'Escape') handleCancelEditTitle();
+                                  }}
+                                />
+                                <button
+                                  onClick={handleSaveCardTitle}
+                                  className="p-1 text-green-600 hover:bg-green-100 rounded"
+                                >
+                                  <Check className="w-4 h-4" />
+                                </button>
+                                <button
+                                  onClick={handleCancelEditTitle}
+                                  className="p-1 text-red-600 hover:bg-red-100 rounded"
+                                >
+                                  <X className="w-4 h-4" />
+                                </button>
+                              </div>
+                            ) : (
+                              <Input
+                                value={card.title}
+                                readOnly
+                                onClick={() => handleStartEditTitle(card.id, card.title)}
+                                className="h-8 text-sm cursor-pointer hover:border-primary"
+                              />
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -301,61 +374,6 @@ export default function AdminCollection() {
               disabled={!themeTitle.trim() || isSavingTheme}
             >
               {isSavingTheme ? 'Enregistrement...' : 'Enregistrer'}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Card Dialog */}
-      <Dialog open={isCardDialogOpen} onOpenChange={setIsCardDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Ajouter une carte</DialogTitle>
-            <DialogDescription>
-              Importez une image et donnez un titre à la carte.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <Input
-              placeholder="Titre de la carte"
-              value={cardTitle}
-              onChange={(e) => setCardTitle(e.target.value)}
-            />
-            
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">Image</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="block w-full text-sm text-muted-foreground
-                  file:mr-4 file:py-2 file:px-4
-                  file:rounded-full file:border-0
-                  file:text-sm file:font-semibold
-                  file:bg-primary file:text-primary-foreground
-                  hover:file:bg-primary/90 cursor-pointer"
-              />
-            </div>
-
-            {cardPreview && (
-              <div className="relative w-32 h-32 mx-auto rounded-xl overflow-hidden shadow-md">
-                <img
-                  src={cardPreview}
-                  alt="Aperçu"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
-          </div>
-          <div className="flex justify-end gap-3">
-            <Button variant="outline" onClick={() => setIsCardDialogOpen(false)}>
-              Annuler
-            </Button>
-            <Button 
-              onClick={handleSaveCard} 
-              disabled={!cardTitle.trim() || !cardImage || isSavingCard}
-            >
-              {isSavingCard ? 'Enregistrement...' : 'Ajouter'}
             </Button>
           </div>
         </DialogContent>

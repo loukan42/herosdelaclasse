@@ -245,6 +245,22 @@ export function useCollection() {
     return data;
   }, [cards]);
 
+  // Admin: Update card title
+  const updateCardTitle = useCallback(async (id: string, title: string) => {
+    const { error } = await supabase
+      .from('collection_cards')
+      .update({ title })
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error updating card title:', error);
+      return false;
+    }
+
+    setCards(prev => prev.map(c => c.id === id ? { ...c, title } : c));
+    return true;
+  }, []);
+
   // Admin: Delete card
   const deleteCard = useCallback(async (id: string) => {
     const card = cards.find(c => c.id === id);
@@ -290,6 +306,7 @@ export function useCollection() {
     updateTheme,
     deleteTheme,
     createCard,
+    updateCardTitle,
     deleteCard,
     // Stats
     lockedCardsCount,
