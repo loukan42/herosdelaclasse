@@ -64,41 +64,34 @@ export function WheelOptions({
 
       {/* Wheel Options - Show when no wheel is active */}
       {activeWheel === null && (
-        <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+        <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
           {/* Single Card Option */}
           <motion.button
             onClick={() => canSpin && canAffordSingle && setActiveWheel('single')}
             disabled={!canSpin || !canAffordSingle}
             className={`
-              relative overflow-hidden rounded-2xl text-left transition-all duration-300
-              bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 p-1
+              relative flex flex-col items-center transition-all duration-300
               ${canSpin && canAffordSingle 
-                ? 'cursor-pointer hover:shadow-xl hover:shadow-blue-500/30 hover:-translate-y-1' 
+                ? 'cursor-pointer' 
                 : 'cursor-not-allowed opacity-60'
               }
             `}
-            whileHover={canSpin && canAffordSingle ? { scale: 1.02 } : {}}
+            whileHover={canSpin && canAffordSingle ? { scale: 1.05, y: -4 } : {}}
             whileTap={canSpin && canAffordSingle ? { scale: 0.98 } : {}}
           >
-            <div className="relative bg-gradient-to-br from-sky-100 to-blue-200 dark:from-sky-900 dark:to-blue-950 rounded-xl overflow-hidden">
-              <div className="p-3 flex justify-center">
-                <img 
-                  src={cardSingleImage} 
-                  alt="Carte Simple" 
-                  className="w-24 h-auto drop-shadow-lg"
-                />
-              </div>
-              {/* Info section */}
-              <div className="bg-gradient-to-t from-blue-600/90 to-blue-500/80 p-3 text-center">
-                <h3 className="font-display text-sm font-bold text-white mb-1">Carte Simple</h3>
-                {/* Price badge */}
-                <div className={`
-                  inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold
-                  ${canAffordSingle ? 'bg-white/20 text-white' : 'bg-black/20 text-white/60'}
-                `}>
-                  <Star className={`w-3 h-3 ${canAffordSingle ? 'fill-amber-300 text-amber-300' : ''}`} />
-                  <span>{SINGLE_COST} pt</span>
-                </div>
+            <img 
+              src={cardSingleImage} 
+              alt="Carte Simple" 
+              className="w-28 sm:w-32 h-auto drop-shadow-xl"
+            />
+            <div className="mt-3 text-center">
+              <h3 className="font-display text-sm font-bold text-foreground mb-1">Carte Simple</h3>
+              <div className={`
+                inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold
+                ${canAffordSingle ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}
+              `}>
+                <Star className={`w-3 h-3 ${canAffordSingle ? 'fill-amber-400 text-amber-400' : ''}`} />
+                <span>{SINGLE_COST} pt</span>
               </div>
             </div>
           </motion.button>
@@ -108,53 +101,46 @@ export function WheelOptions({
             onClick={() => canSpin && canAffordBooster && hasEnoughCardsForBooster && setActiveWheel('booster')}
             disabled={!canSpin || !canAffordBooster || !hasEnoughCardsForBooster}
             className={`
-              relative overflow-hidden rounded-2xl text-left transition-all duration-300
-              bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 p-1
+              relative flex flex-col items-center transition-all duration-300
               ${canSpin && canAffordBooster && hasEnoughCardsForBooster
-                ? 'cursor-pointer hover:shadow-xl hover:shadow-orange-500/30 hover:-translate-y-1' 
+                ? 'cursor-pointer' 
                 : 'cursor-not-allowed opacity-60'
               }
             `}
-            whileHover={canSpin && canAffordBooster && hasEnoughCardsForBooster ? { scale: 1.02 } : {}}
+            whileHover={canSpin && canAffordBooster && hasEnoughCardsForBooster ? { scale: 1.05, y: -4 } : {}}
             whileTap={canSpin && canAffordBooster && hasEnoughCardsForBooster ? { scale: 0.98 } : {}}
           >
-            <div className="relative bg-gradient-to-br from-amber-100 to-orange-200 dark:from-amber-900 dark:to-orange-950 rounded-xl overflow-hidden">
-              {/* Premium badge */}
-              <div className="absolute top-2 right-2 z-10">
-                <span className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-red-500 text-white text-[10px] font-bold rounded-full shadow-lg border border-white/30">
-                  x5
-                </span>
-              </div>
-              
-              <div className="p-3 flex justify-center">
-                <img 
-                  src={cardBoosterImage} 
-                  alt="Pack Booster" 
-                  className="w-24 h-auto drop-shadow-lg"
-                />
-              </div>
-              
-              {/* Info section */}
-              <div className="bg-gradient-to-t from-orange-600/90 to-amber-500/80 p-3 text-center">
-                <h3 className="font-display text-sm font-bold text-white mb-1">Pack Booster</h3>
-                {/* Price badge */}
-                <div className={`
-                  inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold
-                  ${canAffordBooster ? 'bg-white/20 text-white' : 'bg-black/20 text-white/60'}
-                `}>
-                  <Star className={`w-3 h-3 ${canAffordBooster ? 'fill-amber-300 text-amber-300' : ''}`} />
-                  <span>{BOOSTER_COST} pts</span>
-                </div>
-              </div>
-
-              {!hasEnoughCardsForBooster && lockedCardsCount > 0 && (
-                <div className="absolute inset-0 bg-black/60 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                  <p className="text-white text-xs px-2 text-center font-medium">
-                    Plus assez de cartes
-                  </p>
-                </div>
-              )}
+            {/* Premium badge */}
+            <div className="absolute -top-1 -right-1 z-10">
+              <span className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-red-500 text-white text-[10px] font-bold rounded-full shadow-lg border border-white/30">
+                x5
+              </span>
             </div>
+            
+            <img 
+              src={cardBoosterImage} 
+              alt="Pack Booster" 
+              className="w-28 sm:w-32 h-auto drop-shadow-xl"
+            />
+            
+            <div className="mt-3 text-center">
+              <h3 className="font-display text-sm font-bold text-foreground mb-1">Pack Booster</h3>
+              <div className={`
+                inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold
+                ${canAffordBooster ? 'bg-amber-500/20 text-amber-600' : 'bg-muted text-muted-foreground'}
+              `}>
+                <Star className={`w-3 h-3 ${canAffordBooster ? 'fill-amber-400 text-amber-400' : ''}`} />
+                <span>{BOOSTER_COST} pts</span>
+              </div>
+            </div>
+
+            {!hasEnoughCardsForBooster && lockedCardsCount > 0 && (
+              <div className="absolute inset-0 bg-background/80 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <p className="text-muted-foreground text-xs px-2 text-center font-medium">
+                  Plus assez de cartes
+                </p>
+              </div>
+            )}
           </motion.button>
         </div>
       )}
