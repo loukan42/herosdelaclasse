@@ -7,6 +7,7 @@ import logo from "@/assets/logo.png";
 import profilsImage from "@/assets/features/profils.png";
 import historiqueImage from "@/assets/features/historique.png";
 import suiviImage from "@/assets/features/suivi.png";
+import cartesImage from "@/assets/features/cartes.png";
 import { Footer } from "@/components/Footer";
 import { ProfileSwitcher } from "@/components/ProfileSwitcher";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -95,7 +96,7 @@ export default function GradesDashboard() {
               {t('account.whyCreate')}
             </h2>
             
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <div className="text-center">
                 {language === 'fr' && (
                   <img 
@@ -132,6 +133,19 @@ export default function GradesDashboard() {
                 )}
                 <p className="text-muted-foreground text-sm">
                   {t('account.trackingDesc')}
+                </p>
+              </div>
+
+              <div className="text-center">
+                {language === 'fr' && (
+                  <img 
+                    src={cartesImage} 
+                    alt="Cartes à collectionner" 
+                    className="w-full rounded-3xl shadow-lg mb-4"
+                  />
+                )}
+                <p className="text-muted-foreground text-sm">
+                  {t('account.collectionDesc')}
                 </p>
               </div>
             </div>
