@@ -176,6 +176,10 @@ export default function Register() {
                 placeholder="email@exemple.com"
                 className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
               />
+              <p className="text-xs text-white/60 flex items-center gap-1.5">
+                <span className="inline-block w-1 h-1 rounded-full bg-golden/60"></span>
+                {t('auth.emailNotice')}
+              </p>
               {errors.email && (
                 <p className="text-xs sm:text-sm text-red-300">{errors.email}</p>
               )}

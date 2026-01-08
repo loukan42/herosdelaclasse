@@ -67,6 +67,7 @@ const translations: Record<Language, Record<string, string>> = {
     'auth.accountExists': 'Ce compte existe déjà.',
     'auth.registerSuccess': 'Compte créé !',
     'auth.registerSuccessDesc': 'Bienvenue parmi les héros !',
+    'auth.emailNotice': 'Aucun email ne vous sera envoyé. Il sert uniquement à vous connecter.',
     
     // User Menu
     'menu.myAccount': 'Mon compte',
@@ -292,6 +293,7 @@ const translations: Record<Language, Record<string, string>> = {
     'auth.accountExists': 'This account already exists.',
     'auth.registerSuccess': 'Account created!',
     'auth.registerSuccessDesc': 'Welcome among the heroes!',
+    'auth.emailNotice': 'No emails will be sent. Your email is only used to log in.',
     
     // User Menu
     'menu.myAccount': 'My account',
@@ -515,6 +517,7 @@ const translations: Record<Language, Record<string, string>> = {
     'auth.accountExists': 'Dieses Konto existiert bereits.',
     'auth.registerSuccess': 'Konto erstellt!',
     'auth.registerSuccessDesc': 'Willkommen bei den Helden!',
+    'auth.emailNotice': 'Es werden keine E-Mails gesendet. Ihre E-Mail dient nur zur Anmeldung.',
     'menu.myAccount': 'Mein Konto',
     'menu.changeAvatar': 'Avatar ändern',
     'menu.myStories': 'Meine Geschichten',
@@ -698,6 +701,7 @@ const translations: Record<Language, Record<string, string>> = {
     'auth.accountExists': 'Этот аккаунт уже существует.',
     'auth.registerSuccess': 'Аккаунт создан!',
     'auth.registerSuccessDesc': 'Добро пожаловать к героям!',
+    'auth.emailNotice': 'Письма не отправляются. Email используется только для входа.',
     'menu.myAccount': 'Мой аккаунт',
     'menu.changeAvatar': 'Изменить аватар',
     'menu.myStories': 'Мои истории',
@@ -881,6 +885,7 @@ const translations: Record<Language, Record<string, string>> = {
     'auth.accountExists': 'Esta cuenta ya existe.',
     'auth.registerSuccess': '¡Cuenta creada!',
     'auth.registerSuccessDesc': '¡Bienvenido entre los héroes!',
+    'auth.emailNotice': 'No se enviarán correos. El email solo se usa para iniciar sesión.',
     'menu.myAccount': 'Mi cuenta',
     'menu.changeAvatar': 'Cambiar avatar',
     'menu.myStories': 'Mis historias',
@@ -1064,6 +1069,7 @@ const translations: Record<Language, Record<string, string>> = {
     'auth.accountExists': '此账户已存在。',
     'auth.registerSuccess': '账户已创建！',
     'auth.registerSuccessDesc': '欢迎加入英雄！',
+    'auth.emailNotice': '不会发送任何邮件。邮箱仅用于登录。',
     'menu.myAccount': '我的账户',
     'menu.changeAvatar': '更换头像',
     'menu.myStories': '我的故事',
@@ -1247,6 +1253,7 @@ const translations: Record<Language, Record<string, string>> = {
     'auth.accountExists': 'Esta conta já existe.',
     'auth.registerSuccess': 'Conta criada!',
     'auth.registerSuccessDesc': 'Bem-vindo aos heróis!',
+    'auth.emailNotice': 'Nenhum email será enviado. Seu email é usado apenas para login.',
     'menu.myAccount': 'Minha conta',
     'menu.changeAvatar': 'Mudar avatar',
     'menu.myStories': 'Minhas histórias',
