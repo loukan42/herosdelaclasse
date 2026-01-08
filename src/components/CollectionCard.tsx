@@ -146,7 +146,7 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
 
       {/* Full-size card modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-md sm:max-w-lg p-0 bg-transparent border-none shadow-none overflow-visible">
+        <DialogContent className="max-w-md sm:max-w-lg p-0 bg-transparent border-none shadow-none overflow-visible [&>button]:hidden">
           <DialogTitle className="sr-only">{title}</DialogTitle>
           <AnimatePresence>
             {isOpen && (
