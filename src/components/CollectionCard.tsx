@@ -146,7 +146,7 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
 
       {/* Full-size card modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-md sm:max-w-lg p-0 bg-transparent border-none shadow-none overflow-visible [&>button]:hidden">
+        <DialogContent className="max-w-[90vw] sm:max-w-md md:max-w-lg lg:max-w-xl p-0 bg-transparent border-none shadow-none overflow-visible [&>button]:hidden">
           <DialogTitle className="sr-only">{title}</DialogTitle>
           <AnimatePresence>
             {isOpen && (
@@ -155,20 +155,21 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
                 animate={{ scale: 1, opacity: 1, rotateY: 0 }}
                 exit={{ scale: 0.8, opacity: 0, rotateY: 15 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="relative"
+                className="relative flex flex-col items-center"
               >
                 {/* Close button */}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute -top-3 -right-3 z-10 w-10 h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg border border-border hover:bg-background transition-colors"
+                  className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg border border-border hover:bg-background transition-colors"
                 >
-                  <X className="w-5 h-5 text-foreground" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
                 </button>
 
-                {/* Large Card */}
-                <div className="bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300 p-2 sm:p-3 rounded-2xl shadow-[0_20px_60px_rgba(217,164,50,0.5),0_10px_30px_rgba(0,0,0,0.2)]">
-                  <div className="rounded-xl overflow-hidden bg-card">
-                    <div className="aspect-[3/4] relative">
+                {/* Large Card - much bigger display */}
+                <div className="bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300 p-2 sm:p-3 md:p-4 rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(217,164,50,0.5),0_10px_30px_rgba(0,0,0,0.2)]">
+                  <div className="rounded-xl sm:rounded-2xl overflow-hidden bg-card">
+                    {/* Card image - large and prominent */}
+                    <div className="w-[70vw] max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] aspect-[3/4] relative">
                       <img
                         src={imageUrl}
                         alt={title}
@@ -188,23 +189,41 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
                       />
                       
                       {/* Sparkles */}
-                      <div className="absolute top-4 right-4 w-3 h-3 bg-amber-400/80 rounded-full animate-pulse" />
-                      <div className="absolute top-6 right-8 w-2 h-2 bg-amber-300/60 rounded-full animate-pulse delay-150" />
-                      <div className="absolute bottom-4 left-4 w-2.5 h-2.5 bg-amber-300/70 rounded-full animate-pulse delay-300" />
-                      <div className="absolute bottom-6 left-8 w-1.5 h-1.5 bg-amber-400/50 rounded-full animate-pulse delay-500" />
+                      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-2 h-2 sm:w-3 sm:h-3 bg-amber-400/80 rounded-full animate-pulse" />
+                      <div className="absolute top-5 right-6 sm:top-6 sm:right-8 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-amber-300/60 rounded-full animate-pulse delay-150" />
+                      <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-amber-300/70 rounded-full animate-pulse delay-300" />
+                      <div className="absolute bottom-5 left-6 sm:bottom-6 sm:left-8 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-amber-400/50 rounded-full animate-pulse delay-500" />
                     </div>
                   </div>
                   
+                  {/* Glow animation */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none"
+                    animate={{
+                      boxShadow: [
+                        '0 0 20px rgba(251, 191, 36, 0.3)',
+                        '0 0 40px rgba(251, 191, 36, 0.5)',
+                        '0 0 20px rgba(251, 191, 36, 0.3)',
+                      ]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  
                   {/* Reflective edge */}
-                  <div className="absolute inset-0 rounded-2xl pointer-events-none border border-white/40" />
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none border border-white/40" />
                 </div>
 
-                {/* Title */}
-                <div className="mt-4 text-center">
-                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white drop-shadow-lg">
+                {/* Title - below the card */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-4 sm:mt-6 text-center px-4"
+                >
+                  <h3 className="font-display text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white drop-shadow-lg">
                     {title}
                   </h3>
-                </div>
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>

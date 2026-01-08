@@ -218,7 +218,7 @@ export function WheelOptions({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
             onClick={() => setShowBoosterModal(false)}
           >
             <motion.div
@@ -226,53 +226,80 @@ export function WheelOptions({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: 'spring', damping: 15 }}
-              className="bg-gradient-to-br from-amber-400 to-orange-500 p-1 rounded-3xl shadow-2xl max-w-lg w-full"
+              className="w-full max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="bg-background rounded-3xl p-6">
-                <h3 className="font-display text-2xl font-bold text-center mb-6">
-                  🎉 Pack Booster ouvert !
-                </h3>
-                
-                <div className="grid grid-cols-5 gap-2 sm:gap-3 mb-6">
-                  {boosterResults.map((card, index) => (
-                    <motion.div
-                      key={card.id}
-                      initial={{ rotateY: 180, opacity: 0 }}
-                      animate={{ rotateY: 0, opacity: 1 }}
-                      transition={{ delay: index * 0.15, duration: 0.5 }}
-                      className="relative aspect-square rounded-xl overflow-hidden shadow-lg"
-                    >
-                      <img
-                        src={card.image_url}
-                        alt={card.title}
-                        className="w-full h-full object-cover"
-                      />
+              {/* Title */}
+              <motion.h3 
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-6 sm:mb-8 drop-shadow-lg"
+              >
+                🎉 Pack Booster ouvert !
+              </motion.h3>
+              
+              {/* Cards Grid - responsive layout */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6 mb-6">
+                {boosterResults.map((card, index) => (
+                  <motion.div
+                    key={card.id}
+                    initial={{ rotateY: 180, opacity: 0, scale: 0.8 }}
+                    animate={{ rotateY: 0, opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.15, duration: 0.5, type: 'spring' }}
+                    className="flex flex-col items-center"
+                  >
+                    {/* Card Frame */}
+                    <div className="relative bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300 p-1.5 sm:p-2 rounded-xl sm:rounded-2xl shadow-[0_8px_30px_rgba(217,164,50,0.5),0_4px_10px_rgba(0,0,0,0.2)]">
+                      <div className="rounded-lg sm:rounded-xl overflow-hidden bg-card">
+                        <div className="aspect-[3/4] relative">
+                          <img
+                            src={card.image_url}
+                            alt={card.title}
+                            className="w-full h-full object-contain bg-gradient-to-br from-slate-100 to-slate-50"
+                          />
+                          {/* Shine effect */}
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent pointer-events-none"
+                            initial={{ x: "-100%" }}
+                            animate={{ x: "200%" }}
+                            transition={{ 
+                              duration: 1.5, 
+                              ease: "easeInOut",
+                              delay: 0.3 + index * 0.15
+                            }}
+                          />
+                        </div>
+                      </div>
+                      {/* Glow effect */}
                       <motion.div
-                        className="absolute inset-0 rounded-xl"
+                        className="absolute inset-0 rounded-xl sm:rounded-2xl pointer-events-none"
                         animate={{
                           boxShadow: [
-                            '0 0 10px rgba(251, 191, 36, 0.5)',
-                            '0 0 20px rgba(251, 191, 36, 0.8)',
-                            '0 0 10px rgba(251, 191, 36, 0.5)',
+                            '0 0 15px rgba(251, 191, 36, 0.4)',
+                            '0 0 25px rgba(251, 191, 36, 0.7)',
+                            '0 0 15px rgba(251, 191, 36, 0.4)',
                           ]
                         }}
-                        transition={{ duration: 1, repeat: Infinity }}
+                        transition={{ duration: 1.5, repeat: Infinity, delay: index * 0.2 }}
                       />
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="text-center space-y-2">
-                  {boosterResults.map(card => (
-                    <p key={card.id} className="text-sm text-muted-foreground">{card.title}</p>
-                  ))}
-                </div>
-
-                <p className="text-center text-muted-foreground mt-4 text-sm">
-                  Cliquez pour fermer
-                </p>
+                    </div>
+                    
+                    {/* Card Title */}
+                    <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base font-medium text-white text-center line-clamp-2 drop-shadow-md">
+                      {card.title}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
+
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+                className="text-center text-white/60 text-sm"
+              >
+                Cliquez n'importe où pour fermer
+              </motion.p>
             </motion.div>
           </motion.div>
         )}
