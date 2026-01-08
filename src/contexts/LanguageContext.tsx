@@ -255,6 +255,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Inventory
     'inventory.title': 'Inventaire',
     'inventory.newItem': 'Nouvel objet !',
+
+    // Reward
+    'reward.point': 'point',
+    'reward.congratulations': 'Bravo !',
+    'reward.earnedPoint': 'Tu as gagné un point pour débloquer une carte à collectionner !',
+    'reward.tapToContinue': 'Touche pour continuer',
   },
   en: {
     // Navigation
@@ -482,6 +488,12 @@ const translations: Record<Language, Record<string, string>> = {
     'editor.restoreError': 'Error while restoring',
     'editor.restoreOriginal': 'Restore original',
     'editor.modified': 'modified',
+
+    // Reward
+    'reward.point': 'point',
+    'reward.congratulations': 'Congratulations!',
+    'reward.earnedPoint': 'You earned a point to unlock a collectible card!',
+    'reward.tapToContinue': 'Tap to continue',
   },
   de: {
     'nav.back': 'Zurück',
@@ -666,6 +678,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Inventory
     'inventory.title': 'Inventar',
     'inventory.newItem': 'Neuer Gegenstand!',
+
+    // Reward
+    'reward.point': 'Punkt',
+    'reward.congratulations': 'Herzlichen Glückwunsch!',
+    'reward.earnedPoint': 'Du hast einen Punkt verdient, um eine Sammelkarte freizuschalten!',
+    'reward.tapToContinue': 'Tippen zum Fortfahren',
   },
   ru: {
     'nav.back': 'Назад',
@@ -850,6 +868,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Inventory
     'inventory.title': 'Инвентарь',
     'inventory.newItem': 'Новый предмет!',
+
+    // Reward
+    'reward.point': 'очко',
+    'reward.congratulations': 'Поздравляем!',
+    'reward.earnedPoint': 'Вы заработали очко для разблокировки коллекционной карточки!',
+    'reward.tapToContinue': 'Нажмите, чтобы продолжить',
   },
   es: {
     'nav.back': 'Volver',
@@ -1034,6 +1058,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Inventory
     'inventory.title': 'Inventario',
     'inventory.newItem': '¡Nuevo objeto!',
+
+    // Reward
+    'reward.point': 'punto',
+    'reward.congratulations': '¡Felicitaciones!',
+    'reward.earnedPoint': '¡Ganaste un punto para desbloquear una carta coleccionable!',
+    'reward.tapToContinue': 'Toca para continuar',
   },
   zh: {
     'nav.back': '返回',
@@ -1218,6 +1248,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Inventory
     'inventory.title': '物品栏',
     'inventory.newItem': '新物品！',
+
+    // Reward
+    'reward.point': '积分',
+    'reward.congratulations': '恭喜！',
+    'reward.earnedPoint': '你获得了一个积分，可以解锁一张收藏卡！',
+    'reward.tapToContinue': '点击继续',
   },
   'pt-br': {
     'nav.back': 'Voltar',
@@ -1402,6 +1438,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Inventory
     'inventory.title': 'Inventário',
     'inventory.newItem': 'Novo item!',
+
+    // Reward
+    'reward.point': 'ponto',
+    'reward.congratulations': 'Parabéns!',
+    'reward.earnedPoint': 'Você ganhou um ponto para desbloquear uma carta colecionável!',
+    'reward.tapToContinue': 'Toque para continuar',
   },
 };
 

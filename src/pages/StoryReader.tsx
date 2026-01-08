@@ -7,6 +7,7 @@ import { ImageChoiceButton } from "@/components/ImageChoiceButton";
 import { StoryInventory } from "@/components/StoryInventory";
 import { StoryTextEditor } from "@/components/StoryTextEditor";
 import { AccountPromotion } from "@/components/AccountPromotion";
+import { PointRewardAnimation } from "@/components/PointRewardAnimation";
 
 import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX, Download } from "lucide-react";
 import { SocialShare } from "@/components/SocialShare";
@@ -36,6 +37,7 @@ export default function StoryReader() {
   const [translatedStoryTitle, setTranslatedStoryTitle] = useState<string | null>(null);
   const [translatedPageTitle, setTranslatedPageTitle] = useState<string | null>(null);
   const [translatedChoices, setTranslatedChoices] = useState<string[] | null>(null);
+  const [showPointReward, setShowPointReward] = useState(false);
   const previousVisitedRef = useRef<string[]>([]);
   const hasMarkedCompleteRef = useRef<string | null>(null);
 
@@ -105,6 +107,8 @@ export default function StoryReader() {
       markCompleted(page.endingType);
       // Add a point for completing the story
       addPoints(1);
+      // Show the reward animation
+      setShowPointReward(true);
     }
   }, [isAuthenticated, page?.isEnding, page?.endingType, markCompleted, pageId, addPoints]);
 
@@ -523,6 +527,12 @@ export default function StoryReader() {
           </BookPage>
         </article>
       </div>
+
+      {/* Point reward animation for authenticated users */}
+      <PointRewardAnimation 
+        show={showPointReward} 
+        onComplete={() => setShowPointReward(false)} 
+      />
     </main>
   );
 }
