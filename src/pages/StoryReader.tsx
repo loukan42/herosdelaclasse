@@ -9,10 +9,9 @@ import { StoryTextEditor } from "@/components/StoryTextEditor";
 import { AccountPromotion } from "@/components/AccountPromotion";
 import { PointRewardAnimation } from "@/components/PointRewardAnimation";
 
-import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Volume2, VolumeX, Download } from "lucide-react";
+import { ArrowLeft, Home, RotateCcw, Sparkles, Trophy, Star, Download } from "lucide-react";
 import { SocialShare } from "@/components/SocialShare";
 import dinosaurColoringPage from "@/assets/coloring/dinosaur-footprints-coloring.png";
-import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis";
 import { useStoryProgress } from "@/hooks/useStoryProgress";
 import { useStoryOverrides } from "@/hooks/useStoryOverrides";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -57,7 +56,7 @@ export default function StoryReader() {
     }
   }, [storedPrenom, storyId, story, navigate]);
 
-  const { speak, stop, isSpeaking, isSupported } = useSpeechSynthesis({ lang: "fr-FR", rate: 0.9 });
+  
   const { saveProgress, markCompleted, isAuthenticated } = useStoryProgress(storyId);
   const { profile } = useAuthContext();
   const { isAdmin } = useAdmin();
@@ -126,10 +125,9 @@ export default function StoryReader() {
     setImageLoaded(false);
     setOverriddenText(null); // Reset override on page change
     setTranslatedText(null); // Reset translation on page change
-    stop(); // Stop any playing audio when page changes
     const timer = setTimeout(() => setIsAnimating(false), 600);
     return () => clearTimeout(timer);
-  }, [pageId, stop]);
+  }, [pageId]);
 
   // Check for text override
   useEffect(() => {
@@ -283,14 +281,6 @@ export default function StoryReader() {
   // Split text into lines for better readability
   const textLines = displayText.split('\n').filter(line => line.trim());
 
-  const handlePlayAudio = () => {
-    if (isSpeaking) {
-      stop();
-    } else {
-      speak(displayText);
-    }
-  };
-
   const handleDownloadColoring = () => {
     const link = document.createElement('a');
     link.href = dinosaurColoringPage;
@@ -387,30 +377,6 @@ export default function StoryReader() {
 
             {/* Audio and Coloring Buttons */}
             <div className="flex flex-wrap justify-center gap-3 mb-4 md:mb-6">
-              {isSupported && (
-                <button
-                  onClick={handlePlayAudio}
-                  className={`
-                    inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm md:text-base
-                    transition-all duration-300 shadow-md hover:shadow-lg
-                    ${isSpeaking 
-                      ? 'bg-primary text-primary-foreground animate-pulse' 
-                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}
-                  `}
-                >
-                  {isSpeaking ? (
-                    <>
-                      <VolumeX className="w-4 h-4 md:w-5 md:h-5" />
-                      {t('reader.stop')}
-                    </>
-                  ) : (
-                    <>
-                      <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
-                      {t('reader.listen')}
-                    </>
-                  )}
-                </button>
-              )}
               
               {showColoringDownload && (
                 <button
