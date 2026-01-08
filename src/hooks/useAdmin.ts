@@ -11,6 +11,7 @@ export interface AdminUser {
   last_login: string | null;
   stories_completed: number;
   stories_in_progress: number;
+  wheel_spins: number;
 }
 
 export interface AdminStats {
@@ -75,6 +76,11 @@ export function useAdmin() {
       .from('story_progress')
       .select('user_id');
 
+    // Fetch wheel spins (unlocked cards count)
+    const { data: unlockedCards } = await supabase
+      .from('unlocked_cards')
+      .select('user_id');
+
     // Fetch user emails via secure RPC function
     const { data: userEmails } = await supabase.rpc('get_user_emails');
     const emailMap = new Map<string, string>();
@@ -87,6 +93,7 @@ export function useAdmin() {
     const usersWithStats: AdminUser[] = profiles.map(profile => {
       const completed = completedCounts?.filter(c => c.user_id === profile.id).length || 0;
       const inProgress = progressCounts?.filter(p => p.user_id === profile.id).length || 0;
+      const spins = unlockedCards?.filter(u => u.user_id === profile.id).length || 0;
 
       return {
         id: profile.id,
@@ -96,7 +103,8 @@ export function useAdmin() {
         created_at: profile.created_at,
         last_login: profile.last_login,
         stories_completed: completed,
-        stories_in_progress: inProgress
+        stories_in_progress: inProgress,
+        wheel_spins: spins
       };
     });
 

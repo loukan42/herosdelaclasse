@@ -294,12 +294,13 @@ export default function Admin() {
                       <TableHead>Dernière connexion</TableHead>
                       <TableHead className="text-center">Histoires terminées</TableHead>
                       <TableHead className="text-center">En cours</TableHead>
+                      <TableHead className="text-center">Tours de roue</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {users.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                        <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
                           Aucun utilisateur inscrit
                         </TableCell>
                       </TableRow>
@@ -340,6 +341,11 @@ export default function Admin() {
                           <TableCell className="text-center">
                             <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-secondary text-secondary-foreground font-semibold">
                               {user.stories_in_progress}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold">
+                              {user.wheel_spins}
                             </span>
                           </TableCell>
                         </TableRow>
