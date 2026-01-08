@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Clock, Sparkles, Package, X } from 'lucide-react';
+import { Star, Clock, X } from 'lucide-react';
 import { SpinWheel } from './SpinWheel';
 import { CollectionCard } from '@/hooks/useCollection';
+import cardSingleImage from '@/assets/cards/card-single.png';
+import cardBoosterImage from '@/assets/cards/card-booster.png';
 
 interface WheelOptionsProps {
   points: number;
@@ -68,43 +70,35 @@ export function WheelOptions({
             onClick={() => canSpin && canAffordSingle && setActiveWheel('single')}
             disabled={!canSpin || !canAffordSingle}
             className={`
-              relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300
+              relative overflow-hidden rounded-2xl text-left transition-all duration-300
               ${canSpin && canAffordSingle 
-                ? 'bg-gradient-to-br from-primary/10 to-primary/5 hover:from-primary/20 hover:to-primary/10 cursor-pointer hover:shadow-lg hover:-translate-y-1 border-2 border-primary/30 hover:border-primary/50' 
-                : 'bg-muted/50 cursor-not-allowed opacity-60 border-2 border-transparent'
+                ? 'cursor-pointer hover:shadow-xl hover:-translate-y-1' 
+                : 'cursor-not-allowed opacity-60'
               }
             `}
             whileHover={canSpin && canAffordSingle ? { scale: 1.02 } : {}}
             whileTap={canSpin && canAffordSingle ? { scale: 0.98 } : {}}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-display text-xl font-bold">Carte Simple</h3>
-                </div>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Tourne la roue pour débloquer une carte aléatoire
+            <div className="relative">
+              <img 
+                src={cardSingleImage} 
+                alt="Carte Simple" 
+                className="w-full h-auto rounded-2xl"
+              />
+              {/* Overlay with info */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-2xl flex flex-col justify-end p-4">
+                <h3 className="font-display text-xl font-bold text-white mb-1">Carte Simple</h3>
+                <p className="text-white/70 text-sm mb-3">
+                  Débloquer 1 carte aléatoire
                 </p>
-              </div>
-            </div>
-            
-            {/* Price badge */}
-            <div className={`
-              inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold
-              ${canAffordSingle ? 'bg-amber-500/20 text-amber-600' : 'bg-muted text-muted-foreground'}
-            `}>
-              <Star className={`w-4 h-4 ${canAffordSingle ? 'fill-amber-500 text-amber-500' : ''}`} />
-              <span>{SINGLE_COST} point</span>
-            </div>
-
-            {/* Reward info */}
-            <div className="mt-4 pt-4 border-t border-border/30">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">1</span>
-                <span>carte à débloquer</span>
+                {/* Price badge */}
+                <div className={`
+                  inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold w-fit
+                  ${canAffordSingle ? 'bg-amber-500 text-white' : 'bg-muted/80 text-muted-foreground'}
+                `}>
+                  <Star className={`w-4 h-4 ${canAffordSingle ? 'fill-white' : ''}`} />
+                  <span>{SINGLE_COST} point</span>
+                </div>
               </div>
             </div>
           </motion.button>
@@ -114,58 +108,51 @@ export function WheelOptions({
             onClick={() => canSpin && canAffordBooster && hasEnoughCardsForBooster && setActiveWheel('booster')}
             disabled={!canSpin || !canAffordBooster || !hasEnoughCardsForBooster}
             className={`
-              relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300
+              relative overflow-hidden rounded-2xl text-left transition-all duration-300
               ${canSpin && canAffordBooster && hasEnoughCardsForBooster
-                ? 'bg-gradient-to-br from-amber-500/20 to-orange-500/10 hover:from-amber-500/30 hover:to-orange-500/20 cursor-pointer hover:shadow-lg hover:-translate-y-1 border-2 border-amber-500/40 hover:border-amber-500/60' 
-                : 'bg-muted/50 cursor-not-allowed opacity-60 border-2 border-transparent'
+                ? 'cursor-pointer hover:shadow-xl hover:-translate-y-1' 
+                : 'cursor-not-allowed opacity-60'
               }
             `}
             whileHover={canSpin && canAffordBooster && hasEnoughCardsForBooster ? { scale: 1.02 } : {}}
             whileTap={canSpin && canAffordBooster && hasEnoughCardsForBooster ? { scale: 0.98 } : {}}
           >
-            {/* Premium badge */}
-            <div className="absolute top-3 right-3">
-              <span className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full">
-                BOOSTER
-              </span>
-            </div>
-
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500/30 to-orange-500/30 flex items-center justify-center">
-                    <Package className="w-5 h-5 text-amber-600" />
-                  </div>
-                  <h3 className="font-display text-xl font-bold">Pack Booster</h3>
-                </div>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Débloquez 5 cartes d'un seul coup !
+            <div className="relative">
+              <img 
+                src={cardBoosterImage} 
+                alt="Pack Booster" 
+                className="w-full h-auto rounded-2xl"
+              />
+              {/* Premium badge */}
+              <div className="absolute top-3 right-3">
+                <span className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
+                  BOOSTER
+                </span>
+              </div>
+              {/* Overlay with info */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-2xl flex flex-col justify-end p-4">
+                <h3 className="font-display text-xl font-bold text-white mb-1">Pack Booster</h3>
+                <p className="text-white/70 text-sm mb-3">
+                  Débloquer 5 cartes d'un coup !
                 </p>
+                {/* Price badge */}
+                <div className={`
+                  inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold w-fit
+                  ${canAffordBooster ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white' : 'bg-muted/80 text-muted-foreground'}
+                `}>
+                  <Star className={`w-4 h-4 ${canAffordBooster ? 'fill-white' : ''}`} />
+                  <span>{BOOSTER_COST} points</span>
+                </div>
               </div>
-            </div>
-            
-            {/* Price badge */}
-            <div className={`
-              inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold
-              ${canAffordBooster ? 'bg-amber-500/30 text-amber-700' : 'bg-muted text-muted-foreground'}
-            `}>
-              <Star className={`w-4 h-4 ${canAffordBooster ? 'fill-amber-500 text-amber-500' : ''}`} />
-              <span>{BOOSTER_COST} points</span>
-            </div>
 
-            {/* Reward info */}
-            <div className="mt-4 pt-4 border-t border-amber-500/20">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="w-6 h-6 rounded bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center text-xs font-bold text-amber-600">5</span>
-                <span>cartes à débloquer</span>
-              </div>
+              {!hasEnoughCardsForBooster && lockedCardsCount > 0 && (
+                <div className="absolute inset-0 bg-black/50 rounded-2xl flex items-center justify-center">
+                  <p className="text-white text-sm px-4 text-center">
+                    Plus assez de cartes ({lockedCardsCount} restante{lockedCardsCount > 1 ? 's' : ''})
+                  </p>
+                </div>
+              )}
             </div>
-
-            {!hasEnoughCardsForBooster && lockedCardsCount > 0 && (
-              <p className="mt-3 text-xs text-amber-600">
-                Plus assez de cartes à débloquer ({lockedCardsCount} restante{lockedCardsCount > 1 ? 's' : ''})
-              </p>
-            )}
           </motion.button>
         </div>
       )}
@@ -198,12 +185,12 @@ export function WheelOptions({
               `}>
                 {activeWheel === 'single' ? (
                   <>
-                    <Sparkles className="w-4 h-4" />
+                    <Star className="w-4 h-4 fill-primary" />
                     <span>1 carte • {SINGLE_COST} pt</span>
                   </>
                 ) : (
                   <>
-                    <Package className="w-4 h-4" />
+                    <Star className="w-4 h-4 fill-amber-500" />
                     <span>5 cartes • {BOOSTER_COST} pts</span>
                   </>
                 )}
