@@ -12,10 +12,14 @@ interface CollectionCardProps {
 export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = () => {
     if (unlocked) {
       setIsOpen(true);
+      setIsFlipped(false);
+      // Trigger flip animation after modal opens
+      setTimeout(() => setIsFlipped(true), 100);
     }
   };
 
@@ -151,11 +155,12 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                initial={{ scale: 0.8, opacity: 0, rotateY: -15 }}
-                animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-                exit={{ scale: 0.8, opacity: 0, rotateY: 15 }}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="relative flex flex-col items-center"
+                style={{ perspective: "1000px" }}
               >
                 {/* Close button */}
                 <button
@@ -165,59 +170,91 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
                   <X className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
                 </button>
 
-                {/* Large Card - much bigger display */}
-                <div className="bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300 p-2 sm:p-3 md:p-4 rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(217,164,50,0.5),0_10px_30px_rgba(0,0,0,0.2)]">
-                  <div className="rounded-xl sm:rounded-2xl overflow-hidden bg-card">
-                    {/* Card image - large and prominent */}
-                    <div className="w-[70vw] max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] aspect-[3/4] relative">
-                      <img
-                        src={imageUrl}
-                        alt={title}
-                        className="w-full h-full object-contain bg-gradient-to-br from-slate-100 to-slate-50"
-                      />
-                      
-                      {/* Animated shine effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent pointer-events-none"
-                        initial={{ x: "-100%" }}
-                        animate={{ x: "200%" }}
-                        transition={{ 
-                          duration: 1.5, 
-                          ease: "easeInOut",
-                          delay: 0.3
-                        }}
-                      />
-                      
-                      {/* Sparkles */}
-                      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-2 h-2 sm:w-3 sm:h-3 bg-amber-400/80 rounded-full animate-pulse" />
-                      <div className="absolute top-5 right-6 sm:top-6 sm:right-8 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-amber-300/60 rounded-full animate-pulse delay-150" />
-                      <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-amber-300/70 rounded-full animate-pulse delay-300" />
-                      <div className="absolute bottom-5 left-6 sm:bottom-6 sm:left-8 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-amber-400/50 rounded-full animate-pulse delay-500" />
+                {/* Flip Container */}
+                <motion.div
+                  className="relative"
+                  style={{ transformStyle: "preserve-3d" }}
+                  initial={{ rotateY: 180 }}
+                  animate={{ rotateY: isFlipped ? 0 : 180 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    ease: [0.23, 1, 0.32, 1],
+                    delay: 0.1
+                  }}
+                >
+                  {/* Card Back (visible when not flipped) */}
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700 p-2 sm:p-3 md:p-4 rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(79,70,229,0.5),0_10px_30px_rgba(0,0,0,0.2)] flex items-center justify-center"
+                    style={{ 
+                      backfaceVisibility: "hidden",
+                      transform: "rotateY(180deg)"
+                    }}
+                  >
+                    <div className="w-[70vw] max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] aspect-[3/4] rounded-xl sm:rounded-2xl bg-gradient-to-br from-indigo-500/50 to-purple-600/50 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-6xl sm:text-7xl md:text-8xl font-bold text-white/30">?</div>
+                        <div className="mt-2 text-white/40 text-sm sm:text-base">Carte mystère</div>
+                      </div>
                     </div>
                   </div>
-                  
-                  {/* Glow animation */}
-                  <motion.div
-                    className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none"
-                    animate={{
-                      boxShadow: [
-                        '0 0 20px rgba(251, 191, 36, 0.3)',
-                        '0 0 40px rgba(251, 191, 36, 0.5)',
-                        '0 0 20px rgba(251, 191, 36, 0.3)',
-                      ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                  
-                  {/* Reflective edge */}
-                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none border border-white/40" />
-                </div>
+
+                  {/* Card Front (visible when flipped) */}
+                  <div 
+                    className="bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300 p-2 sm:p-3 md:p-4 rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(217,164,50,0.5),0_10px_30px_rgba(0,0,0,0.2)]"
+                    style={{ backfaceVisibility: "hidden" }}
+                  >
+                    <div className="rounded-xl sm:rounded-2xl overflow-hidden bg-card">
+                      {/* Card image - large and prominent */}
+                      <div className="w-[70vw] max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] aspect-[3/4] relative">
+                        <img
+                          src={imageUrl}
+                          alt={title}
+                          className="w-full h-full object-contain bg-gradient-to-br from-slate-100 to-slate-50"
+                        />
+                        
+                        {/* Animated shine effect - plays after flip */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent pointer-events-none"
+                          initial={{ x: "-100%" }}
+                          animate={{ x: isFlipped ? "200%" : "-100%" }}
+                          transition={{ 
+                            duration: 1.2, 
+                            ease: "easeInOut",
+                            delay: 0.8
+                          }}
+                        />
+                        
+                        {/* Sparkles */}
+                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-2 h-2 sm:w-3 sm:h-3 bg-amber-400/80 rounded-full animate-pulse" />
+                        <div className="absolute top-5 right-6 sm:top-6 sm:right-8 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-amber-300/60 rounded-full animate-pulse delay-150" />
+                        <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-amber-300/70 rounded-full animate-pulse delay-300" />
+                        <div className="absolute bottom-5 left-6 sm:bottom-6 sm:left-8 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-amber-400/50 rounded-full animate-pulse delay-500" />
+                      </div>
+                    </div>
+                    
+                    {/* Glow animation */}
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none"
+                      animate={{
+                        boxShadow: isFlipped ? [
+                          '0 0 20px rgba(251, 191, 36, 0.3)',
+                          '0 0 40px rgba(251, 191, 36, 0.5)',
+                          '0 0 20px rgba(251, 191, 36, 0.3)',
+                        ] : '0 0 0 rgba(251, 191, 36, 0)'
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    
+                    {/* Reflective edge */}
+                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl pointer-events-none border border-white/40" />
+                  </div>
+                </motion.div>
 
                 {/* Title - below the card */}
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                  animate={{ opacity: isFlipped ? 1 : 0, y: isFlipped ? 0 : 10 }}
+                  transition={{ delay: 0.9, duration: 0.4 }}
                   className="mt-4 sm:mt-6 text-center px-4"
                 >
                   <h3 className="font-display text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white drop-shadow-lg">
