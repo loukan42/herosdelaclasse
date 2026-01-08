@@ -61,10 +61,38 @@ export function useUserPoints() {
   }, [fetchPoints]);
 
   // Add points (called when story is completed)
-  const addPoints = useCallback(async (amount: number = 1) => {
-    if (!user || !userPoints) return false;
+  const addPoints = useCallback(async (amount: number = 1): Promise<boolean> => {
+    if (!user) return false;
+    
+    // If userPoints is not loaded yet, fetch it first
+    let currentPoints = userPoints;
+    if (!currentPoints) {
+      const { data } = await supabase
+        .from('user_points')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      
+      if (!data) {
+        // Create record if it doesn't exist
+        const { data: newData, error: insertError } = await supabase
+          .from('user_points')
+          .insert({ user_id: user.id, points: amount })
+          .select()
+          .single();
+        
+        if (insertError) {
+          console.error('Error creating user points:', insertError);
+          return false;
+        }
+        
+        setUserPoints(newData);
+        return true;
+      }
+      currentPoints = data;
+    }
 
-    const newTotal = userPoints.points + amount;
+    const newTotal = currentPoints.points + amount;
     
     const { error } = await supabase
       .from('user_points')
@@ -76,7 +104,7 @@ export function useUserPoints() {
       return false;
     }
 
-    setUserPoints(prev => prev ? { ...prev, points: newTotal } : null);
+    setUserPoints(prev => prev ? { ...prev, points: newTotal } : { ...currentPoints!, points: newTotal });
     return true;
   }, [user, userPoints]);
 
