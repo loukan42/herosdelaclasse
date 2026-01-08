@@ -149,6 +149,57 @@ export function useCollection() {
     return cardToUnlock;
   }, [user, cards, isCardUnlocked]);
 
+  // Unlock multiple random cards (for booster)
+  const unlockMultipleCards = useCallback(async (count: number): Promise<CollectionCard[]> => {
+    if (!user) return [];
+
+    // Get all locked cards
+    const lockedCards = cards.filter(c => !isCardUnlocked(c.id));
+    
+    if (lockedCards.length === 0) {
+      return []; // All cards unlocked
+    }
+
+    // Pick random cards (up to count or remaining locked cards)
+    const cardsToUnlock: CollectionCard[] = [];
+    const availableCards = [...lockedCards];
+    
+    const numToUnlock = Math.min(count, availableCards.length);
+    
+    for (let i = 0; i < numToUnlock; i++) {
+      const randomIndex = Math.floor(Math.random() * availableCards.length);
+      cardsToUnlock.push(availableCards[randomIndex]);
+      availableCards.splice(randomIndex, 1);
+    }
+
+    // Insert all unlocked cards
+    const inserts = cardsToUnlock.map(card => ({
+      user_id: user.id,
+      card_id: card.id
+    }));
+
+    const { error } = await supabase
+      .from('unlocked_cards')
+      .insert(inserts);
+
+    if (error) {
+      console.error('Error unlocking cards:', error);
+      return [];
+    }
+
+    // Update local state
+    const newUnlocked = cardsToUnlock.map(card => ({
+      id: crypto.randomUUID(),
+      user_id: user.id,
+      card_id: card.id,
+      unlocked_at: new Date().toISOString()
+    }));
+    
+    setUnlockedCards(prev => [...prev, ...newUnlocked]);
+
+    return cardsToUnlock;
+  }, [user, cards, isCardUnlocked]);
+
   // Admin: Create theme
   const createTheme = useCallback(async (title: string) => {
     const maxOrder = themes.reduce((max, t) => Math.max(max, t.sort_order), 0);
@@ -301,6 +352,7 @@ export function useCollection() {
     getCardsForTheme,
     getUnlockedCountForTheme,
     unlockRandomCard,
+    unlockMultipleCards,
     // Admin functions
     createTheme,
     updateTheme,

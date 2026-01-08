@@ -139,31 +139,37 @@ export function useUserPoints() {
     return { hours, minutes };
   }, [userPoints]);
 
-  // Consume a point and update last spin time
-  const consumeSpinPoint = useCallback(async () => {
+  // Consume points and update last spin time
+  const consumeSpinPoints = useCallback(async (amount: number = 1) => {
     if (!user || !userPoints || !canSpin()) return false;
+    if (userPoints.points < amount) return false;
 
     const { error } = await supabase
       .from('user_points')
       .update({ 
-        points: userPoints.points - 1,
+        points: userPoints.points - amount,
         last_spin_at: new Date().toISOString()
       })
       .eq('user_id', user.id);
 
     if (error) {
-      console.error('Error consuming spin point:', error);
+      console.error('Error consuming spin points:', error);
       return false;
     }
 
     setUserPoints(prev => prev ? { 
       ...prev, 
-      points: prev.points - 1,
+      points: prev.points - amount,
       last_spin_at: new Date().toISOString()
     } : null);
     
     return true;
   }, [user, userPoints, canSpin]);
+
+  // Legacy function for backwards compatibility
+  const consumeSpinPoint = useCallback(async () => {
+    return consumeSpinPoints(1);
+  }, [consumeSpinPoints]);
 
   return {
     points: userPoints?.points ?? 0,
@@ -173,6 +179,7 @@ export function useUserPoints() {
     canSpin: canSpin(),
     getTimeUntilNextSpin,
     consumeSpinPoint,
+    consumeSpinPoints,
     refresh: fetchPoints
   };
 }

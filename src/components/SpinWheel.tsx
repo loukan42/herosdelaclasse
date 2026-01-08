@@ -1,12 +1,14 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Package } from 'lucide-react';
 import { CollectionCard } from '@/hooks/useCollection';
 
 interface SpinWheelProps {
   onSpin: () => Promise<CollectionCard | null>;
   canSpin: boolean;
   disabled?: boolean;
+  isBooster?: boolean;
+  onComplete?: () => void;
 }
 
 const WHEEL_SEGMENTS = 8;
@@ -21,11 +23,24 @@ const COLORS = [
   'hsl(24, 100%, 50%)',
 ];
 
-export function SpinWheel({ onSpin, canSpin, disabled }: SpinWheelProps) {
+const BOOSTER_COLORS = [
+  'hsl(38, 92%, 50%)',
+  'hsl(24, 100%, 50%)',
+  'hsl(38, 92%, 60%)',
+  'hsl(24, 100%, 60%)',
+  'hsl(38, 92%, 50%)',
+  'hsl(24, 100%, 50%)',
+  'hsl(38, 92%, 60%)',
+  'hsl(24, 100%, 60%)',
+];
+
+export function SpinWheel({ onSpin, canSpin, disabled, isBooster = false, onComplete }: SpinWheelProps) {
   const [isSpinning, setIsSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [result, setResult] = useState<CollectionCard | null>(null);
   const wheelRef = useRef<HTMLDivElement>(null);
+
+  const colors = isBooster ? BOOSTER_COLORS : COLORS;
 
   const handleSpin = async () => {
     if (isSpinning || !canSpin || disabled) return;
@@ -43,13 +58,27 @@ export function SpinWheel({ onSpin, canSpin, disabled }: SpinWheelProps) {
     // Wait for animation to complete
     await new Promise(resolve => setTimeout(resolve, 4000));
 
-    // Get the card
+    // Get the card(s)
     const card = await onSpin();
-    setResult(card);
+    
+    // Only show single card result for non-booster (booster has its own modal)
+    if (!isBooster && card) {
+      setResult(card);
+    }
+    
     setIsSpinning(false);
+    
+    // Call onComplete after spin is done (for booster, it's handled differently)
+    if (isBooster) {
+      // Small delay to let the booster modal show
+      setTimeout(() => {
+        onComplete?.();
+      }, 500);
+    }
   };
 
   const segmentAngle = 360 / WHEEL_SEGMENTS;
+  const Icon = isBooster ? Package : Sparkles;
 
   return (
     <div className="flex flex-col items-center gap-6">
@@ -57,20 +86,20 @@ export function SpinWheel({ onSpin, canSpin, disabled }: SpinWheelProps) {
       <div className="relative w-72 h-72 md:w-80 md:h-80">
         {/* Pointer */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 z-10">
-          <div className="w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[24px] border-t-primary drop-shadow-lg" />
+          <div className={`w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-t-[24px] drop-shadow-lg ${isBooster ? 'border-t-amber-500' : 'border-t-primary'}`} />
         </div>
 
         {/* Wheel */}
         <motion.div
           ref={wheelRef}
-          className="w-full h-full rounded-full shadow-2xl overflow-hidden border-4 border-primary/50"
+          className={`w-full h-full rounded-full shadow-2xl overflow-hidden border-4 ${isBooster ? 'border-amber-500/50' : 'border-primary/50'}`}
           animate={{ rotate: rotation }}
           transition={{ 
             duration: 4, 
             ease: [0.17, 0.67, 0.12, 0.99] // Custom easing for realistic spin
           }}
           style={{ 
-            background: `conic-gradient(${COLORS.map((color, i) => 
+            background: `conic-gradient(${colors.map((color, i) => 
               `${color} ${i * segmentAngle}deg ${(i + 1) * segmentAngle}deg`
             ).join(', ')})`
           }}
@@ -85,8 +114,8 @@ export function SpinWheel({ onSpin, canSpin, disabled }: SpinWheelProps) {
           ))}
           
           {/* Center circle */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white shadow-inner flex items-center justify-center">
-            <Sparkles className="w-8 h-8 text-primary" />
+          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full shadow-inner flex items-center justify-center ${isBooster ? 'bg-gradient-to-br from-amber-100 to-orange-100' : 'bg-white'}`}>
+            <Icon className={`w-8 h-8 ${isBooster ? 'text-amber-600' : 'text-primary'}`} />
           </div>
         </motion.div>
 
@@ -95,11 +124,17 @@ export function SpinWheel({ onSpin, canSpin, disabled }: SpinWheelProps) {
           <motion.div
             className="absolute inset-0 rounded-full"
             animate={{ 
-              boxShadow: [
-                '0 0 20px rgba(var(--primary-rgb), 0.3)',
-                '0 0 40px rgba(var(--primary-rgb), 0.5)',
-                '0 0 20px rgba(var(--primary-rgb), 0.3)',
-              ]
+              boxShadow: isBooster 
+                ? [
+                    '0 0 20px rgba(251, 191, 36, 0.3)',
+                    '0 0 40px rgba(251, 191, 36, 0.5)',
+                    '0 0 20px rgba(251, 191, 36, 0.3)',
+                  ]
+                : [
+                    '0 0 20px rgba(var(--primary-rgb), 0.3)',
+                    '0 0 40px rgba(var(--primary-rgb), 0.5)',
+                    '0 0 20px rgba(var(--primary-rgb), 0.3)',
+                  ]
             }}
             transition={{ duration: 0.5, repeat: Infinity }}
           />
@@ -115,7 +150,9 @@ export function SpinWheel({ onSpin, canSpin, disabled }: SpinWheelProps) {
           transition-all duration-300 shadow-lg
           ${isSpinning || !canSpin || disabled
             ? 'bg-muted text-muted-foreground cursor-not-allowed'
-            : 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-xl hover:-translate-y-1'
+            : isBooster
+              ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-xl hover:-translate-y-1'
+              : 'bg-gradient-to-r from-primary to-primary/80 text-primary-foreground hover:shadow-xl hover:-translate-y-1'
           }
         `}
       >
@@ -125,25 +162,28 @@ export function SpinWheel({ onSpin, canSpin, disabled }: SpinWheelProps) {
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             >
-              <Sparkles className="w-5 h-5" />
+              <Icon className="w-5 h-5" />
             </motion.span>
             Ça tourne...
           </span>
         ) : (
           <span className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5" />
-            Tourner la roue
+            <Icon className="w-5 h-5" />
+            {isBooster ? 'Ouvrir le booster' : 'Tourner la roue'}
           </span>
         )}
       </button>
 
-      {/* Result Display */}
-      {result && (
+      {/* Result Display (Single card only - Booster has its own modal) */}
+      {result && !isBooster && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-          onClick={() => setResult(null)}
+          onClick={() => {
+            setResult(null);
+            onComplete?.();
+          }}
         >
           <motion.div
             initial={{ rotateY: 180, opacity: 0 }}
