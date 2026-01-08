@@ -8,6 +8,7 @@ import { PointsDisplay } from '@/components/PointsDisplay';
 import { ProfileSwitcher } from '@/components/ProfileSwitcher';
 import { UserMenu } from '@/components/UserMenu';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { CollectionCard } from '@/components/CollectionCard';
 
 export default function Collection() {
   const { isAuthenticated, loading: authLoading } = useAuthContext();
@@ -159,50 +160,17 @@ export default function Collection() {
                         Aucune carte dans ce thème
                       </p>
                     ) : (
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                         {themeCards.map((card) => {
                           const unlocked = isCardUnlocked(card.id);
 
                           return (
-                            <div 
+                            <CollectionCard
                               key={card.id}
-                              className={`
-                                relative aspect-square rounded-xl overflow-hidden
-                                ${unlocked 
-                                  ? 'shadow-lg ring-2 ring-amber-400/50' 
-                                  : ''
-                                }
-                              `}
-                            >
-                              {unlocked ? (
-                                <>
-                                  <img
-                                    src={card.image_url}
-                                    alt={card.title}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                                    <p className="text-white text-sm font-medium text-center truncate">
-                                      {card.title}
-                                    </p>
-                                  </div>
-                                </>
-                              ) : (
-                                <div className="w-full h-full relative">
-                                  <img
-                                    src={card.image_url}
-                                    alt="Carte verrouillée"
-                                    className="w-full h-full object-cover blur-xl scale-110 opacity-50"
-                                  />
-                                  <div className="absolute inset-0 bg-muted/60 flex items-center justify-center">
-                                    <div className="text-center">
-                                      <Lock className="w-8 h-8 text-muted-foreground/50 mx-auto mb-1" />
-                                      <span className="text-xs text-muted-foreground/50">?</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
+                              imageUrl={card.image_url}
+                              title={card.title}
+                              unlocked={unlocked}
+                            />
                           );
                         })}
                       </div>
