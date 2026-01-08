@@ -1,18 +1,22 @@
 import { Link, Navigate } from 'react-router-dom';
-import { ArrowLeft, Star, Clock, Lock, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Star, Lock, CheckCircle } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useUserPoints } from '@/hooks/useUserPoints';
 import { useCollection } from '@/hooks/useCollection';
-import { SpinWheel } from '@/components/SpinWheel';
+import { WheelOptions } from '@/components/WheelOptions';
 import { PointsDisplay } from '@/components/PointsDisplay';
 import { ProfileSwitcher } from '@/components/ProfileSwitcher';
 import { UserMenu } from '@/components/UserMenu';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CollectionCard } from '@/components/CollectionCard';
 
+const SINGLE_COST = 1;
+const BOOSTER_COST = 10;
+const BOOSTER_CARDS = 5;
+
 export default function Collection() {
   const { isAuthenticated, loading: authLoading } = useAuthContext();
-  const { points, canSpin, getTimeUntilNextSpin, consumeSpinPoint } = useUserPoints();
+  const { points, canSpin, getTimeUntilNextSpin, consumeSpinPoints } = useUserPoints();
   const { 
     themes, 
     cards, 
@@ -21,8 +25,10 @@ export default function Collection() {
     getCardsForTheme, 
     getUnlockedCountForTheme,
     unlockRandomCard,
+    unlockMultipleCards,
     totalCardsCount,
-    unlockedCardsCount
+    unlockedCardsCount,
+    lockedCardsCount
   } = useCollection();
   const { t } = useLanguage();
 
@@ -33,10 +39,16 @@ export default function Collection() {
     return <Navigate to="/auth" replace />;
   }
 
-  const handleSpin = async () => {
-    const success = await consumeSpinPoint();
+  const handleSingleSpin = async () => {
+    const success = await consumeSpinPoints(SINGLE_COST);
     if (!success) return null;
     return await unlockRandomCard();
+  };
+
+  const handleBoosterSpin = async () => {
+    const success = await consumeSpinPoints(BOOSTER_COST);
+    if (!success) return [];
+    return await unlockMultipleCards(BOOSTER_CARDS);
   };
 
   if (loading || authLoading) {
@@ -76,58 +88,49 @@ export default function Collection() {
         {/* Points & Spin Section */}
         <section className="mb-8 sm:mb-12">
           <div className="bg-gradient-to-br from-primary/10 via-secondary/20 to-primary/5 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8">
-            <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-8 items-center">
-              {/* Stats */}
-              <div className="text-center md:text-left w-full">
-                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4">
-                  Roue de la chance
-                </h2>
-                
-                <div className="flex flex-wrap gap-2 sm:gap-4 justify-center md:justify-start mb-4 sm:mb-6">
-                  <div className="bg-background/80 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-sm">
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-amber-600">
-                      <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
-                      <span className="font-bold text-xl sm:text-2xl">{points}</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-muted-foreground">Points</p>
-                  </div>
-                  
-                  <div className="bg-background/80 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-sm">
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-green-600">
-                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-                      <span className="font-bold text-xl sm:text-2xl">{unlockedCardsCount}/{totalCardsCount}</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-muted-foreground">Cartes</p>
-                  </div>
+            {/* Header with stats */}
+            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-6">
+              <div className="bg-background/80 rounded-lg sm:rounded-xl px-4 sm:px-5 py-3 shadow-sm">
+                <div className="flex items-center gap-2 text-amber-600">
+                  <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-current" />
+                  <span className="font-bold text-2xl sm:text-3xl">{points}</span>
                 </div>
-
-                {!canSpin && timeUntilSpin && (
-                  <div className="flex items-center gap-2 text-muted-foreground bg-background/60 rounded-lg px-3 sm:px-4 py-2 inline-flex text-xs sm:text-sm">
-                    <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    <span>
-                      Prochain tour dans {timeUntilSpin.hours}h {timeUntilSpin.minutes}min
-                    </span>
-                  </div>
-                )}
-
-                {points === 0 && (
-                  <p className="text-muted-foreground mt-3 sm:mt-4 text-sm sm:text-base">
-                    Lisez des histoires pour gagner des points et débloquer des cartes !
-                  </p>
-                )}
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Points disponibles</p>
               </div>
-
-              {/* Wheel */}
-              <div className="flex justify-center w-full">
-                <div className="w-full max-w-[280px] sm:max-w-none">
-                  <SpinWheel 
-                    onSpin={handleSpin}
-                    canSpin={canSpin}
-                    disabled={points < 1 || cards.length === 0}
-                  />
+              
+              <div className="bg-background/80 rounded-lg sm:rounded-xl px-4 sm:px-5 py-3 shadow-sm">
+                <div className="flex items-center gap-2 text-green-600">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <span className="font-bold text-2xl sm:text-3xl">{unlockedCardsCount}/{totalCardsCount}</span>
                 </div>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Cartes collectées</p>
               </div>
             </div>
+
+            <div className="text-center mb-6">
+              <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">
+                Roue de la chance
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base mt-2">
+                Choisissez votre type de tirage
+              </p>
+            </div>
+
+            {/* Wheel Options Component */}
+            <WheelOptions
+              points={points}
+              canSpin={canSpin}
+              timeUntilSpin={timeUntilSpin}
+              onSingleSpin={handleSingleSpin}
+              onBoosterSpin={handleBoosterSpin}
+              lockedCardsCount={lockedCardsCount}
+            />
+
+            {points === 0 && (
+              <p className="text-muted-foreground mt-6 text-center text-sm sm:text-base">
+                Lisez des histoires pour gagner des points et débloquer des cartes !
+              </p>
+            )}
           </div>
         </section>
 
