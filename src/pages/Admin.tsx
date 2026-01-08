@@ -17,7 +17,8 @@ import {
   EyeOff,
   Pencil,
   Trash2,
-  Lock
+  Lock,
+  Gift
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -243,16 +244,39 @@ export default function Admin() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
-            <TabsTrigger value="users" className="gap-2">
-              <Users className="w-4 h-4" />
-              Utilisateurs
-            </TabsTrigger>
-            <TabsTrigger value="stories" className="gap-2">
-              <BookOpen className="w-4 h-4" />
-              Histoires
-            </TabsTrigger>
-          </TabsList>
+          <div className="flex items-center justify-between">
+            <TabsList className="grid w-full max-w-lg grid-cols-3">
+              <TabsTrigger value="users" className="gap-2">
+                <Users className="w-4 h-4" />
+                Utilisateurs
+              </TabsTrigger>
+              <TabsTrigger value="stories" className="gap-2">
+                <BookOpen className="w-4 h-4" />
+                Histoires
+              </TabsTrigger>
+              <TabsTrigger value="collection" className="gap-2">
+                <Gift className="w-4 h-4" />
+                Collection
+              </TabsTrigger>
+            </TabsList>
+          </div>
+
+          {/* Collection Tab */}
+          <TabsContent value="collection">
+            <div className="bg-card rounded-2xl border border-border shadow-sm p-8 text-center">
+              <Gift className="w-16 h-16 text-primary mx-auto mb-4" />
+              <h2 className="font-display text-2xl font-bold mb-2">Gestion de la collection</h2>
+              <p className="text-muted-foreground mb-6">
+                Créez des thèmes et importez des cartes à collectionner pour vos utilisateurs.
+              </p>
+              <Button asChild size="lg" className="gap-2">
+                <Link to="/admin/collection">
+                  <Plus className="w-5 h-5" />
+                  Gérer la collection
+                </Link>
+              </Button>
+            </div>
+          </TabsContent>
 
           {/* Users Tab */}
           <TabsContent value="users">

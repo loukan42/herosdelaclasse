@@ -18,6 +18,8 @@ import Admin from "./pages/Admin";
 import AdminStories from "./pages/AdminStories";
 import AdminStoryEditor from "./pages/AdminStoryEditor";
 import MyStories from "./pages/MyStories";
+import Collection from "./pages/Collection";
+import AdminCollection from "./pages/AdminCollection";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,7 +43,9 @@ const App = () => (
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/admin/stories" element={<AdminStories />} />
                   <Route path="/admin/stories/:storyId" element={<AdminStoryEditor />} />
+                  <Route path="/admin/collection" element={<AdminCollection />} />
                   <Route path="/my-stories" element={<MyStories />} />
+                  <Route path="/collection" element={<Collection />} />
                   <Route path="/stories" element={<Navigate to="/" replace />} />
                   <Route path="/subjects/:subjectId" element={<Navigate to="/" replace />} />
                   <Route path="/stories/:storyId/start" element={<StoryStart />} />

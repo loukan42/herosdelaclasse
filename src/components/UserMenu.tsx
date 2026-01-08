@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { User, LogOut, BookOpen, Crown, Pencil } from 'lucide-react';
+import { User, LogOut, BookOpen, Crown, Pencil, Gift } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { getAvatarImage } from '@/data/avatars';
@@ -150,6 +150,12 @@ export function UserMenu() {
             <Link to="/my-stories" className="flex items-center gap-2 cursor-pointer">
               <BookOpen className="w-4 h-4" />
               {t('menu.myStories')}
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/collection" className="flex items-center gap-2 cursor-pointer">
+              <Gift className="w-4 h-4" />
+              Ma collection
             </Link>
           </DropdownMenuItem>
           {isAdmin && (

@@ -16,6 +16,7 @@ import { useStoryProgress } from "@/hooks/useStoryProgress";
 import { useStoryOverrides } from "@/hooks/useStoryOverrides";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useAdmin } from "@/hooks/useAdmin";
+import { useUserPoints } from "@/hooks/useUserPoints";
 import { useCombinedStories } from "@/hooks/useCombinedStories";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -58,6 +59,7 @@ export default function StoryReader() {
   const { saveProgress, markCompleted, isAuthenticated } = useStoryProgress(storyId);
   const { profile } = useAuthContext();
   const { isAdmin } = useAdmin();
+  const { addPoints } = useUserPoints();
   const { getOverride } = useStoryOverrides();
 
   // Load visited pages from sessionStorage or from saved progress
@@ -101,8 +103,10 @@ export default function StoryReader() {
     if (isAuthenticated && page?.isEnding && hasMarkedCompleteRef.current !== currentPageId) {
       hasMarkedCompleteRef.current = currentPageId;
       markCompleted(page.endingType);
+      // Add a point for completing the story
+      addPoints(1);
     }
-  }, [isAuthenticated, page?.isEnding, page?.endingType, markCompleted, pageId]);
+  }, [isAuthenticated, page?.isEnding, page?.endingType, markCompleted, pageId, addPoints]);
 
   // Scroll to top when page changes
   useEffect(() => {
