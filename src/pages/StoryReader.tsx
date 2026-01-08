@@ -105,10 +105,14 @@ export default function StoryReader() {
     if (isAuthenticated && page?.isEnding && hasMarkedCompleteRef.current !== currentPageId) {
       hasMarkedCompleteRef.current = currentPageId;
       markCompleted(page.endingType);
-      // Add a point for completing the story
-      addPoints(1);
-      // Show the reward animation
-      setShowPointReward(true);
+      // Add a point for completing the story and show animation only if successful
+      const awardPoint = async () => {
+        const success = await addPoints(1);
+        if (success) {
+          setShowPointReward(true);
+        }
+      };
+      awardPoint();
     }
   }, [isAuthenticated, page?.isEnding, page?.endingType, markCompleted, pageId, addPoints]);
 
