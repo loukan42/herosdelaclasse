@@ -170,27 +170,29 @@ export default function Collection() {
                                 relative aspect-square rounded-xl overflow-hidden
                                 ${unlocked 
                                   ? 'shadow-lg ring-2 ring-amber-400/50' 
-                                  : 'grayscale brightness-50'
+                                  : ''
                                 }
                               `}
                             >
-                              <img
-                                src={card.image_url}
-                                alt={unlocked ? card.title : 'Carte verrouillée'}
-                                className="w-full h-full object-cover"
-                              />
-                              
-                              {!unlocked && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                                  <Lock className="w-8 h-8 text-white/70" />
-                                </div>
-                              )}
-
-                              {unlocked && (
-                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                                  <p className="text-white text-sm font-medium text-center truncate">
-                                    {card.title}
-                                  </p>
+                              {unlocked ? (
+                                <>
+                                  <img
+                                    src={card.image_url}
+                                    alt={card.title}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+                                    <p className="text-white text-sm font-medium text-center truncate">
+                                      {card.title}
+                                    </p>
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center border-2 border-dashed border-muted-foreground/20">
+                                  <div className="text-center">
+                                    <Lock className="w-8 h-8 text-muted-foreground/40 mx-auto mb-1" />
+                                    <span className="text-xs text-muted-foreground/40">?</span>
+                                  </div>
                                 </div>
                               )}
                             </div>
