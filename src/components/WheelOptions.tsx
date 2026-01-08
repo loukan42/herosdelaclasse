@@ -64,13 +64,13 @@ export function WheelOptions({
 
       {/* Wheel Options - Show when no wheel is active */}
       {activeWheel === null && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
           {/* Single Card Option */}
           <motion.button
             onClick={() => canSpin && canAffordSingle && setActiveWheel('single')}
             disabled={!canSpin || !canAffordSingle}
             className={`
-              relative overflow-hidden rounded-2xl text-left transition-all duration-300
+              relative overflow-hidden rounded-xl text-left transition-all duration-300
               ${canSpin && canAffordSingle 
                 ? 'cursor-pointer hover:shadow-xl hover:-translate-y-1' 
                 : 'cursor-not-allowed opacity-60'
@@ -83,21 +83,18 @@ export function WheelOptions({
               <img 
                 src={cardSingleImage} 
                 alt="Carte Simple" 
-                className="w-full h-auto rounded-2xl"
+                className="w-full h-auto rounded-xl"
               />
               {/* Overlay with info */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-2xl flex flex-col justify-end p-4">
-                <h3 className="font-display text-xl font-bold text-white mb-1">Carte Simple</h3>
-                <p className="text-white/70 text-sm mb-3">
-                  Débloquer 1 carte aléatoire
-                </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-xl flex flex-col justify-end p-2">
+                <h3 className="font-display text-sm font-bold text-white">Carte Simple</h3>
                 {/* Price badge */}
                 <div className={`
-                  inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold w-fit
+                  inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold w-fit mt-1
                   ${canAffordSingle ? 'bg-amber-500 text-white' : 'bg-muted/80 text-muted-foreground'}
                 `}>
-                  <Star className={`w-4 h-4 ${canAffordSingle ? 'fill-white' : ''}`} />
-                  <span>{SINGLE_COST} point</span>
+                  <Star className={`w-3 h-3 ${canAffordSingle ? 'fill-white' : ''}`} />
+                  <span>{SINGLE_COST} pt</span>
                 </div>
               </div>
             </div>
@@ -108,7 +105,7 @@ export function WheelOptions({
             onClick={() => canSpin && canAffordBooster && hasEnoughCardsForBooster && setActiveWheel('booster')}
             disabled={!canSpin || !canAffordBooster || !hasEnoughCardsForBooster}
             className={`
-              relative overflow-hidden rounded-2xl text-left transition-all duration-300
+              relative overflow-hidden rounded-xl text-left transition-all duration-300
               ${canSpin && canAffordBooster && hasEnoughCardsForBooster
                 ? 'cursor-pointer hover:shadow-xl hover:-translate-y-1' 
                 : 'cursor-not-allowed opacity-60'
@@ -121,34 +118,31 @@ export function WheelOptions({
               <img 
                 src={cardBoosterImage} 
                 alt="Pack Booster" 
-                className="w-full h-auto rounded-2xl"
+                className="w-full h-auto rounded-xl"
               />
               {/* Premium badge */}
-              <div className="absolute top-3 right-3">
-                <span className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
-                  BOOSTER
+              <div className="absolute top-2 right-2">
+                <span className="px-1.5 py-0.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold rounded-full shadow-lg">
+                  x5
                 </span>
               </div>
               {/* Overlay with info */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-2xl flex flex-col justify-end p-4">
-                <h3 className="font-display text-xl font-bold text-white mb-1">Pack Booster</h3>
-                <p className="text-white/70 text-sm mb-3">
-                  Débloquer 5 cartes d'un coup !
-                </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-xl flex flex-col justify-end p-2">
+                <h3 className="font-display text-sm font-bold text-white">Pack Booster</h3>
                 {/* Price badge */}
                 <div className={`
-                  inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold w-fit
+                  inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold w-fit mt-1
                   ${canAffordBooster ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white' : 'bg-muted/80 text-muted-foreground'}
                 `}>
-                  <Star className={`w-4 h-4 ${canAffordBooster ? 'fill-white' : ''}`} />
-                  <span>{BOOSTER_COST} points</span>
+                  <Star className={`w-3 h-3 ${canAffordBooster ? 'fill-white' : ''}`} />
+                  <span>{BOOSTER_COST} pts</span>
                 </div>
               </div>
 
               {!hasEnoughCardsForBooster && lockedCardsCount > 0 && (
-                <div className="absolute inset-0 bg-black/50 rounded-2xl flex items-center justify-center">
-                  <p className="text-white text-sm px-4 text-center">
-                    Plus assez de cartes ({lockedCardsCount} restante{lockedCardsCount > 1 ? 's' : ''})
+                <div className="absolute inset-0 bg-black/50 rounded-xl flex items-center justify-center">
+                  <p className="text-white text-xs px-2 text-center">
+                    Plus assez de cartes
                   </p>
                 </div>
               )}
