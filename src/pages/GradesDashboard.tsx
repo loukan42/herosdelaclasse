@@ -10,6 +10,7 @@ import suiviImage from "@/assets/features/suivi.png";
 import cartesImage from "@/assets/features/cartes.png";
 import { Footer } from "@/components/Footer";
 import { ProfileSwitcher } from "@/components/ProfileSwitcher";
+import { PointsDisplay } from "@/components/PointsDisplay";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useAdmin } from "@/hooks/useAdmin";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,7 @@ export default function GradesDashboard() {
         </Link>
         <div className="flex items-center gap-2">
           <LanguageSelector />
+          {isAuthenticated && <PointsDisplay />}
           {isAdmin && (
             <Button asChild variant="outline" size="sm" className="gap-2 text-golden border-golden/30 hover:bg-golden/10">
               <Link to="/admin">

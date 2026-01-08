@@ -155,7 +155,7 @@ export function UserMenu() {
           <DropdownMenuItem asChild>
             <Link to="/collection" className="flex items-center gap-2 cursor-pointer">
               <Gift className="w-4 h-4" />
-              Ma collection
+              {t('menu.collection')}
             </Link>
           </DropdownMenuItem>
           {isAdmin && (
