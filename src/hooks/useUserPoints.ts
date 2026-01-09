@@ -128,8 +128,11 @@ export function useUserPoints() {
     return hoursDiff >= 24;
   }, [userPoints, isAdmin]);
 
-  // Get time until next spin
+  // Get time until next spin (returns null for admins since they have no cooldown)
   const getTimeUntilNextSpin = useCallback(() => {
+    // Admins never see a timer
+    if (isAdmin) return null;
+    
     if (!userPoints?.last_spin_at) return null;
     
     const lastSpin = new Date(userPoints.last_spin_at);
@@ -143,19 +146,30 @@ export function useUserPoints() {
     const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
     
     return { hours, minutes };
-  }, [userPoints]);
+  }, [userPoints, isAdmin]);
 
   // Consume points and update last spin time
+  // Admins don't get the last_spin_at updated (no cooldown for them)
   const consumeSpinPoints = useCallback(async (amount: number = 1) => {
-    if (!user || !userPoints || !canSpin()) return false;
+    if (!user || !userPoints) return false;
+    
+    // Check if user has enough points
     if (userPoints.points < amount) return false;
+    
+    // Check canSpin for non-admins
+    if (!isAdmin && !canSpin()) return false;
+
+    const newPoints = Math.max(0, userPoints.points - amount);
+    
+    // For admins: only update points, not last_spin_at
+    // For regular users: update both
+    const updateData = isAdmin 
+      ? { points: newPoints }
+      : { points: newPoints, last_spin_at: new Date().toISOString() };
 
     const { error } = await supabase
       .from('user_points')
-      .update({ 
-        points: userPoints.points - amount,
-        last_spin_at: new Date().toISOString()
-      })
+      .update(updateData)
       .eq('user_id', user.id);
 
     if (error) {
@@ -165,12 +179,12 @@ export function useUserPoints() {
 
     setUserPoints(prev => prev ? { 
       ...prev, 
-      points: prev.points - amount,
-      last_spin_at: new Date().toISOString()
+      points: newPoints,
+      ...(isAdmin ? {} : { last_spin_at: new Date().toISOString() })
     } : null);
     
     return true;
-  }, [user, userPoints, canSpin]);
+  }, [user, userPoints, canSpin, isAdmin]);
 
   // Legacy function for backwards compatibility
   const consumeSpinPoint = useCallback(async () => {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CollectionCard } from '@/hooks/useCollection';
 import cardSingleImage from '@/assets/cards/card-single.png';
@@ -12,51 +12,69 @@ interface CardOpenAnimationProps {
 }
 
 export function CardOpenAnimation({ isOpen, isBooster, onOpen, onComplete }: CardOpenAnimationProps) {
-  const [phase, setPhase] = useState<'zoom' | 'shake' | 'open' | 'reveal'>('zoom');
+  const [phase, setPhase] = useState<'idle' | 'zoom' | 'shake' | 'open' | 'reveal'>('idle');
   const [result, setResult] = useState<CollectionCard | null>(null);
   const [boosterResults, setBoosterResults] = useState<CollectionCard[]>([]);
+  const isAnimatingRef = useRef(false);
+  const onOpenRef = useRef(onOpen);
+  
+  // Keep onOpen ref updated without triggering useEffect
+  useEffect(() => {
+    onOpenRef.current = onOpen;
+  }, [onOpen]);
 
   useEffect(() => {
     if (!isOpen) {
-      setPhase('zoom');
+      // Reset state when modal closes
+      setPhase('idle');
       setResult(null);
       setBoosterResults([]);
+      isAnimatingRef.current = false;
       return;
     }
 
+    // Prevent double execution
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+
     const runAnimation = async () => {
-      // Phase 1: Zoom in
-      setPhase('zoom');
-      await new Promise(r => setTimeout(r, 600));
+      try {
+        // Phase 1: Zoom in
+        setPhase('zoom');
+        await new Promise(r => setTimeout(r, 600));
 
-      // Phase 2: Shake/vibrate
-      setPhase('shake');
-      await new Promise(r => setTimeout(r, 800));
+        // Phase 2: Shake/vibrate
+        setPhase('shake');
+        await new Promise(r => setTimeout(r, 800));
 
-      // Phase 3: Open (call the actual function)
-      setPhase('open');
-      const cards = await onOpen();
-      
-      if (isBooster && Array.isArray(cards)) {
-        setBoosterResults(cards);
-      } else if (cards && !Array.isArray(cards)) {
-        setResult(cards);
+        // Phase 3: Open (call the actual function)
+        setPhase('open');
+        const cards = await onOpenRef.current();
+        
+        if (isBooster && Array.isArray(cards)) {
+          setBoosterResults(cards);
+        } else if (cards && !Array.isArray(cards)) {
+          setResult(cards);
+        }
+
+        await new Promise(r => setTimeout(r, 400));
+
+        // Phase 4: Reveal
+        setPhase('reveal');
+      } catch (error) {
+        console.error('Animation error:', error);
+        isAnimatingRef.current = false;
       }
-
-      await new Promise(r => setTimeout(r, 400));
-
-      // Phase 4: Reveal
-      setPhase('reveal');
     };
 
     runAnimation();
-  }, [isOpen, onOpen, isBooster]);
+  }, [isOpen, isBooster]); // Removed onOpen from dependencies
 
   const cardImage = isBooster ? cardBoosterImage : cardSingleImage;
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen && phase !== 'idle' && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -258,6 +276,31 @@ export function CardOpenAnimation({ isOpen, isBooster, onOpen, onComplete }: Car
                 className="text-center text-white/60 text-sm"
               >
                 Cliquez n'importe où pour fermer
+              </motion.p>
+            </motion.div>
+          )}
+
+          {/* Fallback message if no cards were obtained */}
+          {phase === 'reveal' && !result && boosterResults.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="font-display text-2xl font-bold text-white mb-4">
+                Aucune nouvelle carte
+              </h3>
+              <p className="text-white/60">
+                Toutes les cartes ont déjà été collectionnées !
+              </p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="mt-4 text-white/60 text-sm"
+              >
+                Cliquez pour fermer
               </motion.p>
             </motion.div>
           )}
