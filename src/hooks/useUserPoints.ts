@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useAdmin } from '@/hooks/useAdmin';
 
 export interface UserPoints {
   id: string;
@@ -13,6 +14,7 @@ export interface UserPoints {
 
 export function useUserPoints() {
   const { user, isAuthenticated } = useAuthContext();
+  const { isAdmin } = useAdmin();
   const [userPoints, setUserPoints] = useState<UserPoints | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -109,9 +111,13 @@ export function useUserPoints() {
   }, [user, userPoints]);
 
   // Check if user can spin (has points and 24h since last spin)
+  // Admin users bypass the 24h cooldown restriction
   const canSpin = useCallback(() => {
     if (!userPoints) return false;
     if (userPoints.points < 1) return false;
+    
+    // Admins can always spin (no 24h restriction)
+    if (isAdmin) return true;
     
     if (!userPoints.last_spin_at) return true;
     
@@ -120,7 +126,7 @@ export function useUserPoints() {
     const hoursDiff = (now.getTime() - lastSpin.getTime()) / (1000 * 60 * 60);
     
     return hoursDiff >= 24;
-  }, [userPoints]);
+  }, [userPoints, isAdmin]);
 
   // Get time until next spin
   const getTimeUntilNextSpin = useCallback(() => {
