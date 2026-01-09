@@ -211,7 +211,7 @@ export function useStoryPdfExport() {
           yPosition += (titleLines.length * 8) + 8;
         }
         
-        // Page image
+        // Page image - reduced size to fit everything on one page
         try {
           const imageDataUrl = await loadImageAsDataUrl(page.image);
           
@@ -220,8 +220,8 @@ export function useStoryPdfExport() {
           await new Promise(resolve => { img.onload = resolve; });
           
           const aspectRatio = img.naturalWidth / img.naturalHeight;
-          const maxImgWidth = contentWidth;
-          const maxImgHeight = 100; // Max height for images
+          const maxImgWidth = contentWidth * 0.85; // Reduce width to 85%
+          const maxImgHeight = 70; // Reduced max height for better fit
           
           let imgWidth = maxImgWidth;
           let imgHeight = imgWidth / aspectRatio;
@@ -238,7 +238,7 @@ export function useStoryPdfExport() {
           pdf.roundedRect(imgX - 2, yPosition - 2, imgWidth + 4, imgHeight + 4, 3, 3, 'F');
           
           pdf.addImage(imageDataUrl, 'JPEG', imgX, yPosition, imgWidth, imgHeight);
-          yPosition += imgHeight + 12;
+          yPosition += imgHeight + 8;
           
         } catch (e) {
           console.warn(`Could not load image for page ${page.id}:`, e);
@@ -254,13 +254,13 @@ export function useStoryPdfExport() {
           page.textFeminine
         );
         
-        // Story text
+        // Story text - slightly smaller font for better fit
         pdf.setFont('helvetica', 'normal');
-        pdf.setFontSize(13);
+        pdf.setFontSize(11);
         pdf.setTextColor(51, 51, 51);
         
         const textLines = wrapText(pdf, processedText, contentWidth);
-        const lineHeight = 7;
+        const lineHeight = 5.5;
         
         for (const line of textLines) {
           // Check if we need a new page
