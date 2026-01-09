@@ -12,6 +12,7 @@ export interface AdminUser {
   stories_completed: number;
   stories_in_progress: number;
   wheel_spins: number;
+  collection_percentage: number;
 }
 
 export interface AdminStats {
@@ -79,7 +80,12 @@ export function useAdmin() {
     // Fetch wheel spins (unlocked cards count)
     const { data: unlockedCards } = await supabase
       .from('unlocked_cards')
-      .select('user_id');
+      .select('user_id, card_id');
+
+    // Fetch total cards count
+    const { count: totalCardsCount } = await supabase
+      .from('collection_cards')
+      .select('*', { count: 'exact', head: true });
 
     // Fetch user emails via secure RPC function
     const { data: userEmails } = await supabase.rpc('get_user_emails');
@@ -90,10 +96,25 @@ export function useAdmin() {
       });
     }
 
+    // Count unique cards per user for collection percentage
+    const userCardCounts = new Map<string, Set<string>>();
+    if (unlockedCards) {
+      unlockedCards.forEach((uc: { user_id: string; card_id: string }) => {
+        if (!userCardCounts.has(uc.user_id)) {
+          userCardCounts.set(uc.user_id, new Set());
+        }
+        userCardCounts.get(uc.user_id)!.add(uc.card_id);
+      });
+    }
+
     const usersWithStats: AdminUser[] = profiles.map(profile => {
       const completed = completedCounts?.filter(c => c.user_id === profile.id).length || 0;
       const inProgress = progressCounts?.filter(p => p.user_id === profile.id).length || 0;
       const spins = unlockedCards?.filter(u => u.user_id === profile.id).length || 0;
+      const uniqueCards = userCardCounts.get(profile.id)?.size || 0;
+      const collectionPercentage = totalCardsCount && totalCardsCount > 0 
+        ? Math.round((uniqueCards / totalCardsCount) * 100) 
+        : 0;
 
       return {
         id: profile.id,
@@ -104,7 +125,8 @@ export function useAdmin() {
         last_login: profile.last_login,
         stories_completed: completed,
         stories_in_progress: inProgress,
-        wheel_spins: spins
+        wheel_spins: spins,
+        collection_percentage: collectionPercentage
       };
     });
 
