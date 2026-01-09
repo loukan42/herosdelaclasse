@@ -2,12 +2,20 @@ import { useState } from 'react';
 import { jsPDF } from 'jspdf';
 import { Story, StoryPage, processText } from '@/data/stories';
 import { useCombinedStories } from './useCombinedStories';
+import { useLanguage, Language } from '@/contexts/LanguageContext';
 
 type Genre = 'masculin' | 'feminin' | 'neutre';
+
+interface TranslatedContent {
+  title: string;
+  text: string;
+  choices: { label: string; targetPageId: string }[];
+}
 
 export function useStoryPdfExport() {
   const [isExporting, setIsExporting] = useState(false);
   const { getStory, getStoryPages } = useCombinedStories();
+  const { language, translateText } = useLanguage();
 
   const loadImageAsDataUrl = (src: string): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -30,7 +38,8 @@ export function useStoryPdfExport() {
     });
   };
 
-  const wrapText = (pdf: jsPDF, text: string, maxWidth: number): string[] => {
+  const wrapTextWithFont = (pdf: jsPDF, text: string, maxWidth: number, fontSize: number): string[] => {
+    pdf.setFontSize(fontSize);
     const lines: string[] = [];
     const paragraphs = text.split('\n');
     
@@ -63,6 +72,61 @@ export function useStoryPdfExport() {
     return lines;
   };
 
+  // Calculate optimal font size to fit all content on one page
+  const calculateOptimalFontSize = (
+    pdf: jsPDF,
+    text: string,
+    choices: { label: string; targetPageId: string }[],
+    availableHeight: number,
+    contentWidth: number,
+    pageIdToNumber: Map<string, number>,
+    isEnding: boolean,
+    choicePrompt: string
+  ): { fontSize: number; lineHeight: number } => {
+    // Try font sizes from largest to smallest
+    const fontSizes = [12, 11, 10, 9, 8, 7, 6];
+    
+    for (const fontSize of fontSizes) {
+      const lineHeight = fontSize * 0.45; // Line height proportional to font size
+      
+      // Calculate text height
+      const textLines = wrapTextWithFont(pdf, text, contentWidth, fontSize);
+      let totalHeight = textLines.length * lineHeight;
+      
+      // Add space for empty lines (paragraph breaks)
+      const emptyLines = textLines.filter(l => l === '').length;
+      totalHeight += emptyLines * (lineHeight * 0.3);
+      
+      // Add space for choices
+      if (!isEnding && choices.length > 0) {
+        totalHeight += 8; // Space before "Que fais-tu?"
+        totalHeight += 6; // "Que fais-tu?" line
+        
+        const choiceFontSize = Math.max(fontSize - 1, 6);
+        for (const choice of choices) {
+          const targetPageNum = pageIdToNumber.get(choice.targetPageId);
+          const pageRef = targetPageNum ? ` (→ page ${targetPageNum})` : '';
+          const choiceText = `→ ${choice.label}${pageRef}`;
+          const choiceLines = wrapTextWithFont(pdf, choiceText, contentWidth - 10, choiceFontSize);
+          totalHeight += choiceLines.length * (choiceFontSize * 0.5) + 2;
+        }
+      }
+      
+      // Add space for ending badge
+      if (isEnding) {
+        totalHeight += 15;
+      }
+      
+      // Check if it fits
+      if (totalHeight <= availableHeight) {
+        return { fontSize, lineHeight };
+      }
+    }
+    
+    // If nothing fits, use smallest size
+    return { fontSize: 6, lineHeight: 3 };
+  };
+
   const getAllReachablePages = (pages: StoryPage[], startPageId: string): StoryPage[] => {
     const visited = new Set<string>();
     const orderedPages: StoryPage[] = [];
@@ -76,7 +140,6 @@ export function useStoryPdfExport() {
       visited.add(pageId);
       orderedPages.push(page);
       
-      // Follow choices in order
       for (const choice of page.choices) {
         if (choice.targetPageId && choice.targetPageId !== 'menu') {
           traverse(choice.targetPageId);
@@ -86,6 +149,35 @@ export function useStoryPdfExport() {
     
     traverse(startPageId);
     return orderedPages;
+  };
+
+  // Translate content if needed
+  const translateContent = async (
+    text: string,
+    lang: Language
+  ): Promise<string> => {
+    if (lang === 'fr') return text;
+    
+    try {
+      return await translateText(text, lang);
+    } catch (e) {
+      console.warn('Translation failed, using original:', e);
+      return text;
+    }
+  };
+
+  // Get localized UI strings for PDF
+  const getPdfStrings = (lang: Language) => {
+    const strings: Record<Language, { whatDoYouDo: string; happyEnd: string; altEnd: string; page: string; continued: string }> = {
+      fr: { whatDoYouDo: 'Que fais-tu ?', happyEnd: 'FIN HEUREUSE', altEnd: 'FIN ALTERNATIVE', page: 'Page', continued: 'suite' },
+      en: { whatDoYouDo: 'What do you do?', happyEnd: 'HAPPY ENDING', altEnd: 'ALTERNATIVE ENDING', page: 'Page', continued: 'continued' },
+      de: { whatDoYouDo: 'Was machst du?', happyEnd: 'GLÜCKLICHES ENDE', altEnd: 'ALTERNATIVES ENDE', page: 'Seite', continued: 'Fortsetzung' },
+      ru: { whatDoYouDo: 'Что ты делаешь?', happyEnd: 'СЧАСТЛИВЫЙ КОНЕЦ', altEnd: 'АЛЬТЕРНАТИВНЫЙ КОНЕЦ', page: 'Страница', continued: 'продолжение' },
+      es: { whatDoYouDo: '¿Qué haces?', happyEnd: 'FINAL FELIZ', altEnd: 'FINAL ALTERNATIVO', page: 'Página', continued: 'continuación' },
+      zh: { whatDoYouDo: '你做什么？', happyEnd: '美好结局', altEnd: '其他结局', page: '页', continued: '续' },
+      'pt-br': { whatDoYouDo: 'O que você faz?', happyEnd: 'FINAL FELIZ', altEnd: 'FINAL ALTERNATIVO', page: 'Página', continued: 'continuação' },
+    };
+    return strings[lang] || strings.fr;
   };
 
   const exportStoryToPdf = async (
@@ -102,16 +194,50 @@ export function useStoryPdfExport() {
       const allPages = getStoryPages(storyId);
       if (!allPages.length) throw new Error('No pages found');
       
-      // Get pages in reading order
       const pages = getAllReachablePages(allPages, story.startPageId);
+      const pdfStrings = getPdfStrings(language);
       
-      // Create a mapping from page ID to PDF page number (1-indexed)
+      // Create page ID to number mapping
       const pageIdToNumber = new Map<string, number>();
       pages.forEach((page, index) => {
         pageIdToNumber.set(page.id, index + 1);
       });
       
-      // Create PDF - A4 format
+      // Pre-translate all content
+      const translatedTitle = await translateContent(story.title, language);
+      const translatedDescription = await translateContent(story.description, language);
+      
+      const translatedPages: TranslatedContent[] = [];
+      for (const page of pages) {
+        const processedText = processText(
+          page.text,
+          prenom,
+          genre,
+          page.textMasculine,
+          page.textFeminine
+        );
+        
+        const translatedText = await translateContent(processedText, language);
+        const translatedPageTitle = page.title ? await translateContent(page.title, language) : '';
+        
+        const translatedChoices = [];
+        for (const choice of page.choices) {
+          const processedLabel = processText(choice.label, prenom, genre);
+          const translatedLabel = await translateContent(processedLabel, language);
+          translatedChoices.push({
+            label: translatedLabel,
+            targetPageId: choice.targetPageId
+          });
+        }
+        
+        translatedPages.push({
+          title: translatedPageTitle,
+          text: translatedText,
+          choices: translatedChoices
+        });
+      }
+      
+      // Create PDF
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
@@ -120,19 +246,16 @@ export function useStoryPdfExport() {
       
       const pageWidth = 210;
       const pageHeight = 297;
-      const margin = 15;
+      const margin = 12;
       const contentWidth = pageWidth - (margin * 2);
       
       // ============ COVER PAGE ============
-      // Load cover image
       try {
         const coverDataUrl = await loadImageAsDataUrl(story.coverImage);
         
-        // Full page cover with margins
         const coverMaxWidth = contentWidth;
-        const coverMaxHeight = pageHeight - margin * 4;
+        const coverMaxHeight = pageHeight - margin * 4 - 60;
         
-        // Calculate aspect ratio
         const img = new Image();
         img.src = coverDataUrl;
         await new Promise(resolve => { img.onload = resolve; });
@@ -147,71 +270,74 @@ export function useStoryPdfExport() {
         }
         
         const coverX = (pageWidth - coverWidth) / 2;
-        const coverY = margin + 20;
+        const coverY = margin + 15;
         
         pdf.addImage(coverDataUrl, 'JPEG', coverX, coverY, coverWidth, coverHeight);
         
-        // Title below cover
+        // Title
         pdf.setFont('helvetica', 'bold');
-        pdf.setFontSize(24);
+        pdf.setFontSize(22);
         pdf.setTextColor(51, 51, 51);
         
-        const titleY = coverY + coverHeight + 15;
-        const titleLines = wrapText(pdf, story.title, contentWidth);
+        const titleY = coverY + coverHeight + 12;
+        const titleLines = wrapTextWithFont(pdf, translatedTitle, contentWidth, 22);
         titleLines.forEach((line, i) => {
           const lineWidth = pdf.getTextWidth(line);
-          pdf.text(line, (pageWidth - lineWidth) / 2, titleY + (i * 10));
+          pdf.text(line, (pageWidth - lineWidth) / 2, titleY + (i * 9));
         });
         
         // Description
         pdf.setFont('helvetica', 'normal');
-        pdf.setFontSize(12);
+        pdf.setFontSize(11);
         pdf.setTextColor(100, 100, 100);
         
-        const descY = titleY + (titleLines.length * 10) + 10;
-        const descLines = wrapText(pdf, story.description, contentWidth - 20);
+        const descY = titleY + (titleLines.length * 9) + 8;
+        const descLines = wrapTextWithFont(pdf, translatedDescription, contentWidth - 20, 11);
         descLines.forEach((line, i) => {
           const lineWidth = pdf.getTextWidth(line);
-          pdf.text(line, (pageWidth - lineWidth) / 2, descY + (i * 6));
+          pdf.text(line, (pageWidth - lineWidth) / 2, descY + (i * 5));
         });
         
       } catch (e) {
         console.warn('Could not load cover image:', e);
-        // Simple text cover
         pdf.setFont('helvetica', 'bold');
-        pdf.setFontSize(28);
+        pdf.setFontSize(26);
         pdf.setTextColor(51, 51, 51);
-        pdf.text(story.title, pageWidth / 2, pageHeight / 2, { align: 'center' });
+        pdf.text(translatedTitle, pageWidth / 2, pageHeight / 2, { align: 'center' });
       }
       
       // ============ STORY PAGES ============
       for (let i = 0; i < pages.length; i++) {
         const page = pages[i];
+        const translated = translatedPages[i];
         pdf.addPage();
         
         let yPosition = margin;
         
         // Page number
         pdf.setFont('helvetica', 'normal');
-        pdf.setFontSize(10);
+        pdf.setFontSize(9);
         pdf.setTextColor(150, 150, 150);
-        pdf.text(`Page ${i + 1}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
+        pdf.text(`${pdfStrings.page} ${i + 1}`, pageWidth - margin, pageHeight - 8, { align: 'right' });
         
         // Page title
-        if (page.title) {
+        let titleHeight = 0;
+        if (translated.title) {
           pdf.setFont('helvetica', 'bold');
-          pdf.setFontSize(14);
+          pdf.setFontSize(13);
           pdf.setTextColor(51, 51, 51);
           
-          const titleLines = wrapText(pdf, page.title, contentWidth);
+          const titleLines = wrapTextWithFont(pdf, translated.title, contentWidth, 13);
           titleLines.forEach((line, idx) => {
             const lineWidth = pdf.getTextWidth(line);
-            pdf.text(line, (pageWidth - lineWidth) / 2, yPosition + (idx * 6));
+            pdf.text(line, (pageWidth - lineWidth) / 2, yPosition + (idx * 5));
           });
-          yPosition += (titleLines.length * 6) + 5;
+          titleHeight = (titleLines.length * 5) + 4;
+          yPosition += titleHeight;
         }
         
-        // Page image - compact size to fit everything on one page
+        // Page image - compact
+        let imageHeight = 0;
         try {
           const imageDataUrl = await loadImageAsDataUrl(page.image);
           
@@ -220,8 +346,8 @@ export function useStoryPdfExport() {
           await new Promise(resolve => { img.onload = resolve; });
           
           const aspectRatio = img.naturalWidth / img.naturalHeight;
-          const maxImgWidth = contentWidth * 0.7; // Reduce width to 70%
-          const maxImgHeight = 50; // Compact max height
+          const maxImgWidth = contentWidth * 0.65;
+          const maxImgHeight = 45;
           
           let imgWidth = maxImgWidth;
           let imgHeight = imgWidth / aspectRatio;
@@ -233,119 +359,100 @@ export function useStoryPdfExport() {
           
           const imgX = (pageWidth - imgWidth) / 2;
           
-          // Add rounded corners effect with a white background
           pdf.setFillColor(255, 255, 255);
-          pdf.roundedRect(imgX - 2, yPosition - 2, imgWidth + 4, imgHeight + 4, 3, 3, 'F');
+          pdf.roundedRect(imgX - 1, yPosition - 1, imgWidth + 2, imgHeight + 2, 2, 2, 'F');
           
           pdf.addImage(imageDataUrl, 'JPEG', imgX, yPosition, imgWidth, imgHeight);
-          yPosition += imgHeight + 6;
+          imageHeight = imgHeight + 5;
+          yPosition += imageHeight;
           
         } catch (e) {
           console.warn(`Could not load image for page ${page.id}:`, e);
-          yPosition += 5;
+          yPosition += 3;
         }
         
-        // Process text with name and gender
-        const processedText = processText(
-          page.text,
-          prenom,
-          genre,
-          page.textMasculine,
-          page.textFeminine
+        // Calculate available height for text and choices
+        const bottomMargin = 15; // Space for page number
+        const availableHeight = pageHeight - yPosition - bottomMargin;
+        
+        // Calculate optimal font size
+        const { fontSize, lineHeight } = calculateOptimalFontSize(
+          pdf,
+          translated.text,
+          translated.choices,
+          availableHeight,
+          contentWidth,
+          pageIdToNumber,
+          page.isEnding || false,
+          pdfStrings.whatDoYouDo
         );
         
-        // Story text - compact font for better fit
+        // Render text with calculated font size
         pdf.setFont('helvetica', 'normal');
-        pdf.setFontSize(9);
+        pdf.setFontSize(fontSize);
         pdf.setTextColor(51, 51, 51);
         
-        const textLines = wrapText(pdf, processedText, contentWidth);
-        const lineHeight = 4;
+        const textLines = wrapTextWithFont(pdf, translated.text, contentWidth, fontSize);
         
         for (const line of textLines) {
-          // Check if we need a new page
-          if (yPosition + lineHeight > pageHeight - margin - 30) {
-            pdf.addPage();
-            yPosition = margin;
-            
-            // Page number on new page
-            pdf.setFont('helvetica', 'normal');
-            pdf.setFontSize(10);
-            pdf.setTextColor(150, 150, 150);
-            pdf.text(`Page ${i + 1} (suite)`, pageWidth - margin, pageHeight - 10, { align: 'right' });
-            
-            pdf.setFont('helvetica', 'normal');
-            pdf.setFontSize(13);
-            pdf.setTextColor(51, 51, 51);
-          }
-          
           if (line === '') {
-            yPosition += lineHeight / 2;
+            yPosition += lineHeight * 0.5;
           } else {
             pdf.text(line, margin, yPosition);
             yPosition += lineHeight;
           }
         }
         
-        // Choices (if not ending)
-        if (!page.isEnding && page.choices.length > 0) {
-          yPosition += 8;
-          
-          // Check if we have space for choices
-          const estimatedChoicesHeight = page.choices.length * 12 + 10;
-          if (yPosition + estimatedChoicesHeight > pageHeight - margin - 10) {
-            pdf.addPage();
-            yPosition = margin;
-          }
+        // Choices
+        if (!page.isEnding && translated.choices.length > 0) {
+          yPosition += 5;
           
           pdf.setFont('helvetica', 'bold');
-          pdf.setFontSize(11);
+          const choiceTitleSize = Math.max(fontSize, 8);
+          pdf.setFontSize(choiceTitleSize);
           pdf.setTextColor(80, 80, 80);
-          pdf.text('Que fais-tu ?', margin, yPosition);
-          yPosition += 8;
+          pdf.text(pdfStrings.whatDoYouDo, margin, yPosition);
+          yPosition += 5;
           
           pdf.setFont('helvetica', 'normal');
-          pdf.setFontSize(11);
+          const choiceFontSize = Math.max(fontSize - 1, 6);
+          pdf.setFontSize(choiceFontSize);
           pdf.setTextColor(70, 100, 150);
           
-          page.choices.forEach((choice) => {
-            // Get the target page number
+          translated.choices.forEach((choice) => {
             const targetPageNum = pageIdToNumber.get(choice.targetPageId);
-            const pageRef = targetPageNum ? ` (→ page ${targetPageNum})` : '';
-            const choiceText = `→ ${processText(choice.label, prenom, genre)}${pageRef}`;
-            const choiceLines = wrapText(pdf, choiceText, contentWidth - 10);
+            const pageRef = targetPageNum ? ` (→ ${pdfStrings.page.toLowerCase()} ${targetPageNum})` : '';
+            const choiceText = `→ ${choice.label}${pageRef}`;
+            const choiceLines = wrapTextWithFont(pdf, choiceText, contentWidth - 8, choiceFontSize);
             
             choiceLines.forEach(line => {
-              if (yPosition + 6 > pageHeight - margin - 10) {
-                pdf.addPage();
-                yPosition = margin;
-              }
-              pdf.text(line, margin + 5, yPosition);
-              yPosition += 6;
+              pdf.text(line, margin + 4, yPosition);
+              yPosition += choiceFontSize * 0.5;
             });
-            yPosition += 3;
+            yPosition += 2;
           });
         }
         
         // Ending badge
         if (page.isEnding) {
-          yPosition += 10;
+          yPosition += 8;
           
           pdf.setFont('helvetica', 'bold');
-          pdf.setFontSize(14);
+          pdf.setFontSize(12);
           
           if (page.endingType === 'happy') {
             pdf.setTextColor(34, 139, 34);
-            pdf.text('🏆 FIN HEUREUSE', pageWidth / 2, yPosition, { align: 'center' });
+            pdf.text(`🏆 ${pdfStrings.happyEnd}`, pageWidth / 2, yPosition, { align: 'center' });
           } else {
             pdf.setTextColor(100, 100, 200);
-            pdf.text('✨ FIN ALTERNATIVE', pageWidth / 2, yPosition, { align: 'center' });
+            pdf.text(`✨ ${pdfStrings.altEnd}`, pageWidth / 2, yPosition, { align: 'center' });
           }
         }
       }
       
-      // Save the PDF
-      const fileName = `${story.title.replace(/[^a-zA-Z0-9àâäéèêëïîôùûüç\s-]/g, '').replace(/\s+/g, '-')}.pdf`;
+      // Save
+      const safeTitle = translatedTitle.replace(/[^a-zA-Z0-9àâäéèêëïîôùûüçÀÂÄÉÈÊËÏÎÔÙÛÜÇäöüßÄÖÜñÑ\s-]/g, '').replace(/\s+/g, '-');
+      const fileName = `${safeTitle}.pdf`;
       pdf.save(fileName);
       
     } finally {
