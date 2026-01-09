@@ -105,8 +105,8 @@ export function useStoryPdfExport() {
         const choiceFontSize = Math.max(fontSize - 1, 6);
         for (const choice of choices) {
           const targetPageNum = pageIdToNumber.get(choice.targetPageId);
-          const pageRef = targetPageNum ? ` (→ page ${targetPageNum})` : '';
-          const choiceText = `→ ${choice.label}${pageRef}`;
+          const pageRef = targetPageNum ? ` - page ${targetPageNum}` : '';
+          const choiceText = `- ${choice.label}${pageRef}`;
           const choiceLines = wrapTextWithFont(pdf, choiceText, contentWidth - 10, choiceFontSize);
           totalHeight += choiceLines.length * (choiceFontSize * 0.5) + 2;
         }
@@ -421,8 +421,8 @@ export function useStoryPdfExport() {
           
           translated.choices.forEach((choice) => {
             const targetPageNum = pageIdToNumber.get(choice.targetPageId);
-            const pageRef = targetPageNum ? ` (→ ${pdfStrings.page.toLowerCase()} ${targetPageNum})` : '';
-            const choiceText = `→ ${choice.label}${pageRef}`;
+            const pageRef = targetPageNum ? ` - ${pdfStrings.page.toLowerCase()} ${targetPageNum}` : '';
+            const choiceText = `- ${choice.label}${pageRef}`;
             const choiceLines = wrapTextWithFont(pdf, choiceText, contentWidth - 8, choiceFontSize);
             
             choiceLines.forEach(line => {
