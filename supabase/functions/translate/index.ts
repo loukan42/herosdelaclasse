@@ -15,6 +15,12 @@ const languageNames: Record<string, string> = {
   'pt-br': 'Brazilian Portuguese',
 };
 
+// Maximum text length to prevent abuse (10,000 characters)
+const MAX_TEXT_LENGTH = 10000;
+
+// Allowed target languages
+const allowedLanguages = Object.keys(languageNames);
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -23,9 +29,33 @@ serve(async (req) => {
   try {
     const { text, targetLanguage } = await req.json();
     
+    // Validate required fields
     if (!text || !targetLanguage) {
       return new Response(
         JSON.stringify({ error: "Missing text or targetLanguage" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate text type and length
+    if (typeof text !== 'string' || text.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Text must be a non-empty string" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (text.length > MAX_TEXT_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: `Text must not exceed ${MAX_TEXT_LENGTH} characters` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate target language against allowed list
+    if (typeof targetLanguage !== 'string' || !allowedLanguages.includes(targetLanguage)) {
+      return new Response(
+        JSON.stringify({ error: `Invalid target language. Allowed: ${allowedLanguages.join(', ')}` }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
