@@ -109,11 +109,8 @@ export default function Collection() {
 
             <div className="text-center mb-6">
               <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">
-                Roue de la chance
+                Obtenez de nouvelles cartes à collectionner
               </h2>
-              <p className="text-muted-foreground text-sm sm:text-base mt-2">
-                Choisissez votre type de tirage
-              </p>
             </div>
 
             {/* Wheel Options Component */}
