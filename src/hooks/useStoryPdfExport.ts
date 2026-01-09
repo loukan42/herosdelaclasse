@@ -200,18 +200,18 @@ export function useStoryPdfExport() {
         // Page title
         if (page.title) {
           pdf.setFont('helvetica', 'bold');
-          pdf.setFontSize(18);
+          pdf.setFontSize(14);
           pdf.setTextColor(51, 51, 51);
           
           const titleLines = wrapText(pdf, page.title, contentWidth);
           titleLines.forEach((line, idx) => {
             const lineWidth = pdf.getTextWidth(line);
-            pdf.text(line, (pageWidth - lineWidth) / 2, yPosition + (idx * 8));
+            pdf.text(line, (pageWidth - lineWidth) / 2, yPosition + (idx * 6));
           });
-          yPosition += (titleLines.length * 8) + 8;
+          yPosition += (titleLines.length * 6) + 5;
         }
         
-        // Page image - reduced size to fit everything on one page
+        // Page image - compact size to fit everything on one page
         try {
           const imageDataUrl = await loadImageAsDataUrl(page.image);
           
@@ -220,8 +220,8 @@ export function useStoryPdfExport() {
           await new Promise(resolve => { img.onload = resolve; });
           
           const aspectRatio = img.naturalWidth / img.naturalHeight;
-          const maxImgWidth = contentWidth * 0.85; // Reduce width to 85%
-          const maxImgHeight = 70; // Reduced max height for better fit
+          const maxImgWidth = contentWidth * 0.7; // Reduce width to 70%
+          const maxImgHeight = 50; // Compact max height
           
           let imgWidth = maxImgWidth;
           let imgHeight = imgWidth / aspectRatio;
@@ -238,11 +238,11 @@ export function useStoryPdfExport() {
           pdf.roundedRect(imgX - 2, yPosition - 2, imgWidth + 4, imgHeight + 4, 3, 3, 'F');
           
           pdf.addImage(imageDataUrl, 'JPEG', imgX, yPosition, imgWidth, imgHeight);
-          yPosition += imgHeight + 8;
+          yPosition += imgHeight + 6;
           
         } catch (e) {
           console.warn(`Could not load image for page ${page.id}:`, e);
-          yPosition += 10;
+          yPosition += 5;
         }
         
         // Process text with name and gender
@@ -254,13 +254,13 @@ export function useStoryPdfExport() {
           page.textFeminine
         );
         
-        // Story text - slightly smaller font for better fit
+        // Story text - compact font for better fit
         pdf.setFont('helvetica', 'normal');
-        pdf.setFontSize(11);
+        pdf.setFontSize(9);
         pdf.setTextColor(51, 51, 51);
         
         const textLines = wrapText(pdf, processedText, contentWidth);
-        const lineHeight = 5.5;
+        const lineHeight = 4;
         
         for (const line of textLines) {
           // Check if we need a new page
