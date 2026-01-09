@@ -1,14 +1,17 @@
 import { Link, Navigate } from 'react-router-dom';
-import { ArrowLeft, Star, Lock, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Star, Lock, CheckCircle, RotateCcw } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useUserPoints } from '@/hooks/useUserPoints';
 import { useCollection } from '@/hooks/useCollection';
+import { useAdmin } from '@/hooks/useAdmin';
 import { WheelOptions } from '@/components/WheelOptions';
 import { PointsDisplay } from '@/components/PointsDisplay';
 import { ProfileSwitcher } from '@/components/ProfileSwitcher';
 import { UserMenu } from '@/components/UserMenu';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CollectionCard } from '@/components/CollectionCard';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 const SINGLE_COST = 1;
 const BOOSTER_COST = 10;
@@ -17,6 +20,7 @@ const BOOSTER_CARDS = 5;
 export default function Collection() {
   const { isAuthenticated, loading: authLoading } = useAuthContext();
   const { points, canSpin, getTimeUntilNextSpin, consumeSpinPoints } = useUserPoints();
+  const { isAdmin } = useAdmin();
   const { 
     themes, 
     cards, 
@@ -28,7 +32,8 @@ export default function Collection() {
     unlockMultipleCards,
     totalCardsCount,
     unlockedCardsCount,
-    lockedCardsCount
+    lockedCardsCount,
+    resetCollection
   } = useCollection();
   const { t } = useLanguage();
 
@@ -40,15 +45,30 @@ export default function Collection() {
   }
 
   const handleSingleSpin = async () => {
-    const success = await consumeSpinPoints(SINGLE_COST);
-    if (!success) return null;
+    // Admins don't pay points
+    if (!isAdmin) {
+      const success = await consumeSpinPoints(SINGLE_COST);
+      if (!success) return null;
+    }
     return await unlockRandomCard();
   };
 
   const handleBoosterSpin = async () => {
-    const success = await consumeSpinPoints(BOOSTER_COST);
-    if (!success) return [];
+    // Admins don't pay points
+    if (!isAdmin) {
+      const success = await consumeSpinPoints(BOOSTER_COST);
+      if (!success) return [];
+    }
     return await unlockMultipleCards(BOOSTER_CARDS);
+  };
+
+  const handleResetCollection = async () => {
+    const success = await resetCollection();
+    if (success) {
+      toast.success('Collection réinitialisée');
+    } else {
+      toast.error('Erreur lors de la réinitialisation');
+    }
   };
 
   if (loading || authLoading) {
@@ -105,12 +125,28 @@ export default function Collection() {
                 </div>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Cartes collectées</p>
               </div>
+
+              {/* Admin reset button */}
+              {isAdmin && unlockedCardsCount > 0 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleResetCollection}
+                  className="flex items-center gap-2 bg-background/80"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Reset collection
+                </Button>
+              )}
             </div>
 
             <div className="text-center mb-6">
               <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">
                 Obtenez de nouvelles cartes à collectionner
               </h2>
+              {isAdmin && (
+                <p className="text-xs text-amber-600 mt-2 font-medium">Mode Admin : cartes gratuites</p>
+              )}
             </div>
 
             {/* Wheel Options Component */}
@@ -121,9 +157,10 @@ export default function Collection() {
               onSingleSpin={handleSingleSpin}
               onBoosterSpin={handleBoosterSpin}
               lockedCardsCount={lockedCardsCount}
+              isAdmin={isAdmin}
             />
 
-            {points === 0 && (
+            {points === 0 && !isAdmin && (
               <p className="text-muted-foreground mt-6 text-center text-sm sm:text-base">
                 Lisez des histoires pour gagner des points et débloquer des cartes !
               </p>

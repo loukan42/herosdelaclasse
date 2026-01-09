@@ -338,6 +338,24 @@ export function useCollection() {
     return true;
   }, [cards]);
 
+  // Reset user's collection (delete all unlocked cards for current user)
+  const resetCollection = useCallback(async () => {
+    if (!user) return false;
+
+    const { error } = await supabase
+      .from('unlocked_cards')
+      .delete()
+      .eq('user_id', user.id);
+
+    if (error) {
+      console.error('Error resetting collection:', error);
+      return false;
+    }
+
+    setUnlockedCards([]);
+    return true;
+  }, [user]);
+
   // Get locked cards count
   const lockedCardsCount = cards.filter(c => !isCardUnlocked(c.id)).length;
   const totalCardsCount = cards.length;
@@ -353,6 +371,7 @@ export function useCollection() {
     getUnlockedCountForTheme,
     unlockRandomCard,
     unlockMultipleCards,
+    resetCollection,
     // Admin functions
     createTheme,
     updateTheme,

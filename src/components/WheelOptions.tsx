@@ -13,6 +13,7 @@ interface WheelOptionsProps {
   onSingleSpin: () => Promise<CollectionCard | null>;
   onBoosterSpin: () => Promise<CollectionCard[]>;
   lockedCardsCount: number;
+  isAdmin?: boolean;
 }
 
 type OpenMode = 'single' | 'booster' | null;
@@ -23,7 +24,8 @@ export function WheelOptions({
   timeUntilSpin,
   onSingleSpin,
   onBoosterSpin,
-  lockedCardsCount
+  lockedCardsCount,
+  isAdmin = false
 }: WheelOptionsProps) {
   const [openMode, setOpenMode] = useState<OpenMode>(null);
 
@@ -31,8 +33,9 @@ export function WheelOptions({
   const BOOSTER_COST = 10;
   const BOOSTER_CARDS = 5;
 
-  const canAffordSingle = points >= SINGLE_COST;
-  const canAffordBooster = points >= BOOSTER_COST;
+  // Admins can always afford (no cost)
+  const canAffordSingle = isAdmin || points >= SINGLE_COST;
+  const canAffordBooster = isAdmin || points >= BOOSTER_COST;
   const hasEnoughCardsForBooster = lockedCardsCount >= BOOSTER_CARDS;
 
   const handleSingleOpen = useCallback(async () => {
