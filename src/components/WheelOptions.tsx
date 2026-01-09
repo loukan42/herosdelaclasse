@@ -64,7 +64,7 @@ export function WheelOptions({
 
       {/* Wheel Options - Show when no wheel is active */}
       {activeWheel === null && (
-        <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+        <div className="grid grid-cols-2 gap-6 sm:gap-8 max-w-md mx-auto">
           {/* Single Card Option */}
           <motion.button
             onClick={() => canSpin && canAffordSingle && setActiveWheel('single')}
@@ -82,7 +82,7 @@ export function WheelOptions({
             <img 
               src={cardSingleImage} 
               alt="Carte Simple" 
-              className="w-28 sm:w-32 h-auto drop-shadow-xl"
+              className="w-36 sm:w-44 md:w-48 h-auto drop-shadow-xl"
             />
             <div className="mt-3 text-center">
               <h3 className="font-display text-sm font-bold text-foreground mb-1">Carte Simple</h3>
@@ -120,7 +120,7 @@ export function WheelOptions({
             <img 
               src={cardBoosterImage} 
               alt="Pack Booster" 
-              className="w-28 sm:w-32 h-auto drop-shadow-xl"
+              className="w-36 sm:w-44 md:w-48 h-auto drop-shadow-xl"
             />
             
             <div className="mt-3 text-center">
