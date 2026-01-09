@@ -105,6 +105,12 @@ export function useStoryPdfExport() {
       // Get pages in reading order
       const pages = getAllReachablePages(allPages, story.startPageId);
       
+      // Create a mapping from page ID to PDF page number (1-indexed)
+      const pageIdToNumber = new Map<string, number>();
+      pages.forEach((page, index) => {
+        pageIdToNumber.set(page.id, index + 1);
+      });
+      
       // Create PDF - A4 format
       const pdf = new jsPDF({
         orientation: 'portrait',
@@ -302,8 +308,11 @@ export function useStoryPdfExport() {
           pdf.setFontSize(11);
           pdf.setTextColor(70, 100, 150);
           
-          page.choices.forEach((choice, idx) => {
-            const choiceText = `→ ${processText(choice.label, prenom, genre)}`;
+          page.choices.forEach((choice) => {
+            // Get the target page number
+            const targetPageNum = pageIdToNumber.get(choice.targetPageId);
+            const pageRef = targetPageNum ? ` (→ page ${targetPageNum})` : '';
+            const choiceText = `→ ${processText(choice.label, prenom, genre)}${pageRef}`;
             const choiceLines = wrapText(pdf, choiceText, contentWidth - 10);
             
             choiceLines.forEach(line => {
