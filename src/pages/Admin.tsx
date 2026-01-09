@@ -124,11 +124,24 @@ export default function Admin() {
     return formatDistanceToNow(new Date(dateString), { addSuffix: true, locale: fr });
   };
 
-  const formatFullDate = (dateString: string) => {
+  const formatExactDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
+      day: '2-digit',
+      month: '2-digit',
       year: 'numeric'
+    });
+  };
+
+  const formatExactDateTime = (dateString: string | null) => {
+    if (!dateString) return 'Jamais';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }) + ' à ' + date.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
     });
   };
 
@@ -292,6 +305,7 @@ export default function Admin() {
                       <TableHead>Email</TableHead>
                       <TableHead>Date d'inscription</TableHead>
                       <TableHead>Dernière connexion</TableHead>
+                      <TableHead className="text-center">% Collection</TableHead>
                       <TableHead className="text-center">Histoires terminées</TableHead>
                       <TableHead className="text-center">En cours</TableHead>
                       <TableHead className="text-center">Tours de roue</TableHead>
@@ -324,13 +338,24 @@ export default function Admin() {
                             </span>
                           </TableCell>
                           <TableCell>
-                            <span title={formatFullDate(user.created_at)}>
-                              {formatDate(user.created_at)}
+                            <span className="text-sm">
+                              {formatExactDate(user.created_at)}
                             </span>
                           </TableCell>
                           <TableCell>
-                            <span className={user.last_login ? '' : 'text-muted-foreground'}>
-                              {formatDate(user.last_login)}
+                            <span className={`text-sm ${user.last_login ? '' : 'text-muted-foreground'}`}>
+                              {formatExactDateTime(user.last_login)}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <span className={`inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-semibold ${
+                              user.collection_percentage === 100 
+                                ? 'bg-ending-happy/20 text-ending-happy' 
+                                : user.collection_percentage >= 50 
+                                  ? 'bg-amber-500/20 text-amber-600'
+                                  : 'bg-muted text-muted-foreground'
+                            }`}>
+                              {user.collection_percentage}%
                             </span>
                           </TableCell>
                           <TableCell className="text-center">
