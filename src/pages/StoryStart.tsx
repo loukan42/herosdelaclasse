@@ -59,12 +59,16 @@ export default function StoryStart() {
   const { text: descriptionText } = useTranslatedString(story.description);
 
   const handleStart = () => {
-    if (!prenom.trim() || !genre) {
+    // Use the profile genre for authenticated users if local state is not set
+    const effectiveGenre = genre || (isAuthenticated && activeProfile?.genre) || null;
+    const effectivePrenom = prenom.trim() || (isAuthenticated && activeProfile?.prenom) || "";
+    
+    if (!effectivePrenom || !effectiveGenre) {
       return;
     }
     // Store preferences in sessionStorage
-    sessionStorage.setItem(`story-${storyId}-prenom`, prenom);
-    sessionStorage.setItem(`story-${storyId}-genre`, genre);
+    sessionStorage.setItem(`story-${storyId}-prenom`, effectivePrenom);
+    sessionStorage.setItem(`story-${storyId}-genre`, effectiveGenre);
     // Increment read count
     incrementCount();
     navigate(`/stories/${storyId}/page/${story.startPageId}`);
