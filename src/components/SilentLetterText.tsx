@@ -184,7 +184,7 @@ export const SilentLetterText: React.FC<SilentLetterTextProps> = ({ text, classN
         const match = part.match(/<span class="silent-letter">(.*?)<\/span>/);
         if (match) {
           return (
-            <span key={index} className="text-muted-foreground/40">
+            <span key={index} className="text-muted-foreground/70">
               {match[1]}
             </span>
           );
