@@ -118,7 +118,7 @@ export function useAdminStories() {
     
     const { data, error } = await supabase
       .from('admin_stories')
-      .update(updateData)
+      .update(updateData as never)
       .eq('id', id)
       .select()
       .single();
