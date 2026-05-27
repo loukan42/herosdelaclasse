@@ -1,0 +1,18 @@
+# Héros de la Classe
+
+> Application éducative pour enfants (6-11 ans) : des histoires interactives "dont tu es le héros" pour apprendre en s'amusant, niveau par niveau et matière par matière.
+
+Héros de la Classe propose des histoires illustrées et interactives où l'enfant choisit son chemin. Chaque histoire renforce des notions scolaires (lecture, vocabulaire, logique…) adaptées au niveau (CP, CE1, CE2, CM1, CM2). Les parents créent un compte, ajoutent des profils enfants, et suivent la progression. Les enfants gagnent des points, débloquent des cartes à collectionner et complètent leur collection en lisant des histoires.
+
+## Pages
+
+- [Accueil — choix du niveau](/): Tableau de bord principal pour choisir un niveau scolaire (CP à CM2).
+- [Connexion](/auth): Page de connexion pour les parents (compte existant).
+- [Inscription](/register): Création d'un compte parent.
+- [Mes histoires](/my-stories): Histoires commencées et terminées par l'enfant connecté.
+- [Collection](/collection): Cartes à collectionner débloquées en lisant des histoires.
+
+## Optional
+
+- [Matières d'un niveau](/grade/cp): Exemple de page listant les matières disponibles pour un niveau scolaire.
+- [Histoires d'une matière](/grade/cp/subjects/lecture): Exemple de page listant les histoires disponibles pour une matière donnée.
