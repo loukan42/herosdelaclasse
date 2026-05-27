@@ -174,9 +174,9 @@ export default function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@exemple.com"
-                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/80 focus:border-golden focus:ring-golden/50"
               />
-              <p className="text-xs text-white/60 flex items-center gap-1.5">
+              <p className="text-xs text-white/85 flex items-center gap-1.5">
                 <span className="inline-block w-1 h-1 rounded-full bg-golden/60"></span>
                 {t('auth.emailNotice')}
               </p>
@@ -197,7 +197,7 @@ export default function Register() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/80 focus:border-golden focus:ring-golden/50"
               />
               {errors.password && (
                 <p className="text-xs sm:text-sm text-red-300">{errors.password}</p>
@@ -216,7 +216,7 @@ export default function Register() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:border-golden focus:ring-golden/50"
+                className="h-10 sm:h-12 text-sm sm:text-base bg-white/20 border-white/30 text-white placeholder:text-white/80 focus:border-golden focus:ring-golden/50"
               />
               {errors.confirmPassword && (
                 <p className="text-xs sm:text-sm text-red-300">{errors.confirmPassword}</p>

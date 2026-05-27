@@ -149,7 +149,7 @@ function TranslatedInventoryItem({
           ? isNewlyCollected
             ? 'bg-golden/30 text-golden shadow-lg shadow-golden/40 scale-110 ring-2 ring-golden ring-offset-2 ring-offset-card' 
             : 'bg-primary/20 text-primary shadow-md scale-100' 
-          : 'bg-muted/50 text-muted-foreground/40 scale-95 opacity-60'}
+          : 'bg-muted/50 text-muted-foreground/70 scale-95 opacity-60'}
       `}
       title={item.collected ? translatedName : `${translatedName} (non trouvé)`}
     >

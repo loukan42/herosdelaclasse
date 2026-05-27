@@ -192,8 +192,8 @@ export function CollectionCard({ imageUrl, title, unlocked }: CollectionCardProp
                   >
                     <div className="w-[70vw] max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] aspect-[3/4] rounded-xl sm:rounded-2xl bg-gradient-to-br from-indigo-500/50 to-purple-600/50 flex items-center justify-center">
                       <div className="text-center">
-                        <div className="text-6xl sm:text-7xl md:text-8xl font-bold text-white/30">?</div>
-                        <div className="mt-2 text-white/40 text-sm sm:text-base">Carte mystère</div>
+                        <div className="text-6xl sm:text-7xl md:text-8xl font-bold text-white/70">?</div>
+                        <div className="mt-2 text-white/80 text-sm sm:text-base">Carte mystère</div>
                       </div>
                     </div>
                   </div>
