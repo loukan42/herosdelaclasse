@@ -1,5 +1,7 @@
 # Heros de la classe
 
+[Ouvrir Héros de la classe en ligne](https://herosdelaclasse.com/)
+
 Application web enfant sous forme de “livre dont tu es le héros”
 
 1) Contexte et objectif
@@ -348,8 +350,6 @@ Une page de fin propose de recommencer ou revenir au dashboard
 Dans le prochain prompt je vais te fournir l'histoire avec les textes, les images et les liaisons à faire
 
 This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://kidsgamebook.lovable.app
 
 ## Build with Lovable
 
